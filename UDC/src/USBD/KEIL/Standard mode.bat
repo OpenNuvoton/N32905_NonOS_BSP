@@ -1,0 +1,1 @@
+move .\usbd_Data\Standard_mode\w55fa93_UDC.lib ..\..\..\Lib

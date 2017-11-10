@@ -1,0 +1,1 @@
+move .\VideoIn_Data\DebugRel\W55FA93_VideoIn.lib ..\..\..\Lib

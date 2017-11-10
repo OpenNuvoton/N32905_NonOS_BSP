@@ -1,0 +1,1 @@
+move .\Font_Data\Font_WSVGA\W55FA93_font_WSVGA.lib ..\..\..\Lib

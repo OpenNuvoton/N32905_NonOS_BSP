@@ -1,0 +1,1 @@
+move .\usbd_Data\High_speed_mode\w55fa93_UDC_Highspeed.lib ..\..\..\Lib

@@ -1,0 +1,1 @@
+move .\spu_Data\Release\w55fa93_spu.lib ..\..\Lib

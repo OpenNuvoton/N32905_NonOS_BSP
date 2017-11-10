@@ -1,0 +1,1 @@
+move .\MSC_CDROM_Data\RAM\w55fa93_MSC_RAM_CDROM.lib ..\..\..\Lib

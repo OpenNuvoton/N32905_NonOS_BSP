@@ -1,0 +1,1 @@
+move .\MSC_Data\SD_PORT1\w55fa93_MSC_SD_PORT1.lib ..\..\..\Lib

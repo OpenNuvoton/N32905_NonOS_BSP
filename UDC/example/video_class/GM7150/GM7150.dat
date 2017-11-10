@@ -1,0 +1,135 @@
+#include "sensor_gm7150.h"
+//[InitialSetting]
+	{ /* 0x03 */
+		GM7150_MISC_CTL,0x09
+	},
+
+
+#if 0
+	{ /* 0x00 */
+		GM7150_VD_IN_SRC_SEL_1,0x00
+	},
+	{ /* 0x01 */
+		GM7150_ANAL_CHL_CTL,0x15
+	},
+	{ /* 0x02 */
+		GM7150_OP_MODE_CTL,0x00
+	},
+	{ /* 0x03 */
+		GM7150_MISC_CTL,0x09
+	},
+	{ /* 0x06 */
+		GM7150_COLOR_KIL_THSH_CTL,0x10
+	},
+	{ /* 0x07 */
+		GM7150_LUMA_PROC_CTL_1,0x20	// Luma signal delay ::  0 pixel clocks delay 0x20, 0x23, 0x28
+	},
+	{ /* 0x08 */
+		GM7150_LUMA_PROC_CTL_2,0x4C	//Luminance filter select: 0x48 comb filter disabled, chroma trap filter enable !!!!! 
+	},
+	{ /* 0x09 */
+		GM7150_BRIGHT_CTL,0x80
+	},
+	{ /* 0x0a */
+		GM7150_SATURATION_CTL,0xA0
+	},
+	{ /* 0x0b */
+		GM7150_HUE_CTL,0x00
+	},
+	{ /* 0x0c */
+		GM7150_CONTRAST_CTL,0x84
+	},
+	{ /* 0x0d */
+		GM7150_DATA_RATE_SEL,0x47
+	},
+	{ /* 0x0e */
+		GM7150_LUMA_PROC_CTL_3,0x00	//Luminance filter stop band bandwidth:: No notch
+	},
+	{ /* 0x0f */
+		GM7150_CONF_SHARED_PIN,0x08
+	},
+	{ /* 0x11 */
+		GM7150_ACT_VD_CROP_ST_MSB,0x00
+	},
+	{ /* 0x12 */
+		GM7150_ACT_VD_CROP_ST_LSB,0x00
+	},
+	{ /* 0x13 */
+		GM7150_ACT_VD_CROP_STP_MSB,0x00
+	},
+	{ /* 0x14 */
+		GM7150_ACT_VD_CROP_STP_LSB,0x00
+	},
+	{ /* 0x15 */
+		GM7150_GENLOCK,0x01
+	},
+	{ /* 0x16 */
+		GM7150_HORIZ_SYNC_START,0x80
+	},
+	{ /* 0x18 */
+		GM7150_VERT_BLANKING_START,0x00
+	},
+	{ /* 0x19 */
+		GM7150_VERT_BLANKING_STOP,0x00
+	},
+	{ /* 0x1a */
+		GM7150_CHROMA_PROC_CTL_1,0x0c
+	},
+	{ /* 0x1b */
+		GM7150_CHROMA_PROC_CTL_2,0x15	//Chrominance filter select: No notch = 0x10
+	},
+	{ /* 0x1c */
+		GM7150_INT_RESET_REG_B,0x00
+	},
+	{ /* 0x1d */
+		GM7150_INT_ENABLE_REG_B,0x00
+	},
+	{ /* 0x1e */
+		GM7150_INTT_CONFIG_REG_B,0x00
+	},
+	{ /* 0x2e */
+		GM7150_MACROVISION_ON_CTR,0x0f
+	},
+	{ /* 0x2f */
+		GM7150_MACROVISION_OFF_CTR,0x01
+	},
+	{ /* 0xbb */
+		GM7150_TELETEXT_FIL_ENA,0x00
+	},
+	{ /* 0xc0 */
+		GM7150_INT_STATUS_REG_A,0x00
+	},
+	{ /* 0xc1 */
+		GM7150_INT_ENABLE_REG_A,0x00
+	},
+	{ /* 0xc2 */
+		GM7150_INT_CONF,0x04
+	},
+	{ /* 0xc8 */
+		GM7150_FIFO_INT_THRESHOLD,0x80
+	},
+	{ /* 0xc9 */
+		GM7150_FIFO_RESET,0x00
+	},
+	{ /* 0xca */
+		GM7150_LINE_NUMBER_INT,0x00
+	},
+	{ /* 0xcb */
+		GM7150_PIX_ALIGN_REG_LOW,0x4e
+	},
+	{ /* 0xcc */
+		GM7150_PIX_ALIGN_REG_HIGH,0x00
+	},
+	{ /* 0xcd */
+		GM7150_FIFO_OUT_CTRL,0x01
+	},
+	{ /* 0xcf */
+		GM7150_FULL_FIELD_ENA,0x00
+	},
+	{ /* 0xd0 */
+		GM7150_LINE_MODE_INI,0x00
+	},
+	{ /* 0xfc */
+		GM7150_FULL_FIELD_MODE_REG,0x7f
+	},
+#endif

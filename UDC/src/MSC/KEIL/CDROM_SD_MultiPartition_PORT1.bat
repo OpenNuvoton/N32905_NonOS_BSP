@@ -1,0 +1,1 @@
+move .\MSC_CDROM_Data\SD_MultiPartition_PORT1\w55fa93_MSC_SD_MP_PORT1_CDROM.lib ..\..\..\Lib

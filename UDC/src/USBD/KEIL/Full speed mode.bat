@@ -1,0 +1,1 @@
+move .\usbd_Data\Full_speed_mode\w55fa93_UDC_Fullspeed.lib ..\..\..\Lib

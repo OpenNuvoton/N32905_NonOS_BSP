@@ -1,0 +1,1 @@
+move .\gpio_Data\Release\w55fa93_gpio.lib ..\..\Lib

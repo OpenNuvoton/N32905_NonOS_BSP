@@ -1,0 +1,7 @@
+*.a binary
+*.lib binary
+*.dat binary
+*.xls binary
+*.uvproj text
+*.uvopt text
+

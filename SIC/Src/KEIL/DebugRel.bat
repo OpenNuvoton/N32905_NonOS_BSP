@@ -1,0 +1,1 @@
+move .\dev_sic_Data\DebugRel\W55FA93_SIC.lib ..\..\Lib
