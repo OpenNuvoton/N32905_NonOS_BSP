@@ -2,6 +2,6 @@
 *.lib binary
 *.dat binary
 *.xls binary
-*.uvproj text
-*.uvopt text
-
+*.uvproj eol=lf
+*.uvmpw eol=lf
+*.uvopt eol=lf
