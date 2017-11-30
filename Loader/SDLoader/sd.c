@@ -238,6 +238,7 @@ INT fmiSD_Init()
     // initial SDHC
     _fmi_uR7_CMD = 1;
     i = fmiSDCmdAndRsp(8, 0x00000155, 4000);
+    _fmi_uR7_CMD = 0;   // Disable R7 checking for commands that are not CMD8
     if (i == Successful)
     {
         // SD 2.0

@@ -6,9 +6,9 @@
 
 // define DATE CODE and show it when running to make maintaining easy.
 #ifdef _S605_
-    #define DATE_CODE   "20170822 for S605"
+    #define DATE_CODE   "20171124 for S605"
 #else
-    #define DATE_CODE   "20170822"
+    #define DATE_CODE   "20171124"
 #endif
 
 /* global variable */

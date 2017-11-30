@@ -277,6 +277,7 @@ INT fmiSD_Init(FMI_SD_INFO_T *pSD)
     u32CmdTimeOut = 5000;
 
     i = fmiSDCmdAndRsp(pSD, 8, 0x00000155, u32CmdTimeOut);
+    _fmi_uR7_CMD = 0;   // Disable R7 checking for commands that are not CMD8
     if (i == Successful)
     {
         // SD 2.0
