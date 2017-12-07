@@ -50,25 +50,25 @@ static VOID PWM_ISR (VOID)
     
     if (u32RegPIIR & 0xF )    
     {
-		if(u32RegPIIR & PIIR0);
+		if(u32RegPIIR & PIIR0)
     	{
     		outp32(PIIR, PIIR0);    
 			if (pfnPWMHandler.pfnPWM0CallBack != NULL)                           
             	pfnPWMHandler.pfnPWM0CallBack();	
     	} 	    	    	
-		if(u32RegPIIR & PIIR1);
+		if(u32RegPIIR & PIIR1)
     	{
     		outp32(PIIR, PIIR1);    
 			if (pfnPWMHandler.pfnPWM1CallBack != NULL)                           
             	pfnPWMHandler.pfnPWM1CallBack();	
     	}   
-		if(u32RegPIIR & PIIR2);
+		if(u32RegPIIR & PIIR2)
     	{
     		outp32(PIIR, PIIR2);    
 			if (pfnPWMHandler.pfnPWM2CallBack != NULL)                           
             	pfnPWMHandler.pfnPWM2CallBack();	
     	} 
-		if(u32RegPIIR & PIIR3);
+		if(u32RegPIIR & PIIR3)
     	{
     		outp32(PIIR, PIIR3);    
 			if (pfnPWMHandler.pfnPWM3CallBack != NULL)                           
