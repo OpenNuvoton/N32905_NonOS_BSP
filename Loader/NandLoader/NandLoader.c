@@ -5,7 +5,7 @@
 #include "w55fa93_reg.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
-#define DATE_CODE   "20170920"
+#define DATE_CODE   "20180102"
 
 /* global variable */
 typedef struct nand_info
@@ -42,30 +42,14 @@ INT MoveData(NVT_NAND_INFO_T *image, BOOL IsExecute)
     {
         if (j >= block_count)
             break;
-
-        if (pSM0->nPageSize == NAND_PAGE_512B)
+        if (CheckBadBlockMark(curBlock) == Successful)
         {
-            if (CheckBadBlockMark_512(curBlock) == Successful)
+            for (i=0; i<pSM0->uPagePerBlock; i++)
             {
-                for (i=0; i<pSM0->uPagePerBlock; i++)
-                {
-                    sicSMpread(0, curBlock, i, (UINT8 *)addr);
-                    addr += pSM0->nPageSize;
-                }
-                j++;
+                sicSMpread(0, curBlock, i, (UINT8 *)addr);
+                addr += pSM0->nPageSize;
             }
-        }
-        else
-        {
-            if (CheckBadBlockMark(curBlock) == Successful)
-            {
-                for (i=0; i<pSM0->uPagePerBlock; i++)
-                {
-                    sicSMpread(0, curBlock, i, (UINT8 *)addr);
-                    addr += pSM0->nPageSize;
-                }
-                j++;
-            }
+            j++;
         }
         curBlock++;
     }
