@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_AMPIRE_800x600)
+#if defined(__HAVE_AMPIRE_800x600__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

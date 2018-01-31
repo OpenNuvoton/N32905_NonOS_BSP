@@ -41,7 +41,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_TIANMA_TM022HDH31)
+#if defined(__HAVE_TIANMA_TM022HDH31__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;
@@ -807,4 +807,5 @@ INT32 vpostLCMDeinit_TIANMA_TM022HDH31(VOID)
 	outp32(REG_AHBCLK, inp32(REG_AHBCLK) & ~VPOST_CKE);	
 	return 0;
 }
+
 #endif    //HAVE_TIANMA_TM022HDH31

@@ -41,7 +41,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#ifdef HAVE_HANNSTAR_HSD043I9W1
+#ifdef __HAVE_HANNSTAR_HSD043I9W1__
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

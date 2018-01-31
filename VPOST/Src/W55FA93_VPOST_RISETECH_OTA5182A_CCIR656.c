@@ -39,7 +39,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_RISETECH_OTA5182A_CCIR656)
+#if defined(__HAVE_RISETECH_OTA5182A_CCIR656__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

@@ -41,7 +41,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#ifdef	HAVE_SHARP_LQ035Q1DH02
+#ifdef	__HAVE_SHARP_LQ035Q1DH02__
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

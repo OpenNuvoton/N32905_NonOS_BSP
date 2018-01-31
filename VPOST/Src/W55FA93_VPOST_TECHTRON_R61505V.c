@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#ifdef HAVE_TECHTRON_R61505V
+#ifdef __HAVE_TECHTRON_R61505V__
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

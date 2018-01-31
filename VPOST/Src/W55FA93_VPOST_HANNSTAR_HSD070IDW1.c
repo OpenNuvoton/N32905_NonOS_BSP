@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_HANNSTAR_HSD070IDW1)
+#if defined(__HAVE_HANNSTAR_HSD070IDW1__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

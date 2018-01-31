@@ -7,7 +7,7 @@
 /****************************************************************************
  * 
  * FILENAME
- *     NUC930_VPOST_GOWORLD_GW8973.c
+ *     W55FA93_VPOST_GOWORLD_GW8973.c
  *
  * VERSION
  *     0.1 
@@ -35,12 +35,11 @@
  **************************************************************************/
 #include "stdio.h"
 #include "stdlib.h"
-//#include "NUC930_VPOST_Regs.h"
 #include "w55fa93_vpost.h"
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_GOWORLD_GW8973)
+#if defined(__HAVE_GOWORLD_GW8973__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_HIMAX_HX8346)
+#if defined(__HAVE_HIMAX_HX8346__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

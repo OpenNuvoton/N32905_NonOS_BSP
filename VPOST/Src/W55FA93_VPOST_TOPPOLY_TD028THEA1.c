@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#ifdef	HAVE_TOPPOLY_TD028THEA1
+#ifdef	__HAVE_TOPPOLY_TD028THEA1__
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

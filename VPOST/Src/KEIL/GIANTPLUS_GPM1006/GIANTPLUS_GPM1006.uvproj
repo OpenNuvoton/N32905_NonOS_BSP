@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>DebugRel</TargetName>
+      <TargetName>W55FA93_GIANTPLUS_GPM1006</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -43,14 +43,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\VPOST_example_Data\DebugRel\</OutputDirectory>
-          <OutputName>VPOST_example</OutputName>
-          <CreateExecutable>1</CreateExecutable>
-          <CreateLib>0</CreateLib>
+          <OutputDirectory>.\W55FA93_VPOST_Data\W55FA93_GIANTPLUS_GPM1006\</OutputDirectory>
+          <OutputName>W55FA93_VPOST_GIANTPLUS_GPM1006</OutputName>
+          <CreateExecutable>0</CreateExecutable>
+          <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\VPOST_example_Data\DebugRel\</ListingPath>
+          <ListingPath>.\W55FA93_VPOST_Data\W55FA93_GIANTPLUS_GPM1006\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -75,7 +75,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>fromelf.exe --bin --output "$L@L.bin" "$L@L.axf"</UserProg1Name>
+            <UserProg1Name>W55FA93_GIANTPLUS_GPM1006.bat</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -130,7 +130,7 @@
           <Target>
             <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
+            <RunToMain>0</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
@@ -151,13 +151,13 @@
             <CpuDllArguments></CpuDllArguments>
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
-            <InitializationFile>..\..\..\N32905\N32905.ini</InitializationFile>
+            <InitializationFile></InitializationFile>
             <Driver>Segger\JLTAgdi.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>0</UseTargetDll>
+            <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
@@ -165,7 +165,7 @@
             <DriverSelection>-1</DriverSelection>
           </Flash1>
           <Flash2></Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
         </Utilities>
         <TargetArmAds>
@@ -347,9 +347,9 @@
             <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define></Define>
+              <Define>__HAVE_GIANTPLUS_GPM1006D0__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Lib;..\..\..\SYSLIB\Lib;..\ASIC</IncludePath>
+              <IncludePath>..\..\..\Lib;..\..\..\..\SYSLIB\Lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -369,7 +369,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -377,10 +377,10 @@
             <useFile>0</useFile>
             <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0xF8002000</DataAddressRange>
-            <ScatterFile>..\..\..\N32905\N32905.sct</ScatterFile>
+            <ScatterFile></ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>--entry 0</Misc>
+            <Misc></Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -391,29 +391,19 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>main_vpost.c</FileName>
+              <FileName>W55FA93_VPOST.C</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\main_vpost.c</FilePath>
+              <FilePath>..\..\W55FA93_VPOST.C</FilePath>
             </File>
             <File>
-              <FileName>standalone.c</FileName>
+              <FileName>W55FA93_VPOST_Driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\standalone.c</FilePath>
+              <FilePath>..\..\W55FA93_VPOST_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>wb_init.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\Src\wb_init.s</FilePath>
-            </File>
-            <File>
-              <FileName>W55FA93_VPOST.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\Lib\W55FA93_VPOST.lib</FilePath>
-            </File>
-            <File>
-              <FileName>W55FA93_syslib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\SYSLIB\Lib\W55FA93_syslib.lib</FilePath>
+              <FileName>W55FA93_VPOST_GIANTPLUS_GPM1006D0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\W55FA93_VPOST_GIANTPLUS_GPM1006D0.c</FilePath>
             </File>
           </Files>
         </Group>

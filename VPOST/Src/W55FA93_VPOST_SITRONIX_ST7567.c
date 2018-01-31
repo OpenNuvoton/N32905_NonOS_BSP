@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_SITRONIX_ST7567)
+#if defined(__HAVE_SITRONIX_ST7567__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

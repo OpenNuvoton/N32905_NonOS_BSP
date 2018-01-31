@@ -41,7 +41,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#ifdef	HAVE_WINTEK_WMF3324
+#ifdef	__HAVE_WINTEK_WMF3324__
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

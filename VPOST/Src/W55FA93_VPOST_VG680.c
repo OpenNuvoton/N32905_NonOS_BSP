@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_VG680)
+#if defined(__HAVE_VG680__)
 
 #define OPT_SPI_CS_BY_GPD2
 

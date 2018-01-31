@@ -41,7 +41,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#ifdef	HAVE_TVOUT_320x240
+#ifdef	__HAVE_TVOUT_320x240__
 
 typedef enum 
 {
@@ -135,13 +135,10 @@ INT vpostLCMInit_TVOUT_320x240(PLCDFORMATEX plcdformatex, UINT32 *pFramebuf)
 	}		
 	else
 	{
-//		u32PLLclk = GetPLLOutputKhz(eUPLL, 12000);			// CLK_IN = 12 MHz
 		u32PLLclk = GetPLLOutputKhz(eUPLL, u32Clkin);		// CLK_IN = 12 MHz
 		u32ClockDivider = u32PLLclk / 27000;
-		
-		u32ClockDivider /= 2;
 		u32ClockDivider--;
-		outpw(REG_CLKDIV1, (inpw(REG_CLKDIV1) & ~VPOST_N0) | 1);						
+		outpw(REG_CLKDIV1, inpw(REG_CLKDIV1) & ~VPOST_N0);
 		outpw(REG_CLKDIV1, (inpw(REG_CLKDIV1) & ~VPOST_N1) | ((u32ClockDivider & 0xFF) << 8));						
 		outpw(REG_CLKDIV1, inpw(REG_CLKDIV1) & ~VPOST_S);
 		outpw(REG_CLKDIV1, inpw(REG_CLKDIV1) | (3<<3));		// VPOST clock from UPLL		

@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_GOWORLD_GWMTF9406A)
+#if defined(__HAVE_GOWORLD_GWMTF9406A__)
 
 static UINT32 g_nScreenWidth;
 static UINT32 g_nScreenHeight;

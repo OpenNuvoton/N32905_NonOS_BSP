@@ -1,0 +1,62 @@
+Rebuild Project 'TIANMA_TM022HDH31' - Target 'W55FA93_TIANMA_TM022HDH31'
+compiling W55FA93_VPOST.C...
+W55FA93_VPOST.C: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST.C(153): warning:  #223-D: function "vpostLCMInit_TIANMA_TM022HDH31" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST.C(263): warning:  #223-D: function "vpostLCMDeinit_TIANMA_TM022HDH31" declared implicitly
+compiling W55FA93_VPOST_Driver.c...
+W55FA93_VPOST_Driver.c: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_Driver.c(137): warning:  #223-D: function "memset" declared implicitly
+compiling W55FA93_VPOST_TIANMA_TM022HDH31.c...
+W55FA93_VPOST_TIANMA_TM022HDH31.c: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(746): warning:  #223-D: function "vpostVAStopTriggerMPU" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(752): warning:  #223-D: function "vpostSetDataBusPin" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(755): warning:  #223-D: function "vpostSetLCM_ImageSource" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(758): warning:  #223-D: function "vpostSetLCM_TypeSelect" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(761): warning:  #223-D: function "vpostsetLCM_TimingType" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(764): warning:  #223-D: function "vpostSetMPULCM_BusModeSelect" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(767): warning:  #223-D: function "vpostSetMPULCM_TimingConfig" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(770): warning:  #223-D: function "vpostSetMPULCM_ImageWindow" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(777): warning:  #223-D: function "vpostAllocVABufferFromAP" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(779): warning:  #223-D: function "vpostAllocVABuffer" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(785): warning:  #223-D: function "vpostSetFrameBuffer_DataType" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(787): warning:  #223-D: function "vpostSetYUVEndianSelect" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(791): warning:  #223-D: function "vpostVAStartTrigger_MPUContinue" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(803): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(805): warning:  #223-D: function "vpostVAStopTrigger" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(806): warning:  #223-D: function "vpostFreeVABuffer" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(811): warning:  #1-D: last line of file ends without a newline
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(46): warning:  #177-D: variable "g_nScreenWidth" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(47): warning:  #177-D: variable "g_nScreenHeight" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_TIANMA_TM022HDH31.c(49): warning:  #550-D: variable "LandFlag" was set but never used
+creating Library...
+User command #1: .\W55FA93_TIANMA_TM022HDH31.bat
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\KEIL\TIANMA_TM022HDH31>move .\W55FA93_VPOST_Data\W55FA93_TIANMA_TM022HDH31\W55FA93_VPOST_TIANMA_TM022HDH31.lib ..\..\..\Lib 
+        1 file(s) moved.
+".\W55FA93_VPOST_Data\W55FA93_TIANMA_TM022HDH31\W55FA93_VPOST_TIANMA_TM022HDH31.lib" - 0 Error(s), 53 Warning(s).

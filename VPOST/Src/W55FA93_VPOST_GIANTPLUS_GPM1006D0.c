@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_GIANTPLUS_GPM1006D0)
+#if defined(__HAVE_GIANTPLUS_GPM1006D0__)
 
 //#define OPT_SPI_CS_BY_GPD2
 
@@ -385,4 +385,4 @@ INT32 vpostLCMDeinit_GIANTPLUS_GPM1006D0(VOID)
 	outpw(REG_AHBCLK, inpw(REG_AHBCLK) & ~VPOST_CKE);	
 	return 0;
 }
-#endif    //HAVE_GIANTPLUS_GPM1006D0
+#endif    //__HAVE_GIANTPLUS_GPM1006D0__

@@ -40,7 +40,7 @@
 
 extern void LCDDelay(unsigned int nCount);
 
-#if defined(HAVE_GOWORLD_GWMTF9360A_MODIFY)
+#if defined(__HAVE_GOWORLD_GWMTF9360A_MODIFY__)
 #define OPT_SPI_CS_BY_GPD2
 
 static UINT32 g_nScreenWidth;

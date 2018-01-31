@@ -1,0 +1,141 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\KEIL\GOWORLD_GW8973\GOWORLD_GW8973.uvproj
+Project File Date:  01/26/2018
+
+<h2>Output:</h2>
+Rebuild Project 'GOWORLD_GW8973' - Target 'W55FA93_GOWORLD_GW8973'
+compiling W55FA93_VPOST.C...
+W55FA93_VPOST.C: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST.C(81): warning:  #223-D: function "vpostLCMInit_GOWORLD_GW8973" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST.C(176): warning:  #223-D: function "vpostLCMDeinit_GOWORLD_GW8973" declared implicitly
+compiling W55FA93_VPOST_Driver.c...
+W55FA93_VPOST_Driver.c: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_Driver.c(137): warning:  #223-D: function "memset" declared implicitly
+compiling W55FA93_VPOST_GOWORLD_GW8973.c...
+W55FA93_VPOST_GOWORLD_GW8973.c: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(105): warning:  #940-D: missing return statement at end of non-void function "Clock_Control"
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(135): warning:  #223-D: function "vpostVAStopTrigger" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(142): warning:  #223-D: function "vpostSetDataBusPin" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(146): warning:  #223-D: function "vpostSetLCM_ImageSource" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(149): warning:  #223-D: function "vpostSetLCM_TypeSelect" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(152): warning:  #223-D: function "vpostsetLCM_TimingType" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(159): warning:  #223-D: function "vpostSetParalelSyncLCM_Interface" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(165): warning:  #223-D: function "vpostSetSyncLCM_HTiming" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(168): warning:  #223-D: function "vpostSetSyncLCM_VTiming" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(171): warning:  #223-D: function "vpostSetSyncLCM_ImageWindow" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(174): warning:  #223-D: function "vpostSetSyncLCM_SignalPolarity" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(181): warning:  #223-D: function "vpostAllocVABufferFromAP" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(183): warning:  #223-D: function "vpostAllocVABuffer" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(189): warning:  #223-D: function "vpostSetFrameBuffer_DataType" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(191): warning:  #223-D: function "vpostSetYUVEndianSelect" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(194): warning:  #223-D: function "vpostVAStartTrigger" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(200): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(202): warning:  #223-D: function "vpostVAStopTrigger" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(203): warning:  #223-D: function "vpostFreeVABuffer" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(207): warning:  #1-D: last line of file ends without a newline
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(44): warning:  #177-D: variable "g_nScreenWidth" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(45): warning:  #177-D: variable "g_nScreenHeight" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(83): warning:  #177-D: function "BacklightControl" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(103): warning:  #177-D: function "Clock_Control" was declared but never referenced
+creating Library...
+User command #1: .\W55FA93_GOWORLD_GW8973.bat
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\KEIL\GOWORLD_GW8973>move .\W55FA93_VPOST_Data\W55FA93_GOWORLD_GW8973\W55FA93_VPOST_GW8973.lib ..\..\..\Lib 
+The system cannot find the file specified.
+".\W55FA93_VPOST_Data\W55FA93_GOWORLD_GW8973\W55FA93_VPOST_GOWORLD_GW8973.lib" - 0 Error(s), 57 Warning(s).
+Build Project 'GOWORLD_GW8973' - Target 'W55FA93_GOWORLD_GW8973'
+compiling W55FA93_VPOST.C...
+W55FA93_VPOST.C: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST.C(81): warning:  #223-D: function "vpostLCMInit_GOWORLD_GW8973" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST.C(176): warning:  #223-D: function "vpostLCMDeinit_GOWORLD_GW8973" declared implicitly
+compiling W55FA93_VPOST_Driver.c...
+W55FA93_VPOST_Driver.c: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_Driver.c(137): warning:  #223-D: function "memset" declared implicitly
+compiling W55FA93_VPOST_GOWORLD_GW8973.c...
+W55FA93_VPOST_GOWORLD_GW8973.c: Warning: C3008W: splitting LDM/STM has no benefit
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(377): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(390): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(391): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(405): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(409): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(412): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(413): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(414): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\SYSLIB\Lib\wblib.h(425): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(105): warning:  #940-D: missing return statement at end of non-void function "Clock_Control"
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(135): warning:  #223-D: function "vpostVAStopTrigger" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(142): warning:  #223-D: function "vpostSetDataBusPin" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(146): warning:  #223-D: function "vpostSetLCM_ImageSource" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(149): warning:  #223-D: function "vpostSetLCM_TypeSelect" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(152): warning:  #223-D: function "vpostsetLCM_TimingType" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(159): warning:  #223-D: function "vpostSetParalelSyncLCM_Interface" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(165): warning:  #223-D: function "vpostSetSyncLCM_HTiming" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(168): warning:  #223-D: function "vpostSetSyncLCM_VTiming" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(171): warning:  #223-D: function "vpostSetSyncLCM_ImageWindow" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(174): warning:  #223-D: function "vpostSetSyncLCM_SignalPolarity" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(181): warning:  #223-D: function "vpostAllocVABufferFromAP" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(183): warning:  #223-D: function "vpostAllocVABuffer" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(189): warning:  #223-D: function "vpostSetFrameBuffer_DataType" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(191): warning:  #223-D: function "vpostSetYUVEndianSelect" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(194): warning:  #223-D: function "vpostVAStartTrigger" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(200): warning:  #494-D: declaring a void parameter list with a typedef is nonstandard
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(202): warning:  #223-D: function "vpostVAStopTrigger" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(203): warning:  #223-D: function "vpostFreeVABuffer" declared implicitly
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(207): warning:  #1-D: last line of file ends without a newline
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(44): warning:  #177-D: variable "g_nScreenWidth" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(45): warning:  #177-D: variable "g_nScreenHeight" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(83): warning:  #177-D: function "BacklightControl" was declared but never referenced
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\W55FA93_VPOST_GOWORLD_GW8973.c(103): warning:  #177-D: function "Clock_Control" was declared but never referenced
+creating Library...
+User command #1: .\W55FA93_GOWORLD_GW8973.bat
+C:\Users\mhkuo\FA93\Non-OS\VPOST\Src\KEIL\GOWORLD_GW8973>move .\W55FA93_VPOST_Data\W55FA93_GOWORLD_GW8973\W55FA93_VPOST_GW8973.lib ..\..\..\Lib 
+        1 file(s) moved.
+".\W55FA93_VPOST_Data\W55FA93_GOWORLD_GW8973\W55FA93_VPOST_GW8973.lib" - 0 Error(s), 57 Warning(s).
