@@ -570,7 +570,8 @@ VOID sysPrintf(PINT8 pcStr,...)
     	_sys_bIsUseUARTInt = TRUE;
 	if (!_sys_bIsUARTInitial)
 	{
-		uart.uart_no = WB_UART_0;
+		sysUartPort(1);
+		uart.uart_no = WB_UART_1;			//Default UART 1 (Normal UART Port)
 		uart.uiFreq = sysGetExternalClock()*1000;
 		uart.uiBaudrate = 115200;
 		uart.uiDataBits = WB_DATA_BITS_8;
@@ -599,7 +600,8 @@ VOID sysprintf(PINT8 pcStr,...)
 	_sys_bIsUseUARTInt = FALSE;
 	if (!_sys_bIsUARTInitial)
 	{//Default use external clock 12MHz as source clock. 
-		uart.uart_no = WB_UART_0;
+		sysUartPort(1);
+		uart.uart_no = WB_UART_1;			//Default UART 1 (Normal UART Port)
 		uart.uiFreq = sysGetExternalClock()*1000;
 		uart.uiBaudrate = 115200;
 		uart.uiDataBits = WB_DATA_BITS_8;

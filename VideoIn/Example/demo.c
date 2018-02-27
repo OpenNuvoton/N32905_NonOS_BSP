@@ -195,8 +195,8 @@ int main()
 	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
 					162000,			//UINT32 u32PllKHz, 	
 					162000,			//UINT32 u32SysKHz,
-					162000/4,		//UINT32 u32CpuKHz,
-					162000/4,		//UINT32 u32HclkKHz,
+					162000,	    	//UINT32 u32CpuKHz,
+					162000/2,		//UINT32 u32HclkKHz,
 					  162000/4);	//UINT32 u32ApbKHz
 #else
 	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	

@@ -36,7 +36,7 @@ int main()
 					192000,			//UINT32 u32SysKHz,
 					192000/2,		//UINT32 u32CpuKHz,
 					192000/4,		//UINT32 u32HclkKHz,
-					  192000/4);	//UINT32 u32ApbKHz									  
+					  192000/8);	//UINT32 u32ApbKHz									  
 					  
 	sysEnableCache(CACHE_WRITE_BACK);
 	

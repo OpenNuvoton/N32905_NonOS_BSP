@@ -16,7 +16,7 @@ PUINT8 g_pu8EncFrameBuffer;								/* Source image data for encoding */
 
 UINT32 g_u32EncWidth = 640, g_u32EncHeight = 480;       /* Encode Width & Height */   	
 
-UINT8 __align(32) g_au8BitstreamBuffer[0x100000];		/* The buffer for encoding output */
+UINT8 __align(32) g_au8BitstreamBuffer[0xC8000];		/* The buffer for encoding output */
                   
 VOID JpegEncTest (VOID)
 {

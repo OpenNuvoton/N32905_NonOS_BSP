@@ -12,7 +12,7 @@ static volatile INT8 g_i8PcmReady = FALSE;
 //__align(4) static INT16 g_pi16SampleBuf[16000*AUDIO_REC_SEC];		/* Keep max 16K sample rate */
 __align(32) INT16 g_pi16SampleBuf[16000*AUDIO_REC_SEC];		/* Keep max 16K sample rate */
 
-char WaveHeader[]= {'R', 'I', 'F', 'F', 0x00, 0x00, 0x00, 0x00,	   //ForthCC code+(RAW-data-size+0x24)	
+__align(4) char WaveHeader[]= {'R', 'I', 'F', 'F', 0x00, 0x00, 0x00, 0x00,	   //ForthCC code+(RAW-data-size+0x24)	
 					'W', 'A', 'V', 'E', 'f', 'm', 't', ' ',			
 					0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00,//Chunk-size, audio format, and NUMChannel
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,//Sample-Rate and Byte-Count-Per-Sec 

@@ -388,16 +388,46 @@ static INT  Action_DIR(CHAR *suDirName)
 
 		fsUnicodeToAscii(tFileInfo.suLongName, szLongName, 1);
 		
-		if (tFileInfo.ucAttrib & A_DIR)
+		if (tFileInfo.ucAttrib & A_DIR){
+			#if 0
 			printf("%s %s      <DIR>  %02d-%02d-%04d  %02d:%02d  %s\n",
 						szMainName, szExtName, 
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100 ,
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
-		else
+			#else	/* There is an C library issue on Keil V5.24 */
+			printf("%s %s     <DIR>     ",
+						szMainName, szExtName);
+			printf(" %02d-%02d-%04d ",
+						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100);
+			
+			printf("%02d:%02d  %s\n",
+						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
+			#endif
+		}				
+		else{
+			volatile UINT32 u32Var=0;	
+			#if 0
 			printf("%s %s %10d  %02d-%02d-%04d  %02d:%02d  %s\n",
 						szMainName, szExtName, tFileInfo.n64FileSize,
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100 ,
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
+			#else	/* There is an C library issue on Keil V5.24 */
+			printf("%s %s    ",
+						szMainName, szExtName);
+		#if 0	
+			printf("%10d ", tFileInfo.n64FileSize);
+		#else
+			u32Var = tFileInfo.n64FileSize;
+			printf("%10d ", u32Var);
+		#endif		
+			
+			printf(" %02d-%02d-%04d ",
+						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100);
+			
+			printf("%02d:%02d  %s\n",
+						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
+			#endif		
+		}		
 	} while (!fsFindNext(&tFileInfo));
 	
 	fsFindClose(&tFileInfo);
@@ -714,7 +744,7 @@ static INT  Action_PrintDiskInfo()
 		printf("    head:     [%d]\n", ptPDiskPtr->nHeadNum);
 		printf("    sector:   [%d]\n", ptPDiskPtr->nSectorNum);
 		printf("    cylinder: [%d]\n", ptPDiskPtr->nCylinderNum);
-		printf("    size:     [%d MB]\n", (INT)ptPDiskPtr->uDiskSize / 1024);
+		printf("    size:     [%d MB]\n", ((INT)ptPDiskPtr->uDiskSize / 1024));
 		
 		ptPartition = ptPDiskPtr->ptPartList;
 		nPartIdx = 1;
@@ -1525,9 +1555,11 @@ int main()
 	/* Depend on the board's layout */
 	//USB_PortInit(HOST_NORMAL_PORT0_ONLY);
 	//USB_PortInit(HOST_NORMAL_TWO_PORT);	
-	USB_PortInit(HOST_LIKE_PORT0);
-	//USB_PortInit(HOST_LIKE_PORT1);	
+	//USB_PortInit(HOST_LIKE_PORT0);
+	USB_PortInit(HOST_LIKE_PORT1);	
 
+	//umass_register_connect(MassStotrageConnection);	
+	//umass_register_disconnect(MassStotrageDisconnection);	
 	InitUsbSystem();       
 	UMAS_InitUmasDriver();
 #endif	
@@ -1556,7 +1588,7 @@ int main()
 #endif
 
 #ifdef ENABLE_RAM	
-	InitRAMDisk((UINT32)&i8RamDisk, RAM_DISK_SIZE)	;
+	InitRAMDisk((UINT32)&i8RamDisk, (RAM_DISK_SIZE/1024))	;
 	FormatRamDisk();
 	fsSetVolumeLabel('D', "RAM", strlen("RAM")); 
 	//fsAssignDriveNumber('D', DISK_TYPE_HARD_DISK, 1, 1);
