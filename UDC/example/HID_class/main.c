@@ -10,6 +10,8 @@
 #include "w55fa93_kpi.h"
 #include "w55fa93_gpio.h"
 #endif
+#define SUSPEND_POWERDOWN
+void Demo_PowerDownWakeUp(void);
 	
 int main(void)
 {
@@ -38,6 +40,9 @@ int main(void)
 	hidInit();
 	udcInit();
 	
+#ifdef SUSPEND_POWERDOWN
+	udcSetSupendCallBack(Demo_PowerDownWakeUp);
+#endif	
 	while(1)
 	{
 #ifdef HID_KEYBOARD

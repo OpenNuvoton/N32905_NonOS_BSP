@@ -138,7 +138,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -349,7 +349,7 @@
               <MiscControls></MiscControls>
               <Define>__RAM_DISK_ONLY__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -716,6 +716,16 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPI\Lib\w55fa93_SPI.lib</FilePath>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -852,7 +862,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1063,7 +1073,7 @@
               <MiscControls></MiscControls>
               <Define>__NAND_ONLY__ __NAND__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1447,6 +1457,16 @@
                 </CommonProperty>
                 <FileArmAds/>
               </FileOption>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -1584,7 +1604,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1795,7 +1815,7 @@
               <MiscControls></MiscControls>
               <Define>__SD_PORT0__ __SD_ONLY__ __SD__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2215,6 +2235,16 @@
                 </CommonProperty>
                 <FileArmAds/>
               </FileOption>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -2352,7 +2382,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -2563,7 +2593,7 @@
               <MiscControls></MiscControls>
               <Define>__SD_PORT1__ __SD_ONLY__ __SD__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2966,6 +2996,16 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -3102,7 +3142,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -3313,7 +3353,7 @@
               <MiscControls></MiscControls>
               <Define>__SD_PORT2__ __SD_ONLY__ __SD__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3716,6 +3756,16 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -3852,7 +3902,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -4063,7 +4113,7 @@
               <MiscControls></MiscControls>
               <Define>__SD_PORT0__ __SD_ONLY__ __SD__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -4484,6 +4534,16 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -4620,7 +4680,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -4831,7 +4891,7 @@
               <MiscControls></MiscControls>
               <Define>__SD_PORT1__ __SD_ONLY__ __SD__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -5234,6 +5294,16 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -5370,7 +5440,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -5581,7 +5651,7 @@
               <MiscControls></MiscControls>
               <Define>__SD_PORT2__ __SD_ONLY__ __SD__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -5983,6 +6053,16 @@
                 </CommonProperty>
                 <FileArmAds/>
               </FileOption>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -6120,7 +6200,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -6331,7 +6411,7 @@
               <MiscControls></MiscControls>
               <Define>__NAND__ __SD_PORT0__ __SD__ __ALL_STORAGE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -6733,6 +6813,16 @@
                 </CommonProperty>
                 <FileArmAds/>
               </FileOption>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -6870,7 +6960,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -7081,7 +7171,7 @@
               <MiscControls></MiscControls>
               <Define>__NAND__ __SD_PORT1__ __SD__ __ALL_STORAGE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -7466,6 +7556,16 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -7602,7 +7702,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -7813,7 +7913,7 @@
               <MiscControls></MiscControls>
               <Define>__NAND__ __SD_PORT0__ __SD__ __ALL_STORAGE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -8216,6 +8316,16 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -8352,7 +8462,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -8563,7 +8673,7 @@
               <MiscControls></MiscControls>
               <Define>__NAND__ __SD_PORT1__ __SD__ __ALL_STORAGE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -8948,6 +9058,16 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -9084,7 +9204,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -9295,7 +9415,7 @@
               <MiscControls></MiscControls>
               <Define>__SPI_ONLY__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\SIC\Lib;..\..\..\..\gnand\Lib;..\..\..\..\NVTFAT\lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -9715,6 +9835,16 @@
               <FileName>w55fa93_SPI.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPI\Lib\w55fa93_SPI.lib</FilePath>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
           </Files>
         </Group>

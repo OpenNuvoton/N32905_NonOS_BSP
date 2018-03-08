@@ -55,6 +55,10 @@ extern void StartUAC(void);
 extern void StopUAC(void);
 extern void Send_AudioOneMSPacket(PUINT32 pu32Address, PUINT32 pu32Length);
 
+//#define SUSPEND_POWERDOWN
+
+void Demo_PowerDownWakeUp(void);
+
 /* Skip frame when Changing frame */
 #define UVC_SKIP_FRAME 0
 
@@ -112,6 +116,11 @@ VOID uvc_main(VOID)
 	udcOpen();
 	/* Init USB Device Setting as Video Class Device */
 	uavcdInit(ProcessUnitControl,NULL, Send_AudioOneMSPacket);		
+	
+#ifdef SUSPEND_POWERDOWN
+	udcSetSupendCallBack(Demo_PowerDownWakeUp);
+#endif		
+	
 	/* Init USB Device */
 	udcInit();
 	/* Deal with UVC event */	

@@ -387,6 +387,7 @@ INT32	sysInitializeUART (WB_UART_T *uart);
 VOID		sysPrintf (PINT8 pcStr,...);
 VOID		sysprintf (PINT8 pcStr,...);
 VOID		sysPutChar (UINT8 ucCh);
+VOID sysUartEnableDebugMessage(BOOL bIsDebugMessage);
 
 void sysUartInstallcallback(UINT32 u32IntType,  PFN_SYS_UART_CALLBACK pfnCallback);
 void 		sysUartEnableInt(INT32 eIntType);
@@ -444,6 +445,7 @@ INT32 sysPowerDown(WAKEUP_SOURCE_E eWakeUpSrc);
 //void sysSetClock(void);
 void sysExternalClock(void);
 UINT32 sysGetExternalClock(void);
+CHAR sysGetChipVersion(void);
 //void sysFirstAdjustAPLL(UINT32 u32ApllClockKHz);
 UINT32 
 sysSetSystemClock(E_SYS_SRC_CLK eSrcClk,	

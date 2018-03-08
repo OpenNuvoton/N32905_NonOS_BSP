@@ -6,9 +6,9 @@
 
 // define DATE CODE and show it when running to make maintaining easy.
 #ifdef _S605_
-    #define DATE_CODE   "20171124 for S605"
+    #define DATE_CODE   "20180306 for S605"
 #else
-    #define DATE_CODE   "20171124"
+    #define DATE_CODE   "20180306"
 #endif
 
 /* global variable */
@@ -215,7 +215,12 @@ int main()
     uart.uiRxTriggerLevel = LEVEL_1_BYTE;
     sysInitializeUART(&uart);
 
-    sysprintf("W55FA93 SD Boot Loader entry (%s).\n", DATE_CODE);
+    sysprintf("FA93 SD Boot Loader entry (%s).\n", DATE_CODE);
+
+    if( sysGetChipVersion() == 'G' )
+        sysprintf("FA93 chip version : G\n");
+    else
+        sysprintf("FA93 chip version : A ~ F\n");
 
 #ifdef __DISABLE_RTC__
     sysprintf("Disable RTC feature.\n");

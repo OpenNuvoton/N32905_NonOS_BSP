@@ -138,7 +138,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -531,6 +531,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Smpl_FSC_TVP5150.c</FilePath>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -667,7 +672,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1397,6 +1402,11 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
             </File>
           </Files>
         </Group>

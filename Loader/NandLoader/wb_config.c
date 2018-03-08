@@ -488,11 +488,16 @@ BOOL bIsAPLLInitialize = FALSE;
 
 UINT32 sysGetExternalClock(void)
 {
-	if((inp32(REG_CHIPCFG) & 0xC) == 0x8)
-		g_u32ExtClk = 12000;
-	else
-		g_u32ExtClk = 27000;
-	return g_u32ExtClk;
+    if( sysGetChipVersion() == 'G')
+        g_u32ExtClk = 12000;
+    else
+    {
+        if((inp32(REG_CHIPCFG) & 0xC) == 0x8)
+            g_u32ExtClk = 12000;
+        else
+            g_u32ExtClk = 27000;
+    }
+    return g_u32ExtClk;
 }
 /*-----------------------------------------------------------------------------------------------------------
 *	The Function set the relative system clock. PLL, SYS,CPU, HCLK, APB
@@ -524,10 +529,7 @@ sysSetSystemClock(
 	UINT32 u32RegPll;
 	register UINT32 u32SysDiv, u32CpuDiv;
 
-	if((inp32(REG_CHIPCFG) & 0xC) == 0x8)
-		g_u32ExtClk = 12000;
-	else
-		g_u32ExtClk = 27000;
+    g_u32ExtClk = sysGetExternalClock();
 
 	if(eSrcClk != eSYS_EXT)
 	{
@@ -728,10 +730,7 @@ UINT32 sysSetPllClock(E_SYS_SRC_CLK eSrcClk, UINT32 u32TargetKHz)
 {
 	UINT32 u32PllReg, u32PllOutFreqKHz, u32FinKHz;
 
-	if((inp32(REG_CHIPCFG) & 0xC) == 0x8)
-		u32FinKHz = 12000;
-	else
-		u32FinKHz = 27000;
+    u32FinKHz = sysGetExternalClock();
 
 	//Specified clock is system clock,  return working frequency directly.
 	if( (inp32(REG_CLKDIV0) & SYSTEM_S)== 0x18 )

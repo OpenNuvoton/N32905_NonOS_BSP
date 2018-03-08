@@ -531,6 +531,11 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1059,6 +1064,11 @@
                 </CommonProperty>
                 <FileArmAds/>
               </FileOption>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1589,6 +1599,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\lib\w55fa93_UAVC_MJPEG_Only.lib</FilePath>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -2117,6 +2132,11 @@
                 </CommonProperty>
                 <FileArmAds/>
               </FileOption>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2647,6 +2667,11 @@
                 <FileArmAds/>
               </FileOption>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -3175,6 +3200,11 @@
               <FileName>w55fa93_UAVC_MJPEG_Only.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\lib\w55fa93_UAVC_MJPEG_Only.lib</FilePath>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\demo_wakeup.c</FilePath>
             </File>
           </Files>
         </Group>

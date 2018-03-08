@@ -5,6 +5,10 @@
 #include "w55fa93_reg.h"
 #include "usbd.h"
 
+//#define SUSPEND_POWERDOWN
+
+void Demo_PowerDownWakeUp(void);
+
 void vcomInit(void);
 void VCOM_MainProcess(void);
 	
@@ -25,8 +29,15 @@ int main(void)
     sysprintf("\nVirtual COM Demo\n");	
 	/* Enable USB */
 	udcOpen(); 
+	
 	vcomInit();
+	
+#ifdef SUSPEND_POWERDOWN
+	udcSetSupendCallBack(Demo_PowerDownWakeUp);
+#endif		
+	
 	udcInit();
+	
 	VCOM_MainProcess();
 }
 

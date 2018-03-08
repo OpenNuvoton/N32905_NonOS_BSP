@@ -9,10 +9,12 @@
 #include "w55fa93_reg.h"
 #include "usbd.h"
 
-#define DATA_CODE	"20170606"
+#define DATA_CODE	"20180306"
 
 __align(4) volatile USBD_INFO_T usbdInfo = {0};
 __align(4) volatile USBD_STATUS_T usbdStatus = {0};
+UINT32 g_u32Suspend_Flag = 0;
+PFN_USBD_CALLBACK pfnSuspend = NULL;
 
 USB_CMD_T	_usb_cmd_pkt;
 INT32 volatile usb_halt_ep;
@@ -676,6 +678,7 @@ VOID usbd_control_packet(void)
 			break;
 
 		case USBR_SET_CONFIGURATION:
+			g_u32Suspend_Flag = 1;
 			ReqErr = ((_usb_cmd_pkt.bmRequestType == 0) && ((_usb_cmd_pkt.wValue & 0xff00) == 0) &&
 			((_usb_cmd_pkt.wValue & 0x80) == 0) && (_usb_cmd_pkt.wIndex == 0) && 
 			(_usb_cmd_pkt.wLength == 0)) ? 0 : 1;
@@ -1180,7 +1183,7 @@ VOID usbd_isr(void)
 #endif			
 
 			test = inp32(PHY_CTL) & Vbus_status;		
-			for(i=0;i<0x90000;i++)
+			for(i=0;i<0x80000;i++)
 			{		
 					
 				if(test != (inp32(PHY_CTL) & Vbus_status))
@@ -1202,7 +1205,8 @@ VOID usbd_isr(void)
 						usbdInfo.AlternateFlag_Audio = 0;
 						usbdStatus.appConnected_Audio = 0;
 						outp32(PHY_CTL, (0x20 | Phy_suspend));
-					//	sysprintf("Unplug(S)!!\n");
+						g_u32Suspend_Flag = 0;
+						//sysprintf("Unplug(S)!!\n");
 					}
 					outp32(USB_IRQ_STAT, VBUS_IS);
 					break;
@@ -1210,7 +1214,27 @@ VOID usbd_isr(void)
 
 			}	
 			outp32(USB_IRQ_STAT, SUS_IS);		/* Suspend */
-			outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE));
+			outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE|USB_SUS_REQ));
+			//sysprintf("Suspend %d\n",g_u32Suspend_Flag);
+			if(usbdInfo.u32UVC)
+			{
+				if(g_u32Suspend_Flag == 2 && pfnSuspend !=NULL)	
+				{
+					pfnSuspend();		
+					g_u32Suspend_Flag--;
+				}
+				else
+					g_u32Suspend_Flag++;		
+			}
+			else
+			{
+				if(g_u32Suspend_Flag == 1 && pfnSuspend !=NULL)	
+				{
+					pfnSuspend();
+					g_u32Suspend_Flag = 0;	
+				}
+			}
+			//sysprintf("Suspend %d End\n",g_u32Suspend_Flag);
 		}
 
 		if (IrqSt & HISPD_IS & IrqEn)
@@ -1446,4 +1470,8 @@ VOID usbd_isr(void)
 		}	
 		outp32(IRQ_STAT_L, IRQ_NCEP);
 	}
+}
+VOID udcSetSupendCallBack(PFN_USBD_CALLBACK pfun)
+{
+	pfnSuspend = pfun;
 }

@@ -3,7 +3,7 @@
  * Copyright (c) 2008 Nuvoton Technolog. All rights reserved.              *
  *                                                                         *
  ***************************************************************************/
- 
+
 /****************************************************************************
 * FILENAME
 *   wb_uart.c
@@ -25,7 +25,7 @@
 #include "wblib.h"
 
 #ifdef	__HW_SIM__
-#undef 	REG_UART_THR                       
+#undef 	REG_UART_THR
 #define	REG_UART_THR  	(0xFFF04400)		// TUBE ON
 #endif
 
@@ -67,17 +67,17 @@ VOID sysUartISR()
 
 	if (regIIR & THRE_IF)
 	{// buffer empty
-		if (_sys_uUartTxHead == _sys_uUartTxTail)	
-		{//Disable interrupt if no any request!  
+		if (_sys_uUartTxHead == _sys_uUartTxTail)
+		{//Disable interrupt if no any request!
 			outpb((REG_UART_IER+u32UartPort), inp32(REG_UART_IER+u32UartPort) & (~THRE_IEN));
-		}	
+		}
 		else
-		{//Transmit data 
+		{//Transmit data
 			for (i=0; i<8; i++)
 			{
 #ifndef __HW_SIM__
 				outpb(REG_UART_THR+u32UartPort, _sys_ucUartTxBuf[_sys_uUartTxHead]);
-#endif								
+#endif
 				_sys_uUartTxHead = sysTxBufReadNextOne();
 				if (_sys_uUartTxHead == _sys_uUartTxTail)	// buffer empty
 					break;
@@ -91,18 +91,18 @@ static VOID sysSetBaudRate(UINT32 uBaudRate)
 	UINT32 _mBaudValue;
 
 	/* First, compute the baudrate divisor. */
-#if 0		
+#if 0
 	// mode 0
 	_mBaudValue = (_sys_uUARTClockRate / (uBaudRate * 16));
 	if ((_sys_uUARTClockRate % (uBaudRate * 16)) > ((uBaudRate * 16) / 2))
 	  	_mBaudValue++;
 	_mBaudValue -= 2;
-	outpw(REG_UART_BAUD+u32UartPort, _mBaudValue);		
+	outpw(REG_UART_BAUD+u32UartPort, _mBaudValue);
 #else
 	// mode 3
 	_mBaudValue = (_sys_uUARTClockRate / uBaudRate)-2;
-	outpw(REG_UART_BAUD+u32UartPort,  ((0x30<<24)| _mBaudValue));	
-#endif	
+	outpw(REG_UART_BAUD+u32UartPort,  ((0x30<<24)| _mBaudValue));
+#endif
 }
 
 
@@ -110,7 +110,7 @@ INT32 sysInitializeUART(WB_UART_T *uart)
 {
 	/* Enable UART multi-function pins*/
 	//outpw(REG_PINFUN, inpw(REG_PINFUN) | 0x80);
-	outpw(REG_GPAFUN, inpw(REG_GPAFUN) | 0x00F00000);	//Normal UART pin function 
+	outpw(REG_GPAFUN, inpw(REG_GPAFUN) | 0x00F00000);	//Normal UART pin function
 
 	/* Check the supplied parity */
 	if ((uart->uiParity != WB_PARITY_NONE) &&
@@ -151,8 +151,8 @@ INT32 sysInitializeUART(WB_UART_T *uart)
 	sysSetBaudRate(uart->uiBaudrate);
 
 	/* Set the modem control register. Set DTR, RTS to output to LOW,
-	and set INT output pin to normal operating mode */ 
-	//outpb(UART_MCR, (WB_DTR_Low | WB_RTS_Low | WB_MODEM_En)); 
+	and set INT output pin to normal operating mode */
+	//outpb(UART_MCR, (WB_DTR_Low | WB_RTS_Low | WB_MODEM_En));
 
 	/* Setup parity, data bits, and stop bits */
 	outpw(REG_UART_LCR+u32UartPort,(uart->uiParity | uart->uiDataBits | uart->uiStopBits));
@@ -164,7 +164,7 @@ INT32 sysInitializeUART(WB_UART_T *uart)
 	outpw(REG_UART_FCR+u32UartPort, uart->uiRxTriggerLevel|0x01);
 
 	// hook UART interrupt service routine
-#if 0	
+#if 0
 	if (uart->uart_no == WB_UART_0)
 	{
 		_sys_uUartTxHead = _sys_uUartTxTail = NULL;
@@ -172,7 +172,7 @@ INT32 sysInitializeUART(WB_UART_T *uart)
 		sysEnableInterrupt(IRQ_UART);
 		sysSetLocalInterrupt(ENABLE_IRQ);
 	}
-#endif	
+#endif
 	_sys_bIsUARTInitial = TRUE;
 
 	return Successful;
@@ -201,7 +201,7 @@ VOID _PutChar_f(UINT8 ucCh)
 	}
 	else
 	{
-		/* Wait until the transmitter buffer is empty */		
+		/* Wait until the transmitter buffer is empty */
 		while (!(inpw(REG_UART_FSR+u32UartPort) & 0x400000));
 		/* Transmit the character */
 		outpb(REG_UART_THR+u32UartPort, ucCh);
@@ -402,12 +402,47 @@ static INT8 *FormatItem(INT8 *f, INT a)
 
 	return (f);
 }
+/*==================================================================
+	Default check chip version
+G Version
+  ND2 = 0: Enable Debug Message default.
+  ND2 = 1: Disable Debug Message default.
+
+==================================================================*/
+#define VERSION_ADDR 	0xFFFF3EB4
+static UINT32 u32DbgMessage = 0xFFFFFFFF;
+CHAR sysGetChipVersion(void)
+{
+	if(inp32(0xFFFF3EB4) == 0x50423238)
+			return 'G';
+	else
+			return 'A';
+}
+
+VOID sysUartEnableDebugMessage(BOOL bIsDebugMessage)
+{
+	if( bIsDebugMessage == TRUE )
+		u32DbgMessage = 1;
+	else
+		u32DbgMessage = 0;
+	sysprintf("u32DbgMessage = 0x%x\n", u32DbgMessage);
+}
 
 
 VOID sysPrintf(PINT8 pcStr,...)
 {
 	WB_UART_T uart;
 	INT8  *argP;
+
+	if(u32DbgMessage == 0xFFFFFFFF) /* Default */
+	{
+		if( sysGetChipVersion() == 'G' )
+		{
+			if((inp32(REG_CHIPCFG) & 0x4) == 0x4)
+				return;
+		}
+	}else if(u32DbgMessage == 0)	/* Disable UART message from UART1 */
+		return;
 
     	_sys_bIsUseUARTInt = TRUE;
 	if (!_sys_bIsUARTInitial)
@@ -419,9 +454,9 @@ VOID sysPrintf(PINT8 pcStr,...)
 		uart.uiStopBits = WB_STOP_BITS_1;
 		uart.uiParity = WB_PARITY_NONE;
 		uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-		sysInitializeUART(&uart);		
+		sysInitializeUART(&uart);
     	}
-    
+
 	vaStart(argP, pcStr);       /* point at the end of the format string */
 	while (*pcStr)
 	{                       /* this works because args are all ints */
@@ -438,9 +473,19 @@ VOID sysprintf(PINT8 pcStr,...)
 	WB_UART_T uart;
 	INT8  *argP;
 
+	if(u32DbgMessage == 0xFFFFFFFF) /* Default */
+	{
+		if( sysGetChipVersion() == 'G' )
+		{
+			if((inp32(REG_CHIPCFG) & 0x4) == 0x4)
+				return;
+		}
+	}else if(u32DbgMessage == 0)	/* Disable UART message from UART1 */
+		return;
+
 	_sys_bIsUseUARTInt = FALSE;
 	if (!_sys_bIsUARTInitial)
-	{//Default use external clock 12MHz as source clock. 
+	{//Default use external clock 12MHz as source clock.
 		uart.uart_no = WB_UART_0;
 		uart.uiFreq = EXTERNAL_CRYSTAL_CLOCK;
 		uart.uiBaudrate = 115200;
@@ -466,16 +511,26 @@ INT8 sysGetChar()
 {
 	while (1)
 	{
-		if (inpw(REG_UART_ISR+u32UartPort) & 0x01)		
-			return (inpb(REG_UART_RBR+u32UartPort));	
+		if (inpw(REG_UART_ISR+u32UartPort) & 0x01)
+			return (inpb(REG_UART_RBR+u32UartPort));
 	}
 }
 
 VOID sysPutChar(UINT8 ucCh)
 {
-	/* Wait until the transmitter buffer is empty */		
+	if(u32DbgMessage == 0xFFFFFFFF) /* Default */
+	{
+		if( sysGetChipVersion() == 'G' )
+		{
+			if((inp32(REG_CHIPCFG) & 0x4) == 0x4)
+				return;
+		}
+	}else if(u32DbgMessage == 0)	/* Disable UART message from UART1 */
+		return;
+
+	/* Wait until the transmitter buffer is empty */
 		while (!(inpw(REG_UART_FSR+u32UartPort) & 0x400000));
 	/* Transmit the character */
-		outpb(REG_UART_THR+u32UartPort, ucCh); 	
+		outpb(REG_UART_THR+u32UartPort, ucCh);
 }
 

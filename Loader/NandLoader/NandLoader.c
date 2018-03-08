@@ -5,7 +5,7 @@
 #include "w55fa93_reg.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
-#define DATE_CODE   "20180102"
+#define DATE_CODE   "20180306"
 
 /* global variable */
 typedef struct nand_info
@@ -248,6 +248,11 @@ int main()
     uart.uiRxTriggerLevel = LEVEL_1_BYTE;
     sysInitializeUART(&uart);
     sysprintf("FA93 Nand Boot Loader entry (%s).\n", DATE_CODE);
+    
+    if( sysGetChipVersion() == 'G' )
+        sysprintf("FA93 chip version : G\n");
+    else
+        sysprintf("FA93 chip version : A ~ F\n");
 
 #ifdef __DISABLE_RTC__
     sysprintf("Disable RTC feature.\n");

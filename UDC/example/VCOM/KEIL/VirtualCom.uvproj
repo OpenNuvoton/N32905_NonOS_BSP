@@ -138,7 +138,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -349,7 +349,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -404,6 +404,16 @@
               <FileName>wb_init.s</FileName>
               <FileType>2</FileType>
               <FilePath>..\wb_init.s</FilePath>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
+            <File>
+              <FileName>w55fa93_gpio.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
           </Files>
         </Group>

@@ -8,6 +8,9 @@
 
 //#define DETECT_USBD_PLUG
 //#define NON_BLOCK_MODE
+//#define SUSPEND_POWERDOWN
+
+void Demo_PowerDownWakeUp(void);
 
 BOOL PlugDetection(VOID)
 {
@@ -184,6 +187,9 @@ INT main(VOID)
 	#endif
 #endif	
 
+#ifdef SUSPEND_POWERDOWN
+	udcSetSupendCallBack(Demo_PowerDownWakeUp);
+#endif	
 	udcInit();
 #ifdef NON_BLOCK_MODE
 	mscdBlcokModeEnable(FALSE);		// Non-Block mode

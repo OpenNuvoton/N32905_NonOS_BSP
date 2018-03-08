@@ -275,5 +275,6 @@ VOID udcInit(void);
 VOID udcDeinit(void);
 BOOL udcIsAttached(void);
 BOOL udcIsAttachedToHost(void);
+VOID udcSetSupendCallBack(PFN_USBD_CALLBACK pfun);
 
 #endif

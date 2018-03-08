@@ -36,9 +36,9 @@
 	#endif
 #else
 	#ifdef __Security__
-	    #define DATE_CODE   "20160614 with Security"
+	    #define DATE_CODE   "20180305 with Security"
 	#else
-		#define DATE_CODE   "20151002"
+		#define DATE_CODE   "20180305"
 	#endif
 #endif
 
@@ -74,7 +74,7 @@ void Timer0_300msCallback(void)
 void init(void)
 {
 	WB_UART_T 	uart;
-	UINT32 		u32ExtFreq;	    	    	
+	UINT32 		u32ExtFreq;	 
 	UINT32 u32Cke = inp32(REG_AHBCLK);
 	
 	/* Reset SIC engine to fix USB update kernel and mvoie file */
@@ -130,7 +130,7 @@ void init(void)
 #endif
 
     /* enable UART */
-    sysUartPort(1);
+	sysUartPort(1);
 	uart.uiFreq = u32ExtFreq*1000;					/* Hz unit */	
 	uart.uiBaudrate = 115200;
 	uart.uiDataBits = WB_DATA_BITS_8;
@@ -138,7 +138,7 @@ void init(void)
 	uart.uiParity = WB_PARITY_NONE;
 	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
 	sysInitializeUART(&uart);    
-	sysprintf("SPI Loader start (%s).\n", DATE_CODE);		
+	sysprintf("SPI Loader start (%s).\n", DATE_CODE);	
 	sysSetLocalInterrupt(ENABLE_IRQ);		
 	sysFlushCache(I_D_CACHE);	
 	
@@ -319,8 +319,14 @@ int main(void)
 #endif
 	int count, i;	
 	void	(*fw_func)(void);
+	
+	if(sysGetChipVersion() == 'G')
+		outp32(REG_CLKDIV4, inp32(REG_CLKDIV4)| 0x100);
+	
 	spuDacOnLoader(2);
 #ifndef __No_RTC__
+	outp32(REG_APBCLK, inp32(REG_APBCLK) | RTC_CKE);
+	
 	outp32(AER,0x0000a965);	 	
 	 	
 	while(1)

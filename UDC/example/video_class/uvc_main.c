@@ -50,6 +50,10 @@
 /*																											 		 */
 /*********************************************************************************************************************/ 
 
+//#define SUSPEND_POWERDOWN
+
+void Demo_PowerDownWakeUp(void);
+
 /* Skip frame when Changing frame */
 #define UVC_SKIP_FRAME 2
 
@@ -105,6 +109,11 @@ VOID uvc_main(VOID)
 	udcOpen();
 	/* Init USB Device Setting as Video Class Device */
 	uvcdInit(ProcessUnitControl);		
+	
+#ifdef SUSPEND_POWERDOWN
+	udcSetSupendCallBack(Demo_PowerDownWakeUp);
+#endif	
+	
 	/* Init USB Device */
 	udcInit();
 	/* Deal with UVC event */	

@@ -560,6 +560,31 @@ static INT8 *FormatItem(INT8 *f, INT a)
 
 	return (f);
 }
+/*==================================================================
+	Default check chip version
+G Version 
+  ND2 = 0: Enable Debug Message default.
+  ND2 = 1: Disable Debug Message default. 
+
+==================================================================*/
+#define VERSION_ADDR 	0xFFFF3EB4
+static UINT32 u32DbgMessage = 0xFFFFFFFF;	
+CHAR sysGetChipVersion(void)
+{
+	if(inp32(0xFFFF3EB4) == 0x50423238)
+			return 'G';
+	else
+			return 'A';
+}
+
+VOID sysUartEnableDebugMessage(BOOL bIsDebugMessage)
+{
+	if( bIsDebugMessage == TRUE )
+		u32DbgMessage = 1;
+	else	
+		u32DbgMessage = 0;
+	sysprintf("u32DbgMessage = 0x%x\n", u32DbgMessage);
+}
 
 
 VOID sysPrintf(PINT8 pcStr,...)
@@ -567,6 +592,16 @@ VOID sysPrintf(PINT8 pcStr,...)
 	WB_UART_T uart;
 	INT8  *argP;
 
+	if(u32DbgMessage == 0xFFFFFFFF) /* Default */
+	{
+		if( sysGetChipVersion() == 'G' )
+		{
+			if((inp32(REG_CHIPCFG) & 0x4) == 0x4)	
+				return; 
+		}
+	}else if(u32DbgMessage == 0)	/* Disable UART message from UART1 */
+		return;
+	
     	_sys_bIsUseUARTInt = TRUE;
 	if (!_sys_bIsUARTInitial)
 	{
@@ -597,6 +632,16 @@ VOID sysprintf(PINT8 pcStr,...)
 	WB_UART_T uart;
 	INT8  *argP;
 
+  if(u32DbgMessage == 0xFFFFFFFF) /* Default */
+	{
+		if( sysGetChipVersion() == 'G' )
+		{
+			if((inp32(REG_CHIPCFG) & 0x4) == 0x4)	
+				return; 
+		}
+	}else if(u32DbgMessage == 0)	/* Disable UART message from UART1 */
+		return;
+	
 	_sys_bIsUseUARTInt = FALSE;
 	if (!_sys_bIsUARTInitial)
 	{//Default use external clock 12MHz as source clock. 
@@ -633,6 +678,16 @@ INT8 sysGetChar()
 
 VOID sysPutChar(UINT8 ucCh)
 {
+	if(u32DbgMessage == 0xFFFFFFFF) /* Default */
+	{
+		if( sysGetChipVersion() == 'G' )
+		{
+			if((inp32(REG_CHIPCFG) & 0x4) == 0x4)	
+				return; 
+		}
+	}else if(u32DbgMessage == 0)	/* Disable UART message from UART1 */
+		return;
+	
 	/* Wait until the transmitter buffer is empty */		
 		while (!(inpw(REG_UART_FSR+u32UartPort) & 0x400000));
 	/* Transmit the character */

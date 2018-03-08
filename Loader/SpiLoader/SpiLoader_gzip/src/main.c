@@ -30,15 +30,15 @@
 
 #ifdef _S605_	
 	#ifdef __Security__
-	    #define DATE_CODE   "20160614 with Security - gzip for S605"
+	    #define DATE_CODE   "20160614 - gzip with Security for S605"
 	#else
 	    #define DATE_CODE   "20151002 - gzip for S605"	
 	#endif
 #else
 	#ifdef __Security__
-	    #define DATE_CODE   "20160614 - gzip"
+	    #define DATE_CODE   "20180305 - gzip with Security"
 	#else
-	    #define DATE_CODE   "20151002 - gzip"	
+	    #define DATE_CODE   "20180305 - gzip"	
 	#endif
 #endif
 
@@ -103,6 +103,7 @@ void init(void)
     {
         outp32(REG_SDREF, 0x80C0);
     }
+
 
 #ifdef __UPLL_192__
     if((inp32(REG_CHIPCFG) & SDRAMSEL) == 0x20)     // Power On Setting SDRAM type is DDR2
@@ -324,8 +325,13 @@ int main(void)
 #endif
 	int count, i;	
 	void	(*fw_func)(void);
+	if(sysGetChipVersion() == 'G')
+		outp32(REG_CLKDIV4, 0x101);
+	
 	spuDacOnLoader(2);
 #ifndef __No_RTC__
+	outp32(REG_APBCLK, inp32(REG_APBCLK) | RTC_CKE);
+	
 	outp32(AER,0x0000a965);	 	
 	 	
 	while(1)

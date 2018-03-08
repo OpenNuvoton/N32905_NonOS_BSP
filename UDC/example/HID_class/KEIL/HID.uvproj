@@ -138,7 +138,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -349,7 +349,7 @@
               <MiscControls></MiscControls>
               <Define>HID_MOUSE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -409,6 +409,11 @@
               <FileName>HID.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HID.c</FilePath>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -571,7 +576,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -843,6 +848,11 @@
               <FileType>1</FileType>
               <FilePath>..\HID.c</FilePath>
             </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1004,7 +1014,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1215,7 +1225,7 @@
               <MiscControls></MiscControls>
               <Define>HID_KEYBOARD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib</IncludePath>
+              <IncludePath>..\..\..\lib;..\..\..\..\SYSLIB\Lib;..\..\..\..\gpio\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1275,6 +1285,11 @@
               <FileName>HID.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HID.c</FilePath>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1437,7 +1452,7 @@
             <RestoreToolbox>1</RestoreToolbox>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1708,6 +1723,11 @@
               <FileName>HID.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HID.c</FilePath>
+            </File>
+            <File>
+              <FileName>demo_wakeup.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_wakeup.c</FilePath>
             </File>
           </Files>
         </Group>
