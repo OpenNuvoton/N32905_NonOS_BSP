@@ -44,14 +44,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\SD_example_Data\DebugRel\</OutputDirectory>
-          <OutputName>SD_example</OutputName>
+          <OutputDirectory>.\SD_CD_Polling_Data\DebugRel\</OutputDirectory>
+          <OutputName>SD_CD_Polling</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\SD_example_Data\DebugRel\</ListingPath>
+          <ListingPath>.\SD_CD_Polling_Data\DebugRel\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -406,11 +406,6 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>main_sd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Src\main_sd.c</FilePath>
-            </File>
-            <File>
               <FileName>standalone.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Src\standalone.c</FilePath>
@@ -439,6 +434,11 @@
               <FileName>W55FA93_syslib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SYSLIB\Lib\W55FA93_syslib.lib</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\main.c</FilePath>
             </File>
           </Files>
         </Group>
