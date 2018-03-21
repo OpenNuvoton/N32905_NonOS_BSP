@@ -11,7 +11,7 @@
 #include "videoclass.h"
 
 #define HSHB_MODE
-#define DATA_CODE	"20141217"
+#define DATA_CODE	"20180316"
 
 #define USB_VID		0x0416		/* Vendor ID */ 
 #define USB_PID		0x9393		/* Product ID */
@@ -1223,6 +1223,11 @@ VOID UVC_DMACompletion(void)
 
 		if(usbdInfo.AlternateFlag == 0 || ((inp32(PHY_CTL) & Vbus_status) == 0))		
 			return;									
+		if(inp32(USB_IRQ_STAT) & SUS_IS)							
+		{
+			sysprintf("#Suspend\n");
+			return;
+		}
 	}	
 	
 	outpw(HEAD_WORD0,((g_u8UVC_PD | UVC_PH_EndOfFrame | (g_u8UVC_FID &0x01)) <<8) | 0x02);//End Of Frame 				
@@ -1232,7 +1237,12 @@ VOID UVC_DMACompletion(void)
 	while(inp32(EPA_DATA_CNT) & 0xFFFF)	
 	{
 		if(usbdInfo.AlternateFlag == 0 || ((inp32(PHY_CTL) & Vbus_status) == 0))		
-			return;		
+			return;	
+		if(inp32(USB_IRQ_STAT) & SUS_IS)							
+		{
+			sysprintf("#Suspend\n");
+			return;
+		}				
 	}
 	g_u8UVC_FID++;  
 	

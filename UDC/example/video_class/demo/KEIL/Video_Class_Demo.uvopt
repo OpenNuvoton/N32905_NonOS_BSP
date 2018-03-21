@@ -625,7 +625,7 @@
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <FileNumber>22</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -636,6 +636,20 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\demo_wakeup.c</PathWithFileName>
       <FilenameWithoutPath>demo_wakeup.c</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\Smpl_FSC_NT99141.c</PathWithFileName>
+      <FilenameWithoutPath>Smpl_FSC_NT99141.c</FilenameWithoutPath>
     </File>
   </Group>
 

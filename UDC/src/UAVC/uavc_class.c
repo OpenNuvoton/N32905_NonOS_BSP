@@ -11,7 +11,7 @@
 #include "videoclass.h"
 
 #define HSHB_MODE
-#define DATA_CODE	"20141217"
+#define DATA_CODE	"20180316"
 
 #define USB_VID		0x0416		/* Vendor ID */ 
 #define USB_PID		0x9393		/* Product ID */
@@ -1350,6 +1350,11 @@ VOID UAVC_DMACompletion(void)
 
 		if(usbdInfo.AlternateFlag == 0 || ((inp32(PHY_CTL) & Vbus_status) == 0))		
 			return;									
+		if(inp32(USB_IRQ_STAT) & SUS_IS)							
+		{
+			sysprintf("#Suspend\n");
+			return;
+		}
 	}	
 	
 	outpw(HEAD_WORD0,((g_u8UVC_PD | UVC_PH_EndOfFrame | (g_u8UVC_FID &0x01)) <<8) | 0x02);//End Of Frame 				
@@ -1360,6 +1365,11 @@ VOID UAVC_DMACompletion(void)
 	{
 		if(usbdInfo.AlternateFlag == 0 || ((inp32(PHY_CTL) & Vbus_status) == 0))		
 			return;		
+		if(inp32(USB_IRQ_STAT) & SUS_IS)							
+		{
+			sysprintf("#Suspend\n");
+			return;
+		}				
 	}
 	g_u8UVC_FID++;  
 	
@@ -1914,7 +1924,7 @@ VOID uavcdSDRAM_USB_Transfer(UINT8 epname,UINT32 DRAM_Addr ,UINT32 Tran_Size)
 		    }		
 		}
 		
-		outp32(USB_IRQ_ENB, (USB_DMA_REQ | USB_RST_STS|BIT8));
+		outp32(USB_IRQ_ENB, (USB_DMA_REQ | USB_RST_STS|BIT8|USB_SUS_REQ));
 		outp32(AHB_DMA_ADDR, DRAM_Addr);
 		outp32(DMA_CNT, Tran_Size);
 		

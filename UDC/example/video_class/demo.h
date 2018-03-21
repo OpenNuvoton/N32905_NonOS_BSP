@@ -53,7 +53,7 @@ UINT32 Smpl_TVP5150_OneField(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1);
 UINT32 Smpl_TVP5150_TwoFields(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1);
 UINT32 Smpl_GM7150_OneField(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1);
 UINT32 Smpl_GM7150_TwoFields(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1);
-
+UINT32 Smpl_NT99141_VGA(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1);
 
 
 /* Buffer for Packet & Planar format */

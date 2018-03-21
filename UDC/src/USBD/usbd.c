@@ -9,7 +9,7 @@
 #include "w55fa93_reg.h"
 #include "usbd.h"
 
-#define DATA_CODE	"20180306"
+#define DATA_CODE	"20180315"
 
 __align(4) volatile USBD_INFO_T usbdInfo = {0};
 __align(4) volatile USBD_STATUS_T usbdStatus = {0};
@@ -1178,9 +1178,7 @@ VOID usbd_isr(void)
 			int volatile test;
 			usbdInfo._usbd_resume = 0;
 			g_bHostAttached = TRUE;	
-#ifdef __USBD_FULL_SPEED_MODE__				
-			outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE));
-#endif			
+			outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE));	
 
 			test = inp32(PHY_CTL) & Vbus_status;		
 			for(i=0;i<0x80000;i++)
@@ -1206,27 +1204,27 @@ VOID usbd_isr(void)
 						usbdStatus.appConnected_Audio = 0;
 						outp32(PHY_CTL, (0x20 | Phy_suspend));
 						g_u32Suspend_Flag = 0;
-						//sysprintf("Unplug(S)!!\n");
+						sysprintf("Unplug(S)!!\n");
+						outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE|USB_SUS_REQ));				
+						outp32(USB_IRQ_STAT, SUS_IS);		/* Suspend */						
 					}
 					outp32(USB_IRQ_STAT, VBUS_IS);
-					break;
+					return;
 				}
 
 			}	
+			outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE|USB_SUS_REQ));				
 			outp32(USB_IRQ_STAT, SUS_IS);		/* Suspend */
-			outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE|USB_SUS_REQ));
-			//sysprintf("Suspend %d\n",g_u32Suspend_Flag);
+
 			if(usbdInfo.u32UVC)
 			{
-				if(g_u32Suspend_Flag == 2 && pfnSuspend !=NULL)	
+				if(pfnSuspend !=NULL)	
 				{
-					pfnSuspend();		
-					g_u32Suspend_Flag--;
+					pfnSuspend();
+					g_u32Suspend_Flag = 0;		
 				}
-				else
-					g_u32Suspend_Flag++;		
 			}
-			else
+			else			
 			{
 				if(g_u32Suspend_Flag == 1 && pfnSuspend !=NULL)	
 				{
@@ -1234,7 +1232,7 @@ VOID usbd_isr(void)
 					g_u32Suspend_Flag = 0;	
 				}
 			}
-			//sysprintf("Suspend %d End\n",g_u32Suspend_Flag);
+			outp32(USB_IRQ_ENB, (USB_RST_STS|USB_RESUME|VBUS_IE));
 		}
 
 		if (IrqSt & HISPD_IS & IrqEn)

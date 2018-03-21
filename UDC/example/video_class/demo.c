@@ -62,10 +62,13 @@ int main()
 #ifdef __MJPEG__
 		DBG_PRINTF(" [8] GM7150 one field demo (MJPEG format Only - Encode Upscale)	\n");			
 #endif					
+
+		DBG_PRINTF(" [9] NT99141 demo	\n");			
+		
 		DBG_PRINTF("================================================================\n");
 
 		u32Item = sysGetChar();	
-		if ( (u32Item >='1') && (u32Item <= '8') )
+		if ( (u32Item >='1') && (u32Item <= '9') )
 		   break;
     }while (1);
 	
@@ -113,6 +116,8 @@ int main()
 	 	Smpl_GC0308((PUINT8)u32PacketFrameBuffer0, (PUINT8)u32PacketFrameBuffer1);   
 	else if(u32Item ==  '5' )	
 	 	Smpl_TVP5150_TwoFields((PUINT8)u32PacketFrameBuffer0, (PUINT8)u32PacketFrameBuffer1);
+    else if(u32Item ==  '9' )	 
+	 	Smpl_NT99141_VGA((PUINT8)u32PacketFrameBuffer0, (PUINT8)u32PacketFrameBuffer1);		
 #ifdef __MJPEG__	 	
 	else if(u32Item ==  '6' )	
 	{
