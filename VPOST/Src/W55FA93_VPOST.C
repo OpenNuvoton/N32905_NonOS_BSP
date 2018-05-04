@@ -152,6 +152,15 @@ INT32 vpostLCMInit(PLCDFORMATEX plcdformatex, UINT32 *pFramebuf)
 #ifdef __HAVE_TIANMA_TM022HDH31__
 	return vpostLCMInit_TIANMA_TM022HDH31(plcdformatex, pFramebuf);
 #endif
+
+#ifdef __HAVE_PARISUN_640x480__
+    return vpostLCMInit_PARISUN_800x480(plcdformatex, pFramebuf);
+#endif
+
+#ifdef __HAVE_FW050TFT_800x480__
+    return vpostLCMInit_FW050TFT_800x480(plcdformatex, pFramebuf);
+#endif
+
 }
 
 INT32 vpostLCMDeinit(void)
@@ -261,6 +270,14 @@ INT32 vpostLCMDeinit(void)
 
 #ifdef __HAVE_TIANMA_TM022HDH31__
 	return vpostLCMDeinit_TIANMA_TM022HDH31();
+#endif
+
+#ifdef __HAVE_PARISUN_640x480__
+    return vpostLCMDeinit_PARISUN_800x480();
+#endif
+
+#ifdef __HAVE_FW050TFT_800x480__
+    return vpostLCMDeinit_FW050TFT_800x480();
 #endif
 }
 

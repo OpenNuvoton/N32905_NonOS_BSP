@@ -454,6 +454,11 @@ sysSetSystemClock(E_SYS_SRC_CLK eSrcClk,
 				UINT32 u32CpuKHz,
 				UINT32 u32HclkKHz,
 				UINT32 u32ApbKHz);
+				
+UINT32 sysSetCPUClock(UINT32 u32CPUClockKHz);
+UINT32 sysGetCPUClock(VOID);
+UINT32 sysSetAPBClock(UINT32 u32APBlockKHz);
+UINT32 sysGetAPBClock(VOID);
 	
 void sysGetSystemClock(E_SYS_SRC_CLK* eSrcClk,
 				 	PUINT32 pu32PllKHz,	

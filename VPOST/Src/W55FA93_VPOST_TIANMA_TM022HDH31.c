@@ -62,7 +62,7 @@ typedef enum{
 #define GPIO_PORTE		16
 
 
-static delay_loop(UINT32 u32delay)
+static void delay_loop(UINT32 u32delay)
 {
 	volatile UINT32 ii, jj;
 	for (jj=0; jj<u32delay; jj++)

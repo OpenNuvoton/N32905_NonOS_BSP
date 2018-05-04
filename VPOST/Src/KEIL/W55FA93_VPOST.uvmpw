@@ -29,7 +29,12 @@
 
   <project>
     <PathAndName>.\GOWORLD_GW8973\GOWORLD_GW8973.uvproj</PathAndName>
+  </project>
+
+  <project>
+    <PathAndName>.\FW050TFT_800x480\FW050TFT_800x480.uvproj</PathAndName>
     <NodeIsActive>1</NodeIsActive>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
 </ProjectWorkspace>

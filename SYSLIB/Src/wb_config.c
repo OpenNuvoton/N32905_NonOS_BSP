@@ -962,6 +962,127 @@ INT32 sysPowerDownPLL(E_SYS_SRC_CLK eSrcClk, BOOL bIsPowerDown)
 		sysDelay(1);	/* If not power down, need wait 500us for PLL stable */		
 	return Successful;
 }
+
+/*******************************************************************
+ * Parameter: 
+ *	u32APBlockKHz: Specific CPU clock unit: KHz
+ *
+ * Return value: CPU clock after setting
+ ********************************************************************/
+UINT32 sysSetCPUClock(UINT32 u32CPUClockKHz)
+{
+	UINT32 u32FinKHz, u32PllOutFreqKHz, u32SysClock;
+	
+	u32FinKHz = sysGetExternalClock();	
+	if( (inp32(REG_CLKDIV0) & SYSTEM_S)== 0x18 )
+	{//System from UPLL
+		  u32PllOutFreqKHz = sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+		  u32SysClock = u32PllOutFreqKHz/((inp32(REG_CLKDIV0)&SYSTEM_N0)+1);
+	}
+	else if( (inp32(REG_CLKDIV0) & SYSTEM_S)== 0x10 )
+	{//System from APLL
+		  u32PllOutFreqKHz = sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+		  u32SysClock = u32PllOutFreqKHz/((inp32(REG_CLKDIV0)&SYSTEM_N0)+1);
+	}
+	else if( (inp32(REG_CLKDIV0) & SYSTEM_S)== 0x00 )
+	{//System from XTAL
+		  u32PllOutFreqKHz = sysGetExternalClock();
+		  u32SysClock = u32PllOutFreqKHz;
+	}
+	
+	if( (u32SysClock/u32CPUClockKHz) == 1)
+		outp32(REG_CLKDIV4, inp32(REG_CLKDIV4)&~CPU_N);
+	else if ( (u32SysClock/u32CPUClockKHz) == 2)
+		outp32(REG_CLKDIV4, (inp32(REG_CLKDIV4)&~CPU_N) | 0x01);
+		
+	return sysGetCPUClock();
+
+}
+
+/*******************************************************************
+ * Return value: CPU clock unit: KHz
+ ********************************************************************/
+UINT32 sysGetCPUClock(VOID)
+{
+	UINT32 u32PllOutFreqKHz, u32SysClock;
+	UINT32 u32FinKHz = sysGetExternalClock();	
+	if( (inp32(REG_CLKDIV0) & SYSTEM_S)== 0x18 )
+	{//System from UPLL
+		  u32PllOutFreqKHz = sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+		  u32SysClock = u32PllOutFreqKHz/((inp32(REG_CLKDIV0)&SYSTEM_N0)+1);
+	}
+	else if( (inp32(REG_CLKDIV0) & SYSTEM_S)== 0x10 )
+	{//System from APLL
+		  u32PllOutFreqKHz = sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+		  u32SysClock = u32PllOutFreqKHz/((inp32(REG_CLKDIV0)&SYSTEM_N0)+1);
+	}
+	else if( (inp32(REG_CLKDIV0) & SYSTEM_S)== 0x00 )
+	{//System from XTAL
+		  u32PllOutFreqKHz = sysGetExternalClock();
+		  u32SysClock = u32PllOutFreqKHz;
+	}
+
+	return (u32SysClock/((inp32(REG_CLKDIV4)&CPU_N)+1));
+}
+/*******************************************************************
+ * HCLK1 will be same frequency under following conditions
+ *	if CPU Divider = 0, or CPU divider =1.
+ *	
+ *	CPU_N=0, HCLK1 = SYS_Clock/2  (Divide by CPU divider)
+ *	CPU_N=1, HCLK1 = SYS_Clock/2  (Divide by HCLK pre-divider due to CPU_N = 0)
+ *
+ ********************************************************************/
+ 
+/*******************************************************************
+ * Parameter:
+ * 	u32APBlockKHz: Specific APB clock unit: KHz
+ *
+ * Return value: Specific APB clock if Successful or 
+ *							 Error code
+ ********************************************************************/
+UINT32 sysSetAPBClock(UINT32 u32APBlockKHz)
+{
+	UINT32 u32CPUClockKHz, u32HCLK1KHz, u32APBDiv;
+	
+	if(u32APBlockKHz>60000)
+	  return E_ERR_CLK;
+	
+	u32CPUClockKHz = sysGetCPUClock();
+	
+	if((inp32(REG_CLKDIV4)&CPU_N) == 0)
+		u32HCLK1KHz =  u32CPUClockKHz/2;
+	else	
+		u32HCLK1KHz =  u32CPUClockKHz;
+	
+	if( (u32HCLK1KHz%u32APBlockKHz) != 0)
+		u32APBDiv = u32HCLK1KHz/u32APBlockKHz;            //(HCLK)100/(APB)60 = 1. (HCLK)40/(APB)60 =0
+	else{
+		if(u32HCLK1KHz/u32APBlockKHz != 0)
+		  u32APBDiv = u32HCLK1KHz/u32APBlockKHz - 1;      //(HCLK)120/(APB)60 = 2. (HCLK)60/(APB)60 =1
+		else
+			u32APBDiv = 0;                                  //(HCLK)48/(APB)60 = 0.
+	}
+	if(u32APBDiv > 15)
+       u32APBDiv = 15;
+	outp32(REG_CLKDIV4, (inp32(REG_CLKDIV4)&~APB_N)|(u32APBDiv<<8));
+	return sysGetAPBClock();
+}
+/*******************************************************************
+ * Return value: APB clock unit: KHz
+ ********************************************************************/
+UINT32 sysGetAPBClock(VOID)
+{
+	UINT32 u32HCLK1KHz;
+	UINT32 u32CPUClockKHz = sysGetCPUClock();
+	
+	if((inp32(REG_CLKDIV4)&CPU_N) == 0)
+		u32HCLK1KHz =  u32CPUClockKHz/2;
+	else	
+		u32HCLK1KHz =  u32CPUClockKHz;
+	
+	return ( u32HCLK1KHz/(((inp32(REG_CLKDIV4)&APB_N)>>8)+1) );
+}
+
 #if 0
 void sysFirstAdjustAPLL(UINT32 u32ApllClockKHz)
 {		
