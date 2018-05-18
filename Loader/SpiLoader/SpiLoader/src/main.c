@@ -30,21 +30,21 @@
 
 #ifdef _S605_	
 	#ifdef __Security__
-	    #define DATE_CODE   "20160614 with Security for S605"
+	    #define DATE_CODE   "20180508 with Security for S605"
 	#else
-		 #define DATE_CODE   "20151002 for S605"
+		 #define DATE_CODE   "20180508 for S605"
 	#endif
 #else
 	#ifdef __Security__
-	    #define DATE_CODE   "20180305 with Security"
+	    #define DATE_CODE   "20180508 with Security"
 	#else
-		#define DATE_CODE   "20180305"
+		#define DATE_CODE   "20180508"
 	#endif
 #endif
 
 #define __DAC_ON__
 
-UINT32 image_buffer[4096];
+UINT8 image_buffer[512];
 unsigned char *imagebuf;
 unsigned int *pImageList;
 
@@ -280,19 +280,6 @@ void spuDacOnLoader(UINT8 level)
 		outpw(REG_SPU_DAC_PAR, inpw(REG_SPU_DAC_PAR) | 0x30);		//disable
 		return;
 	}
-	
-	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x0800000);	//P7	
-	sysDelay(1);
-	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x0400000);	//P6
-	sysDelay(1);
-	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x01e0000);	//P1-4
-	sysDelay(1);
-	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x0200000);	//P5	
-	sysDelay(1);
-	
-	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x00010000);	//P0			
-	
-	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) | 0x00001F1F);
 #if 0	
 	if(level == 3)		//modify this delay time to meet the product request
 		_sysDelay(300);
@@ -308,6 +295,7 @@ int main(void)
 	unsigned int endBlock;
 	unsigned int fileLen;
 	unsigned int executeAddr;
+	unsigned int start_addr, size;
 	
 #ifdef __Security__
 	UINT8 	u8UID[8];
@@ -317,7 +305,7 @@ int main(void)
 	unsigned char Input_tag[12];	// Input tag data for request conte
 	unsigned char RPMCStatus;
 #endif
-	int count, i;	
+	int count, i, j;	
 	void	(*fw_func)(void);
 	
 	if(sysGetChipVersion() == 'G')
@@ -345,14 +333,6 @@ int main(void)
     S605_power_on();
 #endif		
 	
-#ifdef __DAC_ON__
-	sysprintf("DAC On\n");
-	outp32(REG_AHBCLK, inp32(REG_AHBCLK) | ADO_CKE | SPU_CKE | HCLK4_CKE);		// enable SPU engine clock 					
-	/* Initial SPU in advance for linux set volume issue */ 	
-	spuOpen(eDRVSPU_FREQ_8000);
-//	spuIoctl(SPU_IOCTL_SET_VOLUME, 60, 60);
-#endif		
-
 #ifndef __No_LCM__			
 	initVPostShowLogo();	
 #endif
@@ -419,10 +399,10 @@ int main(void)
 	else	
 		sysprintf("RPMC_Challenge Pass!!\n" );
 #endif		
-	memset(imagebuf, 0, 1024);
+	memset(imagebuf, 0, 32);
 	sysprintf("Load Image ");
 	/* read image information */
-	SPIReadFast(0, 63*1024, 1024, (UINT32*)imagebuf);  /* offset, len, address */
+	SPIReadFast(0, 63*1024, 512, (UINT32*)imagebuf);  /* offset, len, address */
 
 	if (((*(pImageList+0)) == 0xAA554257) && ((*(pImageList+3)) == 0x63594257))
 	{
@@ -488,7 +468,46 @@ int main(void)
 
 				sysSetGlobalInterrupt(DISABLE_ALL_INTERRUPTS);
 				sysSetLocalInterrupt(DISABLE_FIQ_IRQ);							
+#ifdef __DAC_ON__
+
+				outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x0800000);	//P7	
+				
+				start_addr = startBlock * 0x10000;
+				
+				size = (fileLen >> 10) << 8;
+				
+								
+			    for(j=0;j<4;j++)
+				{
+					SPIReadFast(0, start_addr + size * j, size, (UINT32*) (executeAddr + size * j));
+
+					switch(j)
+					{
+						case 0:;
+							outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x0400000);	//P6
+							break;
+						case 1:							
+							outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x01e0000);	//P1-4
+							break;
+						case 2:
+			             	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x0200000);	//P5	
+	        				break;
+					}
+				}
+				fileLen = fileLen - size * 4;
+				if(fileLen)
+					SPIReadFast(0, start_addr + size * 4, fileLen, (UINT32*) (executeAddr + size * 4));
+
+            	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x00010000);	//P0			
+	
+	            outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) | 0x00001F1F);	
+	            
+ 	            outp32(REG_AHBCLK, inp32(REG_AHBCLK) | ADO_CKE | SPU_CKE | HCLK4_CKE);		// enable SPU engine clock 					
+	            /* Initial SPU in advance for linux set volume issue */ 	
+	            spuOpen(eDRVSPU_FREQ_8000);
+#else	            
 				SPIReadFast(0, startBlock * 0x10000, fileLen, (UINT32*)executeAddr);
+#endif		
 
 				sysSetGlobalInterrupt(DISABLE_ALL_INTERRUPTS);
 				sysSetLocalInterrupt(DISABLE_FIQ_IRQ);		

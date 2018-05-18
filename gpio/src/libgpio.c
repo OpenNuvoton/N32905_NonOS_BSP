@@ -58,6 +58,40 @@ int gpio_open(unsigned char port)
 
 }
 
+int gpio_configure(unsigned char port, unsigned short num)
+{
+
+	switch (port) {			
+		case GPIO_PORTA:
+			if(num<=11)
+				outpw(REG_GPAFUN , inpw(REG_GPAFUN) &~ (0x3 << (num<<1)));
+			else
+				return(-1);
+			break;	
+		case GPIO_PORTB:
+			outpw(REG_GPBFUN , inpw(REG_GPBFUN) &~ (0x3 << (num<<1)));
+			break;
+		case GPIO_PORTC:
+			outpw(REG_GPCFUN , inpw(REG_GPCFUN) &~ (0x3 << (num<<1)));			
+			break;
+		case GPIO_PORTD:
+			outpw(REG_GPDFUN , inpw(REG_GPDFUN) &~ (0x3 << (num<<1)));			
+			break;
+		case GPIO_PORTE:
+			if(num<=11)
+				outpw(REG_GPEFUN , inpw(REG_GPEFUN) &~ (0x3 << (num<<1)));		
+			else
+				return(-1);
+			break;	
+			
+		default:
+			return(-1);
+
+	}
+	return(0);
+
+}
+
 int gpio_readport(unsigned char port, unsigned short *val)
 {
 	switch (port) {

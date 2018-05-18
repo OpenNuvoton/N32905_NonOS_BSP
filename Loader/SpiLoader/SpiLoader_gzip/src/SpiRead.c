@@ -103,7 +103,7 @@ int SPIReadFast(BOOL bEDMAread, UINT32 addr, UINT32 len, UINT32 *buf)
 {
 	int volatile i;
 	UINT32 u32Tmp,u32Count;
-	sysprintf("Load file length 0x%x, execute address 0x%x\n", len, (UINT32)buf);
+	//sysprintf("Load file length 0x%x, execute address 0x%x\n", len, (UINT32)buf);
 
 	outp32(REG_SPI0_CNTRL, inp32(REG_SPI0_CNTRL) & ~(1<<20));		// disabe BYTE endian
 	

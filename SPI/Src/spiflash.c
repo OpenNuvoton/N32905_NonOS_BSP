@@ -146,6 +146,7 @@ INT spiFlashInit(void)
 {
 	static BOOL bIsSpiFlashOK = 0;
 	int volatile loop;
+	UINT32 u32APBClk;	
 
 	if (!bIsSpiFlashOK)
 	{
@@ -159,7 +160,8 @@ INT spiFlashInit(void)
 		//configure SPI0 interface, Base Address 0xB800C000
 
 		/* apb clock is 48MHz, output clock is 10MHz */
-		spiIoctl(0, SPI_SET_CLOCK, 48, 10000);
+		u32APBClk = sysGetAPBClock();		
+		spiIoctl(0, SPI_SET_CLOCK, u32APBClk/1000, 10000);
 
 		//Startup SPI0 multi-function features, chip select using SS0
 		outpw(REG_GPDFUN, inpw(REG_GPDFUN) | 0xFF000000);
@@ -184,6 +186,35 @@ INT spiFlashInit(void)
 	return 0;
  }
 
+INT spiFlashReset(void)
+{
+	// check status
+	usiCheckBusy();
+
+	outpw(REG_SPI0_SSR, inpw(REG_SPI0_SSR) | 0x01);	// CS0
+
+	// enable reset command
+	outpw(REG_SPI0_TX0, 0x66);
+	spiTxLen(0, 0, 8);
+	spiActive(0);
+
+	outpw(REG_SPI0_SSR, inpw(REG_SPI0_SSR) & 0xfe);	// CS0
+
+	outpw(REG_SPI0_SSR, inpw(REG_SPI0_SSR) | 0x01);	// CS0
+
+	// reset command
+	outpw(REG_SPI0_TX0, 0x99);
+	spiTxLen(0, 0, 8);
+	spiActive(0);
+
+	outpw(REG_SPI0_SSR, inpw(REG_SPI0_SSR) & 0xfe);	// CS0
+
+	sysDelay(5);
+
+	usiStatusWrite(0x00);	// clear block protect
+
+	return Successful;
+}
 
 INT spiFlashEraseSector(UINT32 addr, UINT32 secCount)
 {
@@ -226,6 +257,46 @@ INT spiFlashEraseSector(UINT32 addr, UINT32 secCount)
 	return Successful;
 }
 
+INT spiFlashEraseBlock(UINT32 addr, UINT32 blockCount)
+{
+	int volatile i;
+
+	if ((addr % (64*1024)) != 0)
+		return -1;
+
+	for (i=0; i<blockCount; i++)
+	{
+		usiWriteEnable();
+
+		outpw(REG_SPI0_SSR, inpw(REG_SPI0_SSR) | 0x01);	// CS0
+
+		// erase command
+		outpw(REG_SPI0_TX0, 0xd8);
+		spiTxLen(0, 0, 8);
+		spiActive(0);
+
+		// address
+		if(g_u8Is4ByteMode == TRUE)
+		{
+			outpw(REG_SPI0_TX0, addr+i*64*1024);
+			spiTxLen(0, 0, 32);
+			spiActive(0);
+		}
+		else
+		{
+			outpw(REG_SPI0_TX0, addr+i*64*1024);
+			spiTxLen(0, 0, 24);
+			spiActive(0);
+		}
+
+		outpw(REG_SPI0_SSR, inpw(REG_SPI0_SSR) & 0xfe);	// CS0
+
+		// check status
+		usiCheckBusy();
+	}
+
+	return Successful;
+}
 
 INT spiFlashEraseAll(void)
 {

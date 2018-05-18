@@ -40,6 +40,7 @@
 
 
 extern int gpio_open(unsigned char port);
+extern int gpio_configure(unsigned char port, unsigned short num);
 extern int gpio_readport(unsigned char port, unsigned short *val);
 extern int gpio_setportdir(unsigned char port, unsigned short mask, unsigned short dir);
 extern int gpio_setportval(unsigned char port, unsigned short mask, unsigned short val);
