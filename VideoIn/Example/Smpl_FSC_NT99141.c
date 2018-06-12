@@ -504,7 +504,7 @@ static void SnrReset(void)
 	gpio_setportval(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 set high
 #endif
 }
-
+#if defined(__DEMO_BOARD__)
 static void SnrPowerDown(BOOL bIsEnable)
 {/* GPB3 power down, HIGH for power down */
 
@@ -519,7 +519,22 @@ static void SnrPowerDown(BOOL bIsEnable)
 	else				
 		gpio_setportval(GPIO_PORTB, 1<<3, 0);		//GPIOB 3 set low
 }
+#elif defined(__HMI_BOARD__)
+static void SnrPowerDown(BOOL bIsEnable)
+{/* GPB4 power down, HIGH for power down */
 
+	//gpio_open(GPIO_PORTB);						//GPIOB as GPIO
+	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB4));
+	
+	gpio_setportval(GPIO_PORTB, 1<<4, 1<<4);		//GPIOB 4 set high default
+	gpio_setportpull(GPIO_PORTB, 1<<4, 1<4);		//GPIOB 4 pull-up 
+	gpio_setportdir(GPIO_PORTB, 1<<4, 1<<4);		//GPIOB 4 output mode 				
+	if(bIsEnable)
+		gpio_setportval(GPIO_PORTB, 1<<4, 1<<4);	//GPIOB 4 set high
+	else				
+		gpio_setportval(GPIO_PORTB, 1<<4, 0);		//GPIOB 4 set low
+}
+#endif
 
 
 static BOOL I2C_Write_8bitSlaveAddr_16bitReg_8bitData(UINT8 uAddr, UINT16 uRegAddr, UINT8 uData)
@@ -577,11 +592,13 @@ VOID NT99141_Init(UINT32 nIndex, UINT32 u32Resolution)
 	sysDelay(2);
 	
 	
-#ifdef __DEMO_BOARD__
+#if defined(__DEMO_BOARD__) || defined(__HMI_BOARD__)
 	SnrPowerDown(FALSE);
 #endif	
+#if defined(__DEMO_BOARD__) || defined(__NUWICAM__)
 	SnrReset();	
-		
+#endif	/* Sensor used System reset if HMI */
+
 	sysDelay(2);
 	u32TableSize = g_NT99141_InitTable[0].uTableSize;
 	psRegValue = g_NT99141_InitTable[0].sRegTable;
@@ -590,7 +607,7 @@ VOID NT99141_Init(UINT32 nIndex, UINT32 u32Resolution)
 	if ( psRegValue == 0 )
 		return;	
 
-#ifdef __DEMO_BOARD__
+#if defined(__DEMO_BOARD__) || defined(__HMI_BOARD__)
 	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB13));
 	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB14));
 	DrvI2C_Open(eDRVGPIO_GPIOB, 					

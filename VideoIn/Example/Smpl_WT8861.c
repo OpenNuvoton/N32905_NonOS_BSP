@@ -10,7 +10,71 @@ typedef struct tagRef
 	UINT8	u8RegData; 
 }T_WT_I2C;
 
-//#define _WT8861
+/*
+	Sensor power down and reset may default control on sensor daughter board.
+	Reset by RC.
+	Sensor alway power on (Keep low)
+
+*/
+static void SnrReset(void)
+{
+#ifdef __DEMO_BOARD__
+/* GPB02 reset:	H->L->H 	*/				
+	//gpio_open(GPIO_PORTB);					//GPIOB2 as GPIO		
+	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB2));
+	
+	gpio_setportval(GPIO_PORTB, 1<<2, 1<<2);	//GPIOB 2 set high default
+	gpio_setportpull(GPIO_PORTB, 1<<2, 1<<2);	//GPIOB 2 pull-up 
+	gpio_setportdir(GPIO_PORTB, 1<<2, 1<<2);	//GPIOB 2 output mode 
+	Delay(1000);			
+	gpio_setportval(GPIO_PORTB, 1<<2, 0<<2);	//GPIOB 2 set low
+	Delay(1000);				
+	gpio_setportval(GPIO_PORTB, 1<<2, 1<<2);	//GPIOb 2 set high
+#endif
+#ifdef __NUWICAM__
+/* GPA7 reset:	H->L->H 	*/						
+	outp32(REG_GPAFUN, inp32(REG_GPAFUN) & (~MF_GPA7));
+	
+	gpio_setportval(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 set high default
+	gpio_setportpull(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 pull-up 
+	gpio_setportdir(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 output mode 
+	Delay(1000);			
+	gpio_setportval(GPIO_PORTA, 1<<7, 0<<7);	//GPIOA 7 set low
+	Delay(1000);				
+	gpio_setportval(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 set high
+#endif
+}
+#if defined(__DEMO_BOARD__)
+static void SnrPowerDown(BOOL bIsEnable)
+{/* GPB3 power down, HIGH for power down */
+
+	//gpio_open(GPIO_PORTB);						//GPIOB as GPIO
+	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB3));
+	
+	gpio_setportval(GPIO_PORTB, 1<<3, 1<<3);		//GPIOB 3 set high default
+	gpio_setportpull(GPIO_PORTB, 1<<3, 1<<3);		//GPIOB 3 pull-up 
+	gpio_setportdir(GPIO_PORTB, 1<<3, 1<<3);		//GPIOB 3 output mode 				
+	if(bIsEnable)
+		gpio_setportval(GPIO_PORTB, 1<<3, 1<<3);	//GPIOB 3 set high
+	else				
+		gpio_setportval(GPIO_PORTB, 1<<3, 0);		//GPIOB 3 set low
+}
+#elif defined(__HMI_BOARD__)
+static void SnrPowerDown(BOOL bIsEnable)
+{/* GPB4 power down, HIGH for power down */
+
+	//gpio_open(GPIO_PORTB);						//GPIOB as GPIO
+	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB4));
+	
+	gpio_setportval(GPIO_PORTB, 1<<4, 1<<4);		//GPIOB 4 set high default
+	gpio_setportpull(GPIO_PORTB, 1<<4, 1<4);		//GPIOB 4 pull-up 
+	gpio_setportdir(GPIO_PORTB, 1<<4, 1<<4);		//GPIOB 4 output mode 				
+	if(bIsEnable)
+		gpio_setportval(GPIO_PORTB, 1<<4, 1<<4);	//GPIOB 4 set high
+	else				
+		gpio_setportval(GPIO_PORTB, 1<<4, 0);		//GPIOB 4 set low
+}
+#endif
 
 UINT32 I2CWrite(UINT32 u8Addr, UINT32 u8Index, UINT32 u8Data)
 {
@@ -141,18 +205,34 @@ UINT32 InitWT8861(UINT32 u32Mode)
 
 	int i=0;
 
-	videoIn_Open(48000, 24000);			
-#ifdef __GPIO_PIN__	
-	gpio_open(GPIO_PORTB, 13);				//GPIOB 13 as GPIO
-	gpio_open(GPIO_PORTB, 14);				//GPIOB 14 as GPIO
-#else	
-	gpio_open(GPIO_PORTB);				//GPIOB as GPIO
+	videoIn_Open(48000, 24000);	
+	
+#if defined(__DEMO_BOARD__) || defined(__HMI_BOARD__)
+	SnrPowerDown(FALSE);
 #endif	
+#if defined(__DEMO_BOARD__) || defined(__NUWICAM__)
+	SnrReset();	
+#endif	/* Sensor used System reset if HMI */
+				
+#if defined(__DEMO_BOARD__) || defined(__HMI_BOARD__)
+	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB13));
+	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB14));
 	DrvI2C_Open(eDRVGPIO_GPIOB, 					
 				eDRVGPIO_PIN13, 
 				eDRVGPIO_GPIOB,
 				eDRVGPIO_PIN14, 
-				(PFN_DRVI2C_TIMEDELY)Delay);	
+				(PFN_DRVI2C_TIMEDELY)Delay);
+#endif
+#ifdef __NUWICAM__
+	outp32(REG_GPAFUN, inp32(REG_GPAFUN) & (~MF_GPA3));
+	outp32(REG_GPAFUN, inp32(REG_GPAFUN) & (~MF_GPA4));
+	DrvI2C_Open(eDRVGPIO_GPIOA, 					
+				eDRVGPIO_PIN3, 	//SCK
+				eDRVGPIO_GPIOA,
+				eDRVGPIO_PIN4, 	//SDA
+				(PFN_DRVI2C_TIMEDELY)Delay);
+#endif
+				
 	
 	for(i=0;i<(sizeof(g_sWT8861_NTSC_RegValue_CCIR656)/sizeof(g_sWT8861_NTSC_RegValue_CCIR656[0])); i++)
 	{
@@ -178,8 +258,26 @@ UINT32 Smpl_WT8861(UINT8* pu8FrameBuffer)
 	
 	pu8PacketBuf = (PUINT8)((UINT32)pu8FrameBuffer | 0x80000000);
 	memset(pu8PacketBuf, 0x0, 640*480*2);
-	InitVPOST(pu8FrameBuffer);	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_TVD_CCIR601);	
+	InitVPOST(pu8FrameBuffer);
+
+	#ifdef __3RD_PORT__
+		// GPIOD2 pull high
+		gpio_setportval(GPIO_PORTD, 0x04, 0x04);    //GPIOD2 high to enable Amplifier 
+		gpio_setportpull(GPIO_PORTD, 0x04, 0x04);	//GPIOD2 pull high
+		gpio_setportdir(GPIO_PORTD, 0x04, 0x04);	//GPIOD2 output mode
+	#endif 
+	
+#ifdef __1ST_PORT__	
+	videoIn_Init(TRUE, 0, 72000, eVIDEOIN_SNR_CCIR601);	
+#endif
+#ifdef __2ND_PORT__
+	//videoIn_Init(TRUE, 0, 12000, eVIDEOIN_3RD_SNR_CCIR601);
+	videoIn_Init(TRUE, 0, 72000, eVIDEOIN_2ND_SNR_CCIR601);	
+#endif	
+#ifdef __3RD_PORT__
+	videoIn_Init(TRUE, 0, 72000, eVIDEOIN_3RD_SNR_CCIR601);	
+#endif	
+		
 	InitWT8861(0);			//0 for CCIR656	
 	videoIn_Open( 48000, 24000);
 	videoIn_InstallCallback(eVIDEOIN_VINT, 

@@ -344,7 +344,6 @@ static UINT8 g_uOvDeviceID[]=
 };
 
 
-#ifdef __3RD_PORT__
 /*
 	Sensor power down and reset may default control on sensor daughter board.
 	Reset by RC.
@@ -353,6 +352,7 @@ static UINT8 g_uOvDeviceID[]=
 */
 static void SnrReset(void)
 {
+#ifdef __DEMO_BOARD__
 /* GPB02 reset:	H->L->H 	*/				
 	//gpio_open(GPIO_PORTB);					//GPIOB2 as GPIO		
 	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB2));
@@ -360,13 +360,25 @@ static void SnrReset(void)
 	gpio_setportval(GPIO_PORTB, 1<<2, 1<<2);	//GPIOB 2 set high default
 	gpio_setportpull(GPIO_PORTB, 1<<2, 1<<2);	//GPIOB 2 pull-up 
 	gpio_setportdir(GPIO_PORTB, 1<<2, 1<<2);	//GPIOB 2 output mode 
-	sysDelay(3);			
+	Delay(1000);			
 	gpio_setportval(GPIO_PORTB, 1<<2, 0<<2);	//GPIOB 2 set low
-	sysDelay(3);				
+	Delay(1000);				
 	gpio_setportval(GPIO_PORTB, 1<<2, 1<<2);	//GPIOb 2 set high
-
+#endif
+#ifdef __NUWICAM__
+/* GPA7 reset:	H->L->H 	*/						
+	outp32(REG_GPAFUN, inp32(REG_GPAFUN) & (~MF_GPA7));
+	
+	gpio_setportval(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 set high default
+	gpio_setportpull(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 pull-up 
+	gpio_setportdir(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 output mode 
+	Delay(1000);			
+	gpio_setportval(GPIO_PORTA, 1<<7, 0<<7);	//GPIOA 7 set low
+	Delay(1000);				
+	gpio_setportval(GPIO_PORTA, 1<<7, 1<<7);	//GPIOA 7 set high
+#endif
 }
-
+#if defined(__DEMO_BOARD__)
 static void SnrPowerDown(BOOL bIsEnable)
 {/* GPB3 power down, HIGH for power down */
 
@@ -381,8 +393,22 @@ static void SnrPowerDown(BOOL bIsEnable)
 	else				
 		gpio_setportval(GPIO_PORTB, 1<<3, 0);		//GPIOB 3 set low
 }
-#endif 
+#elif defined(__HMI_BOARD__)
+static void SnrPowerDown(BOOL bIsEnable)
+{/* GPB4 power down, HIGH for power down */
 
+	//gpio_open(GPIO_PORTB);						//GPIOB as GPIO
+	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB4));
+	
+	gpio_setportval(GPIO_PORTB, 1<<4, 1<<4);		//GPIOB 4 set high default
+	gpio_setportpull(GPIO_PORTB, 1<<4, 1<4);		//GPIOB 4 pull-up 
+	gpio_setportdir(GPIO_PORTB, 1<<4, 1<<4);		//GPIOB 4 output mode 				
+	if(bIsEnable)
+		gpio_setportval(GPIO_PORTB, 1<<4, 1<<4);	//GPIOB 4 set high
+	else				
+		gpio_setportval(GPIO_PORTB, 1<<4, 0);		//GPIOB 4 set low
+}
+#endif
 
 static BOOL I2C_Write_8bitSlaveAddr_16bitReg_8bitData(UINT8 uAddr, UINT16 uRegAddr, UINT8 uData)
 {
@@ -437,10 +463,12 @@ VOID NT99140_Init(UINT32 nIndex, UINT32 u32Resolution)
 		return;	
 	videoIn_Open(48000, 24000);								/* For sensor clock output */	
 	sysDelay(2);
-#ifdef __3RD_PORT__
+#if defined(__DEMO_BOARD__) || defined(__HMI_BOARD__)
+	SnrPowerDown(FALSE);
+#endif	
+#if defined(__DEMO_BOARD__) || defined(__NUWICAM__)
 	SnrReset();	
-	SnrPowerDown(FALSE); 	 										
-#endif		
+#endif	/* Sensor used System reset if HMI */
 
 	u32TableSize = g_NT99140_InitTable[0].uTableSize;
 	psRegValue = g_NT99140_InitTable[0].sRegTable;
@@ -449,7 +477,7 @@ VOID NT99140_Init(UINT32 nIndex, UINT32 u32Resolution)
 	if ( psRegValue == 0 )
 		return;	
 
-#if 1
+#if defined(__DEMO_BOARD__) || defined(__HMI_BOARD__)
 	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB13));
 	outp32(REG_GPBFUN, inp32(REG_GPBFUN) & (~MF_GPB14));
 	DrvI2C_Open(eDRVGPIO_GPIOB, 					
@@ -457,15 +485,16 @@ VOID NT99140_Init(UINT32 nIndex, UINT32 u32Resolution)
 				eDRVGPIO_GPIOB,
 				eDRVGPIO_PIN14, 
 				(PFN_DRVI2C_TIMEDELY)Delay);
-#else
-	outp32(REG_GPDFUN, inp32(REG_GPDFUN) & (~MF_GPD9));
-	outp32(REG_GPDFUN, inp32(REG_GPDFUN) & (~MF_GPD10));
-	DrvI2C_Open(eDRVGPIO_GPIOD, 					
-				eDRVGPIO_PIN9, 
-				eDRVGPIO_GPIOD,
-				eDRVGPIO_PIN10, 
+#endif
+#ifdef __NUWICAM__
+	outp32(REG_GPAFUN, inp32(REG_GPAFUN) & (~MF_GPA3));
+	outp32(REG_GPAFUN, inp32(REG_GPAFUN) & (~MF_GPA4));
+	DrvI2C_Open(eDRVGPIO_GPIOA, 					
+				eDRVGPIO_PIN3, 	//SCK
+				eDRVGPIO_GPIOA,
+				eDRVGPIO_PIN4, 	//SDA
 				(PFN_DRVI2C_TIMEDELY)Delay);
-#endif				
+#endif		
 									
 	for(u32Idx=0;u32Idx<u32TableSize; u32Idx++, psRegValue++)
 	{		
