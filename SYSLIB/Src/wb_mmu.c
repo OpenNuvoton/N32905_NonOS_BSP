@@ -22,6 +22,13 @@
  **************************************************************************/
 #include "wblib.h"
 
+#if defined ( __CC_ARM )
+#pragma push
+#pragma O2
+#endif
+
+#define USING_SECTION_TABLE
+
 #define  _CoarsePageSize 	64  //MB
 
 typedef struct _coarse_table
@@ -29,9 +36,13 @@ typedef struct _coarse_table
 	unsigned int page[256];
 } _CTable;
 
+#ifdef USING_SECTION_TABLE
+    __align(0x4000) unsigned int _mmuSectionTable[4096];
+#else
 __align(0x4000) unsigned int _mmuSectionTable[4096];
-__align(1024) static _CTable _mmuCoarsePageTable[_CoarsePageSize]; 			// maximum 64MB for coarse pages
-__align(1024) static _CTable _mmuCoarsePageTable_NonCache[_CoarsePageSize];	// Shadow SDRAM area for non-cacheable 
+__align(1024) static _CTable _mmuCoarsePageTable[_CoarsePageSize];          // maximum 64MB for coarse pages
+__align(1024) static _CTable _mmuCoarsePageTable_NonCache[_CoarsePageSize]; // Shadow SDRAM area for non-cacheable
+#endif
 
 static BOOL _IsInitMMUTable = FALSE;
 static int _MMUMappingMode = MMU_DIRECT_MAPPING;
@@ -39,7 +50,7 @@ static int _MMUMappingMode = MMU_DIRECT_MAPPING;
 extern INT32 sysGetSdramSizebyMB(void);
 extern void sysSetupCP15(unsigned int);
 
-
+#ifndef USING_SECTION_TABLE
 unsigned int sysGetPhyPageAddr(unsigned int vaddr)
 {
 	int table_num, page_num;
@@ -65,7 +76,6 @@ unsigned int sysGetPhyPageAddr(unsigned int vaddr)
 	return phy_addr;
 
 } /* end sysGetPHYAddr */
-
 
 int sysSetCachePages(unsigned int vaddr, int size, int cache_flag)
 {
@@ -176,7 +186,7 @@ int sysInitPageTable(unsigned int vaddr, unsigned int phy_addr, int size, int ca
 	return 0;
 	
 } /* end sysInitPageTable */
-
+#endif
 
 int sysSetMMUMappingMethod(int mode)
 {
@@ -189,11 +199,13 @@ int sysSetMMUMappingMethod(int mode)
 
 int sysInitMMUTable(int cache_mode)
 {
-	unsigned volatile int temp;
-	int i, size, ramsize;		
-	
-	if (_IsInitMMUTable == FALSE)		
-	{
+	int i;
+#ifndef USING_SECTION_TABLE	
+    unsigned volatile int temp;
+    int size, ramsize;
+#endif
+    if (_IsInitMMUTable == FALSE) {
+#ifndef USING_SECTION_TABLE
 		ramsize = sysGetSdramSizebyMB();
 		
 		//flat mapping for 4GB, 4096 section table, each size is 1MB
@@ -208,11 +220,11 @@ int sysInitMMUTable(int cache_mode)
 			_mmuSectionTable[i] = (unsigned int)(temp | (i << 20));    
 		}
   
-	        //Inside SDRAM, divide each section into 256 small pages, each page size is 4KB
-	        if (ramsize > _CoarsePageSize) 
-	            size = _CoarsePageSize;	//maximum 64MB
-	        else						   
-	            size = ramsize;
+        //Inside SDRAM, divide each section into 256 small pages, each page size is 4KB
+        if (ramsize > _CoarsePageSize) 
+            size = _CoarsePageSize;	//maximum 64MB
+        else						   
+            size = ramsize;
 	
 		/* first 1M always direct mapping */
 		sysInitPageTable(0, 0, 0x100000, cache_mode, MMU_DIRECT_MAPPING);
@@ -263,7 +275,24 @@ int sysInitMMUTable(int cache_mode)
 				
 			_mmuSectionTable[0x800+i] = temp;			
 		}
-										
+#else
+		for (i=0; i< 64; i++)
+		{
+            _mmuSectionTable[i] = (i<<20) | 0xDFE;            /* Cacheable, Bufferable */
+		}
+		for (i=64; i< 2048; i++)
+		{
+            _mmuSectionTable[i] = (i<<20) | 0xDF2;            /* Non-acheable, Non-Bufferable */
+		}
+		for (i=2048; i< 2112; i++)
+		{
+            _mmuSectionTable[i] = ((i-2048)<<20) | 0xDF2;     /* Non-acheable, Non-Bufferable */
+		}
+		for (i=2112; i< 4096; i++)
+		{
+            _mmuSectionTable[i] = (i<<20) | 0xDF2;            /* Non-acheable, Non-Bufferable */
+		}
+#endif										
 		_IsInitMMUTable = TRUE;
  	}
  	
@@ -275,3 +304,6 @@ int sysInitMMUTable(int cache_mode)
 	
 } /* end sysInitMMUTable */
 
+#if defined ( __CC_ARM )
+#pragma pop
+#endif
