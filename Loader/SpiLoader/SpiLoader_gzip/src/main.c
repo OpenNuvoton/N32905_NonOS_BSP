@@ -23,22 +23,22 @@
 
 #define E_CLKSKEW	0x00888800
 
-//#define __No_RTC__
+#define __No_RTC__
 #define __UPLL_192__
 
 //#define _S605_
 
 #ifdef _S605_	
 	#ifdef __Security__
-	    #define DATE_CODE   "20180621 - gzip with Security for S605"
+	    #define DATE_CODE   "20180724 - gzip with Security for S605"
 	#else
-	    #define DATE_CODE   "20180621 - gzip for S605"	
+	    #define DATE_CODE   "20180724 - gzip for S605"	
 	#endif
 #else
 	#ifdef __Security__
-	    #define DATE_CODE   "20180621 - gzip with Security"
+	    #define DATE_CODE   "20180724 - gzip with Security"
 	#else
-	    #define DATE_CODE   "20180621 - gzip"	
+	    #define DATE_CODE   "20180724 - gzip"	
 	#endif
 #endif
 
@@ -81,7 +81,7 @@ void Timer0_300msCallback(void)
 void init(void)
 {
 	WB_UART_T 	uart;
-	UINT32 		u32ExtFreq;	    	    	
+	UINT32 		u32ExtFreq;	 
 	UINT32 u32Cke = inp32(REG_AHBCLK);
 	
 	/* Reset SIC engine to fix USB update kernel and mvoie file */
@@ -145,7 +145,7 @@ void init(void)
 	uart.uiParity = WB_PARITY_NONE;
 	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
 	sysInitializeUART(&uart);    
-	sysprintf("SPI Loader start (%s).\n", DATE_CODE);		
+	sysprintf("SPI Loader start (%s).\n", DATE_CODE);	
 	sysSetLocalInterrupt(ENABLE_IRQ);		
 	sysFlushCache(I_D_CACHE);	
 	
@@ -319,19 +319,44 @@ int main(void)
 		outp32(REG_CLKDIV4, inp32(REG_CLKDIV4)| 0x100);
 	
 	spuDacOnLoader(2);
-#ifndef __No_RTC__
 	outp32(REG_APBCLK, inp32(REG_APBCLK) | RTC_CKE);
-	
-	outp32(AER,0x0000a965);	 	
-	 	
-	while(1)
-	{
-		if((inp32(AER) & 0x10000) ==0x10000)
-			break;  		
-	}
 
-	outp32(PWRON, 0x60005);    	/* Press Power Key during 6 sec to Power off (0x'6'0005) */
-  	outp32(RIIR,0x4);    
+	
+#ifdef __No_RTC__
+	sysprintf("* Not Config RTC\n");	
+	outp32(REG_APBCLK, inp32(REG_APBCLK) & ~RTC_CKE);
+
+#else
+	if(inp32(INIR) & 0x1)
+	{
+		sysprintf("* Enable HW Power Off\n");	
+		
+		count = 0;
+		
+		outp32(REG_APBCLK, inp32(REG_APBCLK) | RTC_CKE);
+	
+		outp32(AER,0x0000a965);	 	
+	 	
+		while(1)
+		{
+			if((inp32(AER) & 0x10000) ==0x10000)
+				break;  		
+			if(count > 1000000)
+			{
+				sysprintf("Write RTC Fail!!\n");
+				break;
+			}
+			count++;
+		}
+		outp32(PWRON, 0x60005);    	/* Press Power Key during 6 sec to Power off (0x'6'0005) */
+	  	outp32(RIIR,0x4);   		
+	}
+	else
+	{
+		if((inp32(INIR) & 0x1) == 0)
+			sysprintf("RTC is in-active!!\n");	
+	}	
+ 
 #endif	
 	init();		
 

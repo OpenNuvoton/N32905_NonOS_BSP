@@ -23,22 +23,22 @@
 
 #define E_CLKSKEW	0x00888800
 
-//#define __No_RTC__
+#define __No_RTC__
 #define __UPLL_192__
 
 //#define _S605_
 
 #ifdef _S605_	
 	#ifdef __Security__
-	    #define DATE_CODE   "20180621 with Security for S605"
+	    #define DATE_CODE   "20180724 with Security for S605"
 	#else
-		 #define DATE_CODE   "20180621 for S605"
+		 #define DATE_CODE  "20180724 for S605"
 	#endif
 #else
 	#ifdef __Security__
-	    #define DATE_CODE   "20180621 with Security"
+	    #define DATE_CODE   "20180724 with Security"
 	#else
-		#define DATE_CODE   "20180621"
+		#define DATE_CODE   "20180724"
 	#endif
 #endif
 
@@ -296,7 +296,7 @@ int main(void)
 	unsigned int fileLen;
 	unsigned int executeAddr;
 	unsigned int start_addr, size;
-	
+
 #ifdef __Security__
 	UINT8 	u8UID[8];
 	unsigned char ROOTKey[32];	// Rootkey array	
@@ -312,19 +312,45 @@ int main(void)
 		outp32(REG_CLKDIV4, inp32(REG_CLKDIV4)| 0x100);
 	
 	spuDacOnLoader(2);
-#ifndef __No_RTC__
-	outp32(REG_APBCLK, inp32(REG_APBCLK) | RTC_CKE);
 	
-	outp32(AER,0x0000a965);	 	
-	 	
-	while(1)
-	{
-		if((inp32(AER) & 0x10000) ==0x10000)
-			break;  		
-	}
+	outp32(REG_APBCLK, inp32(REG_APBCLK) | RTC_CKE);
 
-	outp32(PWRON, 0x60005);    	/* Press Power Key during 6 sec to Power off (0x'6'0005) */
-  	outp32(RIIR,0x4);    
+	
+#ifdef __No_RTC__
+	sysprintf("* Not Config RTC\n");	
+	outp32(REG_APBCLK, inp32(REG_APBCLK) & ~RTC_CKE);
+
+#else
+	if(inp32(INIR) & 0x1)
+	{
+		sysprintf("* Enable HW Power Off\n");	
+		
+		count = 0;
+		
+		outp32(REG_APBCLK, inp32(REG_APBCLK) | RTC_CKE);
+	
+		outp32(AER,0x0000a965);	 	
+	 	
+		while(1)
+		{
+			if((inp32(AER) & 0x10000) ==0x10000)
+				break;  		
+			if(count > 1000000)
+			{
+				sysprintf("Write RTC Fail!!\n");
+				break;
+			}
+			count++;
+		}
+		outp32(PWRON, 0x60005);    	/* Press Power Key during 6 sec to Power off (0x'6'0005) */
+	  	outp32(RIIR,0x4);   		
+	}
+	else
+	{
+		if((inp32(INIR) & 0x1) == 0)
+			sysprintf("RTC is in-active!!\n");	
+	}	
+ 
 #endif	
 	init();		
 
@@ -522,7 +548,7 @@ int main(void)
 				}								
 				
 				// JUMP to kernel
-				sysprintf("Jump to kernel\n");
+				sysprintf("Jump to kernel\n\n\n");
 
 				
 				//lcmFill2Dark((char *)(FB_ADDR | 0x80000000));	

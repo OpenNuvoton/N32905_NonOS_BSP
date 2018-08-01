@@ -684,70 +684,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -1446,70 +1385,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -2208,70 +2086,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -2970,70 +2787,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -3732,70 +3488,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -4494,70 +4189,9 @@
               <FilePath>..\..\..\..\VPOST\Lib\W55FA93_VPOST_Wintek_WMF3324.lib</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -5256,70 +4890,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -6018,70 +5591,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -6780,70 +6292,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -7542,70 +6993,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -8304,70 +7694,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -9066,70 +8395,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -9828,70 +9096,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
@@ -10608,70 +9815,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>w55fa93_gpio.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi.lib</FilePath>
-            </File>
-            <File>
               <FileName>w55fa93_spu.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_1x4.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_1x4.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
-            </File>
-            <File>
-              <FileName>w55fa93_kpi_2x2.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\kpi\lib\w55fa93_kpi_2x2.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules></IncludeLibraryModules>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
             </File>
             <File>
               <FileName>W55FA93_syslib.lib</FileName>
