@@ -6,9 +6,9 @@
 
 // define DATE CODE and show it when running to make maintaining easy.
 #ifdef _S605_
-    #define DATE_CODE   "20180306 for S605"
+    #define DATE_CODE   "20181017 for S605"
 #else
-    #define DATE_CODE   "20180306"
+    #define DATE_CODE   "20181017"
 #endif
 
 /* global variable */
@@ -187,6 +187,9 @@ int main()
     E_SYS_SRC_CLK eSrcClk;
     UINT32 u32PllKHz, u32SysKHz, u32CpuKHz, u32HclkKHz, u32ApbKHz;
     int ibr_boot_sd_port;
+
+    /* Clear Boot Code Header in SRAM to avoid booting fail issue */
+    outp32(0xFF000000, 0);
 
     spuDacOn(2);
 

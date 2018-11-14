@@ -11,7 +11,7 @@
 #include "videoclass.h"
 
 #define HSHB_MODE
-#define DATA_CODE	"20180316"
+#define DATA_CODE	"20181011"
 
 #define USB_VID		0x0416		/* Vendor ID */ 
 #define USB_PID		0x9393		/* Product ID */
@@ -882,7 +882,7 @@ __align(4) static VIDEOCLASS_MJPEG UVC_ConfigurationBlock_FS = {
     0x05,   //bDescriptorType
     0x81,   //bEndpointAddress
     0x05,   //bmAttributes
-    MAX_PACKET_SIZE_HS | HSHB, //wMaxPacketSize 
+    MAX_PACKET_SIZE_FS, //wMaxPacketSize 
     0x01    //bInterval
 },
 // Standard VideoStreaming Interface Descriptor  (Num 1, Alt 4)
@@ -904,7 +904,7 @@ __align(4) static VIDEOCLASS_MJPEG UVC_ConfigurationBlock_FS = {
     0x05,   //bDescriptorType
     0x81,   //bEndpointAddress
     0x05,   //bmAttributes
-    MAX_PACKET_SIZE_HS | HSHB, //wMaxPacketSize   
+    MAX_PACKET_SIZE_FS, //wMaxPacketSize   
     0x01    //bInterval
 }
 };
@@ -1327,7 +1327,11 @@ VOID UVC_ClassDataIN(void)
 			  		uvcInfo.VSCmdCtlData.dwMaxPayloadTransferSize = uvcInfo.IsoMaxPacketSize[usbdInfo._usbd_intfsel]; 
 			  	
 			  		uvcStatus.MaxVideoFrameSize = uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize;
-		  			uvcInfo.VSCmdCtlData.dwMaxPayloadTransferSize = 2 * max_packet_size;
+			  		if(MAX_PACKET_SIZE_FS == max_packet_size)
+			  			uvcInfo.VSCmdCtlData.dwMaxPayloadTransferSize = max_packet_size;
+			  		
+			  		else
+			  			uvcInfo.VSCmdCtlData.dwMaxPayloadTransferSize = 2 * max_packet_size;
 					uvcInfo.VSCmdCtlData.wCompQuality = 0x3D;
 				   	ptr = (UINT32 *)&uvcInfo.VSCmdCtlData;				   	
 			}	

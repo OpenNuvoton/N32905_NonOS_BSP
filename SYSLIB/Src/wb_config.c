@@ -226,19 +226,6 @@ UINT32 sysGetPLLControlRegister(UINT32 u32FinKHz, UINT32 u32TargetKHz)
 						u23Register = (u32OUT_DV<<14) | (u32IN_DV<<9) | (u32FB_DV);					
 						return u23Register;
 					}	
-					if(bIsCheckPllConstraint==TRUE)
-					{
-						unsigned int u32VerifyFout;								
-						DBG_PRINTF("===================================================\n");	
-						if((u32FinKHz*u32NF/u32NR)<250000)
-							DBG_PRINTF("Frequency is preferred");	
-						DBG_PRINTF("Frequency out = %d\n", u32Fout);
-						u23Register = (u32OUT_DV<<14) | (u32IN_DV<<9) | (u32FB_DV);
-						DBG_PRINTF("Register = 0x%x\n", u23Register);
-
-						u32VerifyFout = sysGetPLLOutputKhz(u32FinKHz, u23Register);
-						DBG_PRINTF("Verify Fout = %d KHz\n", u32VerifyFout);
-					}		
 				}
 			}	
 		}
@@ -825,7 +812,7 @@ UINT32 sysSetPllClock(E_SYS_SRC_CLK eSrcClk, UINT32 u32TargetKHz)
 		outp32(REG_APLLCON, u32PllReg);
 	else if(eSrcClk == eSYS_UPLL)
 		outp32(REG_UPLLCON, u32PllReg);	
-	if((eSrcClk == eSYS_APLL) || (eSrcClk = eSYS_UPLL))	
+	if((eSrcClk == eSYS_APLL) || (eSrcClk == eSYS_UPLL))	
 	{		
 		u32PllOutFreqKHz = sysGetPLLOutputKhz(eSrcClk, u32FinKHz);
 		return u32PllOutFreqKHz;		

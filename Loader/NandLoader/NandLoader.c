@@ -5,7 +5,7 @@
 #include "w55fa93_reg.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
-#define DATE_CODE   "20180306"
+#define DATE_CODE   "20181017"
 
 /* global variable */
 typedef struct nand_info
@@ -219,6 +219,9 @@ int main()
     WB_UART_T uart;
     E_SYS_SRC_CLK eSrcClk;
     UINT32 u32PllKHz, u32SysKHz, u32CpuKHz, u32HclkKHz, u32ApbKHz;
+
+    /* Clear Boot Code Header in SRAM to avoid booting fail issue */
+    outp32(0xFF000000, 0);
 
     spuDacOn(2);
     /* PLL clock setting */

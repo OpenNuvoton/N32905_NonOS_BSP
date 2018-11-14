@@ -30,15 +30,15 @@
 
 #ifdef _S605_	
 	#ifdef __Security__
-	    #define DATE_CODE   "20180724 with Security for S605"
+	    #define DATE_CODE   "20181016 with Security for S605"
 	#else
-		 #define DATE_CODE  "20180724 for S605"
+		 #define DATE_CODE  "20181016 for S605"
 	#endif
 #else
 	#ifdef __Security__
-	    #define DATE_CODE   "20180724 with Security"
+	    #define DATE_CODE   "20181016 with Security"
 	#else
-		#define DATE_CODE   "20180724"
+		#define DATE_CODE   "20181016"
 	#endif
 #endif
 
@@ -307,6 +307,8 @@ int main(void)
 #endif
 	int count, i, j;	
 	void	(*fw_func)(void);
+	
+    outp32(0xFF000000, 0);
 	
 	if(sysGetChipVersion() == 'G')
 		outp32(REG_CLKDIV4, inp32(REG_CLKDIV4)| 0x100);
