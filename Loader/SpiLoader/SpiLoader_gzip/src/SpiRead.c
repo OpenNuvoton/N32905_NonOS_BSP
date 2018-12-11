@@ -101,7 +101,7 @@ void EDMAMasterRead(UINT32 u32DestAddr, UINT32 u32Length)
 
 int SPIReadFast(BOOL bEDMAread, UINT32 addr, UINT32 len, UINT32 *buf)
 {
-	int volatile i;
+	int volatile i, j;
 	UINT32 u32Tmp,u32Count;
 	//sysprintf("Load file length 0x%x, execute address 0x%x\n", len, (UINT32)buf);
 
@@ -131,6 +131,7 @@ int SPIReadFast(BOOL bEDMAread, UINT32 addr, UINT32 len, UINT32 *buf)
 	}
 	else
 	{
+#if 	0
 		u32Count = len/4;
 		if(len % 4)
 			u32Count++;
@@ -144,6 +145,33 @@ int SPIReadFast(BOOL bEDMAread, UINT32 addr, UINT32 len, UINT32 *buf)
 			u32Tmp = inp32(REG_SPI0_RX0);
 			*buf++ = ((u32Tmp & 0xFF) << 24) | ((u32Tmp & 0xFF00) << 8) | ((u32Tmp & 0xFF0000) >> 8)| ((u32Tmp & 0xFF000000) >> 24);
 		}
+#else
+	u32Count = len/16;
+	if(len % 16)
+		u32Count++;
+
+	outpw(REG_SPI0_CNTRL, inpw(REG_SPI0_CNTRL) |BYTE_ENDIN);
+	spiTxLen(0, 3, 32);
+
+	// data	 
+	for (i=0; i<u32Count; i++)
+	{
+		//spiTxLen(0, 3, 32);
+		outpw(REG_SPI0_TX0, 0xffffffff);	
+		outpw(REG_SPI0_TX1, 0xffffffff);	
+		outpw(REG_SPI0_TX2, 0xffffffff);	
+		outpw(REG_SPI0_TX3, 0xffffffff);	
+		spiActive(0);
+		for(j=0; j<4; j++)
+		{
+			*buf++ = inp32(REG_SPI0_RX0 + j*4);			
+		}
+	}	
+
+	outpw(REG_SPI0_CNTRL, inpw(REG_SPI0_CNTRL) & ~BYTE_ENDIN);
+	spiTxLen(0, 0, 32);
+	
+#endif
 	}
 	outp32(REG_SPI0_SSR, inp32(REG_SPI0_SSR) & 0xfe);	// CS0
 	

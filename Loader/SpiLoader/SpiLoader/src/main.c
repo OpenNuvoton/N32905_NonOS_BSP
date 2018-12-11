@@ -30,15 +30,15 @@
 
 #ifdef _S605_	
 	#ifdef __Security__
-	    #define DATE_CODE   "20181016 with Security for S605"
+	    #define DATE_CODE   "20181206 with Security for S605"
 	#else
-		 #define DATE_CODE  "20181016 for S605"
+		 #define DATE_CODE  "20181206 for S605"
 	#endif
 #else
 	#ifdef __Security__
-	    #define DATE_CODE   "20181016 with Security"
+	    #define DATE_CODE   "20181206 with Security"
 	#else
-		#define DATE_CODE   "20181016"
+		#define DATE_CODE   "20181206"
 	#endif
 #endif
 
