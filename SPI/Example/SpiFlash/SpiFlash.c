@@ -18,11 +18,16 @@
 
 #include <stdio.h>
 #include "wblib.h"
-#include "w55fa93_spi.h"
+#include "W55FA93_SPI.h"
 
 #define TEST_SIZE	512 * 2 * 64
+#if defined(__GNUC__)
+__attribute__((aligned(4096))) UINT8 WriteBuffer[TEST_SIZE];
+__attribute__((aligned(4096))) UINT8 ReadBuffer[TEST_SIZE];
+#else
 __align(4096) UINT8 WriteBuffer[TEST_SIZE];
 __align(4096) UINT8 ReadBuffer[TEST_SIZE];
+#endif
 
 int main()
 {
@@ -31,21 +36,22 @@ int main()
 	unsigned char *pSrc, *pDst;
 	int volatile i;
 
+	u32ExtFreq = sysGetExternalClock();
+	sysUartPort(1);
+	uart.uiFreq = u32ExtFreq*1000;
+	uart.uiBaudrate = 115200;
+	uart.uiDataBits = WB_DATA_BITS_8;
+	uart.uiStopBits = WB_STOP_BITS_1;
+	uart.uiParity = WB_PARITY_NONE;
+	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+	sysInitializeUART(&uart);
+
 	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
 						192000,		//UINT32 u32PllKHz, 	
 						192000,		//UINT32 u32SysKHz,
 						192000,		//UINT32 u32CpuKHz,
 						  96000,		//UINT32 u32HclkKHz,
-						  48000);		//UINT32 u32ApbKHz	
-
-	u32ExtFreq = sysGetExternalClock();
-	uart.uiFreq = u32ExtFreq*1000;
-    uart.uiBaudrate = 115200;
-    uart.uiDataBits = WB_DATA_BITS_8;
-    uart.uiStopBits = WB_STOP_BITS_1;
-    uart.uiParity = WB_PARITY_NONE;
-    uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-    sysInitializeUART(&uart);
+						  48000);		//UINT32 u32ApbKHz		
 
 	sysprintf("SpiFlash Test...\n");
 

@@ -31,12 +31,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "wbtypes.h"
-#include "wbio.h"
 #include "wblib.h"
 #endif
 
-#include "nvtfat.h"
+#include "NVTFAT.h"
 
 #define SYSTEM_CLOCK     	27000000
 #define UART_BAUD_RATE		115200
@@ -50,7 +48,7 @@
 //#define ENABLE_GNAND
 
 #ifdef ENABLE_USB_HOST
-#include "usb.h"
+#include "Usb.h"
 #endif
 #ifdef ENABLE_GNAND
 //#include "NUC930_gnand.h"
@@ -99,15 +97,19 @@ NDRV_T _nandDiskDriver0 =
 };
 #endif
 
-UINT32 g_u32TotalSize;
 
+UINT32 g_u32TotalSize;
 extern VOID  fsGetErrorDescription(INT nErrCode, CHAR *szDescription, INT bIsPrint);
 extern INT   fsBIG5toUnicode(VOID *bstr, VOID *ustr);
 extern void  FAT_dump_sector_cache(void);
 
-
-#define RAM_DISK_SIZE 	((1024*1024)*8)
+#ifdef ENABLE_RAM
+extern INT  InitRAMDisk(UINT32 uStartAddr, UINT32 uDiskSize);
+extern INT32 RemoveRAMDisk(void);
+extern void FormatRamDisk(void);
+#define RAM_DISK_SIZE 	((1024*1024))		/* Fit for N9H20K1/N9H20K3/N9H20K5 */
 INT8 i8RamDisk[RAM_DISK_SIZE];
+#endif
 
 /* imported from WBFILE_DISK.C */
 extern PDISK_T		*_fs_ptPDiskList;
@@ -195,14 +197,14 @@ static volatile BOOL _bIsCardInserted = FALSE;
 void sd_removed(VOID *ptr)
 {
     PDISK_T	 *ptPDisk = (PDISK_T *)ptr;
-	printf("\nSD card removed! (%d)\n", (INT)ptPDisk);
+	sysprintf("\nSD card removed! (%d)\n", (INT)ptPDisk);
 	fsPhysicalDiskDisconnected(ptPDisk);
 }
 
 
 void sd_inserted()
 {
-	printf("\nSD card instered!\n");
+	sysprintf("\nSD card instered!\n");
 	_bIsCardInserted = TRUE;
 }
 #endif
@@ -278,7 +280,7 @@ static VOID  accept_string(CHAR *pcString, INT nLength)
 				if (nCount > 0)      /* have characters in pcString */
 				{
 					nCount--;        /* delete a character */
-					printf("%c%c%c", 0x08, 0x20, 0x08);
+					sysprintf("%c%c%c", 0x08, 0x20, 0x08);
 				}
 			}
 		}
@@ -287,28 +289,31 @@ static VOID  accept_string(CHAR *pcString, INT nLength)
 			if (nCount > 0)          /* have characters in pcString */
 			{
 				nCount--;            /* delete a character */
-				printf("%c%c%c", 0x08, 0x20, 0x08);
+				sysprintf("%c%c%c", 0x08, 0x20, 0x08);
 			}
 		}
 		else if (chr == 10)
+		{
 			;
+		}
 		else
 		{
 			if ((chr == 0xd) || (chr == '!'))
 			{
 				if (nCount == 0)
-					printf("\n");
+					sysprintf("\n");
 				pcString[nCount] = 0;
-				return;
+				//return;
+				break;
 			}
 		  
-			printf("%c", chr);
+			sysprintf("%c", chr);
 			pcString[nCount] = chr;            // read in a character
 			nCount++;
 			if (nCount >= nLength)
 			{
 				nCount--;
-				printf("%c", 0x08);            // backspace
+				sysprintf("%c", 0x08);            // backspace
 			}
 		}
 	}
@@ -390,41 +395,41 @@ static INT  Action_DIR(CHAR *suDirName)
 		
 		if (tFileInfo.ucAttrib & A_DIR){
 			#if 0
-			printf("%s %s      <DIR>  %02d-%02d-%04d  %02d:%02d  %s\n",
+			sysprintf("%s %s      <DIR>  %02d-%02d-%04d  %02d:%02d  %s\n",
 						szMainName, szExtName, 
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100 ,
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
 			#else	/* There is an C library issue on Keil V5.24 */
-			printf("%s %s     <DIR>     ",
+			sysprintf("%s %s     <DIR>     ",
 						szMainName, szExtName);
-			printf(" %02d-%02d-%04d ",
+			sysprintf(" %02d-%02d-%04d ",
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100);
 			
-			printf("%02d:%02d  %s\n",
+			sysprintf("%02d:%02d  %s\n",
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
 			#endif
 		}				
 		else{
 			volatile UINT32 u32Var=0;	
 			#if 0
-			printf("%s %s %10d  %02d-%02d-%04d  %02d:%02d  %s\n",
+			sysprintf("%s %s %10d  %02d-%02d-%04d  %02d:%02d  %s\n",
 						szMainName, szExtName, tFileInfo.n64FileSize,
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100 ,
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
 			#else	/* There is an C library issue on Keil V5.24 */
-			printf("%s %s    ",
+			sysprintf("%s %s    ",
 						szMainName, szExtName);
 		#if 0	
-			printf("%10d ", tFileInfo.n64FileSize);
+			sysprintf("%10d ", tFileInfo.n64FileSize);
 		#else
 			u32Var = tFileInfo.n64FileSize;
-			printf("%10d ", u32Var);
+			sysprintf("%10d ", u32Var);
 		#endif		
 			
-			printf(" %02d-%02d-%04d ",
+			sysprintf(" %02d-%02d-%04d ",
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100);
 			
-			printf("%02d:%02d  %s\n",
+			sysprintf("%02d:%02d  %s\n",
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
 			#endif		
 		}		
@@ -434,7 +439,7 @@ static INT  Action_DIR(CHAR *suDirName)
 	
 	fsDiskFreeSpace(suDirName[0], &uBlockSize, &uFreeSize, &uDiskSize);
 	
-	printf("\nDisk Size: %d Kbytes, Free Space: %d KBytes\n", (INT)uDiskSize, (INT)uFreeSize);
+	sysprintf("\nDisk Size: %d Kbytes, Free Space: %d KBytes\n", (INT)uDiskSize, (INT)uFreeSize);
 
 	return 0;
 }
@@ -447,7 +452,7 @@ static INT  Action_DIRS(CHAR *suDirName)
 	INT   	nStatus;
 	
 	nStatus = fsGetDirectoryInfo(suDirName, NULL, &nFileCnt, &nDirCnt, &uTotalSize, TRUE);
-	printf("File = %d, Dir = %d, Total Size = %d\n", nFileCnt, nDirCnt, (INT)uTotalSize);
+	sysprintf("File = %d, Dir = %d, Total Size = %d\n", nFileCnt, nDirCnt, (INT)uTotalSize);
 	return nStatus;
 }
 
@@ -463,11 +468,11 @@ static INT  Action_DIR2(CHAR *suDirName)
 	UINT32 			uBlockSize, uFreeSize, uDiskSize;
 
 	memset((UINT8 *)&tFileInfo, 0, sizeof(tFileInfo));
-	printf("DIR => %s\n", fsDebugUniStr(suDirName));
+	sysprintf("DIR => %s\n", fsDebugUniStr(suDirName));
 	nStatus = fsFindFirst(suDirName, NULL, &tFileInfo);
 	if (nStatus < 0)
 	{
-		printf("fsFindFirst <%s> error = %x\n\n\n", fsDebugUniStr(suDirName), nStatus);
+		sysprintf("fsFindFirst <%s> error = %x\n\n\n", fsDebugUniStr(suDirName), nStatus);
 		return nStatus;
 	}
 
@@ -496,7 +501,7 @@ static INT  Action_DIR2(CHAR *suDirName)
 		
 		if (tFileInfo.ucAttrib & A_DIR)
 		{
-			printf("%s %s      <DIR>  %02d-%02d-%04d  %02d:%02d  %s\n",
+			sysprintf("%s %s      <DIR>  %02d-%02d-%04d  %02d:%02d  %s\n",
 						szMainName, szExtName, 
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100 ,
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
@@ -510,7 +515,7 @@ static INT  Action_DIR2(CHAR *suDirName)
 		}
 #if 0		
 		else
-			printf("%s %s %10d  %02d-%02d-%04d  %02d:%02d  %s\n",
+			sysprintf("%s %s %10d  %02d-%02d-%04d  %02d:%02d  %s\n",
 						szMainName, szExtName, tFileInfo.n64FileSize,
 						tFileInfo.ucWDateMonth, tFileInfo.ucWDateDay, (tFileInfo.ucWDateYear+80)%100 ,
 						tFileInfo.ucWTimeHour, tFileInfo.ucWTimeMin, szLongName);
@@ -521,7 +526,7 @@ static INT  Action_DIR2(CHAR *suDirName)
 	
 	fsDiskFreeSpace(suDirName[0], &uBlockSize, &uFreeSize, &uDiskSize);
 	
-	printf("Disk Size: %d Kbytes, Free Space: %d KBytes\n", (INT)uDiskSize, (INT)uFreeSize);
+	sysprintf("Disk Size: %d Kbytes, Free Space: %d KBytes\n", (INT)uDiskSize, (INT)uFreeSize);
 
 	return 0;
 }
@@ -547,7 +552,7 @@ static INT  Action_TYPE(CHAR *suFileName, CHAR *szAsciiName)
 		for (nIdx = 0; nIdx < nLen; nIdx++)
 		{
 			if (_ucLine[nIdx] < 127)
-				printf("%c", _ucLine[nIdx]);
+				sysprintf("%c", _ucLine[nIdx]);
 		}
 	}
 
@@ -567,8 +572,10 @@ static INT  Action_ReadSpeedTest(CHAR *suFileName, CHAR *szAsciiName)
 	uKBCnt = 0;
 	hFile = fsOpenFile(suFileName, szAsciiName, O_RDONLY);
 	if (hFile < 0)
+	{
+		sysprintf("Open file fail\n");
 		return hFile;
-		
+	}
 	nStatus = 0;
 	nTime0 = get_timer_ticks();
 	while (1)
@@ -580,13 +587,13 @@ static INT  Action_ReadSpeedTest(CHAR *suFileName, CHAR *szAsciiName)
 		
 		uKBCnt += nReadLen / 1024;
 		
-		if (uKBCnt % 8192 == 0)
-			printf("%d MB\n", uKBCnt/1024);
+		if (uKBCnt % 8192 == 0)	//Print for every 8MB
+			sysprintf("%d MB\n", uKBCnt/1024);
 	}
 	nTime0 = get_timer_ticks() - nTime0;
 	if (nTime0 == 0) nTime0 = 1;
 
-	printf("Read speed: %d KB/sec\n", (INT)(uKBCnt * 100) / nTime0);
+	sysprintf("Read speed: %d KB/sec\n", (INT)(uKBCnt * 100) / nTime0);
 	
 	fsCloseFile(hFile);
 	return nStatus;
@@ -602,15 +609,18 @@ static INT  Action_WriteSpeedTest(CHAR *suFileName, CHAR *szAsciiName)
 
 	hFile = fsOpenFile(suFileName, szAsciiName, O_CREATE | O_TRUNC);
 	if (hFile < 0)
+	{
+		sysprintf("Open file fail\n");
 		return hFile;
-		
+	}
+
 	for (i = 0, j = 0; i < DUMMY_BUFFER_SIZE; i += 2, j++)
 	{
 		_pucDummy[i] = (j >> 8) & 0xff;
 		_pucDummy[i + 1] = j & 0xff;
 	}
+
 	memset((UINT8 *)_pucDummy + 0x7e0, 0x97, 32);
-		
 	nStatus = 0;
 	nTime0 = get_timer_ticks();
 
@@ -619,19 +629,18 @@ static INT  Action_WriteSpeedTest(CHAR *suFileName, CHAR *szAsciiName)
 		nStatus = fsWriteFile(hFile, (UINT8 *)_pucDummy, DUMMY_BUFFER_SIZE, &nWriteLen);
 		if (nStatus < 0)
 			break;
-		
+
 		uKBCnt += nWriteLen / 1024;
 		
 		if (uKBCnt % 1024 == 0)
-			printf("%d MB\r", uKBCnt);
-		
+			sysprintf("%d MB\r", uKBCnt);
 		if (uKBCnt >= 40*1024)
 			break;
 	}
 	nTime0 = get_timer_ticks() - nTime0;
 	if (nTime0 == 0) nTime0 = 1;
 
-	printf("Write speed: %d KB/sec\n", (INT)(uKBCnt * 100) / nTime0);
+	sysprintf("Write speed: %d KB/sec\n", (INT)(uKBCnt * 100) / nTime0);
 	
 	fsCloseFile(hFile);
 
@@ -658,7 +667,7 @@ static INT  Action_FileAppendTest(CHAR *suFileName, CHAR *szAsciiName)
 		nStatus = fsWriteFile(hFile, (UINT8 *)szPattern, 26, &nWriteLen);
 		if (nStatus < 0)
 		{
-			fsGetErrorDescription(nStatus, NULL, 1);
+			fsGetErrorDescription(nStatus, "", 1);
 			break;
 		}
 		nWriteCnt -= nWriteLen;
@@ -684,7 +693,7 @@ static INT  Action_Compare(CHAR *suFileName1, CHAR *szAsciiName1,
 	if (hFile2 < 0)
 		return hFile2;
 	
-	printf("\nComparing file ...\n");
+	sysprintf("\nComparing file ...\n");
 	nCount = 0;
 	while (1)
 	{
@@ -693,7 +702,7 @@ static INT  Action_Compare(CHAR *suFileName1, CHAR *szAsciiName1,
 		
 		if ((nStatus1 == ERR_FILE_EOF) && (nStatus2 == ERR_FILE_EOF))
 		{			
-			printf("\nFile Compare length %x pass\n", nCount * 1024+nLen1);
+			sysprintf("\nFile Compare length %x pass\n", nCount * 1024+nLen1);
 			fsCloseFile(hFile1);
 			fsCloseFile(hFile2);
 			return Successful;
@@ -701,23 +710,23 @@ static INT  Action_Compare(CHAR *suFileName1, CHAR *szAsciiName1,
 		
 		if (nLen1 != nLen2)
 		{
-			printf("Compare different length \n");
+			sysprintf("Compare different length \n");
 			return -1;
 		}	
 		if (memcmp(buffer1, buffer2, nLen1))
 		{
-			printf("File Compare failed at offset %x\n", nCount * 1024 + nLen1);
+			sysprintf("File Compare failed at offset %x\n", nCount * 1024 + nLen1);
 			return -1;
 		}	
 		if(nLen1<1024)	
 		{
 			printf("\nFile Compare length %x pass\n", nCount * 1024+nLen1);
-			return Successful;
+			break;
 		}	
 		if(nLen1==1024)
 			nCount++;
 		//if ((nCount % 1024) == 0)
-		//	printf("%d KB    \r", nCount);
+		//	sysprintf("%d KB    \r", nCount);
 	}	
 	
 
@@ -739,45 +748,45 @@ static INT  Action_PrintDiskInfo()
 	
 	while (ptPDiskPtr != NULL)
 	{
-		printf("\n\n=== Disk %d (%s) ======================\n", nDiskIdx++, (ptPDiskPtr->nDiskType & DISK_TYPE_USB_DEVICE) ? "USB" : "IDE");
-		printf("    name:     [%s%s]\n", ptPDiskPtr->szManufacture, ptPDiskPtr->szProduct);
-		printf("    head:     [%d]\n", ptPDiskPtr->nHeadNum);
-		printf("    sector:   [%d]\n", ptPDiskPtr->nSectorNum);
-		printf("    cylinder: [%d]\n", ptPDiskPtr->nCylinderNum);
-		printf("    size:     [%d MB]\n", ((INT)ptPDiskPtr->uDiskSize / 1024));
+		sysprintf("\n\n=== Disk %d (%s) ======================\n", nDiskIdx++, (ptPDiskPtr->nDiskType & DISK_TYPE_USB_DEVICE) ? "USB" : "IDE");
+		sysprintf("    name:     [%s%s]\n", ptPDiskPtr->szManufacture, ptPDiskPtr->szProduct);
+		sysprintf("    head:     [%d]\n", ptPDiskPtr->nHeadNum);
+		sysprintf("    sector:   [%d]\n", ptPDiskPtr->nSectorNum);
+		sysprintf("    cylinder: [%d]\n", ptPDiskPtr->nCylinderNum);
+		sysprintf("    size:     [%d MB]\n", ((INT)ptPDiskPtr->uDiskSize / 1024));
 		
 		ptPartition = ptPDiskPtr->ptPartList;
 		nPartIdx = 1;
 		while (ptPartition != NULL)
 		{
-			printf("\n    --- Partition %d --------------------\n", nPartIdx++);
-			printf("        active: [%s]\n", (ptPartition->ucState & 0x80) ? "Yes" : "No");
-			printf("        size:   [%d MB]\n", (INT)(ptPartition->uTotalSecN / 1024) / 2);
-			printf("        start:  [%d]\n", (INT)ptPartition->uStartSecN);
-			printf("        type:   ");
+			sysprintf("\n    --- Partition %d --------------------\n", nPartIdx++);
+			sysprintf("        active: [%s]\n", (ptPartition->ucState & 0x80) ? "Yes" : "No");
+			sysprintf("        size:   [%d MB]\n", (INT)(ptPartition->uTotalSecN / 1024) / 2);
+			sysprintf("        start:  [%d]\n", (INT)ptPartition->uStartSecN);
+			sysprintf("        type:   ");
 			if (ptPartition->ptLDisk == NULL)
-				printf("[Unknown]\n");
+				sysprintf("[Unknown]\n");
 			else 
 			{
 				switch (ptPartition->ptLDisk->ucFileSysType)
 				{
 					case FILE_SYSTEM_FAT12:
-						printf("[FAT12]\n");
+						sysprintf("[FAT12]\n");
 						break;
 					case FILE_SYSTEM_FAT16:
-						printf("[FAT16]\n");
+						sysprintf("[FAT16]\n");
 						break;
 					case FILE_SYSTEM_FAT32:
-						printf("[FAT32]\n");
+						sysprintf("[FAT32]\n");
 						break;
 					case FILE_SYSTEM_NTFS:
-						printf("[NTFS]\n");
+						sysprintf("[NTFS]\n");
 						break;
 					default:
-						printf("[???????]\n");
+						sysprintf("[???????]\n");
 						break;
 				}
-				printf("        drive:  [%c]\n", ptPartition->ptLDisk->nDriveNo);
+				sysprintf("        drive:  [%c]\n", ptPartition->ptLDisk->nDriveNo);
 			}
 			ptPartition = ptPartition->ptNextPart;
 		}
@@ -943,7 +952,7 @@ void  CommandShell()
 #endif
 {
 	INT     	nCmdCode;
-	CHAR    	*szCmd, *szArgum1, *szArgum2, *szArgum3, *pcPtr;
+	CHAR    	*szCmd, *szArgum1, *szArgum2, *pcPtr; // *szArgum3
 	CHAR		szPath1[MAX_PATH_LEN], szPath2[MAX_PATH_LEN];
 	CHAR 		suFullName1[MAX_PATH_LEN], suFullName2[MAX_PATH_LEN];
 	INT			hFile, nStatus;
@@ -960,11 +969,11 @@ void  CommandShell()
 		Hub_CheckIrqEvent();
 		#endif
 		
-		printf("\n\nClose =>\n\n");
+		sysprintf("\n\nClose =>\n\n");
 		
 		DeInitUsbSystem();
 		
-		printf("\n\nClose done.\n\n");
+		sysprintf("\n\nClose done.\n\n");
 
 		#ifndef ECOS
 		Hub_CheckIrqEvent();
@@ -980,11 +989,11 @@ void  CommandShell()
 		Hub_CheckIrqEvent();
 		#endif
 
-		printf("\n\nOpen =>\n\n");
+		sysprintf("\n\nOpen =>\n\n");
 		
 		InitUsbSystem();
 		
-		printf("\n\nOpen done.\n\n");
+		sysprintf("\n\nOpen done.\n\n");
 
 		#ifndef ECOS
 		Hub_CheckIrqEvent();
@@ -992,7 +1001,7 @@ void  CommandShell()
 		Hub_CheckIrqEvent();
 		#endif
 		
-		printf("Free - %d\n", USB_available_memory());
+		sysprintf("Free - %d\n", USB_available_memory());
 		delay_ticks(50);
 		
 	}
@@ -1008,13 +1017,13 @@ void  CommandShell()
 		Hub_CheckIrqEvent();
 		//UMAS_ScanAllDevice();
 #endif		
-		//printf("memory: %d\n", USB_available_memory());
+		//sysprintf("memory: %d\n", USB_available_memory());
 		
 		strcpy(szPath1, _pszWorkingDirectory[_nCurrentDrive - 'C']);
 		if (strlen(_pszWorkingDirectory[_nCurrentDrive - 'C']) == 2)
-			printf("%s\\>", szPath1);
+			sysprintf("%s\\>", szPath1);
 		else
-			printf("%s>", szPath1);
+			sysprintf("%s>", szPath1);
 			
 		
 		accept_string(_szCommandLine, 256);
@@ -1022,15 +1031,15 @@ void  CommandShell()
 		if (strlen(_szCommandLine) == 0)
 			continue;
 	
-		printf("\n");
+		sysprintf("\n");
 		
 		/*- get command tokens */
 		szCmd = &_szCommandLine[0];
 		szArgum1 = get_token(szCmd, " \t\r\n", 8);
 		szArgum2 = get_token(szArgum1, " \t\r\n", 128);
-		szArgum3 = get_token(szArgum2, " \t\r\n", 128);
+		//szArgum3 = get_token(szArgum2, " \t\r\n", 128);
 			
-		//printf("Command:<%s> <%s> <%s>\n", szCmd, szArgum1, szArgum2);
+		//sysprintf("Command:<%s> <%s> <%s>\n", szCmd, szArgum1, szArgum2);
 		
 		fsAsciiToUpperCase(szCmd);
 		
@@ -1041,7 +1050,7 @@ void  CommandShell()
 		
 		if (nCmdCode < 0)
 		{
-			printf("Command not found!\n");
+			sysprintf("Command not found!\n");
 			continue;
 		}
 		
@@ -1056,7 +1065,7 @@ void  CommandShell()
 		{
 			case QQ:
 			case HELP:
-				printf("%s", _pszCommandShellHelp);
+				sysprintf("%s", _pszCommandShellHelp);
 				break;
 				
 			case DIR:
@@ -1160,15 +1169,15 @@ void  CommandShell()
 			case RDTST:
 				//_fs_uReadSecCnt = _fs_uWriteSecCnt = 0;
 				nStatus = Action_ReadSpeedTest(suFullName1, szArgum1);
-				//sysPrintf("\n\n\nTotal: Read: %d, Write: %d\n", _fs_uReadSecCnt, _fs_uWriteSecCnt);
+				//sysprintf("\n\n\nTotal: Read: %d, Write: %d\n", _fs_uReadSecCnt, _fs_uWriteSecCnt);
 				break;
 
 			case WRTST:
 				//_fs_uReadSecCnt = _fs_uWriteSecCnt = 0;
 				//nStatus = Action_WriteSpeedTest(suFullName1, szArgum1);
 				nStatus = Action_WriteSpeedTest(suFullName1, NULL);
-				printf("wrtst [%x]\n", nStatus);
-				//sysPrintf("\n\n\nTotal: Read: %d, Write: %d\n", _fs_uReadSecCnt, _fs_uWriteSecCnt);
+				sysprintf("wrtst [%x]\n", nStatus);
+				//sysprintf("\n\n\nTotal: Read: %d, Write: %d\n", _fs_uReadSecCnt, _fs_uWriteSecCnt);
 				break;
 				
 			case APTST:
@@ -1197,7 +1206,7 @@ void  CommandShell()
 					}
 					nTime0 = get_timer_ticks() - nTime0;
 					if (nTime0 == 0) nTime0 = 1;
-					printf("Raw Read speed: %d KB/sec\n", (INT)(nCount * 100) / nTime0);
+					sysprintf("Raw Read speed: %d KB/sec\n", (INT)(nCount * 100) / nTime0);
 				}	
 				break;
 
@@ -1223,7 +1232,7 @@ void  CommandShell()
 					}
 					nTime0 = get_timer_ticks() - nTime0;
 					if (nTime0 == 0) nTime0 = 1;
-					printf("Raw write speed: %d KB/sec\n", (INT)(nCount * 100) / nTime0);
+					sysprintf("Raw write speed: %d KB/sec\n", (INT)(nCount * 100) / nTime0);
 				}	
 				break;
 				
@@ -1237,8 +1246,12 @@ void  CommandShell()
 
 			case FORMAT:
 				{
+				#if defined(ENABLE_GNAND)||defined(ENABLE_SD_ONE_PART)||defined(ENABLE_SD_TWO_PART)||defined(ENABLE_SD_FOUR_PART)
 					UINT32 u32BlockSize, u32FreeSize, u32DiskSize;
+				#endif
+				#if defined(ENABLE_SD_TWO_PART)||defined(ENABLE_SD_FOUR_PART) 	
 					UINT32 u32RemainingSize;
+				#endif	
 					char chr;
 					#if defined(ENABLE_SD_ONE_PART)||defined(ENABLE_SD_TWO_PART)||defined(ENABLE_SD_FOUR_PART) 	
 					PDISK_T		*pDiskList;
@@ -1247,7 +1260,7 @@ void  CommandShell()
 					#endif
 					
 					
-					printf("The operation should cause whole disk data lost, Do you want to continue? [Y/N]\n");
+					sysprintf("The operation should cause whole disk data lost, Do you want to continue? [Y/N]\n");
 					chr = getchar();
 					if( (chr == 'Y') || (chr == 'y') )
 					{
@@ -1256,40 +1269,40 @@ void  CommandShell()
 						fsFormatFlashMemoryCard(pDiskList);
 						fsReleaseDiskInformation(pDiskList);
 						fsDiskFreeSpace('C', &u32BlockSize, &u32FreeSize, &u32DiskSize);   
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);  
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);  
 					#endif
 					#ifdef ENABLE_SD_TWO_PART										
 						pDiskList = fsGetFullDiskInfomation();
-						printf("Total Disk Size = %dMB\n", pDiskList->uDiskSize/1024);
+						sysprintf("Total Disk Size = %dMB\n", pDiskList->uDiskSize/1024);
 						u32RemainingSize =  pDiskList->uDiskSize - (RESERVED_SIZE/1024); //rest disk size = total disk size - reserved size 
-						printf("RemainingSize = %dMB\n", u32RemainingSize/1024);
+						sysprintf("RemainingSize = %dMB\n", u32RemainingSize/1024);
 						if (fsTwoPartAndFormatAll((PDISK_T *)pDiskList->ptSelf, 
 												128*1024, 
 												//((PDISK_T *)(ptNDisk.pDisk))->uDiskSize - 16*1024) < 0)    
 												(u32RemainingSize-128*1024))<0)
 						{   
-							printf("Format failed\n");      
+							sysprintf("Format failed\n");      
 							exit(-1);
 						}																		
 						fsSetVolumeLabel('C', "SD1-1\n", strlen("SD1-1"));
 						fsSetVolumeLabel('D', "SD1-2\n", strlen("SD1-2")); 						
 						pDiskList = fsGetFullDiskInfomation();  	
 						fsDiskFreeSpace('C', &u32BlockSize, &u32FreeSize, &u32DiskSize);   
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);  
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);  
 						fsDiskFreeSpace('D', &u32BlockSize, &u32FreeSize, &u32DiskSize);    
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);   	
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);   	
 					#endif		
 					#ifdef ENABLE_SD_FOUR_PART										
 						pDiskList = fsGetFullDiskInfomation();
-						printf("Total Disk Size = %dMB\n", pDiskList->uDiskSize/1024);
+						sysprintf("Total Disk Size = %dMB\n", pDiskList->uDiskSize/1024);
 						u32RemainingSize =  pDiskList->uDiskSize - (RESERVED_SIZE/1024); //rest disk size = total disk size - reserved size 
-						printf("RemainingSize = %dMB\n", u32RemainingSize/1024);						
+						sysprintf("RemainingSize = %dMB\n", u32RemainingSize/1024);						
 						if (fsFourPartAndFormatAll((PDISK_T *)pDiskList->ptSelf, 128*1024, 128*1024,
 						    								128*1024,	u32RemainingSize - 3*128*1024) < 0) 
 						{
@@ -1303,50 +1316,58 @@ void  CommandShell()
 						fsSetVolumeLabel('F', "SD1-4\n", strlen("SD1-4")); 						
 						pDiskList = fsGetFullDiskInfomation();  	
 						fsDiskFreeSpace('C', &u32BlockSize, &u32FreeSize, &u32DiskSize);   
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);  
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);  
 						fsDiskFreeSpace('D', &u32BlockSize, &u32FreeSize, &u32DiskSize);    
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);   	
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);   	
 						fsDiskFreeSpace('E', &u32BlockSize, &u32FreeSize, &u32DiskSize);    
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);   	
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);   	
 						fsDiskFreeSpace('F', &u32BlockSize, &u32FreeSize, &u32DiskSize);    
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);   	
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);   	
 					#endif						
 					#ifdef ENABLE_GNAND
-						printf("Disk Size = %d\n", ((PDISK_T *)(ptNDisk.pDisk))->uDiskSize);
+						sysprintf("Disk Size = %d\n", ((PDISK_T *)(ptNDisk.pDisk))->uDiskSize);
 						if (fsTwoPartAndFormatAll((PDISK_T *)ptNDisk.pDisk, 
 												32*1024, 
 												//((PDISK_T *)(ptNDisk.pDisk))->uDiskSize - 16*1024) < 0)    
 												g_u32TotalSize-32*1024)<0)
 						{   
-							printf("Format failed\n");      
+							sysprintf("Format failed\n");      
 							exit(-1);
 						}
 						fsSetVolumeLabel('C', "NAND1-1\n", strlen("NAND1-1"));
 						fsSetVolumeLabel('D', "NAND1-2\n", strlen("NAND1-2"));   	
 						fsDiskFreeSpace('C', &u32BlockSize, &u32FreeSize, &u32DiskSize);   
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);  
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);  
 						fsDiskFreeSpace('D', &u32BlockSize, &u32FreeSize, &u32DiskSize);    
-						printf("block_size = %d\n", u32BlockSize);   
-						printf("free_size = %d\n", u32FreeSize);   
-						printf("disk_size = %d\n", u32DiskSize);   	
+						sysprintf("block_size = %d\n", u32BlockSize);   
+						sysprintf("free_size = %d\n", u32FreeSize);   
+						sysprintf("disk_size = %d\n", u32DiskSize);   	
 					#endif 	
+						
+          #ifdef ENABLE_RAM	
+            RemoveRAMDisk();
+            memset(&i8RamDisk, 0, RAM_DISK_SIZE);
+            InitRAMDisk((UINT32)&i8RamDisk, RAM_DISK_SIZE)	;
+            FormatRamDisk();
+            fsSetVolumeLabel('D', "RAM", strlen("RAM")); 
+            //fsAssignDriveNumber('D', DISK_TYPE_HARD_DISK, 1, 1);
+					#endif
 					}	
-										
 				}
 				break;
 
 			default:
-			   printf("Unknown command!\n");
+			   sysprintf("Unknown command!\n");
 			   break;
 	   	} /* end of switch */
 	   
@@ -1359,7 +1380,7 @@ void  CommandShell()
 		}
 
 	   	if (nStatus != ERR_FILE_EOF)
-	  		fsGetErrorDescription(nStatus, NULL, 1);
+	  		fsGetErrorDescription(nStatus, "", 1);
 	} 
 }
 
@@ -1386,10 +1407,10 @@ void	FormatDisk(void)
 #if 0
 	fsDiskFreeSpace('C', &u32BlockSize, &u32FreeSize, &u32DiskSize);
 	
-	printf("Disk size %d KBytes\n", u32DiskSize);
-	printf("Free size %d KBytes\n", u32FreeSize);
-	printf("Block size %d KBytes\n", u32BlockSize);
-	printf("Do you want to format NAND flash? [Y/N]\n");
+	sysprintf("Disk size %d KBytes\n", u32DiskSize);
+	sysprintf("Free size %d KBytes\n", u32FreeSize);
+	sysprintf("Block size %d KBytes\n", u32BlockSize);
+	sysprintf("Do you want to format NAND flash? [Y/N]\n");
 	chr = getchar();
 	if( (chr == 'Y') || (chr == 'y') )
 	{
@@ -1418,38 +1439,38 @@ void	FormatDisk(void)
 #endif	
 }
 
-
 void GetDiskInformation(void)
 {
 	PDISK_T       *pDiskList, *ptPDiskPtr;
 	PARTITION_T   *ptPartition;
 	INT           nDiskIdx = 0;
 	INT           nPartIdx;
+
 	ptPDiskPtr = pDiskList = fsGetFullDiskInfomation();
 	while (ptPDiskPtr != NULL)
 	{
-		printf("\n\n=== Disk %d (%s) ======================\n", 
+		sysprintf("\n\n=== Disk %d (%s) ======================\n", 
 		nDiskIdx++, (ptPDiskPtr->nDiskType & 
 		DISK_TYPE_USB_DEVICE) ? "USB" : "IDE");
-		printf("    name:     [%s%s]\n", ptPDiskPtr->szManufacture, 
+		sysprintf("    name:     [%s%s]\n", ptPDiskPtr->szManufacture, 
 		ptPDiskPtr->szProduct);
-		printf("    head:     [%d]\n", ptPDiskPtr->nHeadNum);
-		printf("    sector:   [%d]\n", ptPDiskPtr->nSectorNum);
-		printf("    cylinder: [%d]\n", ptPDiskPtr->nCylinderNum);
-		printf("    size:     [%d MB]\n", ptPDiskPtr->uDiskSize / 1024);
+		sysprintf("    head:     [%d]\n", ptPDiskPtr->nHeadNum);
+		sysprintf("    sector:   [%d]\n", ptPDiskPtr->nSectorNum);
+		sysprintf("    cylinder: [%d]\n", ptPDiskPtr->nCylinderNum);
+		sysprintf("    size:     [%d MB]\n", ptPDiskPtr->uDiskSize / 1024);
 				
 		ptPartition = ptPDiskPtr->ptPartList;
 		nPartIdx = 1;
 		while (ptPartition != NULL)
 		{
-			printf("\n    --- Partition %d --------------------\n", 
+			sysprintf("\n    --- Partition %d --------------------\n", 
 			nPartIdx++);
-			printf("        active: [%s]\n", 
+			sysprintf("        active: [%s]\n", 
 			(ptPartition->ucState & 0x80) ? "Yes" : "No");
-			printf("        size:   [%d MB]\n", 
+			sysprintf("        size:   [%d MB]\n", 
 			(ptPartition->uTotalSecN / 1024) / 2);
-			printf("        start:  [%d]\n", ptPartition->uStartSecN);
-			printf("        type:   ");
+			sysprintf("        start:  [%d]\n", ptPartition->uStartSecN);
+			sysprintf("        type:   ");
 			ptPartition = ptPartition->ptNextPart;
 		}
 		ptPDiskPtr = ptPDiskPtr->ptPDiskAllLink;
@@ -1480,28 +1501,28 @@ void FormatRamDisk(void)
 	ptPDiskPtr = pDiskList = fsGetFullDiskInfomation();
 	while (ptPDiskPtr != NULL)
 	{
-		printf("\n\n=== Disk %d (%s) ======================\n", 
+		sysprintf("\n\n=== Disk %d (%s) ======================\n", 
 		nDiskIdx++, (ptPDiskPtr->nDiskType & 
 		DISK_TYPE_USB_DEVICE) ? "USB" : "IDE");
-		printf("    name:     [%s%s]\n", ptPDiskPtr->szManufacture, 
+		sysprintf("    name:     [%s%s]\n", ptPDiskPtr->szManufacture, 
 		ptPDiskPtr->szProduct);
-		printf("    head:     [%d]\n", ptPDiskPtr->nHeadNum);
-		printf("    sector:   [%d]\n", ptPDiskPtr->nSectorNum);
-		printf("    cylinder: [%d]\n", ptPDiskPtr->nCylinderNum);
-		printf("    size:     [%d MB]\n", ptPDiskPtr->uDiskSize / 1024);
+		sysprintf("    head:     [%d]\n", ptPDiskPtr->nHeadNum);
+		sysprintf("    sector:   [%d]\n", ptPDiskPtr->nSectorNum);
+		sysprintf("    cylinder: [%d]\n", ptPDiskPtr->nCylinderNum);
+		sysprintf("    size:     [%d MB]\n", ptPDiskPtr->uDiskSize / 1024);
 				
 		ptPartition = ptPDiskPtr->ptPartList;
 		nPartIdx = 1;
 		while (ptPartition != NULL)
 		{
-			printf("\n    --- Partition %d --------------------\n", 
+			sysprintf("\n    --- Partition %d --------------------\n", 
 			nPartIdx++);
-			printf("        active: [%s]\n", 
+			sysprintf("        active: [%s]\n", 
 			(ptPartition->ucState & 0x80) ? "Yes" : "No");
-			printf("        size:   [%d MB]\n", 
+			sysprintf("        size:   [%d MB]\n", 
 			(ptPartition->uTotalSecN / 1024) / 2);
-			printf("        start:  [%d]\n", ptPartition->uStartSecN);
-			printf("        type:   ");
+			sysprintf("        start:  [%d]\n", ptPartition->uStartSecN);
+			sysprintf("        type:   ");
 			ptPartition = ptPartition->ptNextPart;
 		}
 		ptPDiskPtr = ptPDiskPtr->ptPDiskAllLink;
@@ -1510,11 +1531,9 @@ void FormatRamDisk(void)
 	fsReleaseDiskInformation(pDiskList);  
 }
 
-
-INT  InitRAMDisk(UINT32 uStartAddr, UINT32 uDiskSize);
 int main()
 {
-    	WB_UART_T 	uart;
+    WB_UART_T 	uart;
 	UINT32 u32ExtFreq;
 	UINT32 u32PllOutKHz;
 
@@ -1526,20 +1545,27 @@ int main()
 #endif
 	
 	/* CACHE_ON	*/
-	//sysEnableCache(CACHE_WRITE_BACK);
-	
+	sysEnableCache(CACHE_WRITE_BACK);
 	u32ExtFreq = sysGetExternalClock();
 	sysUartPort(1);
 	uart.uiFreq = u32ExtFreq*1000;	//use APB clock
-    	uart.uiBaudrate = 115200;
-    	uart.uiDataBits = WB_DATA_BITS_8;
-    	uart.uiStopBits = WB_STOP_BITS_1;
-    	uart.uiParity = WB_PARITY_NONE;
-    	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-    	sysInitializeUART(&uart);
-    	
+    uart.uiBaudrate = 115200;
+    uart.uiDataBits = WB_DATA_BITS_8;
+    uart.uiStopBits = WB_STOP_BITS_1;
+    uart.uiParity = WB_PARITY_NONE;
+    uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+    sysInitializeUART(&uart);
+
+    sysDisableInterrupt(IRQ_UDC);	
+   
+    sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,
+    						192000,		  //UINT32 u32PllKHz,
+							192000,		  //UINT32 u32SysKHz,
+							192000,		  //UINT32 u32CpuKHz,
+							192000/2,	  //UINT32 u32HclkKHz,
+							192000/4);    //UINT32 u32ApbKHz
     	u32PllOutKHz = sysGetPLLOutputKhz(eSYS_UPLL, u32ExtFreq);
-	printf("PLL out frequency %d Khz\n", u32PllOutKHz);	
+	sysprintf("PLL out frequency %d Khz\n", u32PllOutKHz);	
 
 
 	sysSetTimerReferenceClock (TIMER0, u32ExtFreq*1000);
@@ -1547,10 +1573,7 @@ int main()
 
 	sysprintf("fsInitFileSystem.\n");
 	fsInitFileSystem();
-	
 
-
-	
 #ifdef ENABLE_USB_HOST
 	/* Depend on the board's layout */
 	//USB_PortInit(HOST_NORMAL_PORT0_ONLY);
@@ -1569,9 +1592,10 @@ int main()
 	sicOpen();	
 	if (sicSdOpen0()<=0)
 	{
-		printf("Error in initializing SD card !! \n");						
+		sysprintf("Error in initializing SD card !! \n");						
 		while(1);
 	}	
+	sysprintf("sicOpen done !! \n");
 #endif			
 #ifdef ENABLE_SD_ONE_PART	
 	fsAssignDriveNumber('C', DISK_TYPE_SD_MMC, 0, 1);
@@ -1588,11 +1612,39 @@ int main()
 #endif
 
 #ifdef ENABLE_RAM	
-	InitRAMDisk((UINT32)&i8RamDisk, (RAM_DISK_SIZE/1024))	;
+	memset(&i8RamDisk, 0, RAM_DISK_SIZE);
+	InitRAMDisk((UINT32)&i8RamDisk, RAM_DISK_SIZE)	;
 	FormatRamDisk();
 	fsSetVolumeLabel('D', "RAM", strlen("RAM")); 
 	//fsAssignDriveNumber('D', DISK_TYPE_HARD_DISK, 1, 1);
 #endif 
+
+#if defined(ENABLE_SPI)
+	{
+		char 		chr;
+		PDISK_T		*ptDiskList, *ptPDiskPtr;
+		UINT32 		u32BlockSize, u32FreeSize, u32DiskSize, u32TmpSector;
+		
+		spiFlashInit();
+		u32TmpSector = SpiFlashInitDevice();
+		chr = getchar();
+		if( (chr == 'Y') || (chr == 'y') )
+		{
+			ptDiskList = ptPDiskPtr = fsGetFullDiskInfomation();
+			do
+			{
+				if(ptPDiskPtr->uTotalSectorN != u32TmpSector)
+					ptPDiskPtr = ptPDiskPtr->ptPDiskAllLink;
+				else
+				{
+					fsFormatFlashMemoryCard(ptPDiskPtr);
+					break;
+				}
+			}while (ptDiskList != NULL);
+			fsReleaseDiskInformation(ptDiskList);
+		}
+	}
+#endif
 
 #ifdef ENABLE_GNAND
 	{	
@@ -1617,16 +1669,16 @@ int main()
 
 	
 		
-	printf("Do you want to format NAND flash? [Y/N]\n");
+	sysprintf("Do you want to format NAND flash? [Y/N]\n");
 	chr = getchar();
 	if( (chr == 'Y') || (chr == 'y') )
 	{	
-		printf("Total NAND size = %d KB\n", u32TotalSize/1024);
+		sysprintf("Total NAND size = %d KB\n", u32TotalSize/1024);
 		if( fsTwoPartAndFormatAll((PDISK_T *)ptNDisk.pDisk,
 							32*1024,
 							(u32TotalSize/1024-32*1024))<0 )						
 		{
-			printf("Format failed\n");	
+			sysprintf("Format failed\n");	
 			exit(-1);
 		}	
 		
@@ -1634,9 +1686,9 @@ int main()
 	fsSetVolumeLabel('C', "NAND1-1\n", strlen("NAND1-1"));
 	fsSetVolumeLabel('D', "NAND1-2\n", strlen("NAND1-2"));   	
 	fsDiskFreeSpace('C', &u32BlockSize, &u32FreeSize, &u32DiskSize);   
-	printf("block_size = %d\n", u32BlockSize);   
-	printf("free_size = %d\n", u32FreeSize);   
-	printf("disk_size = %d\n", u32DiskSize);   
+	sysprintf("block_size = %d\n", u32BlockSize);   
+	sysprintf("free_size = %d\n", u32FreeSize);   
+	sysprintf("disk_size = %d\n", u32DiskSize);   
 	g_u32TotalSize = u32DiskSize;
 	sysprintf("Total NAND size = %d KB\n", g_u32TotalSize);   
 	fsDiskFreeSpace('D', &u32BlockSize, &u32FreeSize, &u32DiskSize);    
@@ -1655,7 +1707,11 @@ int main()
  	cyg_thread_create(20, CommandShell, 0, "cs",
         				_Statck, STACKSIZE, &thread_handle, &thread);
 	cyg_thread_resume(thread_handle);
-#else	
+#else
+
+
+
+
 	CommandShell();
 #endif
 

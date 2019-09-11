@@ -230,8 +230,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Lib\AviLib_320x240.lib</PathWithFileName>
-      <FilenameWithoutPath>AviLib_320x240.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\Lib\AVILib_320x240.lib</PathWithFileName>
+      <FilenameWithoutPath>AVILib_320x240.lib</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -244,8 +244,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Lib\ima_adpcm_codec.lib</PathWithFileName>
-      <FilenameWithoutPath>ima_adpcm_codec.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\Lib\IMA_ADPCM_Codec.lib</PathWithFileName>
+      <FilenameWithoutPath>IMA_ADPCM_Codec.lib</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -258,8 +258,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Lib\mp3lib.lib</PathWithFileName>
-      <FilenameWithoutPath>mp3lib.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\Lib\MP3Lib.lib</PathWithFileName>
+      <FilenameWithoutPath>MP3Lib.lib</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -286,8 +286,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\SYSLIB\Lib\W55FA93_syslib.lib</PathWithFileName>
-      <FilenameWithoutPath>W55FA93_syslib.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\SYSLIB\Lib\W55FA93_SYSLib.lib</PathWithFileName>
+      <FilenameWithoutPath>W55FA93_SYSLib.lib</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -300,8 +300,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\SPU\lib\w55fa93_spu.lib</PathWithFileName>
-      <FilenameWithoutPath>w55fa93_spu.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\SPU\Lib\W55FA93_SPU.lib</PathWithFileName>
+      <FilenameWithoutPath>W55FA93_SPU.lib</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -328,8 +328,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\NVTFAT\lib\W55FA93_nvtfat.lib</PathWithFileName>
-      <FilenameWithoutPath>W55FA93_nvtfat.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\NVTFAT\Lib\W55FA93_NVTFAT.lib</PathWithFileName>
+      <FilenameWithoutPath>W55FA93_NVTFAT.lib</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -342,8 +342,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</PathWithFileName>
-      <FilenameWithoutPath>w55fa93_jpeglib.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\JPEG\Lib\W55FA93_JPEGLib.lib</PathWithFileName>
+      <FilenameWithoutPath>W55FA93_JPEGLib.lib</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -356,8 +356,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\gnand\Lib\w55fa93_GNAND.lib</PathWithFileName>
-      <FilenameWithoutPath>w55fa93_GNAND.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\GNAND\Lib\W55FA93_GNAND.lib</PathWithFileName>
+      <FilenameWithoutPath>W55FA93_GNAND.lib</FilenameWithoutPath>
     </File>
   </Group>
 

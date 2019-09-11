@@ -4,7 +4,6 @@
 #include "RTC.h"
 
 char u8Tmp[0x1000];
-extern void Sample_PowerDown(void);
 extern VOID RTC_AlarmISR(VOID);
 extern BOOL volatile g_bAlarm;
 BOOL volatile g_bPowerKeyPress = FALSE;
@@ -13,10 +12,16 @@ BOOL volatile g_bPowerKeyPress = FALSE;
 #define SW_POWER_OFF	1
 #define SYSTEM_CLOCK	12000000
 
-
-
-
+#ifdef __ICCARM__
+#pragma data_alignment=4
+UINT8 u32Array[1024*1024];
+#else
+#ifdef __GNUC__
+UINT8 u32Array[1024*1024] __attribute__((aligned(4)));
+#else
 __align(32) UINT8 u32Array[1024*1024];
+#endif
+#endif
 /*--------------------------------------------------------------------------------------------------------*
  *                                                                                                        					     *
  * 																		     *

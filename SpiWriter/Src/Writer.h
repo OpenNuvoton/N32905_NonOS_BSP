@@ -4,11 +4,11 @@
 
 //#define __DEBUG__
 
-#ifdef __DEBUG__
-	#define PRINTF sysprintf
-#else
-	#define PRINTF(...)
-#endif
+//#ifdef __DEBUG__
+//	#define PRINTF sysprintf
+//#else
+//	#define PRINTF(...)
+//#endif
 
 extern UINT	g_Font_Height, g_Font_Width, g_Font_Step;
 
@@ -105,7 +105,9 @@ typedef struct INI_Info {
 extern UINT32 infoBuf;
 extern UINT8 *pInfo;
 extern UINT32 volatile g_SPI_SIZE;
+#ifndef __NoLCM__  
 void Draw_Font(UINT16 u16RGB,S_DEMO_FONT* ptFont,UINT32	u32x,UINT32 u32y,PCSTR	pszString);
+#endif
 void Draw_Status(UINT32	u32x,UINT32	u32y,int Status);
 void Draw_Clear(int xStart, int yStart, int xEnd, int yEnd, UINT16 color);
 void Draw_CurrentOperation(PCSTR pszString, int Retcode);

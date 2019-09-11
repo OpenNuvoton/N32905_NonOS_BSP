@@ -31,8 +31,7 @@
 #include "wblib.h"
 #include "SONG.h"
 #include "DrvSPU.h"
-#include "spu.h"
-//#include "w55fa93_gpio.h"
+#include "SPU.h"
 
 #define LENGTH		194540	// The length of song in unit of 16-bit
 

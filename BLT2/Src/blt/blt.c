@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #include "wblib.h"
-#include "blt.h"
+#include "BLT.h"
 
 static PFN_BLT_CALLBACK _bltCompCb          =   NULL;
 

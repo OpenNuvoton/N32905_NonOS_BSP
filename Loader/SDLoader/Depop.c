@@ -1,9 +1,7 @@
 #include <string.h>
 #include "wblib.h"
 #include "turbowriter.h"
-#include "w55fa93_VPOST.h"
-#include "w55fa93_reg.h"
-#include "..\..\gpio\lib\w55fa93_gpio.h"
+
 
 //#if defined(__IFLYTEK__) || defined(__NUVOTON_V4__) 
 //====================================================================
@@ -22,7 +20,7 @@
 UINT8 DacOnOffLevel;
 void _sysDelay(UINT32 k) 
 {
-	volatile j=k*10000;
+	volatile UINT32 j=k*10000;
 	while(j--);
 }
 #if 1
@@ -82,7 +80,6 @@ void spuDacOn(UINT8 level)
 	outp32(REG_SPU_CTRL, inp32(REG_SPU_CTRL) | SPURST);
 	outp32(REG_SPU_CTRL, inp32(REG_SPU_CTRL) & ~SPURST);	
 	
-	//outpw(REG_APUCON, inpw(REG_APUCON) | APURUN);
 
 	DacOnOffLevel = level;
 	

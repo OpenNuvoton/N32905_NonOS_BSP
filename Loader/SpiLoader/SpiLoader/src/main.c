@@ -7,12 +7,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_gpio.h"
-#include "w55fa93_kpi.h"
-#include "AviLib.h"
-#include "w55fa93_gpio.h"
-#include "w55fa93_reg.h"
-#include "w55fa93_vpost.h"
+#include "W55FA93_GPIO.h"
+#include "W55FA93_KPI.h"
+#include "AVILib.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_VPOST.h"
 #include "SPU.h"
 #include "SpiLoader.h"
 #include "nvtloader.h"

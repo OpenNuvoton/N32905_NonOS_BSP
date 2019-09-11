@@ -43,15 +43,27 @@ extern UINT8 u8PlanarFrameBuffer[];
 
 static struct OV_RegValue g_sTW9900_Init[]=
 {
-	#include "TW9900\TW9900_Init.dat"
+#ifdef __GNUC__
+    #include "TW9900/TW9900_Init.dat"
+#else
+    #include "TW9900\TW9900_Init.dat"
+#endif
 };
 static struct OV_RegValue g_sTW9900_NTSC[]=
 {
-	#include "TW9900\TW9900_NTSC.dat"
+#ifdef __GNUC__
+    #include "TW9900/TW9900_NTSC.dat"
+#else
+    #include "TW9900\TW9900_NTSC.dat"
+#endif
 };
 static struct OV_RegValue g_sTW9900_PAL[]=
 {
-	#include "TW9900\TW9900_PAL.dat"
+#ifdef __GNUC__
+    #include "TW9900/TW9900_PAL.dat"
+#else
+    #include "TW9900\TW9900_PAL.dat"
+#endif
 };
 static struct OV_RegTable g_OV_InitTable[] =
 {//8 bit slave address, 8 bit data. 
@@ -263,13 +275,13 @@ UINT32 Smpl_TW9900_VGA(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* pu
 	#endif 
 
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 64000, eVIDEOIN_SNR_CCIR601);
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 64000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);
 #endif
 #ifdef __2ND_PORT__
-	videoIn_Init(TRUE, 0, 64000, eVIDEOIN_2ND_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 64000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	videoIn_Init(TRUE, 0, 64000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 64000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
 #endif
 
 	TW9900_Init(0);		
@@ -400,13 +412,13 @@ UINT32 Smpl_TW9900_VGA_TWO_Field(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1,
 	#endif 
 
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 64000, eVIDEOIN_SNR_CCIR601);
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 64000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);
 #endif
 #ifdef __2ND_PORT__
-	videoIn_Init(TRUE, 0, 64000, eVIDEOIN_2ND_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 64000,  (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	videoIn_Init(TRUE, 0, 64000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 64000,  (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
 #endif
 
 	TW9900_Init(0);		
@@ -653,7 +665,7 @@ static INT32 IQ_GetHue(void)
 	UINT8 u8DeviceID = g_uOvDeviceID[0];
 	
 	u8Hue = I2C_Read_8bitSlaveAddr_8bitReg_8bitData(u8DeviceID, 0x15);		
-		
+	sysprintf("Hue = 0x%x\n", u8Hue);	
 	return Successful;
 }
 static INT32 IQ_SetHue(INT16 i16Hue)

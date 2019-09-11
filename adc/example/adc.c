@@ -29,9 +29,9 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_adc.h"
+#include "W55FA93_ADC.h"
 #include "W55FA93_SIC.h"
-#include "nvtfat.h"
+#include "NVTFAT.h"
 #include "DrvEDMA.h"
 
 extern INT16 g_pi16SampleBuf[];
@@ -64,14 +64,14 @@ int main(void)
 {
 	UINT32 u32ExtFreq, u32Item, u32PllFreq, u32SampleRate;
 	INT32 i32TimerChanel1, i32TimerChanel2;
-	UINT16 x, y;
+	UINT16 x, y, u16Vol;
 	WB_UART_T uart;
 
 	
 	u32ExtFreq = sysGetExternalClock();
 	
 	uart.uiFreq = u32ExtFreq*1000;	//use APB clock
-    	uart.uiBaudrate = 115200;
+    uart.uiBaudrate = 115200;
 	uart.uiDataBits = WB_DATA_BITS_8;
 	uart.uiStopBits = WB_STOP_BITS_1;
 	uart.uiParity = WB_PARITY_NONE;
@@ -102,11 +102,16 @@ int main(void)
 	sysSetLocalInterrupt(ENABLE_IRQ);	
 	do
 	{
-		sysprintf("==================================================================\n");
-		sysprintf("[1] Power Down Wake Up by TSC  (Test 20 sec if nonblocking) \n");
-		sysprintf("[2] Position and Low battery \n");	
-		sysprintf("[3] Audio Recording to SD card \n");	
-		sysprintf("==================================================================\n");
+		sysprintf("========================================================================\n");
+		sysprintf("<>Remember that Audio recording and Touch Position/Battery detction     \n");
+		sysprintf(" are mutually exclusive                                                 \n");
+		sysprintf("<>Touch panel is time sharing with battery detection                    \n");
+		sysprintf("========================================================================\n");
+		sysprintf("[1] Power Down Wake Up by TSC  (Test 20 sec if nonblocking)             \n");
+		sysprintf("[2] Position and Low battery                                            \n");	
+		sysprintf("[3] Audio Recording to SD card                                          \n");	
+		sysprintf("[4] Battery Detecion                                                    \n");	
+		sysprintf("========================================================================\n");
 
 		u32Item = sysGetChar();
 		
@@ -119,13 +124,14 @@ int main(void)
 			case '2':
 				adc_init();
 				adc_open(ADC_TS_4WIRE, 320, 240);	
-				i32TimerChanel1 = sysSetTimerEvent(TIMER0, 1, (PVOID)Timer0_1_Callback);	/* For  battery detection */
+			/*
+				i32TimerChanel1 = sysSetTimerEvent(TIMER0, 1, (PVOID)Timer0_1_Callback);	
 				if(i32TimerChanel1==0)
 				{
 					sysprintf("Out of timer channel\n");
 					exit(-1);
 				}
-				
+			*/	
 				u32Flag_10s = 0;		
 				i32TimerChanel2 = sysSetTimerEvent(TIMER0, 1000, (PVOID)Timer0_2_Callback);	/* For  escape touch panel test 10 sec*/				
 				if(i32TimerChanel2==0)
@@ -149,7 +155,8 @@ int main(void)
 						break;					
 				}
 				sysClearTimerEvent(TIMER0, i32TimerChanel1); 
-				sysClearTimerEvent(TIMER0, i32TimerChanel2); 	
+				sysClearTimerEvent(TIMER0, i32TimerChanel2); 
+                adc_close();				
 			break;
 			case '3':
 				sysprintf("!!!!Remember that touch panel and voltage detection will be invalid if enable audio recording\n");
@@ -190,7 +197,19 @@ int main(void)
 				}				
 											
 				break;
-			case	'Q':
+			case '4':
+				adc_init();
+				adc_open(ADC_TS_4WIRE, 320, 240);	
+				for(x=0; x<10; x=x+1)
+				{
+					if(adc_normalread(2, &u16Vol)==Successful)
+					{/* For  battery detection */
+						sysprintf("Battery voltage = %x\n", u16Vol);
+					}	
+				}	
+				adc_close();	
+				break;
+			case 'Q':
 			case 'q': 
 				u32Item = 'Q';
 				sysprintf("quit adc test...\n");

@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\JpegLib_Data\Release\</OutputDirectory>
-          <OutputName>w55fa93_jpeglib</OutputName>
+          <OutputName>W55FA93_jpeglib</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

@@ -60,7 +60,7 @@ static UINT32 volatile g_u32hiHour,g_u32loHour,g_u32hiMin,g_u32loMin,g_u32hiSec,
 /*               Install ISR to handle interrupt event                                                     */
 /*---------------------------------------------------------------------------------------------------------*/
 
-static VOID RTC_ISR (VOID)
+void RTC_ISR (void)
 { 
     UINT32 volatile u32RegRIIR;
 
@@ -98,7 +98,7 @@ static VOID RTC_ISR (VOID)
           {
               g_pfnRTCCallBack_PSWI();
           }
-   }   
+   }
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -1139,12 +1139,7 @@ UINT32 RTC_Close (VOID)
     return E_RTC_SUCCESS;
 }
 
-extern UINT32 RTC_Init(VOID);
-extern UINT32 RTC_Open(RTC_TIME_DATA_T *sPt);
-extern UINT32 RTC_Ioctl(INT32 nNum, E_RTC_CMD uCmd, UINT32 uArg0, UINT32 u32Arg1);
-extern UINT32 RTC_Read(E_RTC_TIME_SELECT eTime, RTC_TIME_DATA_T *sPt);
-extern UINT32 RTC_Write(E_RTC_TIME_SELECT eTime, RTC_TIME_DATA_T *sPt);
-extern UINT32 RTC_Close(VOID);
+
 
 
 

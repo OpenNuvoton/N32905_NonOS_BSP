@@ -1,4 +1,4 @@
-/* linux/include/asm-arm/arch-w55fa93/w55fa93_reg.h
+/* linux/include/asm-arm/arch-w55fa93/W55FA93_reg.h
  *
  * Copyright (c) 2008 Nuvoton technology corporation
  * All rights reserved.
@@ -21,10 +21,10 @@
 /*
    Register map
 */
-#define 		SYS_BA    		0xB0000000	/* System Manager Control */
+#define 	SYS_BA    		0xB0000000	/* System Manager Control */
 #define   	GCR_BA			SYS_BA
 #define    	CLK_BA			0xB0000200	/* Clock Controller */
-#define 		SDRAM_BA	      0xB0003000	/* SDRAM Inteface Control Registers */
+#define 	SDRAM_BA	      0xB0003000	/* SDRAM Inteface Control Registers */
 #define    	EDMA_BA			0xB0008000	/* EDMA Controller */
 #define    	SPU_BA			0xB1000000	/* SPU Controller */
 #define    	I2S_BA			0xB1001000	/* I2S Controller */

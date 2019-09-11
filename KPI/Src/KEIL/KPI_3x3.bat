@@ -1,0 +1,1 @@
+move .\kpi_Data\Release\W55FA93_KPI_3x3.lib ..\..\Lib

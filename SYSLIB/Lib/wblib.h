@@ -13,7 +13,7 @@
  *     1.1
  *
  * DESCRIPTION
- *     The header file of NUC900 system library.
+ *     The header file of N3290x system library.
  *
  * DATA STRUCTURES
  *     None
@@ -35,7 +35,6 @@
 extern "C"{
 #endif
 
-//#include "NUC930_reg.h"
 #include "W55FA93_reg.h"
 #include "wberrcode.h"
 #include "wbio.h"
@@ -227,8 +226,16 @@ typedef enum
 	eSYS_EXT 	= 0,
 	eSYS_X32K 	= 1,
 	eSYS_APLL  	= 2,
-	eSYS_UPLL  	= 3
+    eSYS_UPLL  	= 3,
+	
+    eSYS_SYSTEM = 4,
+    eSYS_HCLK1  = 5,
+    eSYS_HCLK234 = 6,
+    eSYS_PCLK   = 7,
+    eSYS_CPU    = 8
+	
 }E_SYS_SRC_CLK;
+
 
 /* Define constants for use Cache in service parameters.  */
 #define CACHE_4M		2
@@ -244,75 +251,19 @@ typedef enum
 typedef struct UART_INIT_STRUCT
 {
 	UINT32		uart_no;
-    	UINT32		uiFreq;
-    	UINT32		uiBaudrate;
-    	UINT8		uiDataBits;
-    	UINT8		uiStopBits;
-    	UINT8		uiParity;
-    	UINT8		uiRxTriggerLevel;
+    UINT32		uiFreq;
+    UINT32		uiBaudrate;
+    UINT8		uiDataBits;
+    UINT8		uiStopBits;
+    UINT8		uiParity;
+    UINT8		uiRxTriggerLevel;
 }WB_UART_T;
-
-//extern UINT32 UART_BA;
 
 /* UART return value */
 #define WB_INVALID_PARITY       	-1
 #define WB_INVALID_DATA_BITS    	-2
 #define WB_INVALID_STOP_BITS    	-3
 #define WB_INVALID_BAUD         	-4
-
-
-#if 0
-/* Define PLL initialization data structure */
-typedef struct PLL_INIT_STRUCT
-{
-    UINT32		pll0;		/* PLL0 output frequency */
-    UINT32		cpu_src;	/* Select CPU clock from PLL0 or PLL1 */
-    UINT32		ahb_clk;	/* the ratio of CPU : AHB clock */
-    UINT32		apb_clk;	/* the ratio of AHB : APB clock */
-    UINT32		pll_off_clkskew;
-    UINT32		pll_on_clkskew;		/* clock skew of SDRAM timing */
-    UINT32		pll_off_refresh;	/* SDRAM refresh count value */
-    UINT32		pll_on_refresh;
-} WB_PLL_T;
-
-
-/* Define PLL freq. setting */
-#define PLL_DISABLE	0x14F27
-#define	PLL_80MHZ	0xFF01  //user defined
-#define	PLL_96MHZ	0x3F67 
-#define PLL_132MHZ	0x2B27 
-#define	PLL_192MHZ	0x3F47 
-#define	PLL_200MHZ	0x4227 
-#define	PLL_201MHZ	0x2087 
-#define	PLL_240MHZ	0x4F47 
-#define PLL_336MHZ	0x3707
-
-/* Define CPU clock source */
-#define CPU_FROM_PLL0			0
-#define CPU_FROM_EXTERNAL		1
-#define CPU_FROM_SYS32K			2
-
-/* Define AHB clock */
-#define	AHB_CPUCLK_1_1	0
-#define	AHB_CPUCLK_1_2	1
-#define	AHB_CPUCLK_1_4	2
-#define	AHB_CPUCLK_1_8	3
-
-/* Define APB clock */
-#define APB_AHB_1_1		0
-#define APB_AHB_1_2		1
-#define APB_AHB_1_4		2
-#define APB_AHB_1_8		3
- 
-/* Define to get clock freq. */
-typedef struct CLK_FREQ_STRUCT
-{
-	INT32		pll_clk_freq;	/* PLL output frequency, MHz */
-    INT32		cpu_clk_freq;	/* CPU frequency, MHz */
-    INT32		ahb_clk_freq;	/* the ratio of CPU : AHB clock */
-    INT32		apb_clk_freq;	/* the ratio of AHB : APB clock */
-} WB_CLKFREQ_T;
-#endif
 
 /* Define the constant values of PM */
 #define WB_PM_IDLE		1
@@ -355,17 +306,17 @@ INT32 sysSetTimerEvent(INT32 nTimeNo,
 			PVOID pvFun);
 VOID	sysClearTimerEvent(INT32 nTimeNo, 
 				UINT32 uTimeEventNo);
-void	sysSetLocalTime(DateTime_T ltime);
+VOID	sysSetLocalTime(DateTime_T ltime);
 VOID	sysGetCurrentTime(DateTime_T *curTime);
 VOID	sysDelay(UINT32 uTicks);
 
 
-VOID	sysClearWatchDogTimerCount (void);
-VOID	sysClearWatchDogTimerInterruptStatus(void);
-VOID	sysDisableWatchDogTimer (void);
-VOID	sysDisableWatchDogTimerReset(void);
-VOID	sysEnableWatchDogTimer (void);
-VOID	sysEnableWatchDogTimerReset(void);
+VOID	sysClearWatchDogTimerCount (VOID);
+VOID	sysClearWatchDogTimerInterruptStatus(VOID);
+VOID	sysDisableWatchDogTimer (VOID);
+VOID	sysDisableWatchDogTimerReset(VOID);
+VOID	sysEnableWatchDogTimer (VOID);
+VOID	sysEnableWatchDogTimerReset(VOID);
 
 PVOID sysInstallWatchDogTimerISR (INT32 nIntTypeLevel, 
 				PVOID pvNewISR);
@@ -377,116 +328,85 @@ INT32 sysSetWatchDogTimerInterval (INT32 nWdtInterval);
 #define UART_INT_RDTO		2
 #define UART_INT_NONE		255
 
-typedef void (*PFN_SYS_UART_CALLBACK)(
-				UINT8* u8Buf, 	
-				UINT32 u32Len);
-				
-void 		sysUartPort(UINT32 u32Port);
-INT8		sysGetChar (void);
-INT32	sysInitializeUART (WB_UART_T *uart);
-VOID		sysPrintf (PINT8 pcStr,...);
-VOID		sysprintf (PINT8 pcStr,...);
-VOID		sysPutChar (UINT8 ucCh);
-VOID sysUartEnableDebugMessage(BOOL bIsDebugMessage);
+typedef void (*PFN_SYS_UART_CALLBACK)(UINT8* u8Buf, UINT32 u32Len);
 
-void sysUartInstallcallback(UINT32 u32IntType,  PFN_SYS_UART_CALLBACK pfnCallback);
-void 		sysUartEnableInt(INT32 eIntType);
-void 		sysUartTransfer(char* pu8buf, UINT32 u32Len);
+/* Support 2 UART device operation in the same time */
+typedef struct
+{
+	VOID (*UartPort)(UINT32 u32Port);
+	VOID (*UartInstallcallback)(UINT32 u32IntType, PFN_SYS_UART_CALLBACK pfnCallback);
+	INT32 (*UartInitialize)(WB_UART_T *uart);
+	VOID (*UartEnableInt)(INT32 eIntType);
+	VOID (*UartTransfer)(char* pu8buf, UINT32 u32Len);
+	VOID (*UartPutChar)(UINT8 ucCh);
+	INT8 (*UartGetChar)(VOID);
+}UARTDEV_T;
+INT32   register_uart_device(UINT32 u32port, UARTDEV_T* pUartDev);
+
+VOID    sysUartPort(UINT32 u32Port);
+INT8    sysGetChar (VOID);
+INT32   sysInitializeUART (WB_UART_T *uart);
+VOID    sysPrintf (PINT8 pcStr,...);
+VOID    sysprintf (PINT8 pcStr,...);
+VOID    sysPrintf0 (PINT8 pcStr,...);
+VOID    sysprintf0 (PINT8 pcStr,...);
+VOID    sysPutChar (UINT8 ucCh);
+VOID    sysUartEnableDebugMessage(BOOL bIsDebugMessage);
+VOID    sysUartInstallcallback(UINT32 u32IntType,  PFN_SYS_UART_CALLBACK pfnCallback);
+VOID    sysUartEnableInt(INT32 eIntType);
+VOID    sysUartTransfer(char* pu8buf, UINT32 u32Len);
+
+
+
 
 /* Define system library AIC functions */
 INT32 	sysDisableInterrupt (INT_SOURCE_E eIntNo);
 INT32 	sysEnableInterrupt (INT_SOURCE_E eIntNo);
-BOOL 	sysGetIBitState(void);
-UINT32 	sysGetInterruptEnableStatus(void);
-PVOID 	sysInstallExceptionHandler (INT32 nExceptType, 
-								PVOID pvNewHandler);
+BOOL 	sysGetIBitState(VOID);
+UINT32 	sysGetInterruptEnableStatus(VOID);
+PVOID 	sysInstallExceptionHandler (INT32 nExceptType, PVOID pvNewHandler);
 PVOID 	sysInstallFiqHandler (PVOID pvNewISR);
 PVOID 	sysInstallIrqHandler (PVOID pvNewISR);
-PVOID 	sysInstallISR (INT32 nIntTypeLevel, 
-				INT_SOURCE_E eIntNo, 
-				PVOID pvNewISR);
+PVOID 	sysInstallISR (INT32 nIntTypeLevel, INT_SOURCE_E eIntNo, PVOID pvNewISR);
 INT32 	sysSetGlobalInterrupt (INT32 nIntState);
-INT32 	sysSetInterruptPriorityLevel (INT_SOURCE_E eIntNo, 
-							UINT32 uIntLevel);
-INT32 	sysSetInterruptType (INT_SOURCE_E eIntNo, 
-						UINT32 uIntSourceType);
+INT32 	sysSetInterruptPriorityLevel (INT_SOURCE_E eIntNo, UINT32 uIntLevel);
+INT32 	sysSetInterruptType (INT_SOURCE_E eIntNo, UINT32 uIntSourceType);
 INT32 	sysSetLocalInterrupt (INT32 nIntState);
-INT32 	sysSetAIC2SWMode(void);
+INT32 	sysSetAIC2SWMode(VOID);
 
 
 /* Define system library Cache functions */
-VOID	 sysDisableCache(void);
-INT32 sysEnableCache(UINT32 uCacheOpMode);
-VOID	 sysFlushCache(INT32 nCacheType);
-BOOL sysGetCacheState(void);
-INT32 sysGetSdramSizebyMB(void);
-VOID	sysInvalidCache(void);
-INT32 sysSetCachePages(UINT32 addr, 
-					INT32 size, 
-					INT32 cache_mode);
-
+VOID    sysDisableCache(VOID);
+INT32   sysEnableCache(UINT32 uCacheOpMode);
+VOID    sysFlushCache(INT32 nCacheType);
+BOOL    sysGetCacheState(VOID);
+INT32   sysGetSdramSizebyMB(VOID);
+VOID    sysInvalidCache(VOID);
+INT32   sysSetCachePages(UINT32 addr, INT32 size, INT32 cache_mode);
 
 /* Define system clock functions */
-#if 0
-INT32 sysGetPLLConfig(WB_PLL_T *sysClk);
-INT32 sysSetPLLConfig(WB_PLL_T *sysClk);
-INT32 sysGetClockFreq(WB_CLKFREQ_T *sysFreq);
-#endif
-UINT32 sysGetPLLOutputKhz(E_SYS_SRC_CLK eSysPll, UINT32 u32FinKHz);
-
-
-/* Define system power management functions */
-VOID sysDisableAllPM_IRQ(void);
-INT sysEnablePM_IRQ(INT irq_no);
-INT sysPMStart(INT pd_type);
+UINT32  sysGetPLLOutputKhz(E_SYS_SRC_CLK eSysPll, UINT32 u32FinKHz);
 INT32 sysPowerDown(WAKEUP_SOURCE_E eWakeUpSrc);
 
-
-//void sysSetClock(void);
-void sysExternalClock(void);
-UINT32 sysGetExternalClock(void);
-CHAR sysGetChipVersion(void);
-//void sysFirstAdjustAPLL(UINT32 u32ApllClockKHz);
-UINT32 
-sysSetSystemClock(E_SYS_SRC_CLK eSrcClk,	
-				UINT32 u32PllKHz, 	
-				UINT32 u32SysKHz,
-				UINT32 u32CpuKHz,
-				UINT32 u32HclkKHz,
-				UINT32 u32ApbKHz);
-				
-UINT32 sysSetCPUClock(UINT32 u32CPUClockKHz);
-UINT32 sysGetCPUClock(VOID);
-UINT32 sysSetAPBClock(UINT32 u32APBlockKHz);
-UINT32 sysGetAPBClock(VOID);
-	
-void sysGetSystemClock(E_SYS_SRC_CLK* eSrcClk,
-				 	PUINT32 pu32PllKHz,	
-					PUINT32 pu32SysKHz,
-					PUINT32 pu32CpuKHz,
-					PUINT32 pu32HclkKHz,
-					PUINT32 pu32ApbKHz);		
+VOID    sysExternalClock(VOID);
+UINT32  sysGetExternalClock(VOID);
+CHAR    sysGetChipVersion(VOID);
+UINT32  sysSetSystemClock(E_SYS_SRC_CLK eSrcClk,	UINT32 u32PllKHz, UINT32 u32SysKHz, UINT32 u32CpuKHz, UINT32 u32HclkKHz, UINT32 u32ApbKHz);
+UINT32  sysSetPllClock(E_SYS_SRC_CLK eSrcClk, UINT32 u32TargetKHz);
+UINT32  sysSetCPUClock(UINT32 u32CPUClockKHz);
+UINT32  sysGetCPUClock(VOID);
+UINT32  sysSetAPBClock(UINT32 u32APBlockKHz);
+UINT32  sysGetAPBClock(VOID);
+VOID    sysGetSystemClock(E_SYS_SRC_CLK* eSrcClk, PUINT32 pu32PllKHz, PUINT32 pu32SysKHz, PUINT32 pu32CpuKHz, PUINT32 pu32HclkKHz, PUINT32 pu32ApbKHz);		
 					
-INT32 sysClockDivSwitchStart(UINT32 u32SysDiv);
-void sysCheckPllConstraint(BOOL bIsCheck);
-INT32 sysPowerDownPLL(E_SYS_SRC_CLK eSrcClk, BOOL bIsPowerDown);
-void sysPowerDownPLLDuringSysPowerDown(BOOL bIsPowerDownPLL);
+INT32   sysClockDivSwitchStart(UINT32 u32SysDiv);
+VOID    sysCheckPllConstraint(BOOL bIsCheck);
+INT32   sysPowerDownPLL(E_SYS_SRC_CLK eSrcClk, BOOL bIsPowerDown);
+VOID    sysPowerDownPLLDuringSysPowerDown(BOOL bIsPowerDownPLL);
 
-
-
-
-/* Support two UART Port */
-typedef struct
-{
-	void (*UartPort)(UINT32 u32Port);
-	void (*UartInstallcallback)(UINT32 u32IntType, PFN_SYS_UART_CALLBACK pfnCallback);
-	INT32 (*UartInitialize)(WB_UART_T *uart);
-	void (*UartEnableInt)(INT32 eIntType);
-	void (*UartTransfer)(char* pu8buf, UINT32 u32Len);
-	VOID (*UartPutChar)(UINT8 ucCh);
-	INT8 (*UartGetChar)(void);
-}UARTDEV_T;
-INT32 register_uart_device(UINT32 u32port, UARTDEV_T* pUartDev);
+#if defined (__GNUC__)
+unsigned char * _sbrk ( int incr );
+#endif
 
 #ifdef __cplusplus
 }

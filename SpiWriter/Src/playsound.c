@@ -31,7 +31,7 @@
 #include "wblib.h"
 #include "pcm.h"
 #include "DrvSPU.h"
-#include "spu.h"
+#include "SPU.h"
 
 static UINT16 u16IntCount = 2;
 static UINT32 u32FragSize;

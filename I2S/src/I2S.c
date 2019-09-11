@@ -5,8 +5,8 @@
  ****************************************************************/
 
 #include "wblib.h"
-#include "w55fa93_i2s.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_I2S.h"
+#include "W55FA93_reg.h"
 
 PFN_DRVI2S_CB_FUNC 	*g_pfnRecordCallBack;
 PFN_DRVI2S_CB_FUNC 	*g_pfnPlayCallBack;	

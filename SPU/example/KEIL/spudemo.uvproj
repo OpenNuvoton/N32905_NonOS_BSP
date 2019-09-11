@@ -136,6 +136,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>6</TargetSelection>
@@ -406,14 +407,14 @@
               <FilePath>..\wb_init.s</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_spu.lib</FileName>
+              <FileName>W55FA93_SPU.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\lib\w55fa93_spu.lib</FilePath>
+              <FilePath>..\..\lib\W55FA93_SPU.lib</FilePath>
             </File>
             <File>
-              <FileName>W55FA93_syslib.lib</FileName>
+              <FileName>W55FA93_SYSLIB.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\SYSLIB\Lib\W55FA93_syslib.lib</FilePath>
+              <FilePath>..\..\..\SYSLIB\Lib\W55FA93_SYSLIB.lib</FilePath>
             </File>
           </Files>
         </Group>

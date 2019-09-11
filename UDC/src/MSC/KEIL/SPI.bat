@@ -1,1 +1,1 @@
-move .\MSC_Data\SPI\w55fa93_MSC_SPI.lib ..\..\..\Lib
+move .\MSC_Data\SPI\W55FA93_MSC_SPI.lib ..\..\..\Lib

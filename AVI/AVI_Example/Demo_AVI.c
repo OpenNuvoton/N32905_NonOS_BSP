@@ -7,17 +7,21 @@
 #include "wbio.h"
 #include "wblib.h"
 
-#include "w55fa93_vpost.h"
-#include "w55fa93_sic.h"
-#include "nvtfat.h"
-#include "AviLib.h"
-#include "spu.h"
+#include "W55FA93_VPOST.h"
+#include "W55FA93_SIC.h"
+#include "NVTFAT.h"
+#include "AVILib.h"
+#include "SPU.h"
 
 
 //#pragma import(__use_no_semihosting_swi)
 #define VPOST_FRAME_BUFSZ		(320*240*2)
 
+#if defined (__GNUC__)
+UINT8  _VpostFrameBufferPool[VPOST_FRAME_BUFSZ] __attribute__((aligned (256)));
+#else
 static __align(256) UINT8  _VpostFrameBufferPool[VPOST_FRAME_BUFSZ];
+#endif
 static UINT8   *_VpostFrameBuffer;
 
 

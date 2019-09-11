@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "usbd.h"
 #include "videoclass.h"
 
@@ -35,10 +35,15 @@ volatile int max_packet_size = MAX_PACKET_SIZE_HS;
 #define UVC_QUALIFIER_DSCPT_LEN		0x0a
 #define UVC_HOSCONFIG_DSCPT_LEN		0x49
 
+#if defined (__GNUC__)
+volatile UVC_INFO_T 		uvcInfo __attribute__((aligned(4)));
+volatile UVC_STATUS_T 	uvcStatus __attribute__((aligned(4)));
+volatile UVC_PU_INFO_T	uvcPuInfo __attribute__((aligned(4))) = {0,	70, 7, -10,10, 1, 0, 20, 2, -30, 30, 0, 0, 40, 4, 0, 50, 5, 1, 5, 3, 0, 2, 2};
+#else
 __align(4) volatile UVC_INFO_T 		uvcInfo;
 __align(4) volatile UVC_STATUS_T 	uvcStatus;
 __align(4) volatile UVC_PU_INFO_T	uvcPuInfo = {0,	70, 7, -10,10, 1, 0, 20, 2, -30, 30, 0, 0, 40, 4, 0, 50, 5, 1, 5, 3, 0, 2, 2};
-
+#endif
 /* for USB */
 extern USB_CMD_T	_usb_cmd_pkt;
 extern volatile USBD_INFO_T usbdInfo;
@@ -48,9 +53,11 @@ volatile UINT8 g_u8UVC_PD = 0;
 
 
 /* Processing Unit Control Selectors */
-
-
+#if defined (__GNUC__)
+static DEVICEDESCRIPTOR UVC_DeviceDescriptor __attribute__((aligned(4))) = {
+#else
 __align(4) static DEVICEDESCRIPTOR UVC_DeviceDescriptor = {
+#endif
  0x12,      //bLength
  0x01,      //bDescriptorType
  0x0200,    //bcdUSB 
@@ -67,13 +74,26 @@ __align(4) static DEVICEDESCRIPTOR UVC_DeviceDescriptor = {
  0x01       //bNumConfigurations
 };
 #ifdef UVC_FORMAT_BOTH
+#if defined (__GNUC__)
+static VIDEOCLASS UVC_ConfigurationBlock __attribute__((aligned(4))) = {    
+#else
 __align(4) static VIDEOCLASS UVC_ConfigurationBlock = {    
+#endif
 #elif defined UVC_FORMAT_YUV
+#if defined (__GNUC__)
+static VIDEOCLASS_YUV UVC_ConfigurationBlock __attribute__((aligned(4))) = {    
+#else
 __align(4) static VIDEOCLASS_YUV UVC_ConfigurationBlock = {    
+#endif
 #elif defined UVC_FORMAT_MJPEG
+#if defined (__GNUC__)
+static VIDEOCLASS_MJPEG UVC_ConfigurationBlock __attribute__((aligned(4))) = {
+#else
 __align(4) static VIDEOCLASS_MJPEG UVC_ConfigurationBlock = {    
 #endif
-{	0x09,  	//bLength
+#endif
+{
+	0x09,  	//bLength
     0x02,   //bDescriptorType
 #ifdef UVC_FORMAT_BOTH
     0x020C, //wTotalLength
@@ -489,11 +509,23 @@ __align(4) static VIDEOCLASS_MJPEG UVC_ConfigurationBlock = {
 
 
 #ifdef UVC_FORMAT_BOTH
+#if defined (__GNUC__)
+static VIDEOCLASS UVC_ConfigurationBlock_FS __attribute__((aligned(4))) = {    
+#else
 __align(4) static VIDEOCLASS UVC_ConfigurationBlock_FS = {    
+#endif
 #elif defined UVC_FORMAT_YUV
+#if defined (__GNUC__)
+static VIDEOCLASS_YUV UVC_ConfigurationBlock_FS __attribute__((aligned(4))) = {    
+#else
 __align(4) static VIDEOCLASS_YUV UVC_ConfigurationBlock_FS = {    
+#endif
 #elif defined UVC_FORMAT_MJPEG
+#if defined (__GNUC__)
+static VIDEOCLASS_MJPEG UVC_ConfigurationBlock_FS __attribute__((aligned(4))) = {    
+#else
 __align(4) static VIDEOCLASS_MJPEG UVC_ConfigurationBlock_FS = {    
+#endif
 #endif
 {	0x09,  	//bLength
     0x02,   //bDescriptorType
@@ -908,31 +940,50 @@ __align(4) static VIDEOCLASS_MJPEG UVC_ConfigurationBlock_FS = {
     0x01    //bInterval
 }
 };
-    
+#if defined (__GNUC__)
+static UINT32 UVC_QualifierDescriptor[3] __attribute__((aligned(4))) = 
+#else
 __align(4) static UINT32 UVC_QualifierDescriptor[3] = 
+#endif
 {
 	0x0200060a, 0x400102EF, 0x00000001
 };
 
+#if defined (__GNUC__)
+static UINT32 UVC_HOSConfigurationBlock[10] __attribute__((aligned(4))) =
+#else
 __align(4) static UINT32 UVC_HOSConfigurationBlock[10] =
+#endif
 {
 	0x00270709, 0x80000101, 0x00040932, 0x05080300, 0x05070050,
 	0x00400281, 0x02050701, 0x01004002, 0x03830507, 0x00010040, 
 };
 
+#if defined (__GNUC__)
+static UINT32 UVC_StringDescriptor0[] __attribute__((aligned(4))) = 
+#else
 __align(4) static UINT32 UVC_StringDescriptor0[] = 
+#endif
 {
 	0x04090304
 };
 
+#if defined (__GNUC__)
+UINT8 UVC_StringDescriptor1[] __attribute__((aligned(4))) = 
+#else
 __align(4) UINT8 UVC_StringDescriptor1[] = 
+#endif
 {
 	0x16, 0x03,
 	'U', 0x00, 'S', 0x00, 'B', 0x00, ' ', 0x00, 'D', 0x00, 'e', 0x00, 'v', 0x00, 'i', 0x00,
 	'c', 0x00, 'e', 0x00				
 };
 
+#if defined (__GNUC__)
+UINT8 UVC_StringDescriptor2[] __attribute__((aligned(4))) = 
+#else
 __align(4) UINT8 UVC_StringDescriptor2[] = 
+#endif
 {
 	0x2E, 0x03,
 	'W', 0x00, '5', 0x00, '5', 0x00, 'F', 0x00, 'A', 0x00, '9', 0x00, '3', 0x00, ' ', 0x00,
@@ -940,7 +991,11 @@ __align(4) UINT8 UVC_StringDescriptor2[] =
 	'D', 0x00, 'e', 0x00, 'v', 0x00, 'i', 0x00, 'c', 0x00, 'e', 0x00
 };
 
+#if defined (__GNUC__)
+UINT8 UVC_StringDescriptor3[] __attribute__((aligned(4))) = 
+#else
 __align(4) UINT8 UVC_StringDescriptor3[] = 
+#endif
 {
 	0x16, 0x03,
 	'0', 0x00, '0', 0x00, '0', 0x00, '0', 0x00, '5', 0x00, '5', 0x00, 'F', 0x00, 'A', 0x00,
@@ -1105,9 +1160,9 @@ UINT32 uvcdPU_Info(UINT32 Req,UINT32 Unit)
 						outp32(CEP_IRQ_ENB, (inp32(CEP_IRQ_ENB) | 0x03));						
 						outp32(CEP_CTRL_STAT,0x02); 		
 						return 6;	
-//						break;			   			 
+//						break;
 			   	}
-//			   	break;   	
+//			   	break;
    		case GET_MAX:
  			    switch(Unit)
 			    {		    
@@ -1119,10 +1174,10 @@ UINT32 uvcdPU_Info(UINT32 Req,UINT32 Unit)
 //			    		 break;
 					case PU_CONTRAST_CONTROL:
 						 return uvcPuInfo.PU_CONTRAST_MAX;
-//						 break; 		 
+//						 break;
 					case PU_HUE_CONTROL:
 						 return uvcPuInfo.PU_HUE_MAX;					 
-//						 break;   
+//						 break;
 			   		case PU_SATURATION_CONTROL:
 	 		   			 return uvcPuInfo.PU_SATURATION_MAX;
 //			   			 break;
@@ -1134,15 +1189,15 @@ UINT32 uvcdPU_Info(UINT32 Req,UINT32 Unit)
 //			   			 break;
 			   		case PU_POWER_LINE_FREQUENCY_CONTROL:
 			   			 return uvcPuInfo.PU_POWER_LINE_FREQUENCY_MAX;	
-//			   			 break;					   			 
+//			   			 break;
 			   		default:
 						uvcInfo.u8ErrCode = EC_Invalid_Control;			
 						outp32(CEP_IRQ_ENB, (inp32(CEP_IRQ_ENB) | 0x03));						
 						outp32(CEP_CTRL_STAT,0x02); 		
 						return 6;	
-//						break;			   			 
+//						break;
 			   	}
-//			   	break;   	
+//			   	break;
    		case GET_RES:
    				return 1;
 //   				break;
@@ -1178,10 +1233,10 @@ UINT32 uvcdPU_Info(UINT32 Req,UINT32 Unit)
 //			    		 break;
 					case PU_CONTRAST_CONTROL:
 						 return uvcPuInfo.PU_CONTRAST_DEF;
-//						 break; 		 
+//						 break;
 					case PU_HUE_CONTROL:
 						 return uvcPuInfo.PU_HUE_DEF;					 
-//						 break;   
+//						 break;
 			   		case PU_SATURATION_CONTROL:
 	 		   			 return uvcPuInfo.PU_SATURATION_DEF;
 //			   			 break;
@@ -1198,9 +1253,9 @@ UINT32 uvcdPU_Info(UINT32 Req,UINT32 Unit)
 						outp32(CEP_IRQ_ENB, (inp32(CEP_IRQ_ENB) | 0x03));						
 						outp32(CEP_CTRL_STAT,0x02); 		
 						return 6;	
-//						break;			   			 
+//						break;
 			   	}
-//			   	break;  	
+//			   	break;
 		case GET_LEN:
 					uvcInfo.u8ErrCode = EC_Invalid_Request;			
 					outp32(CEP_IRQ_ENB, (inp32(CEP_IRQ_ENB) | 0x03));						

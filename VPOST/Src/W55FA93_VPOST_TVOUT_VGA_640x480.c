@@ -35,9 +35,7 @@
  **************************************************************************/
 #include "stdio.h"
 #include "stdlib.h"
-////#include "NUC930_VPOST_Regs.h"
-//#include "w55fa93_vpost.h"
-#include "w55fa93_vpost.h"
+#include "W55FA93_VPOST.h"
 
 extern void LCDDelay(unsigned int nCount);
 

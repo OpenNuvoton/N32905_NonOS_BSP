@@ -6,13 +6,20 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "wblib.h"
 #include "Font.h"
-#include "nvtfat.h"
-
-__align(32) UINT8 u8Font[]=
+//#include "NVTFAT.h"
+#if defined (__GNUC__)
+UINT8 u8Font[] __attribute__((aligned (32))) =
+{
+    #include "Font.dat"
+};
+#else
+__align(32) UINT8 u8Font[] =
 {
 	#include "Font.dat"
 };
+#endif
 #define FONT_FILE_PATH	"X:\\Font.bin"
 		
 
@@ -32,7 +39,7 @@ InitFont(
 			
 	if ( ptFont->pu32FontFileTmp == NULL )
 	{
-#if 0	//Load from SD card¡@
+#if 0	//Load from SD cardï¿½@
 		char szPath[128];
 		char suPath[256];
 		INT  nByte;
@@ -80,7 +87,7 @@ void
 UnInitFont(S_DEMO_FONT* ptFont)
 {
 	ptFont->u32FontInitDone = 0;
-#if 0//Load from SD card¡@
+#if 0//Load from SD cardï¿½@
 	if ( g_i32FileHandle1 != NULL )
 	{
 		free(ptFont->pu32FontFileTmp);

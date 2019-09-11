@@ -35,8 +35,8 @@
  **************************************************************************/
 #include "stdio.h"
 #include "stdlib.h"
-//#include "NUC930_VPOST_Regs.h"
-#include "w55fa93_vpost.h"
+
+#include "W55FA93_VPOST.h"
 
 extern void LCDDelay(unsigned int nCount);
 
@@ -165,16 +165,17 @@ INT vpostLCMInit_AMPIRE_800x480(PLCDFORMATEX plcdformatex, UINT32 *pFramebuf)
 //	AMPIRE_800x480_Init();
 	
     // set Horizontal scanning line timing for Syn type LCD 
-    vpostSetSyncLCM_HTiming(&sHTiming);
+    vpostSetSyncLCM_HTiming((S_DRVVPOST_SYNCLCM_HTIMING *)&sHTiming);
 
 	// set Vertical scanning line timing for Syn type LCD   
-    vpostSetSyncLCM_VTiming(&sVTiming);
+    vpostSetSyncLCM_VTiming((S_DRVVPOST_SYNCLCM_VTIMING *)&sVTiming);
 	
 	// set both "active pixel per line" and "active lines per screen" for Syn type LCD   
-	vpostSetSyncLCM_ImageWindow(&sWindow);
+	vpostSetSyncLCM_ImageWindow((S_DRVVPOST_SYNCLCM_WINDOW *)&sWindow);
 
   	// set Hsync/Vsync/Vden/Pclk poalrity
-	vpostSetSyncLCM_SignalPolarity(&sPolarity);  	
+	vpostSetSyncLCM_SignalPolarity((S_DRVVPOST_SYNCLCM_POLARITY *)&sPolarity);
+	
     
 #if 0
 	vpostSetFrameBuffer_BaseAddress(pFramebuf);

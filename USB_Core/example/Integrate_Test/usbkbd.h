@@ -1,33 +1,21 @@
-/*************************************************************************
- * Nuvoton Electronics Corporation confidential
+/****************************************************************************
+ * @file     usbkbd.h
+ * @version  V1.00
+ * $Revision: 4 $
+ * $Date: 18/04/25 11:43a $
+ * @brief    USB Host keyboard driver header file
  *
- * Copyright (c) 2008 by Nuvoton Electronics Corporation
- * All rights reserved
- *
- * FILENAME
- *     usbkbd.h
- *
- * VERSION
- *     1.0
- *
- * DESCRIPTION
- *     NUC930 USB Host keyboard driver header file
- *
- * HISTORY
- *     2008.06.24       Created
- *
- * REMARK
- *     None
- **************************************************************************/
+ * @note
+ * Copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
 
 #ifndef _USBKBD_H_
 #define _USBKBD_H_
 
-#include "usb.h"
+#include "Usb.h"
 
 typedef struct usb_kbd 
 {
-    //struct input_dev dev;
     struct usb_device  *usbdev;
 #ifdef ETST_ALIGNMENT_INT
     UINT8           *newData;
@@ -36,7 +24,7 @@ typedef struct usb_kbd
 #endif    
     UINT8           oldData[8];
     URB_T           urbIrq, urbLed;
-    DEV_REQ_T     	dr;
+    DEV_REQ_T       dr;
     UINT8           leds, newleds;
     CHAR            name[128];
     INT             open;

@@ -20,12 +20,10 @@
 /*-----------------------------------------------------------------------------------*/
 
 #include "wblib.h"
-#include "w55fa93_spi.h"
-
 #include <stdio.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_spi.h"
+#include "W55FA93_SPI.h"
 #include "Gneiss.h"
 
 #define DBG_PRINTF	sysprintf

@@ -157,7 +157,7 @@ INT sicSdWrite2(INT32 sdSectorNo, INT32 sdSectorCount, INT32 sdSourceAddr);
 VOID fmiSMClose(INT chipSel);
 
 /* gnand use */
-#include "w55fa93_gnand.h"
+#include "W55FA93_GNAND.h"
 
 INT nandInit0(NDISK_T *NDISK_info);
 INT nandpread0(INT PBA, INT page, UINT8 *buff);
@@ -178,6 +178,10 @@ INT nand_chip_erase1(void);
 
 
 /* Declare callback function in waiting loop of SD driver */
-__weak void schedule(void);
+#if defined (__GNUC__)
+    __attribute__((weak)) void schedule(void);
+#else
+    __weak void schedule(void);
+#endif
 
 #endif //_FMILIB_H_

@@ -3,22 +3,23 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "w55fa93_edma.h"
+#include "W55FA93_EDMA.h"
 
 static INT32 g_PdmaCh = 0;
 
 #define E_UART_BUF 32
 
+#if defined(__GNUC__)
+__attribute__((aligned(32))) UINT8 g_UARTBuf[E_UART_BUF];
+#else
 __align(32) UINT8 g_UARTBuf[E_UART_BUF];
+#endif
 
 volatile BOOL bIsBufferDone=0;
 volatile BOOL bIsUARTDone=FALSE;
 
 void PdmaCallback_UART(UINT32 u32WrapStatus)
 {
-	UINT32 u32Period, u32Attack, u32Recovery, u32Hold;
-	UINT32 i;
-	
 	if(u32WrapStatus==256)
 	{
 		bIsBufferDone = 1;				
@@ -27,13 +28,14 @@ void PdmaCallback_UART(UINT32 u32WrapStatus)
 	else if(u32WrapStatus==1024)
 	{		
 		bIsBufferDone = 2;			
-	}
-	
+	}	
 }
 
 void UARTTest(void)
 {	
 	UINT32 i;
+
+	sysprintf("UART1 will receive 32 char and print input char on terminal\n");
 	
 	g_PdmaCh = PDMA_FindandRequest(); 
 

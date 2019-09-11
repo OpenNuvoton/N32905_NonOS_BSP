@@ -142,6 +142,7 @@ void DemoAPI_WDT(void)
 	DBG_PRINTF("Watchdog Timer Test...\n");
 	/* start timer 1 */
 	tmp = sysSetTimerEvent(TIMER0, 1, (PVOID)Test);	/* 1 ticks = 10ms call back */
+	sysprintf("Regiser Timer Channel %d\n", tmp); 
 	sysSetTimerReferenceClock(TIMER0, u32ExtFreq);
 	sysStartTimer(TIMER0, 100, PERIODIC_MODE); /* SW Modify sysStartTimer(TIMER0, 0, PERIODIC_MODE);*/
 

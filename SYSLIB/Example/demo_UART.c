@@ -20,3 +20,4 @@ void DemoAPI_UART(void)
 #endif
 	DBG_PRINTF("Finish UART Testing...\n");
 }
+

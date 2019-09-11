@@ -5,10 +5,10 @@
 #include "wblib.h"
 
 #include "jpegcodec.h"
-#include "nvtfat.h"
-#include "w55fa93_sic.h"
+#include "NVTFAT.h"
+#include "W55FA93_SIC.h"
 #include "jpegSample.h"
-#include "w55fa93_vpost.h"
+#include "W55FA93_VPOST.h"
 
 extern LCDFORMATEX lcdInfo;
 
@@ -21,8 +21,12 @@ PUINT8 g_pu8DecFrameBuffer;										/* The buffer for decoding output */
    
 /*-----------------------------------------------------------------------*/
 /*  Decode Input Wait parameter				                             */
-/*-----------------------------------------------------------------------*/          
-UINT8 __align(32) g_au8DecInputWaitBuffer[DEC_IPW_BUFFERSIZE];	/* Buffer for Decode Input Wait */
+/*-----------------------------------------------------------------------*/        
+#if defined (__GNUC__)
+UINT8  g_au8DecInputWaitBuffer[DEC_IPW_BUFFERSIZE] __attribute__((aligned(32)));  /* Buffer for Decode Input Wait */
+#else
+UINT8 __align(32) g_au8DecInputWaitBuffer[DEC_IPW_BUFFERSIZE];	                  /* Buffer for Decode Input Wait */
+#endif
 UINT32 g_u32IpwUsedSize  = 0;									/* Buffer Control parameter for Decode Input Wait (bitstream size put to Bitstream Buffer )*/
 UINT32 g_u32BitstreamSize = 0;									/* JPEG Bitstream Size for Decode Input Wait */
      

@@ -146,6 +146,16 @@
 #define USB_REQ_SET_IDLE                0x0A
 #define USB_REQ_SET_PROTOCOL            0x0B
 
+#if defined(__GNUC__)
+typedef struct
+{
+    UINT8  requesttype;
+    UINT8  request;
+    UINT16 value;
+    UINT16 index;
+    UINT16 length;
+}__attribute__((packed)) DEV_REQ_T;
+#else
 typedef struct 
 {
     __packed UINT8  requesttype;
@@ -154,7 +164,7 @@ typedef struct
     __packed UINT16 index;
     __packed UINT16 length;
 } DEV_REQ_T;
-
+#endif
 /*
  * USB-status codes:
  * USB_ST* maps to -E* and should go away in the future
@@ -223,13 +233,40 @@ struct usb_device;
 struct urb;
 
 /* All standard descriptors have these 2 fields in common */
+#if defined(__GNUC__)
+typedef struct usb_descriptor_header 
+{
+    UINT8  bLength;
+    UINT8  bDescriptorType;
+} __attribute__((packed)) USB_DESC_HDR_T;  
+#else
 typedef struct usb_descriptor_header 
 {
     __packed UINT8  bLength;
-    __packed UINT8  bDescriptorType;
+    __packed UINT8  bDescriptorType;     
 } USB_DESC_HDR_T;
+#endif
 
 /* Device descriptor */
+#if defined(__GNUC__)
+typedef struct usb_device_descriptor 
+{
+    UINT8  bLength;
+    UINT8  bDescriptorType;
+    UINT16 bcdUSB;
+    UINT8  bDeviceClass;
+    UINT8  bDeviceSubClass;
+    UINT8  bDeviceProtocol;
+    UINT8  bMaxPacketSize0;
+    UINT16 idVendor;
+    UINT16 idProduct;
+    UINT16 bcdDevice;
+    UINT8  iManufacturer;
+    UINT8  iProduct;
+    UINT8  iSerialNumber;
+    UINT8  bNumConfigurations; 
+} __attribute__((packed)) USB_DEV_DESC_T;
+#else  
 typedef struct usb_device_descriptor 
 {
     __packed UINT8  bLength;
@@ -247,8 +284,25 @@ typedef struct usb_device_descriptor
     __packed UINT8  iSerialNumber;
     __packed UINT8  bNumConfigurations;
 } USB_DEV_DESC_T;
+#endif
 
 /* Endpoint descriptor */
+#if defined(__GNUC__)
+typedef struct usb_endpoint_descriptor 
+{
+    UINT8  bLength;
+    UINT8  bDescriptorType;
+    UINT8  bEndpointAddress;
+    UINT8  bmAttributes;
+    UINT16 wMaxPacketSize;
+    UINT8  bInterval;
+    UINT8  bRefresh;
+    UINT8  bSynchAddress;
+
+    UINT8   *extra;                    /* Extra descriptors */
+    INT     extralen;
+} __attribute__((packed)) USB_EP_DESC_T;
+#else   
 typedef struct usb_endpoint_descriptor 
 {
     __packed UINT8  bLength;
@@ -263,8 +317,28 @@ typedef struct usb_endpoint_descriptor
     UINT8   *extra;                    /* Extra descriptors */
     INT     extralen;
 } USB_EP_DESC_T;
+#endif
 
 /* Interface descriptor */
+#if defined(__GNUC__)
+typedef struct usb_interface_descriptor 
+{
+    UINT8  bLength;
+    UINT8  bDescriptorType;
+    UINT8  bInterfaceNumber;
+    UINT8  bAlternateSetting;
+    UINT8  bNumEndpoints;
+    UINT8  bInterfaceClass;
+    UINT8  bInterfaceSubClass;
+    UINT8  bInterfaceProtocol;
+    UINT8  iInterface;
+
+    USB_EP_DESC_T *endpoint;
+
+    UINT8  *extra;                     /* Extra descriptors */
+    INT    extralen;   
+} __attribute__((packed)) USB_IF_DESC_T;
+#else  
 typedef struct usb_interface_descriptor 
 {
     __packed UINT8  bLength;
@@ -280,8 +354,9 @@ typedef struct usb_interface_descriptor
     USB_EP_DESC_T *endpoint;
 
     UINT8  *extra;                     /* Extra descriptors */
-    INT    extralen;
+    INT    extralen;    
 } USB_IF_DESC_T;
+#endif 
 
 typedef struct usb_interface 
 {
@@ -294,6 +369,23 @@ typedef struct usb_interface
 } USB_IF_T;
 
 /* Configuration descriptor information.. */
+#if defined(__GNUC__)
+typedef struct usb_config_descriptor 
+{
+    UINT8   bLength;
+    UINT8   bDescriptorType;
+    UINT16  wTotalLength;
+    UINT8   bNumInterfaces;
+    UINT8   bConfigurationValue;
+    UINT8   iConfiguration;
+    UINT8   bmAttributes;
+    UINT8   MaxPower;
+
+    USB_IF_T  *interface;
+    UINT8   *extra;                    /* Extra descriptors */
+    INT     extralen;   
+}__attribute__((packed)) USB_CONFIG_DESC_T;
+#else
 typedef struct usb_config_descriptor 
 {
     __packed UINT8   bLength;
@@ -307,17 +399,27 @@ typedef struct usb_config_descriptor
 
     USB_IF_T  *interface;
     UINT8   *extra;                    /* Extra descriptors */
-    INT     extralen;
+    INT     extralen;   
 } USB_CONFIG_DESC_T;
+#endif
 
 
 /* String descriptor */
+#if defined(__GNUC__)
+typedef struct usb_string_descriptor
+{
+    UINT8  bLength;
+    UINT8  bDescriptorType;
+    UINT16 wData[1];
+} __attribute__((packed)) USB_STR_DESC_T;
+#else  
 typedef struct usb_string_descriptor 
 {
     __packed UINT8  bLength;
     __packed UINT8  bDescriptorType;
-    __packed UINT16 wData[1];
+    __packed UINT16 wData[1];   
 } USB_STR_DESC_T;
+#endif
 
 typedef void (*PFN_PORT_MS_CALLBACK)(VOID  *);
 VOID umass_register_connect(PFN_PORT_MS_CALLBACK pfnCallback);
@@ -564,61 +666,61 @@ typedef struct usb_operations
  */
 typedef struct usb_bus 
 {
-    INT    busnum;                     	/* Bus number (in order of reg) */
-    struct usb_devmap  devmap;         	/* Device map */
-    USB_OP_T  *op;        				/* Operations (specific to the HC) */
-    struct usb_device  *root_hub;      	/* Root hub */
+    INT    busnum;                      /* Bus number (in order of reg) */
+    struct usb_devmap  devmap;          /* Device map */
+    USB_OP_T  *op;                      /* Operations (specific to the HC) */
+    struct usb_device  *root_hub;       /* Root hub */
     USB_LIST_T  bus_list;
-    VOID   *hcpriv;                    	/* Host Controller private data */
+    VOID   *hcpriv;                     /* Host Controller private data */
 
-    INT bandwidth_allocated;           	/* on this Host Controller; */
-                                       	/* applies to Int. and Isoc. pipes; */
-                                       	/* measured in microseconds/frame; */
-                                       	/* range is 0..900, where 900 = */
-                                       	/* 90% of a 1-millisecond frame */
-    INT    bandwidth_int_reqs;         	/* number of Interrupt requesters */
-    INT    bandwidth_isoc_reqs;        	/* number of Isoc. requesters */
+    INT bandwidth_allocated;            /* on this Host Controller; */
+                                        /* applies to Int. and Isoc. pipes; */
+                                        /* measured in microseconds/frame; */
+                                        /* range is 0..900, where 900 = */
+                                        /* 90% of a 1-millisecond frame */
+    INT    bandwidth_int_reqs;          /* number of Interrupt requesters */
+    INT    bandwidth_isoc_reqs;         /* number of Isoc. requesters */
 } USB_BUS_T;
 
-#define USB_MAXCHILDREN         (16)   	/* This is arbitrary */
+#define USB_MAXCHILDREN         (16)    /* This is arbitrary */
 
 
 typedef struct usb_device 
 {
-    INT     devnum;                    	/* Device number on USB bus */
-    INT     slow;                      	/* Slow device? */
-	enum 
-	{
-		USB_SPEED_UNKNOWN = 0,			/* enumerating */
-		USB_SPEED_LOW, USB_SPEED_FULL,	/* usb 1.1 */
-		USB_SPEED_HIGH					/* usb 2.0 */
-	} speed;
+    INT     devnum;                     /* Device number on USB bus */
+    INT     slow;                       /* Slow device? */
+    enum 
+    {
+        USB_SPEED_UNKNOWN = 0,          /* enumerating */
+        USB_SPEED_LOW, USB_SPEED_FULL,  /* usb 1.1 */
+        USB_SPEED_HIGH                  /* usb 2.0 */
+    } speed;
 
-	struct usb_tt	*tt; 				/* low/full speed dev, highspeed hub */
-	int				ttport;				/* device port on that tt hub */
+    struct usb_tt	*tt;                  /* low/full speed dev, highspeed hub */
+    int     ttport;                     /* device port on that tt hub */
 
-    INT     refcnt;                    	/* atomic_t, Reference count */
+    INT     refcnt;                     /* atomic_t, Reference count */
 
-    UINT32  toggle[2];                 	/* one bit for each endpoint ([0] = IN, [1] = OUT) */
-    UINT32  halted[2];                 	/* endpoint halts; one bit per endpoint # & direction; */
-                                       	/* [0] = IN, [1] = OUT */
-    INT     epmaxpacketin[16];         	/* INput endpoint specific maximums */
-    INT     epmaxpacketout[16];        	/* OUTput endpoint specific maximums */
+    UINT32  toggle[2];                  /* one bit for each endpoint ([0] = IN, [1] = OUT) */
+    UINT32  halted[2];                  /* endpoint halts; one bit per endpoint # & direction; */
+                                        /* [0] = IN, [1] = OUT */
+    INT     epmaxpacketin[16];          /* INput endpoint specific maximums */
+    INT     epmaxpacketout[16];         /* OUTput endpoint specific maximums */
 
     struct usb_device  *parent;
-    INT					hub_port;
-    USB_BUS_T  *bus;                   	/* Bus we're part of */
+    INT     hub_port;
+    USB_BUS_T  *bus;                    /* Bus we're part of */
 
-    USB_DEV_DESC_T  descriptor;			/* Descriptor */
-    USB_CONFIG_DESC_T *config;   		/* All of the configs */
-    USB_CONFIG_DESC_T *actconfig;		/* the active configuration */
+    USB_DEV_DESC_T  descriptor;         /* Descriptor */
+    USB_CONFIG_DESC_T *config;          /* All of the configs */
+    USB_CONFIG_DESC_T *actconfig;       /* the active configuration */
 
-    CHAR    **rawdescriptors;          	/* Raw descriptors for each config */
+    CHAR    **rawdescriptors;           /* Raw descriptors for each config */
 
-    INT     have_langid;               	/* whether string_langid is valid yet */
-    INT     string_langid;             	/* language ID for strings */
+    INT     have_langid;                /* whether string_langid is valid yet */
+    INT     string_langid;              /* language ID for strings */
   
-    VOID    *hcpriv;                   	/* Host Controller private data */
+    VOID    *hcpriv;                   /* Host Controller private data */
         
     /*
      * Child devices - these can be either new devices
@@ -671,10 +773,10 @@ typedef struct usb_device
 #define PIPE_CONTROL                    2
 #define PIPE_BULK                       3
 
-#define HOST_LIKE_PORT0			0
-#define HOST_LIKE_PORT1			1	
-#define HOST_NORMAL_PORT0_ONLY		2
-#define HOST_NORMAL_TWO_PORT		3
+#define HOST_LIKE_PORT0           0
+#define HOST_LIKE_PORT1           1
+#define HOST_NORMAL_PORT0_ONLY    2
+#define HOST_NORMAL_TWO_PORT      3
 
 #define usb_maxpacket(dev, pipe, out)   (out \
                                 ? (dev)->epmaxpacketout[usb_pipeendpoint(pipe)] \
@@ -786,8 +888,7 @@ extern VOID USB_ScanDevices(VOID);
 extern VOID USB_DriverClaimInterface(USB_DRIVER_T *driver, USB_IF_T *iface, VOID* priv);
 extern INT  USB_InterfaceClaimed(USB_IF_T *iface);
 extern VOID USB_DriverReleaseInterface(USB_DRIVER_T *driver, USB_IF_T *iface);
-extern const  USB_DEV_ID_T *usb_match_id(USB_DEV_T *dev, USB_IF_T *interface,
-       				const USB_DEV_ID_T *id);
+extern const  USB_DEV_ID_T *usb_match_id(USB_DEV_T *dev, USB_IF_T *interface, const USB_DEV_ID_T *id);
 
 /* USB Device */
 extern USB_DEV_T  *USB_AllocateDevice(USB_DEV_T *parent, USB_BUS_T *);
@@ -820,10 +921,8 @@ extern INT  USB_SendControlMessage(USB_DEV_T *dev, UINT32 pipe, UINT8 request, U
 extern INT  USB_SendBulkMessage(USB_DEV_T *usb_dev, UINT32 pipe, VOID *data, INT len, INT *actual_length, INT timeout);
 
 /* Standard Device Request Commands */
-extern INT  USB_GetDescriptor(USB_DEV_T *dev, UINT8 desctype,
-           		UINT8 descindex, VOID *buf, INT size);
-extern INT  USB_GetClassDescriptor(USB_DEV_T *dev, INT ifnum, UINT8 desctype,
-           		UINT8 descindex, VOID *buf, INT size);
+extern INT  USB_GetDescriptor(USB_DEV_T *dev, UINT8 desctype, UINT8 descindex, VOID *buf, INT size);
+extern INT  USB_GetClassDescriptor(USB_DEV_T *dev, INT ifnum, UINT8 desctype, UINT8 descindex, VOID *buf, INT size);
 extern INT  USB_GetDeviceDescriptor(USB_DEV_T *dev);
 extern INT  USB_GetExtraDescriptor(CHAR *buffer, UINT32 size, UINT8 type, VOID **ptr);
 extern INT  USB_GetStringDescriptor(USB_DEV_T *dev, UINT16 langid, UINT8 index, VOID *buf, INT size);
@@ -836,10 +935,8 @@ extern INT  USB_GetStatus(USB_DEV_T *dev, INT type, INT target, VOID *data);
 /* HID Class Request Commands */
 extern INT	USB_GetProtocol(USB_DEV_T *dev, INT ifnum);
 extern INT	USB_SetProtocol(USB_DEV_T *dev, INT ifnum, INT protocol);
-extern INT	USB_GetReport(USB_DEV_T *dev, INT ifnum, UINT8 type,
-           			UINT8 id, VOID *buf, INT size);
-extern INT  USB_SetReport(USB_DEV_T *dev, INT ifnum, UINT8 type,
-       				UINT8 id, VOID *buf, INT size);
+extern INT	USB_GetReport(USB_DEV_T *dev, INT ifnum, UINT8 type, UINT8 id, VOID *buf, INT size);
+extern INT  USB_SetReport(USB_DEV_T *dev, INT ifnum, UINT8 type, UINT8 id, VOID *buf, INT size);
 extern INT  USB_SetIdle(USB_DEV_T *dev, INT ifnum, INT duration, INT report_id);
 
 /* Init USB mass storage class driver */
@@ -874,3 +971,4 @@ extern VOID USB_PortInit(UINT32 u32PortType);
 extern VOID USB_PortDisable(BOOL bIsDisPort0, BOOL bIsDisPort1);
 
 #endif  /* _USB_H_ */
+

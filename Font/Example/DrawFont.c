@@ -1,24 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "w55fa93_reg.h"
 #include "wblib.h"
-#include "w55fa93_sic.h"
-#include "w55fa93_gnand.h"
-#include "nvtfat.h"
 #include "Font.h"
-#include "writer.h"
+#include "W55FA93_VPOST.h"
+#include "Font_demo.h"
 
-#include "w55fa93_vpost.h"
-#include "w55fa93_gpio.h"
 
 #define	 LAST_LINE	11
 
 UINT	g_Font_Height, g_Font_Width,g_Font_Step;
 
-
+#if defined(__GNUC__)
+S_DEMO_FONT s_sDemo_Font __attribute__((aligned (32)));
+UINT16 FrameBuffer[_LCM_WIDTH_*_LCM_HEIGHT_] __attribute__((aligned (32)));
+#else
 __align(32) S_DEMO_FONT s_sDemo_Font;
 __align(32) UINT16 FrameBuffer[_LCM_WIDTH_*_LCM_HEIGHT_];
+#endif
 
 #if 0
 #define dbgprintf sysprintf
@@ -44,7 +43,9 @@ void initVPost(PUINT16 fb)
 		lcdInfo.nScreenHeight = _LCM_HEIGHT_;
 		//lcmFill2Dark(fb);		
 		vpostLCMInit(&lcdInfo, (UINT32*)fb);
-		//backLightControl();
+        /* 1. If backlight control signal is different from nuvoton�s demo board,
+           please don't call this function and must implement another similar one to enable LCD backlight. */
+        //vpostEnaBacklight();
 	}	
 }
 
@@ -295,7 +296,6 @@ void Draw_Init(void)
 	DemoFont_ChangeFontColor(&s_sDemo_Font, COLOR_RGB16_WHITE);			
 	Draw_InitialBorder(&s_sDemo_Font);		
 	
-	// Draw the Boarder for "W55FA93 NandWriter (..)"
 	s_sRect.u32StartX =0;
 	s_sRect.u32StartY = 0;
 	s_sRect.u32EndX = _LCM_WIDTH_,
@@ -304,15 +304,15 @@ void Draw_Init(void)
 					&s_sRect,
 						2);		
 		
-	sprintf(Array1, "W55FA93 Font Sample ");						
+	sprintf(Array1, "Font Sample ");						
 #if 0	
 	Draw_Font(COLOR_RGB16_WHITE, &s_sDemo_Font,					
-						(_LCM_WIDTH_ - 32*g_Font_Step)/2, // 32 Character for "W55FA93 NandWriter (%s"
+						(_LCM_WIDTH_ - 32*g_Font_Step)/2,
 						0,						
 						Array1);						
 #else
 	Draw_Font(COLOR_RGB16_WHITE, &s_sDemo_Font,					
-						0, // 32 Character for "W55FA93 NandWriter (%s"
+						0,
 						0,						
 						Array1);	
 #endif						

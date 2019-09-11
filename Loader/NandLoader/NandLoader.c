@@ -1,8 +1,8 @@
 #include <string.h>
 #include "wblib.h"
 #include "turbowriter.h"
-#include "w55fa93_VPOST.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_VPOST.h"
+#include "W55FA93_reg.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
 #define DATE_CODE   "20181017"

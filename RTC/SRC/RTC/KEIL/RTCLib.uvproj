@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\RTCLib_Data\Release\</OutputDirectory>
-          <OutputName>w55fa93_RTClib</OutputName>
+          <OutputName>W55FA93_RTCLib</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

@@ -10,8 +10,8 @@
 #include "wbtypes.h"
 #include "wblib.h"
 
-#include "w55fa93_reg.h"
-#include "w55fa93_sic.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_SIC.h"
 
 /*-----------------------------------------------------------------------------
  * For system configuration

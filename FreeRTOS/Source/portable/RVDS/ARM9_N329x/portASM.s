@@ -122,7 +122,7 @@ vPortYieldProcessor
 ; Interrupt service routine for preemptive scheduler tick timer
 ; Only used if portUSE_PREEMPTION is set to 1 in portmacro.h
 ;
-; Uses timer 0 of N329x Family
+; Uses timer 1 of N329x Family
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 
 vPreemptiveTick

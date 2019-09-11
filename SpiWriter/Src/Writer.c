@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "wblib.h"
-#include "w55fa93_sic.h"
-#include "nvtfat.h"
+#include "W55FA93_SIC.h"
+#include "NVTFAT.h"
+#ifndef __NoLCM__
 #include "Font.h"
-#include "writer.h"
+#endif
+#include "Writer.h"
 #ifdef __Security__
 #include "Gneiss.h"
 
@@ -14,7 +16,9 @@
 
 void RPMC_CreateRootKey(unsigned char *u8uid, unsigned int id_len, unsigned char *rootkey);
 #endif
+#ifndef __NoLCM__
 extern S_DEMO_FONT s_sDemo_Font;
+#endif
 extern INI_INFO_T Ini_Writer;
 extern BOOL volatile g_4byte_adderss;
 void Exit4ByteMode(void);
@@ -46,10 +50,16 @@ extern PDISK_T *pDisk_SD0;
 
 
 /**********************************/
-
+#if defined (__GNUC__)
+UINT8 infoBufArray[0x40000] __attribute__((aligned(32)));
+UINT8 StorageBufferArray[0x40000] __attribute__((aligned(32)));
+UINT8 CompareBufferArray[0x40000] __attribute__((aligned(32)));
+#else
 __align(32) UINT8 infoBufArray[0x40000];
 __align(32) UINT8 StorageBufferArray[0x40000];
 __align(32) UINT8 CompareBufferArray[0x40000];
+#endif
+
 UINT32 infoBuf, StorageBuffer, CompareBuffer, BufferSize=0;
 UINT8 *pInfo;
 CHAR suNvtFullName[2048], suNvtTargetFullName[2048];
@@ -119,6 +129,15 @@ int main()
 	unsigned char ROOTKey[32];	// Rootkey array	
 	unsigned char RPMCStatus;
 #endif  
+	WB_UART_T uart;
+	sysUartPort(1);
+	uart.uiFreq = sysGetExternalClock()*1000;	//use APB clock
+	uart.uiBaudrate = 115200;
+	uart.uiDataBits = WB_DATA_BITS_8;
+	uart.uiStopBits = WB_STOP_BITS_1;
+	uart.uiParity = WB_PARITY_NONE;
+	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+	sysInitializeUART(&uart);
 
     sysSetSystemClock(eSYS_UPLL,    //E_SYS_SRC_CLK eSrcClk,
                         192000,     //UINT32 u32PllKHz,

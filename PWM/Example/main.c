@@ -72,22 +72,23 @@ int main()
 	UINT32 u32ExtFreq;
 	PFN_PWM_CALLBACK pfnOldcallback;	
 	UINT32 u32Frequency;
-	u32ExtFreq = sysGetExternalClock();    	/* KHz unit */	
 	
+	u32ExtFreq = sysGetExternalClock();    	/* KHz unit */	
+	sysUartPort(1);
+	uart.uiFreq = u32ExtFreq * 1000;
+	uart.uiBaudrate = 115200;
+	uart.uiDataBits = WB_DATA_BITS_8;
+	uart.uiStopBits = WB_STOP_BITS_1;
+	uart.uiParity = WB_PARITY_NONE;
+	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+	sysInitializeUART(&uart);
+
 	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
 					192000,		//UINT32 u32PllKHz, 	
 					192000,		//UINT32 u32SysKHz,
 					192000,		//UINT32 u32CpuKHz,
 					  96000,		//UINT32 u32HclkKHz,
 					  APBCLK/1000);		//UINT32 u32ApbKHz		
-
-	uart.uiFreq = u32ExtFreq * 1000;
-    uart.uiBaudrate = 115200;
-    uart.uiDataBits = WB_DATA_BITS_8;
-    uart.uiStopBits = WB_STOP_BITS_1;
-    uart.uiParity = WB_PARITY_NONE;
-    uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-    sysInitializeUART(&uart);
     
 	/* Enable PWM clock */
 	PWM_Open();	

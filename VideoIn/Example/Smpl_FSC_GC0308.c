@@ -86,7 +86,11 @@ extern UINT8 u8PlanarFrameBuffer[];
 
 struct OV_RegValue g_sGC0308_RegValue[] = 
 {
+#ifdef __GNUC__
+    #include "GC0308/GC0308_VGA.dat"
+#else
 	#include "GC0308\GC0308_VGA.dat"
+#endif
 };
 
 static struct OV_RegTable g_OV_InitTable[] =
@@ -292,13 +296,13 @@ UINT32 Smpl_GC0308(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1)
 	outp32(REG_AHBCLK, inp32(REG_AHBCLK) | HCLK4_CKE);
 	
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_SNR_CCIR601);
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);
 #endif
 #ifdef __2ND_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
 #endif
 
 	GC0308_Init(7);	

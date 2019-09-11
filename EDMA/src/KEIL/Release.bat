@@ -1,1 +1,1 @@
-move .\EdmaLib_Data\Release\w55fa93_edma.lib ..\..\Lib
+move .\EdmaLib_Data\Release\W55FA93_EDMA.lib ..\..\Lib

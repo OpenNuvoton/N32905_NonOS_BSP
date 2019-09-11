@@ -3,15 +3,24 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "w55fa93_edma.h"
+#include "W55FA93_EDMA.h"
+#include "W55FA93_SPI.h"
 
 //#define TEST_SIZE	512 * 2 * 1024
 #define TEST_SIZE	100 * 1024
+#if defined(__GNUC__)
+__attribute__((aligned(4096))) UINT8 WriteBuffer[TEST_SIZE];
+__attribute__((aligned(4096))) UINT8 ReadBuffer[TEST_SIZE];
+#else
 __align(4096) UINT8 WriteBuffer[TEST_SIZE];
 __align(4096) UINT8 ReadBuffer[TEST_SIZE];
+#endif
 
 static INT32 g_PdmaCh = 0;
 volatile static BOOL g_bPdmaInt = FALSE;
+
+extern int usiWriteEnable(void);
+extern int usiCheckBusy(void);
 
 void PdmaCallback_SPI(unsigned int arg)
 { 	
@@ -33,7 +42,7 @@ int initSPIPDMA_Write(UINT32 src_addr, UINT32 dma_length)
 						PdmaCallback_SPI, 				//void (*irq_handler) (void *),
 						NULL);					//void *data
 
-	EDMA_SetWrapINTType(g_PdmaCh , NULL);								
+	EDMA_SetWrapINTType(g_PdmaCh , 0);								
 
 	EDMA_SetDirection(g_PdmaCh , eDRVEDMA_DIRECTION_INCREMENTED, eDRVEDMA_DIRECTION_FIXED);
 
@@ -60,7 +69,7 @@ int initSPIPDMA_Read(UINT32 dest_addr, UINT32 dma_length)
 						PdmaCallback_SPI, 				//void (*irq_handler) (void *),
 						NULL);					//void *data
 
-	EDMA_SetWrapINTType(g_PdmaCh , NULL);								
+	EDMA_SetWrapINTType(g_PdmaCh , 0);								
 
 	EDMA_SetDirection(g_PdmaCh , eDRVEDMA_DIRECTION_FIXED, eDRVEDMA_DIRECTION_INCREMENTED);
 
@@ -76,7 +85,7 @@ int initSPIPDMA_Read(UINT32 dest_addr, UINT32 dma_length)
 
 INT spiFlashPDMAWrite(UINT32 addr, UINT32 len, UINT32 *buf)
 {
-	int count=0, page, i;	
+	UINT32 count=0, page, i, tmp;	
 	
 	count = len / 256;
 	if ((len % 256) != 0)
@@ -112,7 +121,8 @@ INT spiFlashPDMAWrite(UINT32 addr, UINT32 len, UINT32 *buf)
 		spiTxLen(0, 0, 32);		
 
 		initSPIPDMA_Write((UINT32)buf, page);
-		(UINT32)buf = (UINT32)buf + page;
+		tmp = (UINT32)buf + page;
+		buf = (UINT32 *)tmp;		
 
 		EDMA_Trigger(g_PdmaCh);
 		outp32(REG_SPI0_EDMA, (inp32(REG_SPI0_EDMA) & ~0x03) | EDMA_GO);							
@@ -201,7 +211,6 @@ void SPIFlashTest(void)
 		{
 			sysprintf("error!! Src[%d] = 0x%X, Dst[%d] = 0x%X\n", i, *(pSrc+i), i, *(pDst+i));
 			while(1);
-			break;
 		}
 	}
 

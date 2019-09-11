@@ -19,7 +19,7 @@
 #define _NUC930_I2C_H_
 
 #include "wbtypes.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 
 /*-----------------------------------------*/
 /* marco, type and constant definitions    */

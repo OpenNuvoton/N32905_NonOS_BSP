@@ -136,6 +136,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>6</TargetSelection>
@@ -391,9 +392,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>I2S_example.c</FileName>
+              <FileName>I2S_Example.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\I2S_example.c</FilePath>
+              <FilePath>..\Src\I2S_Example.c</FilePath>
             </File>
             <File>
               <FileName>standalone.c</FileName>
@@ -401,9 +402,9 @@
               <FilePath>..\Src\standalone.c</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_nau8822.c</FileName>
+              <FileName>W55FA93_nau8822.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\w55fa93_nau8822.c</FilePath>
+              <FilePath>..\Src\W55FA93_nau8822.c</FilePath>
             </File>
             <File>
               <FileName>wb_init.s</FileName>
@@ -411,19 +412,19 @@
               <FilePath>..\Src\wb_init.s</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_i2s.lib</FileName>
+              <FileName>W55FA93_I2S.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\lib\w55fa93_i2s.lib</FilePath>
+              <FilePath>..\..\Lib\W55FA93_I2S.lib</FilePath>
             </File>
             <File>
-              <FileName>W55FA93_syslib.lib</FileName>
+              <FileName>W55FA93_SYSLIB.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\SYSLIB\Lib\W55FA93_syslib.lib</FilePath>
+              <FilePath>..\..\..\SYSLIB\Lib\W55FA93_SYSLIB.lib</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_i2c.lib</FileName>
+              <FileName>W55FA93_I2C.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\I2C\lib\w55fa93_i2c.lib</FilePath>
+              <FilePath>..\..\..\I2C\Lib\W55FA93_I2C.lib</FilePath>
             </File>
           </Files>
         </Group>

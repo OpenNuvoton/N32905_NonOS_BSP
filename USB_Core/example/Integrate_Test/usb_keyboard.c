@@ -1,3 +1,14 @@
+/****************************************************************************
+ * @file     usb_keyboard.c
+ * @version  V1.00
+ * $Revision: 4 $
+ * $Date: 18/04/25 11:43a $
+ * @brief    USBH sample source file
+ *
+ * @note
+ * Copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
+
 /*
  * $Id: usbkbd.c,v 1.16 2000/08/14 21:05:26 vojtech Exp $
  *
@@ -49,11 +60,7 @@
 #endif
 #include "usbkbd.h"
 
-
 USB_KBD_T  *_my_usbkbd = NULL;
-
-//MODULE_AUTHOR("Vojtech Pavlik <vojtech@suse.cz>");
-//MODULE_DESCRIPTION("USB HID Boot Protocol keyboard driver");
 
 #if 0
 /* See the HID Usage Tables Document, this is the AT-101 key position */
@@ -77,7 +84,6 @@ static UINT8 usb_kbd_keycode[256] =
     150,158,159,128,136,177,178,176,142,152,173,140
 };
 #endif
-
 
 /* YCHuang: I translate the key position into key code. */
 static UINT8  _UsbKeyCodeMap[256][20] = 
@@ -274,9 +280,9 @@ static UINT8  _UsbControlKey[8][24] =
 static VOID usb_kbd_irq(URB_T *urb)
 {
     USB_KBD_T *kbd = urb->context;
-    INT		i;
+    INT  i;
 
-    if (urb->status) 
+    if (urb->status)
     {
         sysprintf("usb_kbd_irq, urb error:%d\n", urb->status);
         return;
@@ -285,62 +291,7 @@ static VOID usb_kbd_irq(URB_T *urb)
     for (i=2; i<8; i++)
         if (kbd->newData[i])
             sysprintf("%s\n", _UsbKeyCodeMap[kbd->newData[i]]);
-#if 0
-    for (i=0; i<8; i++)
-        input_report_key(&kbd->dev, usb_kbd_keycode[i + 224], (kbd->newData[0] >> i) & 1);
-
-    for (i=2; i<8; i++) 
-    {
-        if ((kbd->oldData[i] > 3) && 
-            (memscan(kbd->newData + 2, kbd->oldData[i], 6) == kbd->newData + 8)) 
-        {
-            if (usb_kbd_keycode[kbd->oldData[i]])
-                input_report_key(&kbd->dev, usb_kbd_keycode[kbd->oldData[i]], 0);
-            else
-                sysprintf("usb_kbd_irq - Unknown key (scancode %#x) released.\n", kbd->oldData[i]);
-        }
-
-        if ((kbd->newData[i] > 3) && 
-            (memscan(kbd->oldData + 2, kbd->newData[i], 6) == kbd->oldData + 8)) 
-        {
-            if (usb_kbd_keycode[kbd->newData[i]])
-                input_report_key(&kbd->dev, usb_kbd_keycode[kbd->newData[i]], 1);
-            else
-                info("Unknown key (scancode %#x) pressed.", kbd->newData[i]);
-        }
-    }
-    memcpy(kbd->oldData, kbd->newData, 8);
-#endif    
 }
-
-
-#if 0
-INT usb_kbd_event(struct input_dev *dev, UINT32 type, UINT32 code, INT value)
-{
-    USB_KBD_T *kbd = dev->private;
-
-    if (type != EV_LED) return -1;
-
-
-        kbd->newleds = (!!test_bit(LED_KANA,    dev->led) << 3) | (!!test_bit(LED_COMPOSE, dev->led) << 3) |
-                       (!!test_bit(LED_SCROLLL, dev->led) << 2) | (!!test_bit(LED_CAPSL,   dev->led) << 1) |
-                       (!!test_bit(LED_NUML,    dev->led));
-
-        if (kbd->urbLed.status == -EINPROGRESS)
-                return 0;
-
-        if (kbd->leds == kbd->newleds)
-                return 0;
-
-        kbd->leds = kbd->newleds;
-        kbd->urbLed.dev = kbd->usbdev;
-        if (USB_SubmitUrb(&kbd->urbLed))
-                err("USB_SubmitUrb(leds) failed");
-
-        return 0;
-}
-#endif
-
 
 static VOID usb_kbd_led(URB_T *urb)
 {
@@ -381,7 +332,7 @@ VOID USBKeyboardLED(URB_T *urb)
 INT USBKeyboardOpen(USB_KBD_T *kbd)
 {
     if (USB_SubmitUrb(&kbd->urbIrq))
-        return -1; //-EIO;
+        return -1; /* -EIO; */
     return 0;
 }
 
@@ -430,20 +381,6 @@ static VOID *usb_kbd_probe(USB_DEV_T *dev, UINT32 ifnum,
 
     kbd->usbdev = dev;
 
-#if 0
-    kbd->dev.evbit[0] = BIT(EV_KEY) | BIT(EV_LED) | BIT(EV_REP);
-    kbd->dev.ledbit[0] = BIT(LED_NUML) | BIT(LED_CAPSL) | BIT(LED_SCROLLL) | BIT(LED_COMPOSE) | BIT(LED_KANA);
-
-    for (i=0; i<255; i++)
-         set_bit(usb_kbd_keycode[i], kbd->dev.keybit);
-    clear_bit(0, kbd->dev.keybit);
-        
-    kbd->dev.private = kbd;
-    kbd->dev.event = usb_kbd_event;
-    kbd->dev.open = usb_kbd_open;
-    kbd->dev.close = usb_kbd_close;
-#endif    
-
     sysprintf("DEVICE SLOW: %d  %d\n", dev->slow, usb_pipeslow(pipe));
     dev->slow = 1;
     
@@ -452,7 +389,7 @@ static VOID *usb_kbd_probe(USB_DEV_T *dev, UINT32 ifnum,
     //kbd->newData = (UINT8 *)0xC105FFF1;
     //kbd->newData = (UINT8 *)0xC107FFFD;
     //kbd->newData = (UINT8 *)0xC1090000;
-#endif    
+#endif
 
     FILL_INT_URB(&kbd->urbIrq, dev, pipe, kbd->newData, maxp > 8 ? 8 : maxp,
                 usb_kbd_irq, kbd, endpoint->bInterval);
@@ -462,14 +399,6 @@ static VOID *usb_kbd_probe(USB_DEV_T *dev, UINT32 ifnum,
     kbd->dr.value = 0x200;
     kbd->dr.index = interface->bInterfaceNumber;
     kbd->dr.length = 1;
-
-#if 0
-    kbd->dev.name = kbd->name;
-    kbd->dev.idbus = BUS_USB;
-    kbd->dev.idvendor = dev->descriptor.idVendor;
-    kbd->dev.idproduct = dev->descriptor.idProduct;
-    kbd->dev.idversion = dev->descriptor.bcdDevice;
-#endif
 
     if (dev->descriptor.iManufacturer &&
         (USB_TranslateString(dev, dev->descriptor.iManufacturer, buf, 63) > 0))
@@ -499,7 +428,6 @@ static VOID *usb_kbd_probe(USB_DEV_T *dev, UINT32 ifnum,
 static VOID usb_kbd_disconnect(USB_DEV_T *dev, VOID *ptr)
 {
     USB_KBD_T  *kbd = ptr;
-    
     USB_UnlinkUrb(&kbd->urbIrq);
     //input_unregister_device(&kbd->dev);
     USB_free(kbd);
@@ -522,7 +450,7 @@ USB_DRIVER_T  usb_kbd_driver =
     "keyboard",
     usb_kbd_probe,
     usb_kbd_disconnect,
-    {NULL,NULL},                       /* driver_list */ 
+    {NULL,NULL},                       /* driver_list */
  //   {0},                               /* semaphore */
     NULL,                              /* *ioctl */
     usb_kbd_id_table,

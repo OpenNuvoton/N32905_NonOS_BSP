@@ -525,7 +525,7 @@ static void SnrPowerDown(BOOL bIsEnable)
 static BOOL I2C_Write_8bitSlaveAddr_16bitReg_8bitData(UINT8 uAddr, UINT16 uRegAddr, UINT8 uData)
 {
 	// 3-Phase(ID address, regiseter address, data(8bits)) write transmission
-	volatile u32Delay = 0x100;
+	volatile UINT32 u32Delay = 0x100;
 	DrvI2C_SendStart();
 	while(u32Delay--);		
 	if ( (DrvI2C_WriteByte(uAddr,DrvI2C_Ack_Have,8)==FALSE) ||			// Write ID address to sensor

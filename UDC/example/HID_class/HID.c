@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "usbd.h"
 #include "HID.h"
 
 #ifdef HID_KEYPAD 
-	#include "w55fa93_kpi.h"
+	#include "W55FA93_KPI.h"
 #endif
 
 #define LEN_CONFIG_AND_SUBORDINATE      (LEN_CONFIG+LEN_INTERFACE+LEN_HID+LEN_ENDPOINT)
@@ -23,7 +23,11 @@ extern USB_CMD_T	_usb_cmd_pkt;
 
 UINT32 volatile u32Ready = 0;
 #ifdef HID_MOUSE
+#if defined (__GNUC__)
+UINT8  g_HID_au8MouseReportDescriptor[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8  g_HID_au8MouseReportDescriptor[] =
+#endif
 {
 
 	0x05, 0x01,     /* Usage Page(Generic Desktop Controls) */
@@ -63,7 +67,12 @@ UINT32 g_HID_u32MouseReportDescriptorSize = HID_MOUSE_REPORT_DESCRIPTOR_SIZE;
 
 #define HID_REPORT_DESCRIPTOR_SIZE HID_MOUSE_REPORT_DESCRIPTOR_SIZE
 
+#if defined (__GNUC__)
+UINT8 g_au8MouseReport[4] __attribute__((aligned(4)));
+#else
 __align(4) UINT8 g_au8MouseReport[4];
+#endif
+
 UINT32 g_u32MouseReportSize = sizeof(g_au8MouseReport) / sizeof(g_au8MouseReport[0]);
 
 #endif
@@ -72,8 +81,12 @@ UINT32 g_u32MouseReportSize = sizeof(g_au8MouseReport) / sizeof(g_au8MouseReport
 #ifdef HID_KEYBOARD
 
 //keyboard 101keys
-__align(4) UINT8 g_HID_au8KeyboardReportDescriptor[] = {
-
+#if defined (__GNUC__)
+UINT8 g_HID_au8KeyboardReportDescriptor[] __attribute__((aligned(4))) =
+#else
+__align(4) UINT8 g_HID_au8KeyboardReportDescriptor[] =
+#endif
+{
       0x05, 0x01,
       0x09, 0x06,
       0xA1, 0x01,
@@ -114,14 +127,23 @@ UINT32 g_HID_u32KeyboardReportDescriptorSize = HID_KEYBOARD_REPORT_DESCRIPTOR_SI
 
 # define HID_REPORT_DESCRIPTOR_SIZE HID_KEYBOARD_REPORT_DESCRIPTOR_SIZE
 
+#if defined (__GNUC__)
+UINT8 g_au8KeyboardReport[8] __attribute__((aligned(4)));
+#else
 __align(4) UINT8 g_au8KeyboardReport[8];
+#endif
+
 UINT32 g_u32KeyboardReportSize = sizeof(g_au8KeyboardReport) / sizeof(g_au8KeyboardReport[0]);
 
 #endif
 
 
 /* MSC Descriptor */
+#if defined (__GNUC__)
+UINT8 HID_DeviceDescriptor[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 HID_DeviceDescriptor[] =
+#endif
 {
  	LEN_DEVICE,     /* bLength */
     DESC_DEVICE,    /* bDescriptorType */
@@ -143,7 +165,11 @@ __align(4) UINT8 HID_DeviceDescriptor[] =
     0x01            /* bNumConfigurations */
 };
 
+#if defined (__GNUC__)
+static UINT8 HID_ConfigurationBlock[] __attribute__((aligned(4))) =
+#else
 __align(4) static UINT8 HID_ConfigurationBlock[] =
+#endif
 {
 
 	  LEN_CONFIG,     /* bLength */
@@ -191,7 +217,11 @@ __align(4) static UINT8 HID_ConfigurationBlock[] =
 };
 
 /* Identifier Language */
+#if defined (__GNUC__)
+static UINT8 HID_StringDescriptor0[4] __attribute__((aligned(4))) =
+#else
 __align(4) static UINT8 HID_StringDescriptor0[4] = 
+#endif
 {
 	4,				// bLength
 	USB_DT_STRING,	// bDescriptorType
@@ -199,7 +229,11 @@ __align(4) static UINT8 HID_StringDescriptor0[4] =
 };
 
 /* iManufacturer */
+#if defined (__GNUC__)
+UINT8 HID_StringDescriptor1[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 HID_StringDescriptor1[] = 
+#endif
 {
 	0x10,				 	/* bLength (Dafault Value is 0x10, the value will be set to actual value according to the Descriptor size wehn calling mscdInit) */
 	0x03,					/* bDescriptorType */
@@ -207,7 +241,11 @@ __align(4) UINT8 HID_StringDescriptor1[] =
 };
 
 /* iProduct */
+#if defined (__GNUC__)
+UINT8 HID_StringDescriptor2[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 HID_StringDescriptor2[] = 
+#endif
 {
 	0x10,				 	/* bLength (Dafault Value is 0x10, the value will be set to actual value according to the Descriptor size wehn calling mscdInit) */
 	0x03,					/* bDescriptorType */
@@ -215,7 +253,11 @@ __align(4) UINT8 HID_StringDescriptor2[] =
 };
 
 /* iSerialNumber */
+#if defined (__GNUC__)
+UINT8 HID_StringDescriptor3[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 HID_StringDescriptor3[] = 
+#endif
 {
 	0x1A,				 	/* bLength (Dafault Value is 0x1A, the value will be set to actual value according to the Descriptor size wehn calling mscdInit) */
 	0x03,					/* bDescriptorType */

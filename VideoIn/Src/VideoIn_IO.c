@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "wblib.h"
 #include "VideoIn.h"
 #include "W55FA93_VideoIn.h"
@@ -16,14 +16,14 @@ VOID videoInIoctl(UINT32 u32Cmd, UINT32 u32Element, UINT32 u32Arg0, UINT32 u32Ar
 	switch(u32Cmd)
 	{
 		case VIDEOIN_IOCTL_SET_BUF_ADDR:
-			DrvVideoIn_SetBaseStartAddress(u32Element,	
-										u32Arg0,
-										u32Arg1);
+			DrvVideoIn_SetBaseStartAddress((E_VIDEOIN_PIPE)u32Element,	
+										(E_VIDEOIN_BUFFER)u32Arg0,
+										(UINT32)u32Arg1);
 			break;							
 		case VIDEOIN_IOCTL_ORDER_INFMT_OUTFMT:
-			DrvVideoIn_SetDataFormatAndOrder(u32Element,	
-										u32Arg0,
-										u32Arg1);	
+			DrvVideoIn_SetDataFormatAndOrder((E_VIDEOIN_ORDER)u32Element,	
+										(E_VIDEOIN_IN_FORMAT)u32Arg0,
+										(E_VIDEOIN_OUT_FORMAT)u32Arg1);	
 			break;				
 		case VIDEOIN_IOCTL_SET_POLARITY:
 			DrvVideoIn_SetSensorPolarity((BOOL)u32Element, 
@@ -40,12 +40,12 @@ VOID videoInIoctl(UINT32 u32Cmd, UINT32 u32Element, UINT32 u32Arg0, UINT32 u32Ar
 							 		u32Arg0);				//UINT16 u16Width;		
 			break;
 		case VIDEOIN_IOCTL_VSCALE_FACTOR:
-			DrvVideoIn_SetVerticalScaleFactor(u32Element,
+			DrvVideoIn_SetVerticalScaleFactor((E_VIDEOIN_PIPE)u32Element,
 									u32Arg0,					//UINT16 u16Height, 
 							 		u32Arg1);				//UINT16 u16Width;								 			
 			break;	
 		case VIDEOIN_IOCTL_HSCALE_FACTOR:
-			DrvVideoIn_SetHorizontalScaleFactor(u32Element,
+			DrvVideoIn_SetHorizontalScaleFactor((E_VIDEOIN_PIPE)u32Element,
 									u32Arg0,					//UINT16 u16Height, 
 							 		u32Arg1);				//UINT16 u16Width;								 			
 			break;		
@@ -55,11 +55,11 @@ VOID videoInIoctl(UINT32 u32Cmd, UINT32 u32Element, UINT32 u32Arg0, UINT32 u32Ar
 			break;					
 		case	VIDEOIN_IOCTL_SET_PIPE_ENABLE: 
 			DrvVideoIn_SetPipeEnable(u32Element,
-									u32Arg0);
+									(E_VIDEOIN_PIPE)u32Arg0);
 			break;						
 		case VIDEOIN_IOCTL_SET_INPUT_TYPE: 
 			DrvVideoIn_SetInputType(u32Element,			//3: Both field enable
-						u32Arg0,						//VIDEOIN_TYPE eDRVVIDEOIN_TYPE_CCIR656 or eDRVVIDEOIN_TYPE_CCIR601, 
+						(E_VIDEOIN_TYPE)u32Arg0,						//VIDEOIN_TYPE eDRVVIDEOIN_TYPE_CCIR656 or eDRVVIDEOIN_TYPE_CCIR601, 
 						u32Arg1);						//BOOL bFieldSwap		
 			break;							
 		case VIDEOIN_IOCTL_SET_FIELD_DET:
@@ -68,3 +68,4 @@ VOID videoInIoctl(UINT32 u32Cmd, UINT32 u32Element, UINT32 u32Arg0, UINT32 u32Ar
 			break;							
 	}
 }
+

@@ -1,8 +1,8 @@
 #include <string.h>
 #include "wblib.h"
 #include "turbowriter.h"
-#include "w55fa93_vpost.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_VPOST.h"
+#include "W55FA93_reg.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
 #ifdef _S605_

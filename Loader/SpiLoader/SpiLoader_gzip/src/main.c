@@ -7,12 +7,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_gpio.h"
-#include "w55fa93_kpi.h"
-#include "AviLib.h"
-#include "w55fa93_gpio.h"
-#include "w55fa93_reg.h"
-#include "w55fa93_vpost.h"
+#include "W55FA93_GPIO.h"
+#include "W55FA93_KPI.h"
+#include "AVILib.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_VPOST.h"
 #include "SPU.h"
 #include "SpiLoader.h"
 #include "nvtloader.h"
@@ -46,8 +45,14 @@
 
 #define LOAD_IMAGE			0
 #define CHECK_HEADER_ONLY 	1
-#define IMAGE_BUFFER		0xA00000
 
+#ifdef _N32905_
+#define IMAGE_BUFFER        0xA00000
+#elif defined _N32903_
+#define IMAGE_BUFFER        0x500000
+#else
+#define IMAGE_BUFFER        0x100000
+#endif
 
 UINT8 image_buffer[512];
 
@@ -502,7 +507,7 @@ int main(void)
 				fileLen = *(pImageList + 3);
 				
 				SPIReadFast(0, startBlock * 0x10000, 64, (UINT32*)IMAGE_BUFFER);
-				
+
 				u32Result = do_bootm(IMAGE_BUFFER, 0, CHECK_HEADER_ONLY);		
 
 				sysSetGlobalInterrupt(DISABLE_ALL_INTERRUPTS);

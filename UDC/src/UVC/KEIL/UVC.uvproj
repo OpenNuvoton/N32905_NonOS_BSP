@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\UVC_Data\FORMAT_BOTH\</OutputDirectory>
-          <OutputName>w55fa93_UVC</OutputName>
+          <OutputName>W55FA93_UVC</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -437,7 +437,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\UVC_Data\FORMAT_YUV_ONLY\</OutputDirectory>
-          <OutputName>w55fa93_UVC_YUV_Only</OutputName>
+          <OutputName>W55FA93_UVC_YUV_Only</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -830,7 +830,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\UVC_Data\FORMAT_MJPEG_ONLY\</OutputDirectory>
-          <OutputName>w55fa93_UVC_MJPEG_Only</OutputName>
+          <OutputName>W55FA93_UVC_MJPEG_Only</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

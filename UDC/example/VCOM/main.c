@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "usbd.h"
 
 //#define SUSPEND_POWERDOWN
@@ -16,7 +16,7 @@ int main(void)
 {
 	WB_UART_T uart;
 	UINT32 u32ExtFreq;
-			
+	sysUartPort(1);
 	u32ExtFreq = sysGetExternalClock();    	/* Hz unit */		
 	uart.uiFreq = u32ExtFreq * 1000;
     uart.uiBaudrate = 115200;

@@ -6,8 +6,8 @@
  
 #include "string.h"
 #include "stdlib.h"
-#include "w55fa93_reg.h"
-#include "spu.h"
+#include "W55FA93_reg.h"
+#include "SPU.h"
 #include "DrvSPU.h"
 
 //#define DBG_PRINTF(...)
@@ -16,7 +16,11 @@
 /* buffer */
 UINT8	*_pucPlayAudioBuff;
 
+#if defined (__GNUC__) && !(__CC_ARM)
+__attribute__ ((aligned (256))) UINT8 playbuffer[FRAG_SIZE];
+#else
 __align(256) UINT8 playbuffer[FRAG_SIZE];
+#endif
 
 void SPU_SET_SAMPLE_RATE(UINT32 u32sysclk, UINT32 u32SampleRate)
 {	

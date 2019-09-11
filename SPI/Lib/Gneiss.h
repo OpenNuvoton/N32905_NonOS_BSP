@@ -9,7 +9,7 @@
   * COPYRIGHT 2015 Winbond Electronics Corporation.
 */ 
 #include "wblib.h"
-#include "Secureic.h"
+#include "SecureIC.h"
 unsigned int RPMC_ReadCounterData(void);
 unsigned int RPMC_ReadRPMCstatus(unsigned int checkall);
 unsigned int RPMC_WrRootKey(unsigned int cadr,unsigned char *rootkey);

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "demo.h"
 #include "usbd.h"
 #include "videoclass.h"
@@ -58,9 +58,13 @@ void Demo_PowerDownWakeUp(void);
 #define UVC_SKIP_FRAME 2
 
 /* Buffer for Packet & Planar format */
+#if defined (__GNUC__)
+UINT8 u8FrameBuffer0[640*480*2 + BITSTREAM_OFFSET] __attribute__((aligned(32)));
+UINT8 u8FrameBuffer1[640*480*2 + BITSTREAM_OFFSET] __attribute__((aligned(32)));
+#else
 UINT8 __align(32) u8FrameBuffer0[640*480*2 + BITSTREAM_OFFSET];	
 UINT8 __align(32) u8FrameBuffer1[640*480*2 + BITSTREAM_OFFSET];	
-
+#endif
 UINT32 u32PacketFrameBuffer0, u32PacketFrameBuffer1,u32BitstreamBuffer0,u32BitstreamBuffer1;
 
 /* Toggle index for Fixed Pattern */
@@ -134,6 +138,7 @@ VOID uvcdEvent(VOID)
 	{
 		if (usbdStatus.appConnected == 1)
 	    {
+#ifdef __UVC_VIN__
 	    	while(g_bWaitVIN)
 			{
 				bIsFrameBuffer1 = 0; 	
@@ -162,7 +167,7 @@ VOID uvcdEvent(VOID)
 					}		
 				}			  	   	
 	    	}  	
-	    		
+#endif
 	    	/* Get Image Data */
 			result = GetImage(&u32Addr, &u32transferSize);
 			
@@ -172,7 +177,7 @@ VOID uvcdEvent(VOID)
 		  		uvcdSendImage(u32Addr, u32transferSize, uvcStatus.StillImage);
 			 	/* Wait for Complete */ 	
 		  		while(!uvcdIsReady());	
-	  		 
+#ifdef __UVC_VIN__
 			  	bIsFrameBuffer1 = 0; 	
 			  	bIsFrameBuffer0 = 0; 
 				  		 				
@@ -200,6 +205,7 @@ VOID uvcdEvent(VOID)
 				 
 					}		
 				}
+#endif
 		  	}			  	
 	   }  
 	}
@@ -306,7 +312,6 @@ VOID ChangeFrame(BOOL bChangeSize, UINT32 u32Address, UINT16 u16Width,UINT16 u16
 				u16Width,
 				0);								
 }
-
 /* Get Image Size and Address (Image data control for Foramt and Frame) */
 INT GetImage(PUINT32 pu32Addr, PUINT32 pu32transferSize)
 {
@@ -314,8 +319,6 @@ INT GetImage(PUINT32 pu32Addr, PUINT32 pu32transferSize)
 #ifndef __UVC_VIN__	
 	UINT32 u32Size0,u32Size1; 
     UINT32 u32BuffAddr1,u32BuffAddr0;    
-    
-    GetImageBuffer();
 #else   
 	INT result;
 	/* Get Image Buffer (Return 0 if frame isn't updated) */
@@ -333,7 +336,7 @@ INT GetImage(PUINT32 pu32Addr, PUINT32 pu32transferSize)
     		*pu32transferSize = uvcStatus.snapshotMaxVideoFrameSize;   
 #ifdef __UVC_VIN__	
 			if(u32CurFrameIndex != uvcStatus.snapshotFrameIndex || u32CurFormatIndex != uvcStatus.snapshotFormatIndex)
-			{				
+			{
 				/* Frame Size Changed */
             	switch(uvcStatus.snapshotFrameIndex)
             	{										

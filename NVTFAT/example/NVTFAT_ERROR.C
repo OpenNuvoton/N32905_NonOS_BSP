@@ -35,7 +35,7 @@
 #include "wblib.h"
 #endif
 
-#include "nvtfat.h"
+#include "NVTFAT.h"
 
 #ifdef ECOS
 #include "kapi.h"

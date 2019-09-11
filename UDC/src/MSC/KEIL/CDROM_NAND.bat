@@ -1,1 +1,1 @@
-move .\MSC_CDROM_Data\NAND\w55fa93_MSC_NAND_CDROM.lib ..\..\..\Lib
+move .\MSC_CDROM_Data\NAND\W55FA93_MSC_NAND_CDROM.lib ..\..\..\Lib

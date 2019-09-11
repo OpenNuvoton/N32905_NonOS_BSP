@@ -10,15 +10,21 @@
 #include "wblib.h"
 #include "wbtypes.h"
 
-#include "w55fa93_reg.h"
-#include "w55fa93_sic.h"
-#include "w55fa93_GNAND.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_SIC.h"
+#include "W55FA93_GNAND.h"
 
 #define DBG_PRINTF	sysprintf
 //#define DBG_PRINTF(...)
 
-__align (32) UINT8 g_ram0[512*16*16];
-__align (32) UINT8 g_ram1[512*16*16];
+#if defined (__GNUC__)
+    UINT8 g_ram0[512*16*16] __attribute__((aligned (32)));
+    UINT8 g_ram1[512*16*16] __attribute__((aligned (32)));
+#else
+    __align (32) UINT8 g_ram0[512*16*16];
+    __align (32) UINT8 g_ram1[512*16*16];
+#endif
+
 UINT32 u32SecCnt;
 UINT32 u32backup[10];
 
@@ -111,10 +117,10 @@ int main(void)
 			GNAND_read(ptMassNDisk, jj, u32SecCnt, g_ram1);
 	        if(memcmp(g_ram0, g_ram1, u32SecCnt*512) != 0)
 	        {
-				sysprintf("data compare ERROR at sector No. !! -- %4x \n", jj);
+				sysprintf("data compare ERROR at sector No. 0x%04X \n", jj);
 	        	while(1);
 			}
-			sysprintf("data compare OK at sector No. !! -- %4x \n", jj);
+			sysprintf("data compare OK at sector No. 0x%04X \n", jj);
 		}
 	}
 }

@@ -24,9 +24,9 @@
 * REMARK
 *   None
 ****************************************************************************/
-#include "W55fa93_adc.h"
+#include "W55FA93_ADC.h"
 
-#include "W55fa93_reg.h"
+#include "W55FA93_reg.h"
 
 /* Verbose debug information */
 #define DBG_PRINTF(...)		//sysprintf 
@@ -43,19 +43,9 @@
 
 static unsigned char _opened = E_ADC_UNINIT;
 // These two will always store the latest sampled value
-static unsigned short  _hr, _vr;
+//static unsigned short  _hr, _vr;
 static unsigned char volatile _state;
 static INT32 i32_x=0, i32_y=0;
-
-typedef enum{ 
-	eADC_BAND_P0P5 = 0,                                             
-	eADC_BAND_P0P75
-}E_ADC_UPBAND;
-    
-typedef enum{ 
-	eADC_BAND_N0P5 = 0,                                             
-	eADC_BAND_N0P75
-}E_ADC_DOWNBAND;   
 
 typedef enum{ 
 	eADC_PRE_P0 = 0,                                             
@@ -151,7 +141,7 @@ typedef enum{
 typedef void (*PFN_ADC_CALLBACK)(VOID);	
 static PFN_ADC_CALLBACK g_psADCCallBack[4]={0, 0, 0, 0};
 
-
+#ifndef USING_INT
 static __inline VOID DrvADC_PollingADC(VOID)
 {
 	while( (inp32(REG_ADC_CON) & ADC_INT) != ADC_INT);	/* Wait until ADC INT */ 
@@ -168,6 +158,7 @@ static __inline VOID DrvADC_PollingWT(VOID)
 		        				~(LVD_INT | ADC_INT)) |  
 		        				(WT_INT |ADC_INT));
 }
+
 static __inline BOOL DrvADC_IsPenDown(VOID)
 {
 	if ( (inp32(REG_ADC_TSC) & ADC_UD) == ADC_UD)
@@ -175,6 +166,7 @@ static __inline BOOL DrvADC_IsPenDown(VOID)
 	else
 		return FALSE;	//Pen up;		
 }
+#endif
 /* =============================== sorting =============================== */
 void swap(UINT16 *x,UINT16 *y) 
 {   
@@ -258,7 +250,7 @@ adc_enableInt(
 			outp32(REG_ADC_CON, inp32(REG_ADC_CON) | WT_INT_EN);	 
 			break;	
 		default:
-			return -1;
+			return E_ADC_INVALID_INT;
     }			
 #endif    
     return Successful;
@@ -287,7 +279,7 @@ adc_disableInt(
 			outp32(REG_ADC_CON, inp32(REG_ADC_CON) & ~WT_INT_EN);     
 			break;	
 		default:
-			return -1;//E_DRVADC_INVALID_INT;
+			return E_DRVADC_INVALID_INT;
     }			
     return Successful;
 }
@@ -355,10 +347,11 @@ void DrvADC_GetTscData(
 	*pu16XData = inp32(REG_ADC_XDATA);
 	*pu16YData = inp32(REG_ADC_YDATA);					     				     											     											     											     				
 }
-
-static BOOL g_bIsADCInt =FALSE;
-static BOOL g_bIsWTInt =FALSE;
-static BOOL g_bIsAudioInt =FALSE;
+#ifdef USING_INT
+static volatile BOOL g_bIsADCInt =FALSE;
+static volatile BOOL g_bIsWTInt =FALSE;
+#endif
+//static BOOL g_bIsAudioInt =FALSE;
 
 static void adc_isr(void)
 {
@@ -369,9 +362,11 @@ static void adc_isr(void)
     /* Process ADC interrupt */
     if( (u32Reg & (ADC_INT_EN | ADC_INT)) == (ADC_INT_EN | ADC_INT))
     {//ADC interrupt
-	if(g_psADCCallBack[eADC_ADC_INT]!=0)
-            	g_psADCCallBack[eADC_ADC_INT]();   
+		if(g_psADCCallBack[eADC_ADC_INT]!=0)
+            g_psADCCallBack[eADC_ADC_INT]();   
+#ifdef USING_INT		
         g_bIsADCInt = TRUE;           				
+#endif		
         outp32(REG_ADC_CON, (inp32(REG_ADC_CON) & 	  /* Clean the ADC interrupt */     	
         				~(WT_INT | LVD_INT)) |  
         				(WT_INT |ADC_INT));
@@ -380,7 +375,7 @@ static void adc_isr(void)
     if( (u32Reg & (LVD_INT_EN | LVD_INT)) == (LVD_INT_EN | LVD_INT))
     {//LVD interrupt
     	if(g_psADCCallBack[eADC_LVD_INT]!=0)
-            	g_psADCCallBack[eADC_LVD_INT]();           
+            g_psADCCallBack[eADC_LVD_INT]();           
         outp32(REG_ADC_CON, (inp32(REG_ADC_CON) & 	 /* Clean the LVD interrupt */
         				~(WT_INT | ADC_INT)) |  
         				LVD_INT);    
@@ -394,7 +389,9 @@ static void adc_isr(void)
 	    		    	
     	if(g_psADCCallBack[eADC_WT_INT]!=0)
             	g_psADCCallBack[eADC_WT_INT]();
-        g_bIsWTInt = TRUE;           
+#ifdef USING_INT		
+        g_bIsWTInt = TRUE;    
+#endif		
 		outp32(REG_ADC_CON, (inp32(REG_ADC_CON) &    /* Clean the touch panel interrupt */    
         				~(LVD_INT | ADC_INT)) |  
         				(WT_INT |ADC_INT));
@@ -405,7 +402,7 @@ static void adc_isr(void)
     {//Audio record interrupt
     	if(g_psADCCallBack[eADC_AUD_INT]!=0)
             	g_psADCCallBack[eADC_AUD_INT]();    	
-        g_bIsAudioInt = TRUE;    	    	
+        //g_bIsAudioInt = TRUE;    	    	
         outp32(REG_AUDIO_CON, inp32(REG_AUDIO_CON) | AUDIO_INT);	/* Clean the record interrupt */
     }   
 }
@@ -532,15 +529,23 @@ UINT32 adc_normalread(UINT32 u32Channel, PUINT16 pu16Data)
 								0x150,
 								TRUE,					//BOOL bIsPullup,
 								TRUE);
-    	adc_enableInt(eADC_ADC_INT);	
+#ifdef USING_INT		
+    adc_enableInt(eADC_ADC_INT);	
+#endif	
 	
-	outp32( REG_ADC_CON,( ADC_CON_ADC_EN | ADC_CONV | ADC_INT 
-						| (u32Channel<<9)) );
-	DrvADC_Conversion();	
-	//while( (inp32(REG_ADC_CON) & ADC_INT) != ADC_INT);	/* Wait until ADC INT */ 
+#ifdef USING_INT	
+	g_bIsADCInt = FALSE;
+#endif	
+     outp32( REG_ADC_CON, inp32(REG_ADC_CON) | (( ADC_CON_ADC_EN | ADC_INT 
+					| (u32Channel<<9))) );	
+	DrvADC_Conversion();/* Trigger ADC */
+#ifdef USING_INT	
+	while(g_bIsADCInt==FALSE);
+#else
 	DrvADC_PollingADC();
+#endif	
+
 	DrvADC_GetNormalData(pu16Data);		
-	
 	outp32(REG_ADC_CON, (inp32(REG_ADC_CON) & ~(ADC_TSC_MODE|ADC_MUX))|(ADC_INT | WT_INT)); 	
 	/* set to WT mode */
 	adc_setTouchScreen(eADC_TSCREEN_TRIG,					//E_DRVADC_TSC_MODE eTscMode,
@@ -587,10 +592,11 @@ int adc_open(unsigned char type, unsigned short hr, unsigned short vr)
 			outp32(REG_CLKDIV3, (inp32(REG_CLKDIV3) & ~(ADC_N1 | ADC_S | ADC_N0) ) | (1<<24));	//Come from XTAL directly 
 		#endif	
 			break;
+		default:
 			return(-1);	
 	}
-	_hr = hr;
-	_vr = vr;
+	//_hr = hr;
+	//_vr = vr;
 	sysInstallISR(IRQ_LEVEL_7, IRQ_ADC, (PVOID)adc_isr);	
 	sysEnableInterrupt(IRQ_ADC);
 	_opened = E_ADC_OPEN;
@@ -616,8 +622,8 @@ void printlist(UINT16 list[],int n)
 {   
 	int i; 
 	for(i=0;i<n;i++) 	   
-		sysprintf("%d\t",list[i]); 
-	sysprintf("\n");
+		DBG_PRINTF("%d\t",list[i]); 
+	DBG_PRINTF("\n");
 } 
 /*-----------------------------------------------------------------------------------------------------------
 	Function adc_read.
@@ -653,8 +659,10 @@ int adc_read(unsigned char mode, unsigned short *x, unsigned short *y)
 								0x180,
 								FALSE,						//BOOL bIsPullup,
 								FALSE);						//BOOL bMAVFilter																		
+#ifdef USING_INT	
 	g_bIsWTInt = 0;	
 	adc_enableInt(eADC_WT_INT);	
+#endif	
 	u32Idx=0x10;
 	while(u32Idx--);				
 	if(mode == ADC_BLOCK)
@@ -681,8 +689,6 @@ int adc_read(unsigned char mode, unsigned short *x, unsigned short *y)
 	/*0211 */ 
 	adc_disableInt(eADC_WT_INT);
 	/*0211 */ 
-	
-	g_bIsADCInt = 0;
 	adc_setTouchScreen(eADC_TSCREEN_AUTO,			//E_DRVADC_TSC_MODE eTscMode,
 								0x180,
 								FALSE,					//BOOL bIsPullup,
@@ -692,7 +698,9 @@ int adc_read(unsigned char mode, unsigned short *x, unsigned short *y)
     adc_enableInt(eADC_ADC_INT);	
 /*0211 */    
 
+#ifdef USING_INT	
 	g_bIsADCInt = 0;
+#endif		
 	DrvADC_Conversion();	
 #ifdef USING_INT		
 	while(g_bIsADCInt==0);				
@@ -704,8 +712,9 @@ int adc_read(unsigned char mode, unsigned short *x, unsigned short *y)
 	while(u32Idx--);								
 	for(u32Idx = 0; u32Idx<SORT_FIFO; u32Idx=u32Idx+1)	
 	{	
-
-		g_bIsADCInt = 0;					
+#ifdef USING_INT	
+        g_bIsADCInt = 0;
+#endif					
 		DrvADC_Conversion();	
 #ifdef USING_INT				
 		while(g_bIsADCInt==0);
@@ -716,7 +725,7 @@ int adc_read(unsigned char mode, unsigned short *x, unsigned short *y)
 	}																
 		
 	quicksort(au16XPos, 0, SORT_FIFO-1); 
-    	quicksort(au16YPos, 0, SORT_FIFO-1); 
+    quicksort(au16YPos, 0, SORT_FIFO-1); 
           
 	*x = (au16XPos[SORT_FIFO-4]+au16XPos[SORT_FIFO-3]+au16XPos[SORT_FIFO-2])/3;
 	*y = (au16YPos[SORT_FIFO-4]+au16YPos[SORT_FIFO-3]+au16YPos[SORT_FIFO-2])/3;
@@ -742,13 +751,13 @@ int adc_read(unsigned char mode, unsigned short *x, unsigned short *y)
 			if(DrvADC_IsPenDown()==FALSE)
 #endif		
 			{
-				sysprintf("Library Pen up\n");	
+				DBG_PRINTF("Library Pen up\n");	
 				return 0;	//Means pen up.
 			}	
 			else
 				return 1;	//Means pen down.
-		}		
-		return 0;					
+		}						
+		//return 0;					
 	}	
 	else
 	{		
@@ -884,7 +893,7 @@ void ADC_GetNoiseGate(
 {
 	UINT32 u32RegData = inp32(REG_AGC_CON);
 	*pbIsEnable = (u32RegData & NG_EN)>>31;
-	*peNoiseGateLevel = (u32RegData & NG_LEVEL)>>12;    						     				
+	*peNoiseGateLevel = (E_ADC_NOISEGATE)((u32RegData & NG_LEVEL)>>12);    						     				
 }	
 
 /*---------------------------------------------------------------------------------------------------------
@@ -908,7 +917,7 @@ void ADC_GetNoiseGate(
       none																				               
                                                                                                          
 ---------------------------------------------------------------------------------------------------------*/
-void ADC_SetAutoGainTiming(
+void audio_SetAutoGainTiming(
 	UINT32 u32Period,
 	UINT32 u32Attack,
 	UINT32 u32Recovery,
@@ -922,7 +931,7 @@ void ADC_SetAutoGainTiming(
      				(u32Hold & HOLD) ) );
     															     				     											     											     											     				
 }	
-void ADC_GetAutoGainTiming(
+void audio_GetAutoGainTiming(
 	PUINT32 pu32Period,
 	PUINT32 pu32Attack,
 	PUINT32 pu32Recovery,
@@ -939,7 +948,7 @@ void ADC_GetAutoGainTiming(
 /*---------------------------------------------------------------------------------------------------------
                                                                                                          
  FUNCTION                                                                                                
- 		ADC_SetGainControl()	                      		                                               
+ 		audio_SetGainControl()	                      		                                               
                                                                                                          
  DESCRIPTION                                                                                             
      	Set Pre-Amplifer and Post-Amplifer					                   							   
@@ -954,7 +963,7 @@ void ADC_GetAutoGainTiming(
       Recording gain in dB.										                                       
                                                                                                          
 ---------------------------------------------------------------------------------------------------------*/
-void ADC_SetGainControl(
+void audio_SetGainControl(
 	E_ADC_PREGAIN ePreGain, 
 	E_ADC_POSTGAIN ePostGain
 	)
@@ -963,28 +972,28 @@ void ADC_SetGainControl(
      				((ePreGain<<8)|ePostGain)); 								     				
 }	
 
-void ADC_GetGainControl(
+void audio_GetGainControl(
 	E_ADC_PREGAIN* pePreGain, 
 	E_ADC_POSTGAIN* pePostGain
 	)
 {
 	UINT32 u32RegData = inp32(REG_AGCP1);
-	*pePreGain =  (u32RegData & PRAGA)>>8;
-	*pePostGain = u32RegData & AUDIO_VOL;							     				
+	*pePreGain =  (E_ADC_PREGAIN)((u32RegData & PRAGA)>>8);
+	*pePostGain = (E_ADC_POSTGAIN)(u32RegData & AUDIO_VOL);							     				
 }	
 
 /*---------------------------------------------------------------------------------------------------------
                                                                                                          
  FUNCTION                                                                                                
- 		ADC_SetAutoGainControl()	                      		                                               
+ 		audio_SetAutoGainControl()	                      		                                               
                                                                                                          
  DESCRIPTION                                                                                             
      	Set the parameter for AGC														                   
                                                                                                          
  INPUTS                                                                                                  
-      bIsEnable    	Enable AGC    						    					                       
+      bIsEnable    	  Enable AGC    						    					                       
       u32OutputLevel  Output target level      						    					           
-      eUpBand        	A band in the uper side from u32OutputLevel+-eUpBand							   
+      eUpBand         A band in the uper side from u32OutputLevel+-eUpBand							   
       eDownBand       A band in the buttom side from u32OutputLevel+-eUpBand					           
                                                                                                          
  OUTPUTS                                                                                                 
@@ -994,7 +1003,7 @@ void ADC_GetGainControl(
       none																				               
                                                                                                          
 ---------------------------------------------------------------------------------------------------------*/
-void ADC_SetAutoGainControl(
+void audio_SetAutoGainControl(
 	BOOL bIsEnable, 
 	UINT32 u32OutputLevel,
 	E_ADC_UPBAND eAdcUpBand,
@@ -1040,12 +1049,12 @@ void ADC_GetAutoGainControl(
 	*pbIsEnable = (u32RegData & AGC_EN)>>30;
 	u32RegData = inp32(REG_AGCP1);
 	*pu32OutputLevel = (u32RegData & OTL)>>12; 
-	*peAdcUpBand = 	(u32RegData & UPBAND)>>11; 					     				
-	*peAdcDownBand = (u32RegData & DOWNBAND)>>10; 						     				    						     						     				
+	*peAdcUpBand = 	(E_ADC_UPBAND)((u32RegData & UPBAND)>>11); 					     				
+	*peAdcDownBand = (E_ADC_DOWNBAND)((u32RegData & DOWNBAND)>>10); 						     				    						     						     				
 }	
 /*---------------------------------------------------------------------------------------------------------                                                                                                 
  FUNCTION                                                                                                
-      Audio_Open()			                                                                           
+      audio_Open()			                                                                           
                                                                                                          
  DESCRIPTION                                                                                             
       Open the ADC conversion or Audio record function  			                                       
@@ -1077,15 +1086,15 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
 	UINT32 u32Reg;
 	volatile UINT32 u32Dly=0x100;
            
-    	 /* Enable clock and IP reset */
-    	outp32(REG_APBCLK, inp32(REG_APBCLK) | ADC_CKE);
-    	outp32(REG_APBIPRST, inp32(REG_APBIPRST) | ADCRST);
+    /* Enable clock and IP reset */
+    outp32(REG_APBCLK, inp32(REG_APBCLK) | ADC_CKE);
+    outp32(REG_APBIPRST, inp32(REG_APBIPRST) | ADCRST);
    	outp32(REG_APBIPRST,  inp32(REG_APBIPRST) & ~ADCRST);
 	/* Default to use conv bit to control conversion */
 	u32Reg = 0;
 	u32Reg = u32Reg | (ADC_CON_ADC_EN); /* Enable ADC */
 
-    	/* Use the same clock source as system */
+    /* Use the same clock source as system */
  
 	outp32(REG_CLKDIV3, (inp32(REG_CLKDIV3) & ~ADC_S) | 
 					(eSrcClock << 19));						
@@ -1093,7 +1102,7 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
 	{
 		case eSYS_X32K:	
 					return -1;			/* Wrong clock source */			
-					break;
+					//break;			/* To avoid unreachable region */
 		case eSYS_APLL:												
 		case eSYS_UPLL:			
 					{
@@ -1103,11 +1112,8 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
 						u32ExtFreq = sysGetExternalClock();						
 						u32PllOutKHz = sysGetPLLOutputKhz(eSrcClock, u32ExtFreq);						
 						DBG_PRINTF("PLL clock = %d KHz\n", u32PllOutKHz);												
-						//if(eDRVADC_Mode == eDRVADC_RECORD)
-							u32TotalDiv = u32PllOutKHz/(1280*u32ConvClock);
-						//else
-						//	u32TotalDiv = (u32PllOutKHz/50)/u32ConvClock;	
-						
+						u32TotalDiv = u32PllOutKHz/(1280*u32ConvClock);
+					
 						if(u32TotalDiv>(8*256))						
 							return -1;						
 																					
@@ -1160,15 +1166,15 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
 	if(bIsAudioInitialize==FALSE)
 	{
 		bIsAudioInitialize = TRUE;
-	        outp32(REG_AUDIO_CON, inp32(REG_AUDIO_CON) | 
+	    outp32(REG_AUDIO_CON, inp32(REG_AUDIO_CON) | 
 			    			 ( AUDIO_INT | AUDIO_EN ) );
-	    	DrvADC_SetOffsetCancellation(FALSE,   //BOOL bIsMuteEnable,
-								FALSE, //BOOL bIsOffsetCalibration,
-								TRUE, //BOOL bIsHardwareMode,
-								0x10);	  //UINT32 u32Offset   
+	    DrvADC_SetOffsetCancellation(FALSE,   //BOOL bIsMuteEnable,
+								FALSE,        //BOOL bIsOffsetCalibration,
+								TRUE,         //BOOL bIsHardwareMode,
+								0x10);	      //UINT32 u32Offset   
 									  		   				  		   				
-		DrvADC_SetOffsetCancellationEx(1,			//255 sample
-									256);//Delay sample count   							
+		DrvADC_SetOffsetCancellationEx(1,	  //255 sample
+									256);     //Delay sample count   							
 		{
 			volatile unsigned int btime, etime;
 			btime = etime = sysGetTicks(TIMER0);
@@ -1179,10 +1185,10 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
 			}
 		}			
         	outp32(REG_AUDIO_CON, inp32(REG_AUDIO_CON) & ~AUDIO_EN);
-      	 	DrvADC_SetOffsetCancellation(FALSE,   //BOOL bIsMuteEnable,
+      	 	DrvADC_SetOffsetCancellation(FALSE,        //BOOL bIsMuteEnable,
 												FALSE, //BOOL bIsOffsetCalibration,
 												FALSE, //BOOL bIsHardwareMode,
-												0x10);	  //UINT32 u32Offset 
+												0x10); //UINT32 u32Offset 
 	}		
 	
 	/* Set ADC Parameter for audio recording*/
@@ -1190,18 +1196,18 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
 	//outp32(REG_AUDIO_CON, (inp32(REG_AUDIO_CON) & ~(AUDIO_INT_MODE)) | (1<<30));	     		           		    	 	    	    	 	    	 	    	 	    	    	    	 	    	    	 	    	 	    	       		           	    	    	 	    	    	 	    	 	    	 	    	    	    	 	    	    	 	    	 	    	 									
 	outp32(REG_AUDIO_CON, (inp32(REG_AUDIO_CON) & ~(AUDIO_INT_MODE)) );	     	
 	
-    	ADC_SetNoiseGate(FALSE, eADC_NG_N36);			    
-	ADC_SetAutoGainTiming(4, //Period
+    ADC_SetNoiseGate(FALSE, eADC_NG_N36);			    
+	audio_SetAutoGainTiming(4,  //Period
 							4,  //Attack
 							4,
 							4);																												
-    	ADC_SetGainControl(eADC_PRE_P14,			//Pre-gain 14db
+    audio_SetGainControl(eADC_PRE_P14,		//Pre-gain 14db
 							eADC_POST_P0);	//Post-gain is invalid if enable AGC 
 							
-    	ADC_SetAutoGainControl(TRUE,					//AGC enable
+    audio_SetAutoGainControl(TRUE,					//AGC enable
 							13, 					//Output target aszOTLArray[13] = -9db 
-					     		eADC_BAND_P0P5,
-					     		eADC_BAND_N0P5); 
+					     	eADC_BAND_P0P5,
+					     	eADC_BAND_N0P5); 
 	
 	outp32(0xb800E000, inp32(0xb800E000) & ~BIT8); //Audio data src from Audio buffer											       	    
 	
@@ -1212,7 +1218,7 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
 }
 /*----------------------------------------------------------------------------------------------------------
  FUNCTION                                                                                                					
- 		adc_StartRecord()		                                                                       			
+ 		audio_StartRecord()		                                                                       			
                                                                                                          						
  DESCRIPTION                                                                                             					
      	Start to record Audio data. This function only can be used in                                      		
@@ -1228,7 +1234,7 @@ INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock)
       none				                                                                               				
                                                                                                          						
 ----------------------------------------------------------------------------------------------------------*/
-void adc_StartRecord(void)
+void audio_StartRecord(void)
 {
     //Enable Co-work with EDMA  	
     outp32(REG_AGCP1, inp32(REG_AGCP1) | EDMA_MODE);	
@@ -1252,7 +1258,7 @@ void adc_StartRecord(void)
 }
 /*----------------------------------------------------------------------------------------------------------
  FUNCTION                                                                                                					
- 		adc_StopRecord()                                                                                			
+ 		audio_StopRecord()                                                                                			
                                                                                                          						
  DESCRIPTION                                                                                             					
      	Stop recording Audio data. This function only can be used in                                       		
@@ -1268,15 +1274,15 @@ void adc_StartRecord(void)
       none				                                                                               				
                                                                                                          						
 ----------------------------------------------------------------------------------------------------------*/
-void adc_StopRecord(void)
+void audio_StopRecord(void)
 {
-    	//Disable record function 
-    	 outp32(REG_AGCP1, inp32(REG_AGCP1) & ~EDMA_MODE);	
+    //Disable record function
+    outp32(REG_AGCP1, inp32(REG_AGCP1) & ~EDMA_MODE);
 	outp32(REG_AUDIO_CON, inp32(REG_AUDIO_CON) & (~AUDIO_EN));
 }
 /*---------------------------------------------------------------------------------------------------------                                                                                                     
  FUNCTION                                                                                                
- 		adc_GetRecordData()	                                                                           
+ 		audio_GetRecordData()	                                                                           
                                                                                                          
  DESCRIPTION                                                                                             
      	Get the converted ADC value in ADC_RECORD mode    				                                   
@@ -1292,7 +1298,7 @@ void adc_StopRecord(void)
                                                                                                          
 ---------------------------------------------------------------------------------------------------------*/
 PINT16 
-adc_GetRecordData(
+audio_GetRecordData(
 	void
 	)
 {

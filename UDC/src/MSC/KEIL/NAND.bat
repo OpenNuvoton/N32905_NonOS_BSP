@@ -1,1 +1,1 @@
-move .\MSC_Data\NAND\w55fa93_MSC_NAND.lib ..\..\..\Lib
+move .\MSC_Data\NAND\W55FA93_MSC_NAND.lib ..\..\..\Lib

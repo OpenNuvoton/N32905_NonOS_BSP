@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "usbd.h"
 #include "mass_storage_class.h"
 
@@ -11,6 +11,7 @@
 //#define SUSPEND_POWERDOWN
 
 void Demo_PowerDownWakeUp(void);
+INT SpiFlashOpen(UINT32 FATOffset);
 
 BOOL PlugDetection(VOID)
 {
@@ -22,9 +23,9 @@ BOOL PlugDetection(VOID)
 }
 
 #ifndef __RAM_DISK_ONLY__
-	#include "nvtfat.h"
-	#include "w55fa93_sic.h"
-	#include "w55fa93_gnand.h"
+	#include "NVTFAT.h"
+	#include "W55FA93_SIC.h"
+	#include "W55FA93_GNAND.h"
 
 
 #ifdef __NAND__
@@ -139,7 +140,7 @@ INT main(VOID)
 	mscdInit();		
 	
 #ifdef __NAND_ONLY__	
-	mscdFlashInit(&MassNDisk,NULL);	
+	mscdFlashInit(&MassNDisk,0);
 #else
 	#ifdef __SPI_ONLY__	
 	{
@@ -173,13 +174,13 @@ INT main(VOID)
 		}
 	}	
 		
-		mscdFlashInit(NULL,status);	
+		mscdFlashInit(0,status);
 	#elif defined (__RAM_DISK_ONLY__)
-		mscdFlashInit(NULL,NULL);	
+		mscdFlashInit(0,0);
 	#elif defined (__SD_ONLY__)	
 		/* Calling mscdSdPortSelect() with parameter - port index:0/1/2 can change the SD port used by MSC library before mscdFlashInit */
 		/* Note: Corresponding SIC SD open - sicSdOpen0/sicSdOpen1/sicSdOpen2 must be called and set return value to the variable - status */	
-		mscdFlashInit(NULL,status);	
+		mscdFlashInit(0,status);
 	#else
 		/* Calling mscdSdPortSelect() with parameter - port index:0/1/2 can change the SD port used by MSC library before mscdFlashInit */
 		/* Note: Corresponding SIC SD open - sicSdOpen0/sicSdOpen1/sicSdOpen2 must be called and set return value to the variable - status */

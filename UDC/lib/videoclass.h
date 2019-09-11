@@ -107,7 +107,11 @@
 #define UAC_START_AUDIO_RECORD		1
 #define UAC_PROCESSING_AUDIO_RECORD	2
 #define UAC_BUSY_AUDIO_RECORD		3
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CaptureFilter {
+#else
 __packed  typedef struct _CaptureFilter{
+#endif
 	INT16 volatile Brightness;
 	INT16 volatile Contrast;
 	INT16 volatile Hue;
@@ -117,15 +121,24 @@ __packed  typedef struct _CaptureFilter{
 	INT16 volatile Gamma;
 	INT16 volatile Backlight;
 }CaptureFilter;
+
 // audio attribute
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _FeatureFilter{
+#else
 __packed  typedef struct _FeatureFilter{
+#endif
 	INT32 volatile Mute;
 	INT32 volatile Volume;
 }FeatureFilter;
 
 
 /* Device Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _DEVICEDESCRIPTOR {
+#else
 __packed typedef struct _DEVICEDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT16  bcdUSB;
@@ -143,7 +156,11 @@ __packed typedef struct _DEVICEDESCRIPTOR {
 } DEVICEDESCRIPTOR;
 
 /* Configuration Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CONFIGURATIONDESCRIPTOR {
+#else
 __packed typedef struct _CONFIGURATIONDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT16  wTotalLength;
@@ -155,7 +172,11 @@ __packed typedef struct _CONFIGURATIONDESCRIPTOR {
 } CONFIGDESCRIPTOR;
 
 /* Interface Association Descriptor*/
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _IADDESCRIPTOR {
+#else
 __packed typedef struct _IADDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bFirstInterface;
@@ -167,7 +188,11 @@ __packed typedef struct _IADDESCRIPTOR {
 } IADDESCRIPTOR;
 
 /* Interface Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _INTERFACEDESCRIPTOR {
+#else
 __packed typedef struct _INTERFACEDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bInterfceNumber;
@@ -180,7 +205,11 @@ __packed typedef struct _INTERFACEDESCRIPTOR {
 } INTERFACEDESCRIPTOR;
 
 /* Class-specific Interface Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CSINTERFACEDESCRIPTOR {
+#else
 __packed typedef struct _CSINTERFACEDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -192,7 +221,11 @@ __packed typedef struct _CSINTERFACEDESCRIPTOR {
 } CSINTERFACEDESCRIPTOR;
 
 /* Input Terminal Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _INPUTTERMINALDESCRIPTOR {
+#else
 __packed typedef struct _INPUTTERMINALDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -208,7 +241,11 @@ __packed typedef struct _INPUTTERMINALDESCRIPTOR {
 } INPUTTERMINALDESCRIPTOR;
 
 /* Output Terminal Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _OUTPUTTERMINALDESCRIPTOR {
+#else
 __packed typedef struct _OUTPUTTERMINALDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -221,7 +258,11 @@ __packed typedef struct _OUTPUTTERMINALDESCRIPTOR {
 
 
 /* Processing Unit Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _PUDESCRIPTOR {
+#else
 __packed typedef struct _PUDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -234,7 +275,11 @@ __packed typedef struct _PUDESCRIPTOR {
 } PUDESCRIPTOR;
 
 /* Endpoint Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _ENDPOINTDESCRIPTOR {
+#else
 __packed typedef struct _ENDPOINTDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bEndpointAddress;
@@ -244,7 +289,11 @@ __packed typedef struct _ENDPOINTDESCRIPTOR {
 } ENDPOINTDESCRIPTOR;
 
 /* Class-specific Interrupt Endpoint Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CSINTERRUPTEPDESCRIPTOR {
+#else
 __packed typedef struct _CSINTERRUPTEPDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -252,7 +301,11 @@ __packed typedef struct _CSINTERRUPTEPDESCRIPTOR {
 } CSINTERRUPTEPDESCRIPTOR;
 
 /* Class-specific Header Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CSHEADERDESCRIPTOR {
+#else
 __packed typedef struct _CSHEADERDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -269,7 +322,11 @@ __packed typedef struct _CSHEADERDESCRIPTOR {
 } CSHEADERDESCRIPTOR;
 
 /* Class-specific Header Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CSHEADERDESCRIPTOR_BOTH {
+#else
 __packed typedef struct _CSHEADERDESCRIPTOR_BOTH {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -287,7 +344,11 @@ __packed typedef struct _CSHEADERDESCRIPTOR_BOTH {
 } CSHEADERDESCRIPTOR_BOTH;
 
 /* Class-specific Format Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CSFORMATDESCRIPTOR {
+#else
 __packed typedef struct _CSFORMATDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -303,7 +364,11 @@ __packed typedef struct _CSFORMATDESCRIPTOR {
 
 
 /* Class-specific Frame Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CSFRAMEDESCRIPTOR {
+#else
 __packed typedef struct _CSFRAMEDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -325,7 +390,11 @@ __packed typedef struct _CSFRAMEDESCRIPTOR {
 } CSFRAMEDESCRIPTOR_MJPEG;
 
 /* Class-specific Still Image Frame Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _CSSTILLFRAMEDESCRIPTOR {
+#else
 __packed typedef struct _CSSTILLFRAMEDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -341,7 +410,11 @@ __packed typedef struct _CSSTILLFRAMEDESCRIPTOR {
 } CSSTILLFRAMEDESCRIPTOR;
 
 /* Uncompressed Video Format Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _UNCOMPRESSFORMATDESCRIPTOR {
+#else
 __packed typedef struct _UNCOMPRESSFORMATDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -357,7 +430,11 @@ __packed typedef struct _UNCOMPRESSFORMATDESCRIPTOR {
 } UNCOMPRESSFORMATDESCRIPTOR;
 
 /* Uncompressed Video Frame Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _FRAMEDESCRIPTOR_1 {
+#else
 __packed typedef struct _FRAMEDESCRIPTOR_1 {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -379,7 +456,11 @@ __packed typedef struct _FRAMEDESCRIPTOR_1 {
 } FRAMEDESCRIPTOR_1;
 
 /* Uncompressed Video Frame Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _FRAMEDESCRIPTOR_2 {
+#else
 __packed typedef struct _FRAMEDESCRIPTOR_2 {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -398,7 +479,11 @@ __packed typedef struct _FRAMEDESCRIPTOR_2 {
 } FRAMEDESCRIPTOR_2;
 
 /* Color Matching Descriptor */
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _COLORMATCHDESCRIPTOR {
+#else
 __packed typedef struct _COLORMATCHDESCRIPTOR {
+#endif
     UINT8   bLength;
     UINT8   bDescriptorType;
     UINT8   bDescriptorSubType;
@@ -407,8 +492,11 @@ __packed typedef struct _COLORMATCHDESCRIPTOR {
     UINT8   bMatrixCoefficients;
 } COLORMATCHDESCRIPTOR;
 
-
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _VIDEOSTREAMCMDDATA {
+#else
 __packed typedef struct _VIDEOSTREAMCMDDATA {
+#endif
     UINT16  bmHint;
     UINT8   bFormatIndex;
     UINT8   bFrameIndex;    
@@ -422,7 +510,11 @@ __packed typedef struct _VIDEOSTREAMCMDDATA {
     UINT32  dwMaxPayloadTransferSize;           
 } VIDEOSTREAMCMDDATA;
 
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) _VIDEOSTREAMSTILLCMDDATA {
+#else
 __packed typedef struct _VIDEOSTREAMSTILLCMDDATA {
+#endif
     UINT8   bFormatIndex;
     UINT8   bFrameIndex;    
     UINT8	bCompressionIndex;
@@ -430,8 +522,11 @@ __packed typedef struct _VIDEOSTREAMSTILLCMDDATA {
     UINT32	dwMaxPayloadTranferSize;   
 } VIDEOSTREAMSTILLCMDDATA;
 
-
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) VIDEOCLASS_BOTH {
+#else
 __packed typedef struct VIDEOCLASS_BOTH {
+#endif
     CONFIGDESCRIPTOR                VideoClassConfig;    
     IADDESCRIPTOR                   VideoClassIADIF; 
     INTERFACEDESCRIPTOR             VideoClassVCIF;
@@ -470,7 +565,11 @@ __packed typedef struct VIDEOCLASS_BOTH {
     ENDPOINTDESCRIPTOR              VideoClassEP02;          
 } VIDEOCLASS;  
 
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) VIDEOCLASS_YUV_ONLY {
+#else
 __packed typedef struct VIDEOCLASS_YUV_ONLY {
+#endif
     CONFIGDESCRIPTOR                VideoClassConfig;    
     IADDESCRIPTOR                   VideoClassIADIF; 
     INTERFACEDESCRIPTOR             VideoClassVCIF;
@@ -502,7 +601,11 @@ __packed typedef struct VIDEOCLASS_YUV_ONLY {
     ENDPOINTDESCRIPTOR              VideoClassEP02;          
 } VIDEOCLASS_YUV;  
 
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) VIDEOCLASS_MJPEG_ONLY {
+#else
 __packed typedef struct VIDEOCLASS_MJPEG_ONLY {
+#endif
     CONFIGDESCRIPTOR                VideoClassConfig;    
     IADDESCRIPTOR                   VideoClassIADIF; 
     INTERFACEDESCRIPTOR             VideoClassVCIF;
@@ -533,7 +636,11 @@ __packed typedef struct VIDEOCLASS_MJPEG_ONLY {
     ENDPOINTDESCRIPTOR              VideoClassEP02;    
 } VIDEOCLASS_MJPEG;  
  
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) VIDEOCLASS_AUDIO_BOTH {
+#else
  __packed typedef struct VIDEOCLASS_AUDIO_BOTH {
+#endif
     CONFIGDESCRIPTOR                VideoClassConfig;    
     IADDESCRIPTOR                   VideoClassIADIF; 
     INTERFACEDESCRIPTOR             VideoClassVCIF;
@@ -573,7 +680,11 @@ __packed typedef struct VIDEOCLASS_MJPEG_ONLY {
     char                            ch1[0x6b];            
 } VIDEOCLASS_AUDIO;  
 
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) VIDEOCLASS_AUDIO_YUV_ONLY {
+#else
 __packed typedef struct VIDEOCLASS_AUDIO_YUV_ONLY {
+#endif
     CONFIGDESCRIPTOR                VideoClassConfig;    
     IADDESCRIPTOR                   VideoClassIADIF; 
     INTERFACEDESCRIPTOR             VideoClassVCIF;
@@ -606,7 +717,11 @@ __packed typedef struct VIDEOCLASS_AUDIO_YUV_ONLY {
     char                            ch1[0x6b];               
 } VIDEOCLASS_AUDIO_YUV;  
 
+#if defined (__GNUC__)
+typedef struct __attribute__((__packed__)) VIDEOCLASS_AUDIO_MJPEG_ONLY {
+#else
 __packed typedef struct VIDEOCLASS_AUDIO_MJPEG_ONLY {
+#endif
     CONFIGDESCRIPTOR                VideoClassConfig;    
     IADDESCRIPTOR                   VideoClassIADIF; 
     INTERFACEDESCRIPTOR             VideoClassVCIF;
@@ -659,6 +774,7 @@ typedef struct{
 	PFN_UAVCD_ISOINT_CALLBACK    *Video_IsoIn_ISR;
 	PFN_UAVCD_ISOINT_CALLBACK    *Audio_IsoIn_ISR;
 }UVC_INFO_T;
+
 typedef struct{
 	INT32	PU_BACKLIGHT_COMPENSATION_MIN;
 	INT32	PU_BACKLIGHT_COMPENSATION_MAX;

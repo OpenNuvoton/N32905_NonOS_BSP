@@ -30,7 +30,7 @@
 
 #include "wblib.h"
 
-#include "w55fa93_kpi.h"
+#include "W55FA93_KPI.h"
 
 int main(void)
 {
@@ -38,24 +38,23 @@ int main(void)
 	WB_UART_T uart;	
 	UINT32 u32ExtFreq;
 	unsigned int key;
+	
+	u32ExtFreq = sysGetExternalClock();
+	sysUartPort(1);	
+	uart.uiFreq = u32ExtFreq*1000;	
+	uart.uiBaudrate = 115200;
+	uart.uiDataBits = WB_DATA_BITS_8;
+	uart.uiStopBits = WB_STOP_BITS_1;
+	uart.uiParity = WB_PARITY_NONE;
+	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+	sysInitializeUART(&uart);
 
 	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
 						192000,		//UINT32 u32PllKHz, 	
 						192000,		//UINT32 u32SysKHz,
 						192000,		//UINT32 u32CpuKHz,
 						  96000,		//UINT32 u32HclkKHz,
-						  48000);		//UINT32 u32ApbKHz	
-	
-	u32ExtFreq = sysGetExternalClock();
-	uart.uiFreq = u32ExtFreq*1000;	
-    uart.uiBaudrate = 115200;
-    uart.uiDataBits = WB_DATA_BITS_8;
-    uart.uiStopBits = WB_STOP_BITS_1;
-    uart.uiParity = WB_PARITY_NONE;
-    uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-    sysInitializeUART(&uart);
-
-	sysEnableCache(I_D_CACHE);
+						  48000);		//UINT32 u32ApbKHz		
 
 	sysprintf("start kpi test...\n");
 

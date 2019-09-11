@@ -1,1 +1,1 @@
-move .\UAVC_Data\FORMAT_YUV_ONLY\w55fa93_UAVC_YUV_Only.lib ..\..\..\Lib
+move .\UAVC_Data\FORMAT_YUV_ONLY\W55FA93_UAVC_YUV_Only.lib ..\..\..\Lib

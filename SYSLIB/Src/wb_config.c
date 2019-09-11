@@ -35,7 +35,7 @@ WB_CLKFREQ_T	_sysFreq;  //MHz, added on [2009/03/11]
 //static			_sysClockIniFlag = FALSE;
 static UINT32 g_u32SysClkSrc; 
 static UINT32 g_u32UpllKHz = 240000, g_u32ApllKHz=240000, g_u32SysKHz = 120000, g_u32CpuKHz = 60000, g_u32HclkKHz = 60000;
-static UINT32 g_u32Hclk1KHz, g_u32ApbKHz;
+static UINT32 g_u32ApbKHz;
 static UINT32 g_u32REG_APLL, g_u32REG_UPLL;
 static UINT32 g_u32SysDiv, g_u32CpuDiv, g_u32ApbDiv;
 BOOL bIsCpuOver2xHclk = FALSE;
@@ -300,6 +300,10 @@ void sysExternalClock(void)
 *
 *	                                                                                                       
 -----------------------------------------------------------------------------------------------------------*/
+#if defined (__GNUC__) && !defined (__CC_ARM)
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+#endif
 void sysClockSwitch(register E_SYS_SRC_CLK eSrcClk,
 						register UINT32 u32PllReg,
 						register UINT32 u32HclkKHz,
@@ -308,13 +312,16 @@ void sysClockSwitch(register E_SYS_SRC_CLK eSrcClk,
 						register UINT32 u32CpuDiv,
 						register UINT32 u32ApbDiv)
 {
+	register int reg2, reg1, reg0;
 	UINT32 u32IntTmp;
+	
 	// disable interrupt (I will recovery it after clock changed)
 	u32IntTmp = inp32(REG_AIC_IMR);
 	outp32(REG_AIC_MDCR, 0xFFFFFFFE);			
 		
 	//It is necessasy to Enable/Disable Low Freq prior to self-refresh mode
-	if( (inp32(REG_CHIPCFG)&SDRAMSEL) == 0x20){//DDR2 will always disable DLL. Due to DLL enable only HCLK>133MHz. 			
+	if( (inp32(REG_CHIPCFG)&SDRAMSEL) == 0x20)
+	{//DDR2 will always disable DLL. Due to DLL enable only HCLK>133MHz.
 			outp32(REG_SDEMR, inp32(REG_SDEMR)  | DLLEN); //DDR2 will always disable DLL due to HCLK always less than 133MHz. 		
 			if(u32HclkKHz<96000)
 				outp32(REG_SDOPM, inp32(REG_SDOPM)  | LOWFREQ); //Enable Low Freq
@@ -323,16 +330,29 @@ void sysClockSwitch(register E_SYS_SRC_CLK eSrcClk,
 			
 	}	
 	
+#if defined (__GNUC__)
+	asm volatile
+    (
+        "  mov 	%0, #100       \n"
+        "  mov  %1, #0         \n"
+        "  mov  %2, #1         \n"
+        " loop0:	           \n"
+        "  add  %1, %1, %2     \n"
+        "  cmp 	%1, %0         \n"
+        "  bne  loop0          \n"
+    	: : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+    );
+#else
 	__asm
 	{
-		mov 		r2, #100
-		mov		r1, #0
-		mov		r0, #1
-	loop0:	add 		r1, r1, r0
-		cmp 		r1, r2
+		mov 	reg2, #100
+		mov		reg1, #0
+		mov		reg0, #1
+	loop0:	add reg1, reg1, reg0
+		cmp 	reg1, reg2
 		bne		loop0
 	}		
-
+#endif
 	
 	outp32(REG_SDCMD, inp32(REG_SDCMD) | (AUTOEXSELFREF| REF_CMD));//DRAM enter self refresh mode
 
@@ -350,34 +370,66 @@ void sysClockSwitch(register E_SYS_SRC_CLK eSrcClk,
 	}
 	else if(eSrcClk==eSYS_UPLL)
 	{
-		
-	
+
+
 		//outp32(REG_UPLLCON, u32PllReg);
 		outp32(REG_CLKDIV0,  (inp32(REG_CLKDIV0) | 0x02));	//Safe consider
 		outp32(REG_UPLLCON, u32PllReg);
+#if defined (__GNUC__)
+        asm volatile
+        (
+            "  mov 	%0, #1000      \n"
+            "  mov  %1, #0         \n"
+            "  mov  %2, #1         \n"
+            " loop1:	           \n"
+            "  add  %1, %1, %2     \n"
+            "  cmp 	%1, %0         \n"
+            "  bne  loop1          \n"
+            : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+        );
+#else
 		__asm
 		{
-			mov 		r2, #1000
-			mov		r1, #0
-			mov		r0, #1
-		loop1:	add 		r1, r1, r0
-			cmp 		r1, r2
+			mov 	reg2, #1000
+			mov		reg1, #0
+			mov		reg0, #1
+		loop1:	add reg1, reg1, reg0
+			cmp 	reg1, reg2
 			bne		loop1
 		}		
+#endif
+#if 0
+		while (!(inpw(REG_UART_FSR+0x100) & 0x400000));	//need delay
+		outpb(REG_UART_THR+0x100, '\r');
+		while (!(inpw(REG_UART_FSR+0x100) & 0x400000));	//need delay
+#endif
 		outp32(REG_CLKDIV0, (inp32(REG_CLKDIV0) & (~0xF1F)) | ((eSrcClk<<3) | u32SysDiv));	
 		//outp32(0xb0000200, inp32(0xb0000200) | ((bIsUp2Hclk3X&1)<<5));
 		//outp32(REG_CLKDIV4,  (inp32(REG_CLKDIV4) & ~0x0F)| u32CpuDiv );
 		outp32(REG_CLKDIV4,  (inp32(REG_CLKDIV4) & ~0xF0F)| (u32CpuDiv| (u32ApbDiv<<8) ));
+#if defined (__GNUC__)
+        asm volatile
+        (
+            "  mov 	%0, #1000      \n"
+            "  mov  %1, #0         \n"
+            "  mov  %2, #1         \n"
+            " loop2:	           \n"
+            "  add  %1, %1, %2     \n"
+            "  cmp 	%1, %0         \n"
+            "  bne  loop2          \n"
+            : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+        );
+#else
 		__asm
 		{
-			mov 		r2, #1000
-			mov		r1, #0
-			mov		r0, #1
-		loop2:	add 		r1, r1, r0
-			cmp 		r1, r2
+			mov 	reg2, #1000
+			mov		reg1, #0
+			mov		reg0, #1
+		loop2:	add 		reg1, reg1, reg0
+			cmp 	reg1, reg2
 			bne		loop2
 		}		
-
+#endif
 	}
 	else if (eSrcClk==eSYS_APLL)
 	{						
@@ -391,99 +443,176 @@ void sysClockSwitch(register E_SYS_SRC_CLK eSrcClk,
 			outp32(REG_CLKDIV4, 0x00000100);	
 			// enable APLL
 			outp32(REG_APLLCON, 0x00F8801C); 	//outp32(0xb0000220, 0x00F0801C);
+#if defined (__GNUC__)
+	        __asm volatile
+	        (
+	            "  mov 	%0, #500       \n"
+	            "  mov  %1, #0         \n"
+	            "  mov  %2, #1         \n"
+	            " loop3:	           \n"
+	            "  add  %1, %1, %2     \n"
+	            "  cmp 	%1, %0         \n"
+	            "  bne  loop3          \n"
+	            : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+	        );
+#else
 			__asm
 			{
-				mov 		r2, #500
-				mov		r1, #0
-				mov		r0, #1
-			loop3:	add 		r1, r1, r0
-				cmp 		r1, r2
+				mov 	reg2, #500
+				mov		reg1, #0
+				mov		reg0, #1
+			loop3:	add 		reg1, reg1, reg0
+				cmp 		reg1, reg2
 				bne		loop3
 			}		
-			#if 0
-			for (u32Count=0; u32Count<50; u32Count=u32Count+1)
+#endif
+
+			for (reg0=0; reg0<5; reg0=reg0+1)
 			{
-				outp32(REG_APLLCON, (0x00F88000 | u32PllReg));
+				outp32(REG_APLLCON, (0x00F80000 | u32PllReg));
 			}
-			#else
+			
+#if defined (__GNUC__)
+			asm volatile
+			(
+		        "  mov 	%0, #500       \n"
+		        "  mov  %1, #0         \n"
+		        "  mov  %2, #1         \n"
+		        " loop4:	           \n"
+		        "  add  %1, %1, %2     \n"
+		        "  cmp 	%1, %0         \n"
+		        "  bne  loop4          \n"
+		        : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+			 );
+ #else
 			__asm
 			{
-				mov		r0, #0xb0000000
-				mov	 	r1, #0x00F80000
-				orr		r1, r1, u32PllReg
-				mov		r2, #5					
-			loop3_1:	
-				str		r1, [r0, 0x220]							
-				sub		r2, r2, #1
-				cmp		r2, #0
-				bne	 	loop3_1	
-			}	
-			#endif
-			
-			
-			__asm
-			{
-				mov 		r2, #500
-				mov		r1, #0
-				mov		r0, #1
-			loop4:	add 		r1, r1, r0
-				cmp 		r1, r2
+				mov 	reg2, #500
+				mov		reg1, #0
+				mov		reg0, #1
+			loop4:	add 		reg1, reg1, reg0
+				cmp 	reg1, reg2
 				bne		loop4
-			}		
+			}
+#endif
 			
 			//outp32(REG_CLKDIV0, 0x12);
-			
+#if defined (__GNUC__)
+			asm volatile
+			(
+		        "  mov 	%0, #1000       \n"
+		        "  mov  %1, #0         \n"
+		        "  mov  %2, #1         \n"
+		        " loop5:	           \n"
+		        "  add  %1, %1, %2     \n"
+		        "  cmp 	%1, %0         \n"
+		        "  bne  loop5          \n"
+		        : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+			 );
+
+ #else
 			__asm
 			{
-				mov 		r2, #1000
-				mov		r1, #0
-				mov		r0, #1
-			loop5:	add 		r1, r1, r0
-				cmp 		r1, r2
+				mov 	reg2, #1000
+				mov		reg1, #0
+				mov		reg0, #1
+			loop5:	add 		reg1, reg1, reg0
+				cmp 		reg1, reg2
 				bne		loop5
-			}					
+			}
+#endif
 		} 
 		else 
 		{//From APLL -->APLL	
 			
 			outp32(REG_CLKDIV0, (inp32(REG_CLKDIV0) & (~0xFF))); //Switch to external clock and divider to 0
 			outp32(REG_APLLCON, (0x00F80000 | u32PllReg));
+#if defined (__GNUC__)
+			asm volatile
+			(
+		        "  mov 	%0, #1000       \n"
+		        "  mov  %1, #0         \n"
+		        "  mov  %2, #1         \n"
+		        " loop6:	           \n"
+		        "  add  %1, %1, %2     \n"
+		        "  cmp 	%1, %0         \n"
+		        "  bne  loop6          \n"
+		        : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+			 );
+ #else
 			__asm
 			{
-				mov 		r2, #1000
-				mov		r1, #0
-				mov		r0, #1
-			loop6:	add 		r1, r1, r0
-				cmp 		r1, r2
+				mov 	reg2, #1000
+				mov		reg1, #0
+				mov		reg0, #1
+			loop6:	add 		reg1, reg1, reg0
+				cmp 		reg1, reg2
 				bne		loop6
-			}										
+			}
+#endif
 		}
 		outp32(REG_CLKDIV0, (inp32(REG_CLKDIV0) & (~0xF1F)) | ((eSrcClk<<3) | u32SysDiv));	
 		//outp32(REG_PWRCON, inp32(REG_PWRCON) | ((bIsUp2Hclk3X&1)<<5));
 		outp32(REG_CLKDIV4,  (inp32(REG_CLKDIV4) & ~0xF0F)| (u32CpuDiv| (u32ApbDiv<<8) ));
 	}
+#if 0
+	while (!(inpw(REG_UART_FSR+0x100) & 0x400000));//need delay
+	outpb(REG_UART_THR+0x100, '\r');
+	while (!(inpw(REG_UART_FSR+0x100) & 0x400000));	//need delay
+#endif
+#if defined (__GNUC__)
+	asm volatile
+	(
+        "  mov 	%0, #2000      \n"
+        "  mov  %1, #0         \n"
+        "  mov  %2, #1         \n"
+        " loop7:	           \n"
+        "  add  %1, %1, %2     \n"
+        "  cmp 	%1, %0         \n"
+        "  bne  loop7          \n"
+        : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+	 );
+ #else
 	__asm
 	{
-		mov 		r2, #1000
-		mov		r1, #0
-		mov		r0, #1
-	loop7:	add 		r1, r1, r0
-		cmp 		r1, r2
+		mov 	reg2, #2000
+		mov		reg1, #0
+		mov		reg0, #1
+	loop7:	add 		reg1, reg1, reg0
+		cmp 	reg1, reg2
 		bne		loop7
 	}	
+#endif
 	outp32(REG_SDCMD, inp32(REG_SDCMD) & ~REF_CMD);			    //DRAM escape self refresh mode
+#if defined (__GNUC__)
+	asm volatile
+	(
+        "  mov 	%0, #1000       \n"
+        "  mov  %1, #0         \n"
+        "  mov  %2, #1         \n"
+        " loop8:	           \n"
+        "  add  %1, %1, %2     \n"
+        "  cmp 	%1, %0         \n"
+        "  bne  loop8          \n"
+        : : "r"(reg2), "r"(reg1), "r"(reg0) :"memory"
+	 );
+ #else
 	__asm
 	{
-		mov 		r2, #1000
-		mov		r1, #0
-		mov		r0, #1
-		loop8:	add 		r1, r1, r0
-		cmp 		r1, r2
+		mov 	reg2, #1000
+		mov		reg1, #0
+		mov		reg0, #1
+		loop8:	add 		reg1, reg1, reg0
+		cmp 	reg1, reg2
 		bne		loop8
 	}	
+#endif
 	// enable interrupt (recovery origianl interrupt maask)
 	outp32(REG_AIC_MECR, u32IntTmp);	
 }
+#if defined (__GNUC__) && !defined (__CC_ARM)
+#pragma GCC pop_options
+#endif
 void sysClockSwitchStart(E_SYS_SRC_CLK eSrcClk, 
 						UINT32 u32PllReg,
 						UINT32 u32Hclk,
@@ -581,10 +710,10 @@ sysSetSystemClock(
 	)
 {
 	INT32 i32Div;
-	UINT32 u32SysSrc; 
+	//UINT32 u32SysSrc; 
 	INT32 i32Idx;	
 	UINT32 u32RegPll;
-	register UINT32 u32SysDiv, u32CpuDiv;
+	//register UINT32 u32SysDiv, u32CpuDiv;
 			
 	g_u32ExtClk = sysGetExternalClock();	
 	
@@ -645,8 +774,8 @@ sysSetSystemClock(
 			DBG_PRINTF("CPU clock = %d\n", g_u32CpuKHz);
 			
 			i32Div =  6;										//HCLK1's DIV = 6 if 	bIsCpuOver2xHclk=1
-			g_u32Hclk1KHz = g_u32SysKHz/i32Div;					//Remember HCLK1 DIV does not plus 1. ?????
-			DBG_PRINTF("HCLK1 clock = %d\n", g_u32Hclk1KHz);
+			//g_u32Hclk1KHz = g_u32SysKHz/i32Div;					//Remember HCLK1 DIV does not plus 1. ?????
+			//DBG_PRINTF("HCLK1 clock = %d\n", g_u32Hclk1KHz);
 						
 			i32Idx = g_u32SysKHz/u32ApbKHz;					
 			g_u32ApbDiv = i32Idx/i32Div;
@@ -689,23 +818,23 @@ sysSetSystemClock(
 	{
 		case eSYS_EXT:
 			g_u32SysClkSrc =  eSYS_EXT;
-			u32SysSrc = g_u32ExtClk;
+			//u32SysSrc = g_u32ExtClk;
 			 DBG_PRINTF("Switch to external \n");	
 			 break;
 		case eSYS_X32K:
 			 g_u32SysClkSrc = eSYS_X32K;
-			 u32SysSrc = 32; 
+			 //u32SysSrc = 32; 
 			 break;
 		case eSYS_APLL: 	
 			g_u32SysClkSrc = eSYS_APLL;
-			u32SysSrc = u32PllKHz;
+			//u32SysSrc = u32PllKHz;
 			g_u32ApllKHz = u32PllKHz;	
 			g_u32REG_APLL = sysGetPLLControlRegister(g_u32ExtClk, g_u32ApllKHz);
 			DBG_PRINTF("APLL register = 0x%x\n", g_u32REG_APLL);	
 			break;	
 		case eSYS_UPLL:  
 			g_u32SysClkSrc = eSYS_UPLL;
-			u32SysSrc = u32PllKHz;
+			//u32SysSrc = u32PllKHz;
 			g_u32UpllKHz = u32PllKHz;
 			g_u32REG_UPLL = sysGetPLLControlRegister(g_u32ExtClk, g_u32UpllKHz);
 			DBG_PRINTF("UPLL register = 0x%x\n", g_u32REG_UPLL);
@@ -724,8 +853,8 @@ sysSetSystemClock(
 	}
 	else
 	{
-		u32SysDiv = u32PllKHz / g_u32SysKHz-1;
-		u32CpuDiv = g_u32SysKHz / g_u32CpuKHz-1; 	
+		//u32SysDiv = u32PllKHz / g_u32SysKHz-1;
+		//u32CpuDiv = g_u32SysKHz / g_u32CpuKHz-1; 	
 	}
 	/*
 	
@@ -759,7 +888,7 @@ void sysGetSystemClock(E_SYS_SRC_CLK* peSrcClk,	// System clock frol UPLL or APL
 					PUINT32 pu32ApbKHz)
 {
 	
-	*peSrcClk = g_u32SysClkSrc;
+	*peSrcClk = (E_SYS_SRC_CLK)g_u32SysClkSrc;
 	
 	if(g_u32SysClkSrc==eSYS_UPLL)
 		*pu32PllKHz = g_u32UpllKHz;
@@ -1070,6 +1199,147 @@ UINT32 sysGetAPBClock(VOID)
 	return ( u32HCLK1KHz/(((inp32(REG_CLKDIV4)&APB_N)>>8)+1) );
 }
 
+
+/**
+ *  @brief  system get clock frequency
+ *
+ *  @param[in]  clk   clock source. \ref CLK_Type
+ *
+ *  @return   KHz
+ */
+UINT32 sysGetClock(E_SYS_SRC_CLK clk)
+{
+    UINT32 src, divS, divN, reg, div;
+    UINT32 u32FinKHz = sysGetExternalClock();	
+
+    switch(clk)
+    {
+        case eSYS_UPLL:
+            return sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+
+        case eSYS_APLL:
+            return sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+
+        case eSYS_SYSTEM:
+        {
+            reg = inpw(REG_CLKDIV0);
+            switch (reg & 0x18)
+            {
+                case 0x0:
+                    src = u32FinKHz;   /* HXT */
+                    break;
+                case 0x10:
+                    src = sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+                    break;
+                case 0x18:
+                    src = sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+                    break;
+                default:
+                    return 0;
+            }
+            divS = (reg & 0x7) + 1;
+            divN = ((reg & 0xf00) >> 8) + 1;
+            return (src / divS / divN);
+        }
+
+        case eSYS_HCLK1:
+        {
+            reg = inpw(REG_CLKDIV0);
+            switch (reg & 0x18)
+            {
+                case 0x0:
+                    src = u32FinKHz;   /* HXT */
+                    break;
+                case 0x10:
+                    src = sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+                    break;
+                case 0x18:
+                    src = sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+                    break;
+                default:
+                    return 0;
+            }
+            divS = (reg & 0x7) + 1;
+            divN = ((reg & 0xf00) >> 8) + 1;
+            return (src / divS / divN / 2);
+        }
+
+        case eSYS_HCLK234:
+        {
+            reg = inpw(REG_CLKDIV0);
+            switch (reg & 0x18)
+            {
+                case 0x0:
+                    src = u32FinKHz;   /* HXT */
+                    break;
+                case 0x10:
+                    src = sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+                    break;
+                case 0x18:
+                    src = sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+                    break;
+                default:
+                    return 0;
+            }
+            divS = (reg & 0x7) + 1;
+            divN = ((reg & 0xf00) >> 8) + 1;
+            div = ((reg & 0xf00000) >> 20) + 1;
+            return (src / divS / divN / 2 / div);
+        }
+
+        case eSYS_PCLK:
+        {
+            reg = inpw(REG_CLKDIV0);
+            switch (reg & 0x18)
+            {
+                case 0x0:
+                    src = u32FinKHz;   /* HXT */
+                    break;
+                case 0x10:
+                    src = sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+                    break;
+                case 0x18:
+                    src = sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+                    break;
+                default:
+                    return 0;
+            }
+            divS = (reg & 0x7) + 1;
+            divN = ((reg & 0xf00) >> 8) + 1;
+            div = ((reg & 0xf000000) >> 24) + 1;
+            return (src / divS / divN / 2 / div);
+        }
+        case eSYS_CPU:
+        {
+            reg = inpw(REG_CLKDIV0);
+            switch (reg & 0x18)
+            {
+                case 0x0:
+                    src = u32FinKHz;   /* HXT */
+                    break;
+                case 0x10:
+                    src = sysGetPLLOutputKhz(eSYS_APLL, u32FinKHz);
+                    break;
+                case 0x18:
+                    src = sysGetPLLOutputKhz(eSYS_UPLL, u32FinKHz);
+                    break;
+                default:
+                    return 0;
+            }
+            divS = (reg & 0x7) + 1;
+            divN = ((reg & 0xf00) >> 8) + 1;
+            div = ((reg & 0xf0000) >> 16) + 1;
+            return (src / divS / divN / div);
+        }
+
+        default:
+            ;
+    }
+    return 0;
+}
+
+
+
 #if 0
 void sysFirstAdjustAPLL(UINT32 u32ApllClockKHz)
 {		
@@ -1125,3 +1395,4 @@ int sysGetClockFreq(WB_CLKFREQ_T *sysFreq)
 	return 0;
 }
 #endif
+

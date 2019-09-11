@@ -100,14 +100,14 @@ void DemoAPI_CLK(void)
 				break;															
 						
 	}		
-	u32PllOutKHz = sysGetPLLOutputKhz(u32SysSrc, 12000);
+	u32PllOutKHz = sysGetPLLOutputKhz((E_SYS_SRC_CLK)u32SysSrc, 12000ul);
 	sysprintf("PLL out frequency %d Khz\n", u32PllOutKHz);			
 	DBG_PRINTF("Clock switch successful ...\n");
 }
 
 void DemoAPI_SetSystemDivider(void)
 {
-	UINT32 u32Item, u32PllOutKHz, u32ExtFreq;
+	UINT32 u32Item;
 			
 	sysprintf("Input system clock divider from 0~7\n");
 	u32Item = sysGetChar();
@@ -149,7 +149,7 @@ void DemoAPI_CLKRandom(void)
 	DBG_PRINTF("****System with 12M external clock may crash if run it by ICE****\n");
 	//for(i=0;i<300;i=i+1)
 #if 1	
-	u16Item = 0x2A3B4D; //rand();
+	u16Item = 0x3B4D; //rand();
 #endif	
 	while(1)
 	{
@@ -233,7 +233,7 @@ void DemoAPI_CLKRandom(void)
 					break;
 			default:
 					while(1);
-					break;											
+														
 		}	
 		DBG_PRINTF("\n");
 		DBG_PRINTF("\n");

@@ -7,7 +7,7 @@
 /****************************************************************************
  * 
  * FILENAME
- *     w55fa93_vpost.h
+ *     W55FA93_VPOST.h
  *
  * VERSION
  *     0.1 
@@ -41,8 +41,10 @@
 #include "wbio.h"
 #include "wblib.h"
 
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 
+//#define PRINTF (...)
+#define PRINTF sysprintf
 
 //#define __HAVE_GIANTPLUS_GPM1006D0__
 //#define __HAVE_HANNSTAR_HSD043I9W1__
@@ -352,6 +354,67 @@ typedef struct {
 												} S_DRVVPOST_MPULCM_CTRL;
 
 
+typedef struct 
+{
+	UINT16 u16VSize;			// Specify OSD vertical size
+	UINT16 u16HSize;    		// Specify OSD horizontal size
+
+} S_DRVVPOST_OSD_SIZE;
+
+typedef struct 
+{
+	UINT16 u16VStart_1st;		// Specify 1st OSD bar Vertical START position
+	UINT16 u16VEnd_1st;			// Specify 1st OSD bar Vertical END position
+	UINT16 u16VOffset_2nd;		// Specify 2st OSD bar Vertiacal OFFSET position (2nd_Start - 1st_End)
+	UINT16 u16HStart_1st;		// Specify 1st OSD bar Horizontal START position
+	UINT16 u16HEnd_1st;			// Specify 1st OSD bar Horizontal END position
+	UINT16 u16HOffset_2nd;		// Specify 2st OSD bar Horizontal OFFSET position (2nd_Start - 1st_End)
+
+} S_DRVVPOST_OSD_POS;
+
+typedef enum 
+{
+	eDRVVPOST_OSD_RGB555 = 8,		
+	eDRVVPOST_OSD_RGB565 = 9, 		
+	eDRVVPOST_OSD_RGBx888 = 10,
+	eDRVVPOST_OSD_RGB888x = 11,
+	eDRVVPOST_OSD_ARGB888 = 12,	
+	eDRVVPOST_OSD_CB0Y0CR0Y1 = 0,
+	eDRVVPOST_OSD_Y0CB0Y1CR0 = 1,	
+	eDRVVPOST_OSD_CR0Y0CB0Y1 = 2,
+	eDRVVPOST_OSD_Y0CR0Y1CB0 = 3,	
+	eDRVVPOST_OSD_Y1CR0Y0CB0 = 4,		
+	eDRVVPOST_OSD_CR0Y1CB0Y0 = 5,			
+	eDRVVPOST_OSD_Y1CB0Y0CR0 = 6,		
+	eDRVVPOST_OSD_CB0Y1CR0Y0 = 7
+	
+} E_DRVVPOST_OSD_DATA_TYPE;
+
+typedef struct 
+{
+	BOOL	bIsOSDEnabled;
+	UINT32	u32Address;
+	E_DRVVPOST_OSD_DATA_TYPE 	eType;
+	S_DRVVPOST_OSD_SIZE* 		psSize;
+	S_DRVVPOST_OSD_POS* 		psPos;
+				
+} S_DRVVPOST_OSD_CTRL;
+
+typedef enum 
+{
+	eDRVVPOST_OSD_TRANSPARENT_RGB565 = 0, 		
+	eDRVVPOST_OSD_TRANSPARENT_YUV,
+	eDRVVPOST_OSD_TRANSPARENT_RGB888
+	
+} E_DRVVPOST_OSD_TRANSPARENT_DATA_TYPE;
+
+typedef struct 
+{
+	E_DRVVPOST_OSD_DATA_TYPE 	eType;
+	S_DRVVPOST_OSD_SIZE* 		psSize;
+	S_DRVVPOST_OSD_POS* 		psPos;
+} S_DRVVPOST_OSD;
+
 typedef int (*PFN_DRVVPOST_INT_CALLBACK)(UINT8*, UINT32);
 
 /***********************************
@@ -360,10 +423,66 @@ typedef int (*PFN_DRVVPOST_INT_CALLBACK)(UINT8*, UINT32);
 extern VOID* g_VAFrameBuf;
 extern VOID* g_VAOrigFrameBuf;
 
+VOID vpostSetFrameBuffer(UINT32 pFramebuf);
 VOID *vpostGetFrameBuffer(void);
 INT32 vpostLCMDeinit(void);
 INT32 vpostLCMInit(PLCDFORMATEX plcdformatex, UINT32 *pFramebuf);
-							
+void vpostSetOSD_Enable(void);
+void vpostSetOSD_Disable(void);
+void vpostSetOSD_Size(S_DRVVPOST_OSD_SIZE* psSize);
+void vpostSetOSD_Pos(S_DRVVPOST_OSD_POS* psPos);
+void vpostSetOSD_DataType(E_DRVVPOST_OSD_DATA_TYPE eType);
+void vpostSetOSD_Transparent_Enable(void);
+void vpostSetOSD_Transparent_Disable(void);
+int vpostSetOSD_Transparent(E_DRVVPOST_OSD_TRANSPARENT_DATA_TYPE eType, UINT32 u32Pattern);
+void vpostSetOSD_BaseAddress(UINT32 u32BaseAddress);
+
+VOID vpostVAStartTrigger(void);
+VOID vpostVAStopTrigger(void);
+VOID vpostVAStartTrigger_MPUContinue(void);
+VOID vpostVAStartTrigger_MPUSingle(void);
+VOID vpostVAStopTriggerMPU(void);
+BOOL vpostAllocVABuffer(PLCDFORMATEX plcdformatex,UINT32 nBytesPixel);
+BOOL vpostAllocVABufferFromAP(UINT32 *pFramebuf);
+BOOL vpostClearVABuffer(void);
+BOOL vpostFreeVABuffer(void);
+VOID vpostSetLCDEnable(BOOL bYUVBL, UINT8 ucVASrcType, BOOL bLCDRun);
+VOID vpostSetLCDConfig(BOOL bLCDSynTv, UINT8 u8LCDDataSel, UINT8 u8LCDTYPE);
+VOID vpostsetLCM_TimingType(E_DRVVPOST_TIMING_TYPE eTimingTpye);
+VOID vpostSetLCM_TypeSelect(E_DRVVPOST_LCM_TYPE eType);
+VOID vpostSetSerialSyncLCM_Interface(E_DRVVPOST_8BIT_SYNCLCM_INTERFACE eInterface);
+VOID vpostSetSerialSyncLCM_ColorOrder(
+	E_DRVVPOST_SERAIL_SYNCLCM_COLOR_ORDER eEvenLineOrder,
+	E_DRVVPOST_SERAIL_SYNCLCM_COLOR_ORDER eOddLineOrder	
+);
+VOID vpostSetSerialSyncLCM_CCIR656ModeSelect(E_DRVVPOST_CCIR656_MODE eMode);
+VOID vpostSetParalelSyncLCM_Interface(E_DRVVPOST_PARALLEL_SYNCLCM_INTERFACE eInterface);
+VOID vpostSetFrameBuffer_DataType(E_DRVVPOST_FRAME_DATA_TYPE eType);
+VOID vpostSetFrameBuffer_BaseAddress(UINT32 u32BufferAddress);
+VOID vpostSetYUVEndianSelect(E_DRVVPOST_ENDIAN eEndian);
+VOID vpostSetDataBusPin(E_DRVVPOST_DATABUS eDataBus);
+VOID vpostSetDataBusPin_noDE(E_DRVVPOST_DATABUS eDataBus);
+VOID vpostSetDataBusPin_onlyDE(E_DRVVPOST_DATABUS eDataBus);
+VOID vpostSetSyncLCM_HTiming(S_DRVVPOST_SYNCLCM_HTIMING *psHTiming);
+VOID vpostSetSyncLCM_VTiming(S_DRVVPOST_SYNCLCM_VTIMING *psVTiming);
+VOID vpostSetSyncLCM_ImageWindow(S_DRVVPOST_SYNCLCM_WINDOW *psWindow);
+VOID vpostSetSyncLCM_SignalPolarity(S_DRVVPOST_SYNCLCM_POLARITY *psPolarity);
+VOID vpostSetLCM_ImageSource(E_DRVVPOST_IMAGE_SOURCE eSource);
+VOID vpostMPULCDWriteAddr16Bit(unsigned short u16AddrIndex);
+VOID vpostMPULCDWriteData16Bit(unsigned short  u16WriteData);
+VOID vpostEnableInt(E_DRVVPOST_INT eInt);
+VOID vpostDisableInt(E_DRVVPOST_INT eInt);
+VOID vpostClearInt(E_DRVVPOST_INT eInt);
+BOOL vpostIsIntEnabled(E_DRVVPOST_INT eInt);
+int vpostInstallCallBack(
+	E_DRVVPOST_INT eIntSource,
+	PFN_DRVVPOST_INT_CALLBACK	pfnCallback,
+	PFN_DRVVPOST_INT_CALLBACK 	*pfnOldCallback
+);
+VOID vpostSetMPULCM_ImageWindow(S_DRVVPOST_MPULCM_WINDOW *psWindow);
+VOID vpostSetMPULCM_TimingConfig(S_DRVVPOST_MPULCM_TIMING *psTiming);
+VOID vpostSetMPULCM_BusModeSelect(E_DRVVPOST_MPULCM_DATABUS eBusMode);
+VOID vpostEnaBacklight(void);							
 
 /* function prototype */
 #if 0

@@ -16,11 +16,11 @@
 	#include "wblib.h"
 #endif
 
-#include "w55fa93_reg.h"
-#include "w55fa93_sic.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_SIC.h"
 
 #include "fmi.h"
-#include "nvtfat.h"
+#include "NVTFAT.h"
 
 #ifdef ECOS
 cyg_interrupt  /* dmac_interrupt, */ fmi_interrupt;

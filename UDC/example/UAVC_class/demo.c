@@ -14,7 +14,7 @@
 #include "usbd.h"
 #include "videoclass.h"
 		
-IQ_S SensorIQ=0;
+IQ_S SensorIQ = {0};
 IQ_S* pSensorIQ;	
 BOOL volatile gbMT99050 = FALSE;			
 int main()

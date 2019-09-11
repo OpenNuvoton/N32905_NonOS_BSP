@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "wblib.h"
-#include "nvtfat.h"
+#include "NVTFAT.h"
 #include "Font.h"
 #include "writer.h"
 

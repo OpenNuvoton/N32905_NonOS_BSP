@@ -5,10 +5,10 @@
 #include "wblib.h"
 
 #include "jpegcodec.h"
-#include "nvtfat.h"
-#include "w55fa93_sic.h"
+#include "NVTFAT.h"
+#include "W55FA93_SIC.h"
 #include "jpegSample.h"
-#include "w55fa93_vpost.h"
+#include "W55FA93_VPOST.h"
 
 /*-----------------------------------------------------------------------*/
 /*  JPEG Demo Code ReadMe                                                */

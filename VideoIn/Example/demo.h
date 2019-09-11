@@ -2,16 +2,17 @@
 #define _VIDEOIN_DEMO
 
 /* Progressive Sensor */
-//#define NT99141_VGA
+#define NT99141_VGA
 //#define NT99141_SVGA
 //#define NT99141_HD
 //#define NT99050_VGA
 //#define GC0308_VGA
 //#define OV7725_VGA
 //#define OV7670_VGA
+//#define GC032A_VGA
 
 /* Interlace TV Decoder */
-#define TVP5150_HVGA		//One Field
+//#define TVP5150_HVGA		//One Field
 //#define GM7150_HVGA		//One Field
 //#define TW9900_HVGA		//One Fields	
 //#define TVP5150_VGA		//Two Fields
@@ -22,7 +23,7 @@
 
 
 #if defined(NT99141_VGA) || defined(NT99050_VGA) || defined(GC0308_VGA) ||\
-	 defined(OV7725_VGA) || defined(OV7670_VGA)  || defined(TVP5150_VGA) || defined(GM7150_VGA) || defined(TW9900_VGA) 
+	 defined(OV7725_VGA) || defined(OV7670_VGA)  || defined(TVP5150_VGA) || defined(GM7150_VGA) || defined(TW9900_VGA) || defined(GC032A_VGA)
 #define OPT_CROP_WIDTH		640
 #define OPT_CROP_HEIGHT		480
 #define OPT_ENCODE_WIDTH		640
@@ -112,6 +113,7 @@ UINT32 Smpl_GM7150_OneField(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT
 UINT32 Smpl_GM7150_TwoFields(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* pu8FrameBuffer2);
 UINT32 Smpl_TW9900_VGA(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* pu8FrameBuffer2);
 UINT32 Smpl_TW9900_VGA_TWO_Field(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* pu8FrameBuffer2);
+UINT32 Smpl_GC032A(UINT8* u8PacketFrameBuffer, UINT8* u8PacketFrameBuffer1, UINT8* u8PacketFrameBuffer2);
 
 
 void Delay(UINT32 nCount);

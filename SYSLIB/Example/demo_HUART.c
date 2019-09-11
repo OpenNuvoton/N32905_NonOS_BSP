@@ -5,6 +5,7 @@
  ***************************************************************************/
 
 #include <stdio.h>
+#include <string.h>
 #include "wblib.h"
 
 UINT32 g_u32Idx=0;
@@ -31,7 +32,7 @@ void UartDataValid_Handler(UINT8* buf, UINT32 u32Len)
 	//u32LenR[u32LenPtr] = u32Len;
 	//u32LenPtr = u32LenPtr+1;
 	
-	memcpy(&(pi8UartBuf[g_u32Idx]), buf, u32Len);
+	memcpy((void*)&(pi8UartBuf[g_u32Idx]), (void*)buf, u32Len);
 	g_u32Idx = g_u32Idx+u32Len;	
 
 	
@@ -74,7 +75,7 @@ int DemoAPI_HUART(void)
 	char* pi8String;
 	UINT8 u8Item;
 	UINT32 u32Len;
-	UINT32 u32Item, u32ExtFreq,i;
+	UINT32 u32ExtFreq;
 	UINT32 u32Count;
 	INT8 i8UartData=0; 
 	memset(pi8UartBuf, 0, 1024);
@@ -128,15 +129,15 @@ int DemoAPI_HUART(void)
    	sysprintf("\nHigh Speed UART port  initialize done, please pressing any key in hyper terminal. It will be stop after pressing 'q'\n");   	
    	do
 	{
-        	i8UartData = pUART0->UartGetChar();
-        	sysprintf0("%c", i8UartData);
-        }while (i8UartData!='q');
+        i8UartData = pUART0->UartGetChar();
+        sysprintf0("%c", i8UartData);
+    }while (i8UartData!='q');
 #endif 	
 	/* Hyper-terminal will converse 0x0D,0x0A to 0x0D only. Following code convese the carriage return code 0x0D to 0x0 */ 
 #if 0	
 	sysUartEnableInt(UART_INT_RDA);
-        sysUartEnableInt(UART_INT_RDTO);        
-        sysSetLocalInterrupt(ENABLE_IRQ);          
+    sysUartEnableInt(UART_INT_RDTO);        
+    sysSetLocalInterrupt(ENABLE_IRQ);          
 #else
 	pUART0->UartEnableInt(UART_INT_RDA);	
    	pUART0->UartEnableInt(UART_INT_RDTO);	

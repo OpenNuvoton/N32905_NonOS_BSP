@@ -29,7 +29,7 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "w55fa93_gpio.h"
+#include "W55FA93_GPIO.h"
 
 // accetiable debounce clock
 static const unsigned int _clk[16] = {1, 2, 4, 8, 16, 32, 64, 128, 256, 2*256, 4*256, 8*256, 16*256, 32*256, 64*256, 128*256};

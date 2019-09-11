@@ -172,12 +172,12 @@ DrvEDMA_GetTransferSetting(
     if (eTarget == eDRVEDMA_TARGET_SOURCE)
     {
         *pu32Addr = inp32(REG_VDMA_SAR + eChannel * 0x100);
-        *peDirection = (u32Value & SAD_SEL) >> SOURCE_DIRECTION_BIT;
+        *peDirection = (E_DRVEDMA_DIRECTION_SELECT)((u32Value & SAD_SEL) >> SOURCE_DIRECTION_BIT);
     }
     else
     {
         *pu32Addr = inp32(REG_VDMA_DAR + eChannel * 0x100);
-        *peDirection = (u32Value & DAD_SEL) >> DESTINATION_DIRECTION_BIT;        
+        *peDirection = (E_DRVEDMA_DIRECTION_SELECT)((u32Value & DAD_SEL) >> DESTINATION_DIRECTION_BIT);        
     }
     
     return E_SUCCESS;     
@@ -234,7 +234,7 @@ DrvEDMA_GetAPBTransferWidth(
         return E_DRVEDMA_FALSE_INPUT; 
             
     u32SFR = REG_VDMA_CSR + eChannel * 0x100;
-    *peTransferWidth = (inp32(u32SFR) & APB_TWS) >> TRANSFER_WIDTH_BIT;    
+    *peTransferWidth = (E_DRVEDMA_TRANSFER_WIDTH)((inp32(u32SFR) & APB_TWS) >> TRANSFER_WIDTH_BIT);    
     
     return E_SUCCESS;    
 }
@@ -345,7 +345,7 @@ DrvEDMA_GetCHForAPBDevice(
 	UINT32 u32Value,i;
 	
     if ((eDevice < eDRVEDMA_SPIMS0) || (eDevice > eDRVEDMA_ADC))
-    	return E_DRVEDMA_FALSE_INPUT;
+    	return (E_DRVEDMA_CHANNEL_INDEX)E_DRVEDMA_FALSE_INPUT;
     	
 	if (eRWAPB == eDRVEDMA_WRITE_APB)
 	{
@@ -359,10 +359,10 @@ DrvEDMA_GetCHForAPBDevice(
    	for(i=1;i<=4;i++)
    	{
    		if (((u32Value >> (i-1)*4) & 0x07) == eDevice)
-   			return i;
+   			return (E_DRVEDMA_CHANNEL_INDEX)i;
 	} 	
 	
-   	return 0;  
+   	return (E_DRVEDMA_CHANNEL_INDEX)0;  
 }
 
 // Set Wrap Around Transfer Byte count interrupt Select for Channelx
@@ -396,11 +396,11 @@ DrvEDMA_GetWrapIntType(
     UINT32 u32SFR;
     
     if ((eChannel > MAX_CHANNEL_NUM) || (eChannel == 0))
-        return E_DRVEDMA_FALSE_INPUT;
+        return (E_DRVEDMA_WRAPAROUND_SELECT)E_DRVEDMA_FALSE_INPUT;
             
     u32SFR = REG_VDMA_CSR + eChannel * 0x100;  
     
-    return (inp32(u32SFR) & WAR_BCR_SEL )>> 12;  
+    return (E_DRVEDMA_WRAPAROUND_SELECT)((inp32(u32SFR) & WAR_BCR_SEL )>> 12);  
 }
 
 // Software reset Channelx
@@ -526,16 +526,16 @@ DrvEDMA_IsIntEnabled(
     {
     	case eDRVEDMA_TABORT:
 		    return inp32(u32SFR) & EDMATABORT_IE;     	
-    		break;
+//    		break;
     	case eDRVEDMA_BLKD:
 		    return inp32(u32SFR) & BLKD_IE;     	
-    		break;
+//    		break;
     	case eDRVEDMA_WAR:
 		    return inp32(u32SFR) & WAR_IE;     	
-    		break;
+//    		break;
     	case eDRVEDMA_SG:
 		    return inp32(u32SFR) & SG_IEN;     	
-    		break;    		
+//    		break;    		
 		default :
 	    	return E_DRVEDMA_FALSE_INPUT;		    		
 	}    
@@ -597,8 +597,8 @@ void DrvEDMA_GetColorTransformFormat(
     
     	u32SFR = REG_VDMA_CTCSR + eChannel * 0x100;
 		
-	*peSourceFormat = (inp32(u32SFR) & SOUR_FORMAT) >> 24;
-	*peDestFormat = (inp32(u32SFR) & DEST_FORMAT) >> 16;	
+	*peSourceFormat = (E_DRVEDMA_COLOR_FORMAT)((inp32(u32SFR) & SOUR_FORMAT) >> 24);
+	*peDestFormat = (E_DRVEDMA_COLOR_FORMAT)((inp32(u32SFR) & DEST_FORMAT) >> 16);	
 }
 
 ERRCODE  
@@ -629,8 +629,8 @@ void DrvEDMA_GetColorTransformOperation(
     
     	u32SFR = REG_VDMA_CTCSR + eChannel * 0x100;
 	
-	*peColorSpaceTran = (inp32(u32SFR) & COL_TRA_EN) >> 1;
-	*peStrideMode = inp32(u32SFR) & STRIDE_EN ;	
+	*peColorSpaceTran = (E_DRVEDMA_OPERATION)((inp32(u32SFR) & COL_TRA_EN) >> 1);
+	*peStrideMode = (E_DRVEDMA_OPERATION)(inp32(u32SFR) & STRIDE_EN );	
 }
 
 
@@ -736,7 +736,7 @@ E_DRVEDMA_CHANNEL_INDEX eChannel
     
     	u32SFR = REG_VDMA_CTCSR + eChannel * 0x100;
 		
-    return (inp32(u32SFR) & CLAMPING_EN) >> 7;
+    return (E_DRVEDMA_OPERATION)((inp32(u32SFR) & CLAMPING_EN) >> 7);
 }
 
 // Get Channel 1 ~ 4 Internal Buffer Pointer
@@ -1010,10 +1010,8 @@ DrvEDMA_InstallCallBack(
 	PFN_DRVEDMA_CALLBACK *pfnOldcallback  	
 )
 {
-    UINT32 u32SFR, index;
-    
-    u32SFR = REG_VDMA_IER + eChannel * 0x100;        
-    
+    UINT32 index;
+          
     if (eChannel > MAX_CHANNEL_NUM)
         return E_DRVEDMA_FALSE_INPUT;
             
@@ -1110,8 +1108,8 @@ DrvEDMA_SetScatterGatherSetting(
 	
 	u32SFR = REG_VDMA_CTCSR + eChannel * 0x100;
         
-    eSrcFormat = (inp32(u32SFR) & SOUR_FORMAT) >> 24;
-    eDestFormat = (inp32(u32SFR) & DEST_FORMAT) >> 16;        	
+    eSrcFormat = (E_DRVEDMA_COLOR_FORMAT)((inp32(u32SFR) & SOUR_FORMAT) >> 24);
+    eDestFormat = (E_DRVEDMA_COLOR_FORMAT)((inp32(u32SFR) & DEST_FORMAT) >> 16);        	
         
     u32SFR = REG_VDMA_CSR + eChannel * 0x100;
     u32Value = inp32(u32SFR);         

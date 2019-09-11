@@ -37,7 +37,11 @@ typedef struct _coarse_table
 } _CTable;
 
 #ifdef USING_SECTION_TABLE
+#if defined (__GNUC__)
+    unsigned int _mmuSectionTable[4096] __attribute__((aligned (0x4000)));
+#else
     __align(0x4000) unsigned int _mmuSectionTable[4096];
+#endif
 #else
 __align(0x4000) unsigned int _mmuSectionTable[4096];
 __align(1024) static _CTable _mmuCoarsePageTable[_CoarsePageSize];          // maximum 64MB for coarse pages
@@ -45,12 +49,48 @@ __align(1024) static _CTable _mmuCoarsePageTable_NonCache[_CoarsePageSize]; // S
 #endif
 
 static BOOL _IsInitMMUTable = FALSE;
-static int _MMUMappingMode = MMU_DIRECT_MAPPING;
 
-extern INT32 sysGetSdramSizebyMB(void);
+//extern INT32 sysGetSdramSizebyMB(void);
 extern void sysSetupCP15(unsigned int);
 
+#if defined (__GNUC__) && !defined(__CC_ARM)
+void sysSetupCP15(unsigned int addr)
+{
+	register int reg1, reg0;
+	reg0 = addr;
+    asm volatile(
+    "MOV     %0, %1                \n" // _mmuSectionTable
+    "MCR     p15, #0, %0, c2, c0, #0  \n" // write translation table base register c2
+
+    "MOV     %0, #0x40000000   \n"
+    "MCR     p15, #0, %0, c3, c0, #0  \n"  // domain access control register c3
+
+    "MRC     p15, #0, %0, c1, c0, #0 \n" // read control register c1
+    "ORR     %0, %0, #0x1000 \n"       // enable I cache bit
+    "ORR     %0, %0, #0x5     \n"      // enable D cache and MMU bits
+    "MCR     p15, #0, %0, c1, c0, #0  \n" // write control register c1
+    : : "r"(reg1), "r"(reg0) :"memory"
+    );
+}
+#elif defined(__UVISION_VERSION)
+__asm void sysSetupCP15(unsigned int addr)
+{
+    MOV     r1, r0                 // _mmuSectionTable
+    MCR     p15, 0, r1, c2, c0, 0  // write translation table base register c2
+
+    MOV     r1, #0x40000000
+    MCR     p15, 0, r1, c3, c0, 0  // domain access control register c3
+
+    MRC     p15, 0, r1, c1, c0, 0  // read control register c1
+    ORR     r1, r1, #0x1000        // enable I cache bit
+    ORR     r1, r1, #0x5           // enable D cache and MMU bits
+    MCR     p15, 0, r1, c1, c0, 0  // write control register c1
+    BX      lr
+}
+#endif
+
 #ifndef USING_SECTION_TABLE
+static int _MMUMappingMode = MMU_DIRECT_MAPPING;
 unsigned int sysGetPhyPageAddr(unsigned int vaddr)
 {
 	int table_num, page_num;
@@ -190,8 +230,9 @@ int sysInitPageTable(unsigned int vaddr, unsigned int phy_addr, int size, int ca
 
 int sysSetMMUMappingMethod(int mode)
 {
+#ifndef USING_SECTION_TABLE
 	_MMUMappingMode = mode;
-	
+#endif	
 	return 0;
 
 } /* end sysSetMMUMappingMethod */
@@ -303,6 +344,56 @@ int sysInitMMUTable(int cache_mode)
  	return 0;
 	
 } /* end sysInitMMUTable */
+
+
+#if defined (__GNUC__)
+#if 1
+extern char __heap_start__;
+extern char __heap_end__;
+unsigned char * HeapSize=0;
+unsigned char * _sbrk ( int incr )
+{
+	  //extern char _Heap_Begin; // Defined by the linker.
+	  //extern char _Heap_Limit; // Defined by the linker.
+
+	  static char* current_heap_end = 0;
+	  char* current_block_address;
+
+	  if (current_heap_end == 0)
+	  {
+	      current_heap_end = &__heap_start__;
+	  }
+
+	  current_block_address = current_heap_end;
+
+	  // Need to align heap to word boundary, else will get
+	  // hard faults on Cortex-M0. So we assume that heap starts on
+	  // word boundary, hence make sure we always add a multiple of
+	  // 4 to it.
+	  incr = (incr + 3) & (~3); // align value to 4
+	  if (current_heap_end + incr > &__heap_end__)
+	  {
+	      // Some of the libstdc++-v3 tests rely upon detecting
+	      // out of memory errors, so do not abort here.
+	#if 0
+	      extern void abort (void);
+
+	      _write (1, "_sbrk: Heap and stack collision\n", 32);
+
+	      abort ();
+	#else
+	      // Heap has overflowed
+	      // errno = ENOMEM;
+	      return (unsigned char*) - 1;
+	#endif
+	  }
+
+	  current_heap_end += incr;
+
+	  return (unsigned char*) current_block_address;
+}
+#endif
+#endif
 
 #if defined ( __CC_ARM )
 #pragma pop

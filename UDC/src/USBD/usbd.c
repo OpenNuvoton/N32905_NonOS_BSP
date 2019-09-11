@@ -6,13 +6,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "usbd.h"
 
 #define DATA_CODE	"20180315"
 
+#if defined (__GNUC__)
+volatile USBD_INFO_T usbdInfo  __attribute__((aligned(4))) = {0};
+volatile USBD_STATUS_T usbdStatus  __attribute__((aligned(4))) = {0};
+#else
 __align(4) volatile USBD_INFO_T usbdInfo = {0};
 __align(4) volatile USBD_STATUS_T usbdStatus = {0};
+#endif
+
 UINT32 g_u32Suspend_Flag = 0;
 PFN_USBD_CALLBACK pfnSuspend = NULL;
 

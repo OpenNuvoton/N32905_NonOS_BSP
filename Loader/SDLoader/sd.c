@@ -7,7 +7,7 @@
 /*-----------------------------------------------------------------------------------*/
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "turbowriter.h"
 
 //#define _fmi_uFMIReferenceClock   240000

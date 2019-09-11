@@ -7,7 +7,7 @@
 #else
 #include "wbio.h"
 #endif
-#include "nvtfat.h"
+#include "NVTFAT.h"
 
 UINT32 _RAMDiskBase;
 
@@ -48,24 +48,27 @@ STORAGE_DRIVER_T  _RAMDiskDriver =
 	ram_disk_ioctl,
 };
 
-
+static PDISK_T		*ptRAMDisk;
+INT32 RemoveRAMDisk(void)
+{
+	fsPhysicalDiskDisconnected(ptRAMDisk);
+	return 0;
+}
 INT32  InitRAMDisk(UINT32 uStartAddr, UINT32 uDiskSize)
 {
-	PDISK_T		*ptPDisk;
-	
 	_RAMDiskBase = uStartAddr;
-	ptPDisk = malloc(sizeof(PDISK_T));
+	ptRAMDisk = malloc(sizeof(PDISK_T));
 
-	memset(ptPDisk, 0, sizeof(PDISK_T));
-	memcpy(&ptPDisk->szManufacture,"NUVOTON ",sizeof("NUVOTON "));
-	memcpy(&ptPDisk->szProduct,"RAMDISK",sizeof("RAMDISK"));
+	memset(ptRAMDisk, 0, sizeof(PDISK_T));
+	memcpy(&ptRAMDisk->szManufacture,"NUVOTON ",sizeof("NUVOTON "));
+	memcpy(&ptRAMDisk->szProduct,"RAMDISK",sizeof("RAMDISK"));
 		
-	ptPDisk->nDiskType = DISK_TYPE_HARD_DISK | DISK_TYPE_DMA_MODE;
-	ptPDisk->uTotalSectorN = uDiskSize / 512;
-	ptPDisk->nSectorSize = 512;
-	ptPDisk->uDiskSize = uDiskSize;
-	ptPDisk->ptDriver = &_RAMDiskDriver;
-	fsPhysicalDiskConnected(ptPDisk);
+	ptRAMDisk->nDiskType = DISK_TYPE_HARD_DISK | DISK_TYPE_DMA_MODE;
+	ptRAMDisk->uTotalSectorN = uDiskSize / 512;
+	ptRAMDisk->nSectorSize = 512;
+	ptRAMDisk->uDiskSize = uDiskSize/1024;
+	ptRAMDisk->ptDriver = &_RAMDiskDriver;
+	fsPhysicalDiskConnected(ptRAMDisk);
 	return 0;
 }
 

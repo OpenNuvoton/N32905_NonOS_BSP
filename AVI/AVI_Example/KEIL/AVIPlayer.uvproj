@@ -349,7 +349,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Lib;..\..\..\VPOST\Lib;..\..\..\SYSLIB\Lib;..\..\..\SPU\lib;..\..\..\SIC\Lib;..\..\..\NVTFAT\lib;..\..\..\JPEG\LIB;..\..\..\gnand\Lib</IncludePath>
+              <IncludePath>..\..\Lib;..\..\..\VPOST\Lib;..\..\..\SYSLIB\Lib;..\..\..\SPU\Lib;..\..\..\SIC\Lib;..\..\..\NVTFAT\Lib;..\..\..\JPEG\Lib;..\..\..\GNAND\Lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -406,19 +406,19 @@
               <FilePath>..\wb_init.s</FilePath>
             </File>
             <File>
-              <FileName>AviLib_320x240.lib</FileName>
+              <FileName>AVILib_320x240.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\Lib\AviLib_320x240.lib</FilePath>
+              <FilePath>..\..\Lib\AVILib_320x240.lib</FilePath>
             </File>
             <File>
-              <FileName>ima_adpcm_codec.lib</FileName>
+              <FileName>IMA_ADPCM_Codec.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\Lib\ima_adpcm_codec.lib</FilePath>
+              <FilePath>..\..\Lib\IMA_ADPCM_Codec.lib</FilePath>
             </File>
             <File>
-              <FileName>mp3lib.lib</FileName>
+              <FileName>MP3Lib.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\Lib\mp3lib.lib</FilePath>
+              <FilePath>..\..\Lib\MP3Lib.lib</FilePath>
             </File>
             <File>
               <FileName>W55FA93_VPOST.lib</FileName>
@@ -426,9 +426,9 @@
               <FilePath>..\..\..\VPOST\Lib\W55FA93_VPOST.lib</FilePath>
             </File>
             <File>
-              <FileName>W55FA93_syslib.lib</FileName>
+              <FileName>W55FA93_SYSLib.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\SYSLIB\Lib\W55FA93_syslib.lib</FilePath>
+              <FilePath>..\..\..\SYSLIB\Lib\W55FA93_SYSLib.lib</FilePath>
             </File>
             <File>
               <FileName>W55FA93_SIC.lib</FileName>
@@ -436,24 +436,24 @@
               <FilePath>..\..\..\SIC\Lib\W55FA93_SIC.lib</FilePath>
             </File>
             <File>
-              <FileName>W55FA93_nvtfat.lib</FileName>
+              <FileName>W55FA93_NVTFAT.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\NVTFAT\lib\W55FA93_nvtfat.lib</FilePath>
+              <FilePath>..\..\..\NVTFAT\Lib\W55FA93_NVTFAT.lib</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_jpeglib.lib</FileName>
+              <FileName>W55FA93_JPEGLib.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\JPEG\LIB\w55fa93_jpeglib.lib</FilePath>
+              <FilePath>..\..\..\JPEG\Lib\W55FA93_JPEGLib.lib</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_GNAND.lib</FileName>
+              <FileName>W55FA93_GNAND.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\gnand\Lib\w55fa93_GNAND.lib</FilePath>
+              <FilePath>..\..\..\GNAND\Lib\W55FA93_GNAND.lib</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_spu.lib</FileName>
+              <FileName>W55FA93_SPU.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\SPU\lib\w55fa93_spu.lib</FilePath>
+              <FilePath>..\..\..\SPU\Lib\W55FA93_SPU.lib</FilePath>
             </File>
           </Files>
         </Group>

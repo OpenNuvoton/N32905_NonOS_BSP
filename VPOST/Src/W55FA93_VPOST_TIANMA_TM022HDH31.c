@@ -35,8 +35,8 @@
  **************************************************************************/
 #include "stdio.h"
 #include "stdlib.h"
-//#include "NUC930_VPOST_Regs.h"
-#include "w55fa93_vpost.h"
+
+#include "W55FA93_VPOST.h"
 #include "TM022HDH31.h"
 
 extern void LCDDelay(unsigned int nCount);
@@ -453,7 +453,6 @@ void LCD_Identification(void)
     tmp=LCD_ReadData();
     tmp=LCD_ReadData();
     tmp=LCD_ReadData();
-    tmp = tmp;    
 }
 
 void LCD_DisplayPwrMode(void)
@@ -463,7 +462,6 @@ void LCD_DisplayPwrMode(void)
   
 	tmp=LCD_ReadData();
     tmp=LCD_ReadData();
-    tmp = tmp;   
 }
 
 void LCD_LandModeOn(void)
@@ -483,7 +481,6 @@ void LCD_DisplayStatus(void)
     tmp=LCD_ReadData();
     tmp=LCD_ReadData();
     tmp=LCD_ReadData();
-    tmp = tmp;   
 }
 
 void LCD_Reset(void)
@@ -764,14 +761,11 @@ INT vpostLCMInit_TIANMA_TM022HDH31(PLCDFORMATEX plcdformatex, UINT32 *pFramebuf)
 	vpostSetMPULCM_BusModeSelect(eDRVVPOST_MPU_8_8);
 	
     // set MPU timing 
-    vpostSetMPULCM_TimingConfig(&sTiming);
+    vpostSetMPULCM_TimingConfig((S_DRVVPOST_MPULCM_TIMING *)&sTiming);
 
     // set MPU LCM window 
-	vpostSetMPULCM_ImageWindow(&sWindow);
+	vpostSetMPULCM_ImageWindow((S_DRVVPOST_MPULCM_WINDOW *)&sWindow);
     
-#if 0
-	vpostSetFrameBuffer_BaseAddress(pFramebuf);
-#else    
     // set frambuffer base address
     if(pFramebuf != NULL) {
 		vpostAllocVABufferFromAP(pFramebuf);
@@ -779,7 +773,6 @@ INT vpostLCMInit_TIANMA_TM022HDH31(PLCDFORMATEX plcdformatex, UINT32 *pFramebuf)
     	if( vpostAllocVABuffer(plcdformatex, nBytesPixel)==FALSE)
     		return ERR_NULL_BUF;
     }
-#endif    
 	
 	// set frame buffer data format
 	vpostSetFrameBuffer_DataType(plcdformatex->ucVASrcFormat);

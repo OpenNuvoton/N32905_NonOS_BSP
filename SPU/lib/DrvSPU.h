@@ -237,6 +237,11 @@ DrvSPU_GetThresholdAddress(
 	UINT32 u32Channel
 );
 
+UINT32
+DrvSPU_GetCurrentAddress(
+	UINT32 u32Channel
+);
+
 UINT32 	
 DrvSPU_GetEndAddress(
 	UINT32 u32Channel

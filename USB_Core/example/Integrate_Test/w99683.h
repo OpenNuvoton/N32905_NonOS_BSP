@@ -1,24 +1,13 @@
-/*************************************************************************
- * Nuvoton Electronics Corporation confidential
+/****************************************************************************
+ * @file     w99683.h
+ * @version  V1.00
+ * $Revision: 4 $
+ * $Date: 18/04/25 11:43a $
+ * @brief    W99683 USB device driver header file
  *
- * Copyright (c) 2008 by Nuvoton Electronics Corporation
- * All rights reserved
- *
- * FILENAME
- *     w99683.h
- *
- * VERSION
- *     1.0
- *
- * DESCRIPTION
- *     W99683 USB device driver header file
- *
- * HISTORY
- *     2008.06.24       Created
- *
- * REMARK
- *     None
- **************************************************************************/
+ * @note
+ * Copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
 
 //
 // W99682/W99683 Registers
@@ -29,18 +18,18 @@
 //#define W99683_PRODUCT_ID     0x6830
 
 
-// General Control Register
+/* General Control Register */
 #define MiscCAR                 0x0000
-
-//////////////////////////////////////////////////////////////////////
-// Engine sequence 7  Memory Controller
-//                 6  USB Interface
-//                 5  Flash Memory Interface
-//                 4  Display Controller
-//                 3  JPEG CODEC
-//                 2  Audio Interface
-//                 1  Video Processing Engine
-//                 0  DSP
+/*
+ * Engine sequence 7  Memory Controller
+ *                 6  USB Interface
+ *                 5  Flash Memory Interface
+ *                 4  Display Controller
+ *                 3  JPEG CODEC
+ *                 2  Audio Interface
+ *                 1  Video Processing Engine
+ *                 0  DSP
+ */
 #define EngResetCR              0x0002 // 0:normal , 1:reset
 #define EngClockCR              0x0003 // Clock Enable
 #define EngOPCR                 0x0004 // Operation Enable
@@ -57,10 +46,10 @@
 #define GPIOBR                  0x0014
 #define GPIOBDataR              0x0015
 
-// SDRAM Control Register
+/* SDRAM Control Register */
 #define DualBufferCR            0x0050 
 
-// Sensor DSP Control Register
+/* Sensor DSP Control Register */
 #define CropStartXLoR           0x011c // [7:0]
 #define CropStartXHiR           0x011d // [11:8]
 #define CropStartYLoR           0x011e // [7:0]

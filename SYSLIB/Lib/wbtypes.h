@@ -33,13 +33,22 @@
 
 /* Nuvoton NUC930 coding standard draft 2.0 */
 /* wbtypes.h Release 1.0 */
-
+#ifndef CONST
 #define CONST             const
+#endif
 
-#define FALSE             0
-#define TRUE              1
+#ifndef FALSE
+#define FALSE             (0)
+#endif
 
-typedef void              VOID;
+#ifndef TRUE
+#define TRUE              (1)
+#endif
+#if defined(__GNUC__) || (defined(__CC_ARM) && !defined(__UVISION_VERSION)) 
+typedef void            VOID;
+#elif defined(__UVISION_VERSION)
+#define VOID		  void
+#endif
 typedef void *            PVOID;
 
 typedef char              BOOL;
@@ -76,8 +85,13 @@ typedef int *             PINT32;
 typedef unsigned int      UINT32;
 typedef unsigned int *    PUINT32;
 
-typedef __int64           INT64;
-typedef unsigned __int64  UINT64;
+#if defined (__GNUC__) && !(__CC_ARM)
+typedef long long           INT64;
+typedef unsigned long long  UINT64;
+#else
+typedef __int64           INT64;    ///< Define 64-bit signed data type
+typedef unsigned __int64  UINT64;   ///< Define 64-bit unsigned data type
+#endif
 
 typedef float             FLOAT;
 typedef float *           PFLOAT;
@@ -91,5 +105,6 @@ typedef unsigned char     REG8;
 typedef unsigned short    REG16;
 typedef unsigned int      REG32;
 
+/* #define ERRCODE		  INT32  //Remove on N3290x series */
 #endif /* _WBTYPES_H */
 

@@ -54,6 +54,16 @@ typedef enum{
 	eADC_TSCREEN_TRIG                                                           
 }E_ADC_TSC_MODE;  
 
+typedef enum{ 
+	eADC_BAND_P0P5 = 0,                                             
+	eADC_BAND_P0P75
+}E_ADC_UPBAND;
+    
+typedef enum{ 
+	eADC_BAND_N0P5 = 0,                                             
+	eADC_BAND_N0P75
+}E_ADC_DOWNBAND;   
+
 #define E_DRVADC_INVALID_INT		(ERR_ADC | 00)	
 #define E_DRVADC_INVALID_CHANNEL	(ERR_ADC | 01)	
 #define E_DRVADC_INVALID_TIMING		(ERR_ADC | 02)	
@@ -74,11 +84,12 @@ extern void adc_setTouchScreen(E_ADC_TSC_MODE eTscMode,UINT32 u32DleayCycle,BOOL
 
 /***********************************************************************************************/
 INT32 audio_Open(E_SYS_SRC_CLK eSrcClock, UINT32 u32ConvClock);
-void adc_StartRecord(void);
-void adc_StopRecord(void);
-PINT16 adc_GetRecordData(void);
-void ADC_SetAutoGainTiming(UINT32 u32Period, UINT32 u32Attack, UINT32 u32Recovery, UINT32 u32Hold);
-void ADC_GetAutoGainTiming(PUINT32 pu32Period,PUINT32 pu32Attack,PUINT32 pu32Recovery,PUINT32 pu32Hold);
+void audio_StartRecord(void);
+void audio_StopRecord(void);
+PINT16 audio_GetRecordData(void);
+void audio_SetAutoGainTiming(UINT32 u32Period, UINT32 u32Attack, UINT32 u32Recovery, UINT32 u32Hold);
+void audio_GetAutoGainTiming(PUINT32 pu32Period,PUINT32 pu32Attack,PUINT32 pu32Recovery,PUINT32 pu32Hold);
+void audio_SetAutoGainControl(BOOL bIsEnable, UINT32 u32OutputLevel, E_ADC_UPBAND eAdcUpBand,E_ADC_DOWNBAND eAdcDownBand);
 #endif
 
 

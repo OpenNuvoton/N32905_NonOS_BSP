@@ -1,1 +1,1 @@
-move .\MSC_CDROM_Data\SD_PORT1\w55fa93_MSC_SD_PORT1_CDROM.lib ..\..\..\Lib
+move .\MSC_CDROM_Data\SD_PORT1\W55FA93_MSC_SD_PORT1_CDROM.lib ..\..\..\Lib

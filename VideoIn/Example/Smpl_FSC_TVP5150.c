@@ -1,7 +1,11 @@
 #include "wblib.h"
 #include "W55FA93_VideoIn.h"
 #include "W55FA93_GPIO.h"
+#ifdef __GNUC__
+#include "TVP5150/sensor_tvp5150_reg.h"
+#else
 #include "TVP5150\sensor_tvp5150_reg.h"
+#endif
 #include "DrvI2C.h"
 #include "demo.h"
 
@@ -230,13 +234,14 @@ void TVP5150SetInputSource(int src)
 	I2C_Write_8bitSlaveAddr_8bitReg_8bitData(uDeviceID, TVP5150_VD_IN_SRC_SEL_1, inputsrc);
 }
 
+/*
 static void TVP_I2C_Delay(UINT32 nCount)
 {
 	volatile UINT32 i;
 	for(;nCount!=0;nCount--)
 		for(i=0;i<50;i++);
 }
-
+*/
 
 static void dump_reg(UINT8 c)
 {
@@ -381,7 +386,6 @@ VOID TVP5150_Init(UINT32 nIndex)
 	UINT32 u32Idx;
 	UINT32 u32TableSize;
 	UINT8  u8DeviceID;
-	UINT8 u8ID;
 	UINT8 u8Retry=0;
 	
 	struct OV_RegValue *psRegValue;
@@ -506,14 +510,14 @@ UINT32 Smpl_TVP5150_OneField(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1)
 	#endif 
 #endif	
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	//videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_TVD_CCIR656);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_TVD_CCIR656);	
 #endif	
 	TVP5150_Init(0);			
 	videoIn_Open(96000, 48000);		
@@ -652,14 +656,14 @@ UINT32 Smpl_TVP5150_TwoFields(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UI
 	#endif 
 #endif	
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	//videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_TVD_CCIR656);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_3RD_TVD_CCIR656);	
 #endif	
 	TVP5150_Init(0);			
 	videoIn_Open(96000, 48000);		
@@ -762,7 +766,7 @@ UINT32 Smpl_TVP5150_TwoFields(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UI
 #ifndef UDC
 				eVIDEOIN_BOTH_PIPE_ENABLE,		// which pipes was enable. 											
 #else
-                                eVIDEOIN_PACKET,	
+                eVIDEOIN_PACKET,	
 #endif
 				0 );							//Useless		
 	

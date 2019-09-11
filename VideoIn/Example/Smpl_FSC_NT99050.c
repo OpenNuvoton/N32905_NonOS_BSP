@@ -36,7 +36,11 @@ extern UINT8 u8PlanarFrameBuffer[];
 
 struct OV_RegValue g_sNT99050_RegValue[] = 
 {
-	#include "NT99050\NT99050_30F.dat"
+#ifdef __GNUC__
+    #include "NT99050/NT99050_30F.dat"
+#else
+    #include "NT99050\NT99050_30F.dat"
+#endif
 };
 
 static struct OV_RegTable g_NT99050_InitTable[] =
@@ -137,7 +141,7 @@ static void SnrPowerDown(BOOL bIsEnable)
 BOOL I2C_Write_8bitSlaveAddr_16bitReg_8bitData(UINT8 uAddr, UINT16 uRegAddr, UINT8 uData)
 {
 	// 3-Phase(ID address, regiseter address, data(8bits)) write transmission
-	volatile u32Delay = 0x100;
+	volatile UINT32 u32Delay = 0x100;
 	DrvI2C_SendStart();
 	while(u32Delay--);		
 	if ( (DrvI2C_WriteByte(uAddr,DrvI2C_Ack_Have,8)==FALSE) ||			// Write ID address to sensor
@@ -296,14 +300,14 @@ UINT32 Smpl_NT99050(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* pu8Fr
 	#endif 
 
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 12000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	//videoIn_Init(TRUE, 0, 12000, eVIDEOIN_3RD_SNR_CCIR601);
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
 #endif	
 	NT99050_Init(6);			
 	videoIn_Open(48000, 24000);		
@@ -469,7 +473,7 @@ static INT32 IQ_GetContrast(VOID)
 static INT32 IQ_SetContrast(INT16 ucContrastValue)
 {
 	
-	UINT8 i,gamma_tmp;
+	UINT8 i;
 	UINT8 Contrast_Gamma[15] = {0};
 	UINT8 u8DeviceID = g_uOvDeviceID[6];
 	
@@ -505,7 +509,6 @@ static INT32 IQ_GetHue(void)
 }
 static INT32 IQ_SetHue(INT16 i16Hue)
 {
-	UINT8 u8RegData; 
 	UINT8 u8DeviceID = g_uOvDeviceID[6];
 	
 	I2C_Write_8bitSlaveAddr_16bitReg_8bitData(u8DeviceID, 0x32F1, 0x05); 

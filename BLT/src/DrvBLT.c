@@ -4,8 +4,8 @@
 //
 //--------------------------------------------------------------
 
-#include "w55fa93_reg.h"
-#include "blt.h"
+#include "W55FA93_reg.h"
+#include "Blt.h"
 #include "DrvBLT.h"
 //#include "DrvAIC.h"
 

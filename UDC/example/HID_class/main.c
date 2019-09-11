@@ -2,13 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "usbd.h"
 #include "HID.h"
 #ifdef HID_KEYPAD  
-
-#include "w55fa93_kpi.h"
-#include "w55fa93_gpio.h"
+#include "W55FA93_KPI.h"
+#include "W55FA93_GPIO.h"
 #endif
 #define SUSPEND_POWERDOWN
 void Demo_PowerDownWakeUp(void);
@@ -17,7 +16,7 @@ int main(void)
 {
 	WB_UART_T uart;
 	UINT32 u32ExtFreq;
-	
+	sysUartPort(1);
 	u32ExtFreq = sysGetExternalClock();
 	uart.uiFreq = u32ExtFreq*1000;	
     uart.uiBaudrate = 115200;

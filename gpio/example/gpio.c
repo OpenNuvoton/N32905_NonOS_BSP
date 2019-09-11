@@ -29,7 +29,7 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "w55fa93_gpio.h"
+#include "W55FA93_GPIO.h"
 
 
 int main(void)
@@ -38,23 +38,22 @@ int main(void)
 	UINT32 u32ExtFreq;	
 	int i;
 
+	u32ExtFreq = sysGetExternalClock();
+	sysUartPort(1);
+	uart.uiFreq = u32ExtFreq*1000;		
+	uart.uiBaudrate = 115200;
+	uart.uiDataBits = WB_DATA_BITS_8;
+	uart.uiStopBits = WB_STOP_BITS_1;
+	uart.uiParity = WB_PARITY_NONE;
+	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+	sysInitializeUART(&uart);	
+
 	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
 						192000,		//UINT32 u32PllKHz, 	
 						192000,		//UINT32 u32SysKHz,
 						192000,		//UINT32 u32CpuKHz,
 						  96000,		//UINT32 u32HclkKHz,
-						  48000);		//UINT32 u32ApbKHz	
-
-	u32ExtFreq = sysGetExternalClock();
-	uart.uiFreq = u32ExtFreq*1000;		
-    uart.uiBaudrate = 115200;
-    uart.uiDataBits = WB_DATA_BITS_8;
-    uart.uiStopBits = WB_STOP_BITS_1;
-    uart.uiParity = WB_PARITY_NONE;
-    uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-    sysInitializeUART(&uart);	
-
-	sysEnableCache(I_D_CACHE);
+						  48000);		//UINT32 u32ApbKHz		
 	
 	gpio_setportval(GPIO_PORTB, 0xf, 0);
 	gpio_setportpull(GPIO_PORTB, 0xf, 0);

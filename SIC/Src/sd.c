@@ -14,11 +14,11 @@
 #include "wblib.h"
 #endif
 
-#include "w55fa93_reg.h"
-#include "w55fa93_sic.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_SIC.h"
 
 #include "fmi.h"
-#include "nvtfat.h"
+#include "NVTFAT.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
 #define SD_DATE_CODE    FMI_DATE_CODE
@@ -40,7 +40,11 @@
 UINT32 _fmi_uR3_CMD=0;
 UINT32 _fmi_uR7_CMD=0;
 
-__align(4096) UCHAR _fmi_ucSDHCBuffer[512];
+#if defined (__GNUC__)
+    UCHAR _fmi_ucSDHCBuffer[512] __attribute__((aligned (4096)));
+#else
+    __align(4096) UCHAR _fmi_ucSDHCBuffer[512];
+#endif
 UINT8 *_fmi_pSDHCBuffer;
 
 //--- 2014/3/27, check the sector number is valid or not for current SD card.

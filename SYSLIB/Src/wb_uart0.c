@@ -46,12 +46,12 @@ static UINT8 uart_rx[RX_ARRAY_NUM] = {0};
 VOID _PutChar_f0(UINT8 ucCh);
 static UINT32 volatile rx_cnt = 0;
 
-#define sysTxBufReadNextOne()	(((_sys_uUartTxHead+1)==UART_BUFFSIZE)? NULL: _sys_uUartTxHead+1)
-#define sysTxBufWriteNextOne()	(((_sys_uUartTxTail+1)==UART_BUFFSIZE)? NULL: _sys_uUartTxTail+1)
+#define sysTxBufReadNextOne()	(((_sys_uUartTxHead+1)==UART_BUFFSIZE)? (UINT32)NULL: _sys_uUartTxHead+1)
+#define sysTxBufWriteNextOne()	(((_sys_uUartTxTail+1)==UART_BUFFSIZE)? (UINT32)NULL: _sys_uUartTxTail+1)
 #define UART_BUFFSIZE	256
 static UINT8 _sys_ucUartTxBuf[UART_BUFFSIZE];
 static UINT32 volatile _sys_uUartTxHead, _sys_uUartTxTail;
-static PVOID  _sys_pvOldUartVect;
+static volatile PVOID  _sys_pvOldUartVect;
 static UINT32 u32UartPort =0x0; /* Default Normal Speed UART */
 
 
@@ -321,13 +321,13 @@ INT32 sysInitializeUART0(WB_UART_T *uart)
 	// hook UART interrupt service routine
 	if (u32UartPort)
 	{//==1 NORMAL UART
-		_sys_uUartTxHead = _sys_uUartTxTail = NULL;
+		_sys_uUartTxHead = _sys_uUartTxTail = (UINT32)NULL;
 		_sys_pvOldUartVect = sysInstallISR(IRQ_LEVEL_1, IRQ_UART, (PVOID)sysUartISR);
 		sysEnableInterrupt(IRQ_UART);		
 	}
 	else
 	{//==0 High SPEED
-		_sys_uUartTxHead = _sys_uUartTxTail = NULL;
+		_sys_uUartTxHead = _sys_uUartTxTail = (UINT32)NULL;
 		_sys_pvOldUartVect = sysInstallISR(IRQ_LEVEL_1, IRQ_HUART, (PVOID)sysUartISR);
 		sysEnableInterrupt(IRQ_HUART);
 	}
@@ -449,7 +449,7 @@ static VOID sysPutNumber(INT value, INT radix, INT width, INT8 fill)
 		if (uvalue != 0)
 		{
 			if ((radix == 10)
-			    && ((bi == 3) || (bi == 7) || (bi == 11) | (bi == 15)))
+			    && ((bi == 3) || (bi == 7) || (bi == 11) || (bi == 15)))
 			{
 				buffer[bi++] = ',';
 			}
@@ -564,59 +564,59 @@ static INT8 *FormatItem(INT8 *f, INT a)
 
 VOID sysPrintf0(PINT8 pcStr,...)
 {
-	WB_UART_T uart;
-	INT8  *argP;
+    WB_UART_T uart;
+    INT8  *argP;
 
-    	_sys_bIsUseUARTInt = TRUE;
-	if (!_sys_bIsUARTInitial)
-	{
-		uart.uart_no = WB_UART_0;
-		uart.uiFreq = sysGetExternalClock()*1000;
-		uart.uiBaudrate = 115200;
-		uart.uiDataBits = WB_DATA_BITS_8;
-		uart.uiStopBits = WB_STOP_BITS_1;
-		uart.uiParity = WB_PARITY_NONE;
-		uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-		sysInitializeUART(&uart);		
-    	}
-    
-	vaStart(argP, pcStr);       /* point at the end of the format string */
-	while (*pcStr)
-	{                       /* this works because args are all ints */
-	    	if (*pcStr == '%')
-	        	pcStr = FormatItem(pcStr + 1, vaArg(argP, INT));
-	    	else
-	        	_PutChar_f0(*pcStr++);
-	}
+    _sys_bIsUseUARTInt = TRUE;
+    if (!_sys_bIsUARTInitial)
+    {
+        uart.uart_no = WB_UART_0;
+        uart.uiFreq = sysGetExternalClock()*1000;
+        uart.uiBaudrate = 115200;
+        uart.uiDataBits = WB_DATA_BITS_8;
+        uart.uiStopBits = WB_STOP_BITS_1;
+        uart.uiParity = WB_PARITY_NONE;
+        uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+        sysInitializeUART(&uart);		
+    }
+
+    vaStart(argP, pcStr);       /* point at the end of the format string */
+    while (*pcStr)
+    {                       /* this works because args are all ints */
+        if (*pcStr == '%')
+            pcStr = FormatItem(pcStr + 1, vaArg(argP, INT));
+        else
+            _PutChar_f0(*pcStr++);
+    }
 }
 
 
 VOID sysprintf0(PINT8 pcStr,...)
 {
-	WB_UART_T uart;
-	INT8  *argP;
+    WB_UART_T uart;
+    INT8  *argP;
 
-	_sys_bIsUseUARTInt = FALSE;
-	if (!_sys_bIsUARTInitial)
-	{//Default use external clock 12MHz as source clock. 
-		uart.uart_no = WB_UART_0;
-		uart.uiFreq = sysGetExternalClock()*1000;
-		uart.uiBaudrate = 115200;
-		uart.uiDataBits = WB_DATA_BITS_8;
-		uart.uiStopBits = WB_STOP_BITS_1;
-		uart.uiParity = WB_PARITY_NONE;
-		uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-		sysInitializeUART(&uart);
-	}
+    _sys_bIsUseUARTInt = FALSE;
+    if (!_sys_bIsUARTInitial)
+    {//Default use external clock 12MHz as source clock. 
+        uart.uart_no = WB_UART_0;
+        uart.uiFreq = sysGetExternalClock()*1000;
+        uart.uiBaudrate = 115200;
+        uart.uiDataBits = WB_DATA_BITS_8;
+        uart.uiStopBits = WB_STOP_BITS_1;
+        uart.uiParity = WB_PARITY_NONE;
+        uart.uiRxTriggerLevel = LEVEL_1_BYTE;
+        sysInitializeUART(&uart);
+    }
 
-	vaStart(argP, pcStr);       /* point at the end of the format string */
-	while (*pcStr)
-	{                       /* this works because args are all ints */
-		if (*pcStr == '%')
-		    	pcStr = FormatItem(pcStr + 1, vaArg(argP, INT));
-		else
-		    	_PutChar_f0(*pcStr++);
-	}
+    vaStart(argP, pcStr);       /* point at the end of the format string */
+    while (*pcStr)
+    {                       /* this works because args are all ints */
+        if (*pcStr == '%')
+            pcStr = FormatItem(pcStr + 1, vaArg(argP, INT));
+        else
+            _PutChar_f0(*pcStr++);
+    }
 }
 
 

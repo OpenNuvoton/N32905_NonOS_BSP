@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_edma.h"
+#include "W55FA93_EDMA.h"
 
 #define EDMA_USE_IRQ
 
@@ -52,8 +52,8 @@ EDMA_SetupCST(int channel, E_DRVEDMA_COLOR_FORMAT eSrcFormat, E_DRVEDMA_COLOR_FO
 	if (edma_info->in_use)
 		return EDMA_ERR_BUSY;
 
-	DrvEDMA_SetColorTransformFormat(channel, eSrcFormat, eDestFormat);
-	DrvEDMA_SetColorTransformOperation(channel, eDRVEDMA_ENABLE, eDRVEDMA_DISABLE);
+	DrvEDMA_SetColorTransformFormat((E_DRVEDMA_CHANNEL_INDEX)channel, eSrcFormat, eDestFormat);
+	DrvEDMA_SetColorTransformOperation((E_DRVEDMA_CHANNEL_INDEX)channel, eDRVEDMA_ENABLE, eDRVEDMA_DISABLE);
 
 	return 0;
 }
@@ -72,7 +72,7 @@ EDMA_ClearCST(int channel)
 	//if (edma_info->in_use)
 		//return EDMA_ERR_BUSY;
 
-	DrvEDMA_SetColorTransformOperation(channel, eDRVEDMA_DISABLE, eDRVEDMA_DISABLE);
+	DrvEDMA_SetColorTransformOperation((E_DRVEDMA_CHANNEL_INDEX)channel, eDRVEDMA_DISABLE, eDRVEDMA_DISABLE);
 
 	return 0;
 }
@@ -121,13 +121,13 @@ EDMA_SetupSingle(int channel, unsigned int src_addr, unsigned int dest_addr,
 	if (channel != 0)
 	{
 		if (edma_set_dir[channel].src_dir != -1)
-			sSrcAddr.eAddrDirection = edma_set_dir[channel].src_dir;		
+			sSrcAddr.eAddrDirection = (E_DRVEDMA_DIRECTION_SELECT)(edma_set_dir[channel].src_dir);		
 		if (edma_set_dir[channel].dest_dir != -1)			
-			sDestAddr.eAddrDirection = edma_set_dir[channel].dest_dir;		
+			sDestAddr.eAddrDirection = (E_DRVEDMA_DIRECTION_SELECT)(edma_set_dir[channel].dest_dir);		
 	}
 	
 
-	DrvEDMA_SetTransferSetting(channel, &sSrcAddr, &sDestAddr, dma_length);
+	DrvEDMA_SetTransferSetting((E_DRVEDMA_CHANNEL_INDEX)channel, &sSrcAddr, &sDestAddr, dma_length);
 
 	return 0;
 }
@@ -181,8 +181,8 @@ EDMA_SetupSG(int channel, unsigned int src_addr, unsigned int dest_addr,
 	u32Value = (u32Value & ~SAD_SEL) | (eDRVEDMA_DIRECTION_INCREMENTED << SOURCE_DIRECTION_BIT);
 	u32Value = (u32Value & ~DAD_SEL) | (eDRVEDMA_DIRECTION_INCREMENTED << DESTINATION_DIRECTION_BIT);
 	outp32(u32SFR, u32Value); 
-	DrvEDMA_EnableScatterGather(channel);
-	DrvEDMA_SetScatterGatherTblStartAddr(channel, (UINT32)edma_info->sg);
+	DrvEDMA_EnableScatterGather((E_DRVEDMA_CHANNEL_INDEX)channel);
+	DrvEDMA_SetScatterGatherTblStartAddr((E_DRVEDMA_CHANNEL_INDEX)channel, (UINT32)edma_info->sg);
 
 	psSGFmt = edma_info->sg;
 	u32SrcAddr = src_addr;
@@ -265,7 +265,7 @@ EDMA_SetupHandlers(int channel, int interrupt,
 	}	
 
 //	__raw_writel(1 << channel, EDMA_DISR);
-	ret = DrvEDMA_InstallCallBack(channel, interrupt, (PFN_DRVEDMA_CALLBACK)irq_handler, (PFN_DRVEDMA_CALLBACK *)data);	
+	ret = DrvEDMA_InstallCallBack((E_DRVEDMA_CHANNEL_INDEX)channel, (E_DRVEDMA_INT_ENABLE)interrupt, (PFN_DRVEDMA_CALLBACK)irq_handler, (PFN_DRVEDMA_CALLBACK *)data);	
 
 	return ret;
 }
@@ -289,9 +289,9 @@ void EDMA_Enable(int channel)
 		return;
 	}	
 
-	DrvEDMA_EnableCH(channel, eDRVEDMA_ENABLE);
+	DrvEDMA_EnableCH((E_DRVEDMA_CHANNEL_INDEX)channel, eDRVEDMA_ENABLE);
 #ifdef EDMA_USE_IRQ
-	DrvEDMA_EnableInt(channel, eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT);
+	DrvEDMA_EnableInt((E_DRVEDMA_CHANNEL_INDEX)channel, (E_DRVEDMA_INT_ENABLE)(eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT));
 #endif
 	
 }
@@ -305,9 +305,9 @@ void EDMA_Disable(int channel)
 	DBG_PRINTF("edma%d: EDMA_Disable\n", channel);
 	
 #ifdef EDMA_USE_IRQ
-	DrvEDMA_DisableInt(channel, eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT);
+	DrvEDMA_DisableInt((E_DRVEDMA_CHANNEL_INDEX)channel, (E_DRVEDMA_INT_ENABLE)(eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT));
 #endif
-	DrvEDMA_EnableCH(channel, eDRVEDMA_DISABLE);
+	DrvEDMA_EnableCH((E_DRVEDMA_CHANNEL_INDEX)channel, eDRVEDMA_DISABLE);
 	
 }
 
@@ -337,9 +337,9 @@ int EDMA_Request(int channel)
 	memset((void*)edma_info, 0, sizeof(edma_info));
 	edma_info->in_request = 1;	
 	
-	DrvEDMA_EnableCH(channel, eDRVEDMA_ENABLE);
+	DrvEDMA_EnableCH((E_DRVEDMA_CHANNEL_INDEX)channel, eDRVEDMA_ENABLE);
 #ifdef EDMA_USE_IRQ
-	DrvEDMA_EnableInt(channel, eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT);
+	DrvEDMA_EnableInt((E_DRVEDMA_CHANNEL_INDEX)channel, (E_DRVEDMA_INT_ENABLE)(eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT));
 #endif
 
 	sysSetLocalInterrupt(ENABLE_IRQ);
@@ -382,9 +382,9 @@ void EDMA_Free(int channel)
 	}
 
 #ifdef EDMA_USE_IRQ
-	DrvEDMA_DisableInt(channel, eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT | eDRVEDMA_WAR);
+	DrvEDMA_DisableInt((E_DRVEDMA_CHANNEL_INDEX)channel, (E_DRVEDMA_INT_ENABLE)(eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT | eDRVEDMA_WAR));
 #endif
-	DrvEDMA_EnableCH(channel, eDRVEDMA_DISABLE);
+	DrvEDMA_EnableCH((E_DRVEDMA_CHANNEL_INDEX)channel, eDRVEDMA_DISABLE);
 	
 }
 
@@ -439,7 +439,7 @@ void EDMA_Trigger(int channel)
 		return;
 
 	edma_info->in_use = 1;
-	DrvEDMA_CHEnablelTransfer(channel);
+	DrvEDMA_CHEnablelTransfer((E_DRVEDMA_CHANNEL_INDEX)channel);
 }
 
 /**
@@ -463,7 +463,7 @@ int EDMA_IsBusy(int channel)
 {
 	DBG_PRINTF("edma%d: EDMA_IsBusy\n", channel);
 
-	return DrvEDMA_IsCHBusy(channel);
+	return DrvEDMA_IsCHBusy((E_DRVEDMA_CHANNEL_INDEX)channel);
 }
 
 int EDMA_Init(void)
@@ -509,8 +509,8 @@ int EDMA_SetAPB(int channel, E_DRVEDMA_APB_DEVICE eDevice, E_DRVEDMA_APB_RW eRWA
 
 	DBG_PRINTF("EDMA_SetAPB ch:%d: device =%d, width:%d: read/write=%d\n", channel,eDevice, eTransferWidth,eRWAPB);
 	
-	DrvEDMA_SetAPBTransferWidth(channel, eTransferWidth);
-	DrvEDMA_SetCHForAPBDevice(channel, eDevice, eRWAPB);
+	DrvEDMA_SetAPBTransferWidth((E_DRVEDMA_CHANNEL_INDEX)channel, eTransferWidth);
+	DrvEDMA_SetCHForAPBDevice((E_DRVEDMA_CHANNEL_INDEX)channel, eDevice, eRWAPB);
 
 	return 0;
 }
@@ -524,20 +524,18 @@ int EDMA_SetWrapINTType(int channel, int type)
 
 	DBG_PRINTF("EDMA_SetWrapINTType ch:%d: WrapIntType:%d:\n", channel,type);
 	
-	DrvEDMA_SetWrapIntType(channel, type);
+	DrvEDMA_SetWrapIntType((E_DRVEDMA_CHANNEL_INDEX)channel, (E_DRVEDMA_WRAPAROUND_SELECT)type);
 	if (type !=0)
 	{
-		DrvEDMA_DisableInt(channel,eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT);
-		DrvEDMA_EnableInt(channel, eDRVEDMA_WAR);
+		DrvEDMA_DisableInt((E_DRVEDMA_CHANNEL_INDEX)channel,(E_DRVEDMA_INT_ENABLE)(eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT));
+		DrvEDMA_EnableInt((E_DRVEDMA_CHANNEL_INDEX)channel, eDRVEDMA_WAR);
 	}
 	else
 	{
-		DrvEDMA_DisableInt(channel,eDRVEDMA_WAR);
-		DrvEDMA_EnableInt(channel, eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT);		
+		DrvEDMA_DisableInt((E_DRVEDMA_CHANNEL_INDEX)channel,eDRVEDMA_WAR);
+		DrvEDMA_EnableInt((E_DRVEDMA_CHANNEL_INDEX)channel, (E_DRVEDMA_INT_ENABLE)(eDRVEDMA_SG | eDRVEDMA_BLKD | eDRVEDMA_TABORT));		
 	}
-	
-	
-
+		
 	return 0;
 }
 

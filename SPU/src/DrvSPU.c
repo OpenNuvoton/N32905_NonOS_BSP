@@ -6,8 +6,8 @@
  
 #include "string.h"
 #include "stdlib.h"
-#include "w55fa93_reg.h"
-#include "spu.h"
+#include "W55FA93_reg.h"
+#include "SPU.h"
 #include "DrvSPU.h"
 
 //#define DBG_PRINTF(...)

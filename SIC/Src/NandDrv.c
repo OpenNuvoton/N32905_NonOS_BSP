@@ -10,14 +10,14 @@
 
 #include "wbio.h"
 
-#include "w55fa93_sic.h"
+#include "W55FA93_SIC.h"
 #include "wblib.h"
 
 #include "fmi.h"
-#include "gnand_global.h"
+#include "GNAND_Global.h"
 
-#include "w55fa93_gnand.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_GNAND.h"
+#include "W55FA93_reg.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
 #define NAND_DATE_CODE  FMI_DATE_CODE
@@ -44,7 +44,12 @@ BOOL volatile _fmi_bIsNandFirstAccess = TRUE;
 extern BOOL volatile _fmi_bIsSMDataReady;
 INT fmiSMCheckBootHeader(INT chipSel, FMI_SM_INFO_T *pSM);
 static int _nand_init0 = 0, _nand_init1 = 0;
-__align(4096) UCHAR _fmi_ucSMBuffer[4096];
+
+#if defined (__GNUC__)
+    UCHAR _fmi_ucSMBuffer[4096] __attribute__((aligned (4096)));
+#else
+    __align(4096) UCHAR _fmi_ucSMBuffer[4096];
+#endif
 
 UINT8 *_fmi_pSMBuffer;
 
@@ -2810,7 +2815,10 @@ static INT sicSM_is_page_dirty(INT chipSel, INT PBA, INT page)
 
     data0 = inpw(REG_SMDATA);
     data1 = inpw(REG_SMDATA);
+#if defined (__GNUC__)
+#else
     data1 = data1;      // avoid compile warning message
+#endif
 
     if (pSM->nPageSize == NAND_PAGE_512B)
         fmiSM_Reset(pSM);

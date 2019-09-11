@@ -1,25 +1,13 @@
-/*************************************************************************
- * Nuvoton Electronics Corporation confidential
+/****************************************************************************
+ * @file     W99683.c
+ * @version  V1.00
+ * $Revision: 4 $
+ * $Date: 18/04/25 11:43a $
+ * @brief    USBH sample source file
  *
- * Copyright (c) 2008 by Nuvoton Electronics Corporation
- * All rights reserved
- *
- * FILENAME
- *     W99683.c
- *
- * VERSION
- *     1.0
- *
- * DESCRIPTION
- *     W99683 USB device driver
- *
- * HISTORY
- *     2008.06.24       Created
- *
- * REMARK
- *     None
- **************************************************************************/
-
+ * @note
+ * Copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
 
 /*-------------------------------------------------------------------------
 
@@ -189,9 +177,9 @@ Configuration:
 #include "wblib.h"
 #endif
 
-#include "usb.h"
+#include "Usb.h"
 #include "usbvideo.h"
-#include "w99683ini.h"
+#include "W99683ini.h"
 #include "w99683.h"
 
 #ifdef ECOS
@@ -219,21 +207,21 @@ static USB_DEV_ID_T  W99683_id_table[] =
 
 
 UINT8  SensorWAddr[] = 
-{ 
+{
       0,
-      SA7111_WRITE,      // 1
-      OV7620_WRITE,      // 2
-      0,                 // 3
-      0,                 // 4
-      0,                 // 5
-      0,                 // 6
-      OV8610_WRITE,      // 7
-      0,                 // 8
-      HP2020_WRITE,       // 9
-      0,                 // 10
-      0,                 // 11
-      0,                 // 12
-      M20027_WRITE       // 13
+      SA7111_WRITE,
+      OV7620_WRITE,
+      0,
+      0,
+      0,
+      0,
+      OV8610_WRITE,
+      0,
+      HP2020_WRITE,
+      0,
+      0,
+      0,
+      M20027_WRITE
 };
 
 
@@ -258,10 +246,9 @@ INT  W99683_HasImageQueued()
     if (!_W99683_Camera->streaming)
         return 0;
 
-	if (_W99683_Camera->vbq_head != _W99683_Camera->vbq_tail)
-		return 1;
-		
-	return 0;
+    if (_W99683_Camera->vbq_head != _W99683_Camera->vbq_tail)
+        return 1;
+    return 0;
 }
 
 
@@ -269,7 +256,7 @@ INT  W99683_HasImageQueued()
 INT  W99683_GetFramePiece(UINT8 **pbuf, INT *length)
 {
     USB_VID_BUF_T  *vbuf;
-    INT		t0;
+//     INT  t0;
 
     if (!_W99683_Camera || !_W99683_Camera->dev) 
         return -1;
@@ -279,8 +266,8 @@ INT  W99683_GetFramePiece(UINT8 **pbuf, INT *length)
     
     while (1)
     {
-    	t0 = sysGetTicks(TIMER0);
-        while ((volatile)_W99683_Camera->vbq_head == (volatile)_W99683_Camera->vbq_tail)
+//         t0 = sysGetTicks(TIMER0);
+        while ((volatile USB_VID_BUF_T  *)_W99683_Camera->vbq_head == (volatile USB_VID_BUF_T  *)_W99683_Camera->vbq_tail)
         {
         }
 
@@ -338,13 +325,13 @@ static VOID  W99683Cam_DropFrameQueue()
  */
 static VOID usbvideo_IsocIrq(URB_T *urb)
 {
-    USB_VID_BUF_T  	*vbuf, *dummy_vbuf;
-    USB_DEV_T 		*dev = _W99683_Camera->dev;
-    //INT     		index;
-    INT				status;
-    INT				j, k;
-    UINT8   		*newBuffer;
-    static INT  	printCount=0;
+    USB_VID_BUF_T  *vbuf, *dummy_vbuf;
+    USB_DEV_T  *dev = _W99683_Camera->dev;
+    //INT  index;
+    INT  status;
+    INT  j, k;
+    UINT8  *newBuffer;
+    static INT  printCount=0;
 
     /* We don't want to do anything if we are about to be removed! */
     if (!_W99683_Camera || !_W99683_Camera->dev) 
@@ -360,16 +347,14 @@ static VOID usbvideo_IsocIrq(URB_T *urb)
         
     if (urb->actual_length <= 0)
     {
-    	//sysprintf("usbvideo_IsocIrq - actual_length incorrect: %d\n", urb->actual_length);
+        //sysprintf("usbvideo_IsocIrq - actual_length incorrect: %d\n", urb->actual_length);
         goto urb_done_with;
-        //return;
     }
         
     newBuffer = USB_malloc(FRAMES_PER_DESC * _W99683_Camera->iso_packet_len, 4);
     if (newBuffer == NULL) 
     {
         sysprintf("usbvideo_IsocIrq - memory not enough!\n");
-        //goto urb_done_with;
         return;
     }
 
@@ -378,7 +363,6 @@ static VOID usbvideo_IsocIrq(URB_T *urb)
     {
         sysprintf("usbvideo_IsocIrq - Not enough system memory! %d\n", sizeof(USB_VID_BUF_T));
         USB_free(newBuffer);
-        //goto urb_done_with;
         return;
     }
     vbuf = _W99683_Camera->vbq_tail;
@@ -399,8 +383,8 @@ static VOID usbvideo_IsocIrq(URB_T *urb)
      */
     urb->transfer_buffer = newBuffer;
     _W99683_Camera->sbuf[0].data = newBuffer;
-        
-urb_done_with:
+
+    urb_done_with:
     urb->dev = dev;
     urb->context = _W99683_Camera;
     urb->pipe = usb_rcvisocpipe(dev, _W99683_Camera->video_endp);
@@ -412,19 +396,16 @@ urb_done_with:
     urb->transfer_buffer_length = _W99683_Camera->iso_packet_len * FRAMES_PER_DESC;
     for (j=k=0; j < FRAMES_PER_DESC; j++, k += _W99683_Camera->iso_packet_len) 
     {
-       	urb->iso_frame_desc[j].status = 0;
-       	urb->iso_frame_desc[j].actual_length = 0;
-    	urb->iso_frame_desc[j].offset = k;
-    	urb->iso_frame_desc[j].length = _W99683_Camera->iso_packet_len;
+        urb->iso_frame_desc[j].status = 0;
+        urb->iso_frame_desc[j].actual_length = 0;
+        urb->iso_frame_desc[j].offset = k;
+        urb->iso_frame_desc[j].length = _W99683_Camera->iso_packet_len;
     }
 
     /* Submit URB */
     status = USB_SubmitUrb(urb);
     if (status)
         sysprintf("usbvideo_IsocIrq: USB_SubmitUrb ret %d\n", status);
-    //else
-    //	sysprintf("usbvideo_IsocIrq: USB_SubmitUrb OK\n");
-
 
     if (printCount++ % 500 == 0)
        sysprintf("FQL:%d, free:%x\n", _W99683_Camera->vbq_cnt, USB_available_memory());
@@ -442,12 +423,12 @@ INT  W99683Cam_IsStreaming()
 INT  W99683Cam_StartDataPump()
 {
     static const CHAR proc[] = "W99683Cam_StartDataPump";
-    USB_DEV_T 	*dev = _W99683_Camera->dev;
-    URB_T  		*urb;
-    INT     	errFlag;
-    INT 		j, k;
+    USB_DEV_T  *dev = _W99683_Camera->dev;
+    URB_T  *urb;
+    INT  errFlag;
+    INT  j, k;
 
-	sysprintf("W99683Cam_StartDataPump...\n");
+    sysprintf("W99683Cam_StartDataPump...\n");
 
     if (!_W99683_Camera || !_W99683_Camera->dev) 
     {
@@ -460,7 +441,7 @@ INT  W99683Cam_StartDataPump()
     if (errFlag < 0) 
     {
         sysprintf("%s: usb_set_interface error\n", proc);
-        return -1; //-EBUSY;
+        return -1; /* -EBUSY; */
     }
     
     /* W99683VideoStart(); */
@@ -477,8 +458,8 @@ INT  W99683Cam_StartDataPump()
 
     for (j=k=0; j < FRAMES_PER_DESC; j++, k += _W99683_Camera->iso_packet_len) 
     {
-    	urb->iso_frame_desc[j].offset = k;
-    	urb->iso_frame_desc[j].length = _W99683_Camera->iso_packet_len;
+        urb->iso_frame_desc[j].offset = k;
+        urb->iso_frame_desc[j].length = _W99683_Camera->iso_packet_len;
     }
 
     /* Submit URB */
@@ -513,46 +494,26 @@ VOID  W99683Cam_StopDataPump()
     if (status < 0)
             sysprintf("%s: USB_UnlinkUrb() error %d.\n", proc, status);
 
-	sysprintf("W99683Cam_StopDataPump called!\n");
+    sysprintf("W99683Cam_StopDataPump called!\n");
     _W99683_Camera->streaming = 0;
 
     W99683Cam_DropFrameQueue();
 
     /* W99683VideoStop(); */
 }
-
-
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-//--------------------------------------------------------------------------
-
-
-
 /*
  * W99683 USB Video Camera driver
  */
-
+#if defined (__GNUC__)
+UINT8  _dma_data_pool[4096] __attribute__((aligned (32)));
+#else
 __align(32) UINT8  _dma_data_pool[4096];
-UINT8	*_dma_data;
+#endif
+UINT8  *_dma_data;
 
 static  INT W99683Cam_read_register(UINT16 index, UINT8 *regb)
 {
-    INT   i;
+    INT  i;
 
     i = USB_SendControlMessage(_W99683_Camera->dev, usb_rcvctrlpipe(_W99683_Camera->dev, 0),
                         W99683_RegisterReadRequest, 
@@ -569,7 +530,7 @@ static INT  W99683Cam_write_register(UINT16 index, UINT8 value)
 {
     INT   i;
 
-	_dma_data[0] = value;
+    _dma_data[0] = value;
     i = USB_SendControlMessage(_W99683_Camera->dev, usb_sndctrlpipe(_W99683_Camera->dev, 0),
                         W99683_RegisterWriteRequest,
                         USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
@@ -579,11 +540,9 @@ static INT  W99683Cam_write_register(UINT16 index, UINT8 value)
     return i;
 }
 
-
-
 static INT  W99683Cam_I2C_read(UINT16 slave_addr, UINT16 index, UINT8 *regb)
 {
-    INT   i;
+    INT  i;
 
     i = USB_SendControlMessage(_W99683_Camera->dev, usb_rcvctrlpipe(_W99683_Camera->dev, 0),
                         W99683_I2CReadRequest, 
@@ -598,9 +557,9 @@ static INT  W99683Cam_I2C_read(UINT16 slave_addr, UINT16 index, UINT8 *regb)
 
 static INT  W99683Cam_I2C_write(UINT16 slave_addr, UINT16 index, UINT8 value)
 {
-    INT   i;
+    INT  i;
 
-	_dma_data[0] = value;
+    _dma_data[0] = value;
     i = USB_SendControlMessage(_W99683_Camera->dev, usb_sndctrlpipe(_W99683_Camera->dev, 0),
                         W99683_I2CWriteRequest,
                         USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
@@ -615,13 +574,14 @@ static VOID  W99683Cam_set_quantization_table(INT TableSelect)
 {
     INT     i;
     UINT8   QEntry;
-    INT     indexH,indexL;
+    INT     indexL;
+//     INT     indexH;
 
     /* Luminance quantization table */
     for (i=0; i<0x40; i++)
     {
         indexL = RevZigzag(i);
-        indexH = RevZigzag(i+1);
+//         indexH = RevZigzag(i+1);
         QEntry = InitQuantizationTable[TableSelect][indexL + 0x0005];
         W99683Cam_write_register(LumQTable + i , QEntry);
     }
@@ -630,7 +590,7 @@ static VOID  W99683Cam_set_quantization_table(INT TableSelect)
     for (i=0; i<0x40; i++)
     {
         indexL = RevZigzag(i);
-        indexH = RevZigzag(i+1);
+//         indexH = RevZigzag(i+1);
         QEntry = InitQuantizationTable[TableSelect][indexL + 0x004A];
         W99683Cam_write_register(ChrQTable + i , QEntry);
     }
@@ -656,14 +616,14 @@ static INT  W99683Cam_check_sensor(INT *capc1)
                 *capc1 = VPRE_CAPTURE_TVDECODE_PLANE;
                 break;
             case 2:
-                W99683Cam_I2C_write(OV7620_WRITE, 0x12, 0x80);  // Reset OMNI7620
+                W99683Cam_I2C_write(OV7620_WRITE, 0x12, 0x80);  /* Reset OMNI7620 */
                 W99683Cam_read_register(SerialBusCR , regb);
                 W99683Cam_write_register(SerialBusCR , *regb & 0xfe);
                 W99683Cam_I2C_read(OV7620_READ, 0x12, regb);
                 *capc1 = VPRE_CAPTURE_SENSOR_PLANE;
                 break;
             case 7:
-                W99683Cam_I2C_write(OV8610_WRITE, 0x12, 0x80);  // Reset OMNI8610
+                W99683Cam_I2C_write(OV8610_WRITE, 0x12, 0x80);  /* Reset OMNI8610 */
                 W99683Cam_read_register(SerialBusCR , regb);
                 W99683Cam_write_register(SerialBusCR , *regb & 0xfe);
                 W99683Cam_I2C_read(OV8610_WRITE, 0x12, regb);
@@ -693,12 +653,12 @@ static INT  W99683Cam_check_sensor(INT *capc1)
         W99683Cam_read_register(SerialBusCR , regb);
         if ((*regb & 0x01) == 1)
         {
-        	USB_free(regb);
+            USB_free(regb);
             return i;
         }
     }
     *capc1 = VPRE_CAPTURE_SENSOR_PLANE;
- 	USB_free(regb);
+    USB_free(regb);
     return 2;  /* default */
 }
 
@@ -714,13 +674,11 @@ static INT  W99683Cam_SetupOnOpen()
     UINT8  *regb;
 
     regb = (UINT8 *)USB_malloc(1, 4);
-    
-#if 1  /* YCHuang, fix */
+
     CrpStartX = 2;
     CrpStartY = 4;
     CrpEndX = 646;
     CrpEndY = 488;
-#endif     
 
     sysprintf("enter W99683Cam_SetupOnOpen() ...\n");
     /* Send init sequence only once, it's large! */
@@ -748,36 +706,36 @@ static INT  W99683Cam_SetupOnOpen()
         InitRegValue[CapC2R]            = (UINT8) 0x10; 
 
         /* CR0220->CR0223 */
-        InitRegValue[CapHoriScaleMR]    = 1;   //(UINT8) CapHDnM;
-        InitRegValue[CapHoriScaleNR]    = 1;   //(UINT8) CapHDnN;
-        InitRegValue[CapVertScaleMR]    = 1;   //(UINT8) CapVDnM;
-        InitRegValue[CapVertScaleNR]    = 1;   //(UINT8) CapVDnN;
+        InitRegValue[CapHoriScaleMR]    = 1;   /* (UINT8) CapHDnM; */
+        InitRegValue[CapHoriScaleNR]    = 1;   /* (UINT8) CapHDnN; */
+        InitRegValue[CapVertScaleMR]    = 1;   /* (UINT8) CapVDnM; */
+        InitRegValue[CapVertScaleNR]    = 1;   /* (UINT8) CapVDnN; */
 
         /* CR0280->CR0282 */
-        InitRegValue[JPGSelectCR]       = 0xB0;  // ???
+        InitRegValue[JPGSelectCR]       = 0xB0;
         InitRegValue[JPGHeaderCR]       = 0xF0;
-        InitRegValue[JPGUpScaleCR]      = 0;   //(UINT8) VertUpscale;
+        InitRegValue[JPGUpScaleCR]      = 0;   /* (UINT8) VertUpscale; */ 
 
         /* CR0287 */
-        InitRegValue[JPGDnScaleCR]      = 0;   //(UINT8) DownScale;
+        InitRegValue[JPGDnScaleCR]      = 0;   /* (UINT8) DownScale; */
 
         /* CR028b->CR028e */
-        InitRegValue[JPGHeightLoR]      = (UINT8) 480;      //(OutHeight);
-        InitRegValue[JPGHeightHiR]      = (UINT8) (480> 8); //((OutHeight)>>8);
-        InitRegValue[JPGWidthLoR]       = (UINT8) 640;      //(OutWidth);
-        InitRegValue[JPGWidthHiR]       = (UINT8) (640>>8); //(OutWidth>>8);
+        InitRegValue[JPGHeightLoR]      = (UINT8) 480;      /* (OutHeight); */
+        InitRegValue[JPGHeightHiR]      = (UINT8) (480> 8); /* ((OutHeight)>>8); */
+        InitRegValue[JPGWidthLoR]       = (UINT8) 640;      /* (OutWidth); */
+        InitRegValue[JPGWidthHiR]       = (UINT8) (640>>8); /* (OutWidth>>8); */
 
         /* CR0293->CR0294 */
         InitRegValue[JPGRSTLoR]         = 0x00;
         InitRegValue[JPGRSTHiR]         = 0x00;
 
         /* CR02ac->CR02b7 */
-        InitRegValue[JPGYStideLoR]      = (UINT8) 320;      //(CapWidth/2);
-        InitRegValue[JPGYStideHiR]      = (UINT8) (320>>8); //((CapWidth/2)>>8);
-        InitRegValue[JPGUStideLoR]      = (UINT8) 160;      //(CapWidth/4);
-        InitRegValue[JPGUStideHiR]      = (UINT8) (160>>8); //((CapWidth/4)>>8);
-        InitRegValue[JPGVStideLoR]      = (UINT8) 160;      //(CapWidth/4);
-        InitRegValue[JPGVStideHiR]      = (UINT8) (160>>8); //((CapWidth/4)>>8);
+        InitRegValue[JPGYStideLoR]      = (UINT8) 320;      /* (CapWidth/2); */
+        InitRegValue[JPGYStideHiR]      = (UINT8) (320>>8); /* ((CapWidth/2)>>8); */
+        InitRegValue[JPGUStideLoR]      = (UINT8) 160;      /* (CapWidth/4); */
+        InitRegValue[JPGUStideHiR]      = (UINT8) (160>>8); /* ((CapWidth/4)>>8); */
+        InitRegValue[JPGVStideLoR]      = (UINT8) 160;      /* (CapWidth/4); */
+        InitRegValue[JPGVStideHiR]      = (UINT8) (160>>8); /* ((CapWidth/4)>>8); */
         InitRegValue[JPGStrm0StartLoR]  = (UINT8) 0;
         InitRegValue[JPGStrm0StartMiR]  = (UINT8) 0;
         InitRegValue[JPGStrm0StartHiR]  = (UINT8) 0x28;
@@ -905,13 +863,7 @@ static INT  W99683Cam_SetupOnOpen()
 
         _W99683_initialized = (setup_ok > 0);
     }
-#if 0    
-    for (i=0; i<=0x658; i++)
-    {
-        W99683Cam_read_register(i, regb);
-        sysprintf("Register offset:%X    value:%X\n", i, *regb);
-    }
-#endif
+
     return setup_ok;
 }
 
@@ -929,7 +881,7 @@ INT  W99683Cam_Open()
     _W99683_Camera->sbuf[0].urb = USB_AllocateUrb(FRAMES_PER_DESC);
     if (_W99683_Camera->sbuf[0].urb == NULL) 
     {
-		sysprintf("%s - USB_AllocateUrb(%d.) failed.\n", proc, FRAMES_PER_DESC);
+        sysprintf("%s - USB_AllocateUrb(%d.) failed.\n", proc, FRAMES_PER_DESC);
         goto open_x;
     }
     
@@ -993,13 +945,13 @@ static VOID  W99683Cam_Disconnect(USB_DEV_T *dev, VOID *ptr)
     W99683Cam_DropFrameQueue();
 
     USB_FreeUrb(_W99683_Camera->sbuf[0].urb);
-    USB_free(_W99683_Camera->sbuf[0].data);    
+    USB_free(_W99683_Camera->sbuf[0].data);
 
     USB_DecreaseDeviceUser(_W99683_Camera->dev);
 
     USB_free(_W99683_Camera);
     _W99683_Camera = NULL;
-        
+
     sysprintf("USB camera disconnected.\n");
 }
 
@@ -1031,9 +983,6 @@ static VOID  *W99683Cam_Probe(USB_DEV_T *dev, UINT32 ifnum,
     if (ifnum != 1) 
         return NULL;
 
-    //if (dev->descriptor.bNumConfigurations != 1)
-    //    return NULL;
-
     /* Is it an W99683 video camera? */
     if ((dev->descriptor.idVendor != W99683_VENDOR_ID) ||
         (dev->descriptor.idProduct != W99683_PRODUCT_ID))
@@ -1043,8 +992,6 @@ static VOID  *W99683Cam_Probe(USB_DEV_T *dev, UINT32 ifnum,
     sysprintf("W99683 video camera found (rev. 0x%04x)\n", dev->descriptor.bcdDevice);
 
     inactInterface = 0;
-    //actInterface = 3;  /* 1022 */
-    //actInterface = 2;  /* 768 */
     actInterface = 1;  /* 512 */
     interface = &dev->actconfig->interface[ifnum].altsetting[actInterface];
     endpoint = &interface->endpoint[0];
@@ -1103,14 +1050,12 @@ static USB_DRIVER_T  W99683_driver =
     W99683Cam_Probe,
     W99683Cam_Disconnect,
     {NULL,NULL},               /* driver_list */ 
-    // {0},                       /* semaphore */
+    // {0},                    /* semaphore */
     NULL,                      /* ioctl */
     W99683_id_table,
-    NULL,                              /* suspend */
-    NULL                               /* resume */
+    NULL,                      /* suspend */
+    NULL                       /* resume */
 };
-
-
 
 /*
  * W99683Cam_Init()
@@ -1119,7 +1064,7 @@ static USB_DRIVER_T  W99683_driver =
  */
 INT  W99683Cam_Init(VOID)
 {
-	_dma_data = (UINT8 *)((UINT32)_dma_data_pool | 0x80000000);
+    _dma_data = (UINT8 *)((UINT32)_dma_data_pool | 0x80000000);
 
     if (USB_RegisterDriver(&W99683_driver) < 0)
     {

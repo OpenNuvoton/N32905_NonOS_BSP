@@ -86,7 +86,7 @@ extern UINT8 u8PlanarFrameBuffer[];
 
 struct OV_RegValue g_sGC0308_RegValue[] = 
 {
-	#include "GC0308\GC0308_VGA.dat"
+	#include "GC0308/GC0308_VGA.dat"
 };
 
 static struct OV_RegTable g_OV_InitTable[] =

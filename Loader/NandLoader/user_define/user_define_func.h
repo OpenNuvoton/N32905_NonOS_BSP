@@ -18,7 +18,7 @@
 #include <string.h>
 #include "wblib.h"
 #include "turbowriter.h"
-#include "w55fa93_vpost.h"
+#include "W55FA93_VPOST.h"
 
 // for Nuvoton FA93 Demo Board panel 320x240
 #define PANEL_WIDTH     320

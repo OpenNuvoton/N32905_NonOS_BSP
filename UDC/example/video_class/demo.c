@@ -14,7 +14,7 @@
 #include "usbd.h"
 #include "videoclass.h"
 
-IQ_S SensorIQ=0;
+IQ_S SensorIQ = {0};
 IQ_S* pSensorIQ;	
 BOOL volatile gbMT99050 = FALSE;
 BOOL volatile gOneField = FALSE;
@@ -27,6 +27,7 @@ int main()
 #ifdef __UVC_VIN__	
 	UINT32 u32Item;
 #endif	
+	sysUartPort(1);
 	uart.uiFreq =sysGetExternalClock()*1000;	//use APB clock
 	uart.uiBaudrate = 115200;
 	uart.uiDataBits = WB_DATA_BITS_8;

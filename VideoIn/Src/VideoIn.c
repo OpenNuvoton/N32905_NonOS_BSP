@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "wblib.h"
 #include "VideoIn.h"
 
@@ -322,7 +322,7 @@ videoIn_Close(
 {
 	// 1. Disable IP's interrupt
 	sysDisableInterrupt(IRQ_VIDEOIN);	
-	// 2. Disable IP¡¦s clock
+	// 2. Disable IPï¿½ï¿½s clock
 	outp32(REG_AHBCLK, inp32(REG_AHBCLK) & ~ SEN_CKE);	
 	videoIn_Reset();
 	outp32(REG_AHBCLK, inp32(REG_AHBCLK) & ~CAP_CKE);
@@ -634,7 +634,7 @@ void DrvVideoIn_GetPipeEnable(
 	UINT32 u32Temp = inp32(REG_VPECTL);
 	
 	*pbEngEnable = (u32Temp & VPEEN) ? TRUE : FALSE;
-	*pePipeEnable = (u32Temp & (PKEN | PNEN))>>5;
+	*pePipeEnable = (E_VIDEOIN_PIPE)((u32Temp & (PKEN | PNEN))>>5);
 } // DrvVideoIn_GetPipeEnable
 
 
@@ -713,9 +713,9 @@ void DrvVideoIn_GetDataFormatAndOrder(
 {
 	UINT32 u32Temp = inp32(REG_VPEPAR);
 	
-	*peInputOrder = (u32Temp & PDORD) >> 2;
-	*peInputFormat = u32Temp & INFMT;
-	*peOutputFormat = (u32Temp & OUTFMT) >> 4;
+	*peInputOrder = (E_VIDEOIN_ORDER)((u32Temp & PDORD) >> 2);
+	*peInputFormat = (E_VIDEOIN_IN_FORMAT)(u32Temp & INFMT);
+	*peOutputFormat = (E_VIDEOIN_OUT_FORMAT)((u32Temp & OUTFMT) >> 4);
 } // DrvVideoIn_GetDataFormatAndOrder
 
 /*----------------------------------------------------------------------------------------------------------*/
@@ -1167,7 +1167,7 @@ DrvVideoIn_GetInputType(
 {
 	UINT32 u32Tmp = inp32(REG_VPEPAR);	
 	*pu32FieldEnable = (u32Tmp & ( FLD1EN | FLD0EN ))>>16;
-	*peInputType = (u32Tmp & SNRTYPE )>>1;
+	*peInputType = (E_VIDEOIN_TYPE)((u32Tmp & SNRTYPE )>>1);
 	*pbFieldSwap = (u32Tmp & FLDSWAP )>>13;
 } // DrvVideoIn_GetInputType
 

@@ -8,9 +8,9 @@
 #include "wblib.h"
 #include "W55FA93_GPIO.h"
 #include "W55FA93_VideoIn.h"
-#include "w55fa93_sic.h"
-#include "w55fa93_gnand.h"
-#include "nvtfat.h"
+#include "W55FA93_SIC.h"
+#include "W55FA93_GNAND.h"
+#include "NVTFAT.h"
 
 #include "demo.h"
 
@@ -89,7 +89,7 @@ void VideoIn_InterruptHandler(void)
 	g_u32FrameCount = g_u32FrameCount+1;
 	//if((g_u32FrameCount%100)==0)
 		//sysprintf("F=%d\n", g_u32FrameCount);	
-	DrvVideoIn_SetOperationMode(TRUE);	
+	//DrvVideoIn_SetOperationMode(TRUE);	
 }
 UINT32 VideoIn_GetCurrFrameCount(void)
 {
@@ -173,7 +173,7 @@ void Smpl_DumpPlanarYUV422Buffer(void)
 										0 );							//Useless	
 }
 
-IQ_S SensorIQ=0;
+IQ_S SensorIQ = {0};
 IQ_S* pSensorIQ;
 int main()
 {
@@ -222,43 +222,46 @@ int main()
 	u32Upll_Clock = sysGetPLLOutputKhz(eSYS_UPLL, sysGetExternalClock());
 	sicIoctl(SIC_SET_CLOCK, u32Upll_Clock, 0, 0);
 	sicOpen();
-    	g_i32SD0TotalSector = sicSdOpen0();	/* Total sector or error code */
-    	if(g_i32SD0TotalSector < 0)
-    	{
-    		sysprintf("no SD card or SD card fail\n");
-            	sicSdClose0();
+    g_i32SD0TotalSector = sicSdOpen0();	/* Total sector or error code */
+    if(g_i32SD0TotalSector < 0)
+    {
+    	sysprintf("no SD card or SD card fail\n");
+        sicSdClose0();
 	}
 	fsAssignDriveNumber('C', DISK_TYPE_SD_MMC, 0, 1);
 		
 	DBG_PRINTF("================================================================\n");
+#ifdef __1ST_PORT__ 	
+	DBG_PRINTF("Please use LCD GAINTPLUS for board number: NUDesign HMI/TFT-LCD3\n");
+#endif
 #ifdef __2ND_PORT__ 	
-	DBG_PRINTF("Please use LCD GW9360 for board number: WHS-W55FA93 DB LCD 8							\n");    	
+	DBG_PRINTF("Please use LCD GAINTPLUS for board number: WHS-W55FA93 DB LCD 8	\n");
 #endif		
 #ifdef __3RD_PORT__ 	
-	DBG_PRINTF("Please use LCD GAINTPLUS	for board number: NHS-W55FA93-1-IN-1012						\n");    	
+	DBG_PRINTF("Please use LCD GAINTPLUS for board number: NHS-W55FA93-1-IN-1012\n");
 #endif	
 	DBG_PRINTF("================================================================\n");	    	
 	do
 	{    	
-		DBG_PRINTF("================================================================\n");
-		DBG_PRINTF("				VideoIn library demo code								\n");
+		DBG_PRINTF("========Please choice the sensor is defined on demo.h ==========\n");
+		DBG_PRINTF("				VideoIn library demo code						\n");
 		DBG_PRINTF(" [1] OV9660 demo 												\n");
 		DBG_PRINTF(" [2] OV7670 demo 												\n");
 		DBG_PRINTF(" [3] OV7725 demo 												\n");		
 		DBG_PRINTF(" [4] WT8861 demo 												\n");
-		DBG_PRINTF(" [5] OV99050 demo 											\n");		
-		
+		DBG_PRINTF(" [5] OV99050 demo 											    \n");
 		DBG_PRINTF(" [8] NT99141 VGA 												\n");		
-		DBG_PRINTF(" [9] NT99141 SVGA 											\n");	
+		DBG_PRINTF(" [9] NT99141 SVGA 											    \n");
 		DBG_PRINTF(" [a] NT99141 HD 												\n");	
 		DBG_PRINTF(" [b] GC0308 VGA 												\n");	
-		DBG_PRINTF(" [c] TVP5150 HVGA 											\n");	
+		DBG_PRINTF(" [c] TVP5150 HVGA 											    \n");
 		DBG_PRINTF(" [d] TVP5150 VGA 												\n");	
 		DBG_PRINTF(" [e] GM7150 HVGA 												\n");	
 		DBG_PRINTF(" [f] FM7150 VGA 												\n");
 		DBG_PRINTF(" [g] TW9900 HVGA 												\n");	
 		DBG_PRINTF(" [h] TW9900 VGA 												\n");
-		DBG_PRINTF(" [D] Dump Planar Y Buf (raw data)									\n");	
+		DBG_PRINTF(" [h] GC0302 VGA 												\n");
+		DBG_PRINTF(" [D] Dump Planar Y Buf (raw data)							    \n");
 		DBG_PRINTF("================================================================\n");
 #ifdef OPT_UART
 		u32Item = sysGetChar();		
@@ -303,6 +306,9 @@ int main()
 	    				register_TW9900_sensor(&SensorIQ);	
 	    				Smpl_TW9900_VGA_TWO_Field(u8PacketFrameBuffer, u8PacketFrameBuffer1, u8PacketFrameBuffer2);		break; 				
 	    							
+	    		case 'i': 	
+	    				Smpl_GC032A(u8PacketFrameBuffer, u8PacketFrameBuffer1, u8PacketFrameBuffer2);		break; 	
+	    		
 	    		case 'D':	Smpl_DumpPlanarYBuffer();	break;
 	    		case 'C':	Smpl_DumpPlanarYUV422Buffer();	break;
 	    		
@@ -318,7 +324,7 @@ int main()
 	    					sysprintf("Brightness level =%d\n", level);
 	    					level = level+8;	    					
 	    					if(level>255)
-	    						level = 0;
+	    						break;
 	    				}
 	    				break;
 	    		case 'J':	
@@ -332,7 +338,7 @@ int main()
 	    					sysprintf("Hue Angle =%d\n", angle);
 	    					angle = angle+8;	    					
 	    					if(angle>255)
-	    						angle = 0;
+	    						break;
 	    				}
 	    				pSensorIQ->IQ_SetHue(u32Item);
 	    				break;
@@ -350,7 +356,7 @@ int main()
 	    					sysprintf("Get sharpness level =%d\n", regValue);
 	    					level = level+8;	    					
 	    					if(level>255)
-	    						level = 0;
+	    						break;
 	    				}
 	    				break;	
 	    		case 'L':	
@@ -367,9 +373,17 @@ int main()
 	    					sysprintf("Get Contrast level =%d\n", regValue);
 	    					level = level+8;	    					
 	    					if(level>255)
-	    						level = 0;
+	    						break;
 	    				}
-	    				break;			
+	    				break;	
+				case 'S':	
+						DrvVideoIn_SetOperationMode(TRUE);
+						while(DrvVideoIn_GetOperationMode() == TRUE);
+						break;
+				case 'T':	
+						DrvVideoIn_SetOperationMode(TRUE);
+						while(DrvVideoIn_GetOperationMode() == TRUE);
+						break;
 		}
 		
 	}while((u32Item!= 'q') || (u32Item!= 'Q'));	

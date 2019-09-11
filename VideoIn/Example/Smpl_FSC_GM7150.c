@@ -1,7 +1,11 @@
 #include "wblib.h"
 #include "W55FA93_VideoIn.h"
 #include "W55FA93_GPIO.h"
+#ifdef __GNUC__
+#include "GM7150/sensor_gm7150.h"
+#else
 #include "GM7150\sensor_gm7150.h"
+#endif
 #include "DrvI2C.h"
 #include "demo.h"
 
@@ -42,7 +46,11 @@ extern UINT8 u8PlanarFrameBuffer[];
 
 static struct OV_RegValue g_sGM7150_Init[]=
 {
-	#include "GM7150\GM7150.dat"
+#ifdef __GNUC__
+    #include "GM7150/GM7150.dat"
+#else
+    #include "GM7150\GM7150.dat"
+#endif
 };
 static struct OV_RegTable g_OV_InitTable[] =
 {//8 bit slave address, 8 bit data. 
@@ -284,14 +292,14 @@ UINT32 Smpl_GM7150_OneField(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT
 	#endif 
 #endif	
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	//videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_TVD_CCIR656);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, eVIDEOIN_3RD_TVD_CCIR656);	
 #endif	
 	GM7150_Init(0);			
 	videoIn_Open(96000, 48000);		
@@ -422,14 +430,14 @@ UINT32 Smpl_GM7150_TwoFields(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UIN
 	#endif 
 #endif	
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	//videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_TVD_CCIR656);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_TVD_CCIR656);	
 #endif	
 	GM7150_Init(0);			
 	videoIn_Open(96000, 48000);		

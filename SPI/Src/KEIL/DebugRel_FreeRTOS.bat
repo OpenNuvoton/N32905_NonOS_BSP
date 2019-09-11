@@ -1,1 +1,1 @@
-move .\dev_spi_Data\Release\w55fa93_SPI_freertos.lib ..\..\Lib
+move .\dev_spi_Data\Release\W55FA93_SPI_FreeRTOS.lib ..\..\Lib

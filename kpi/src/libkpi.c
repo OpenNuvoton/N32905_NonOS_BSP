@@ -24,18 +24,14 @@
 * REMARK
 *   None
 ****************************************************************************/
-#include "w55fa93_gpio.h"
-#include "w55fa93_kpi.h"
+#include "W55FA93_GPIO.h"
+#include "W55FA93_KPI.h"
 
 // latest key pressed recorded by ISR, might _not_ be the most updated status
 static unsigned int _key;
 // interrupt number for kpi
 static unsigned char _int;
 static unsigned char _opened = 0;
-
-//#define CONFIG_FA93_1X4_KPI
-//#define CONFIG_FA93_2X2_KPI
-//#define CONFIG_FA93_2X3_KPI
 
 static unsigned int readkey(void)
 {
@@ -79,7 +75,7 @@ static unsigned int readkey(void)
 	gpio_setportval(GPIO_PORTA, (1 << 2), 0);
 	
 	return read2;
-#else
+#elif defined CONFIG_FA93_3X3_KPI
 	unsigned int read0, read1, read2, read3;
 	gpio_readport(GPIO_PORTA, (unsigned short *)&read0);
 	read0 &= 0x1C;
@@ -145,7 +141,7 @@ void kpi_init(void)
 	gpio_setportpull(GPIO_PORTA, (1 << 2), 0);
 	gpio_setportdir(GPIO_PORTA, (1 << 2), (1 << 2));
 
-#else
+#elif defined CONFIG_FA93_3X3_KPI
 	// PORTA[2-4]
 	gpio_setportdir(GPIO_PORTA, ((1 << 2) | (1 << 3) | (1 << 4)), 0);
 	gpio_setportpull(GPIO_PORTA, ((1 << 2) | (1 << 3) | (1 << 4)), 0);	
@@ -181,7 +177,7 @@ int kpi_open(unsigned int src)
 	gpio_setsrcgrp(GPIO_PORTA, ((1 << 2) | (1 << 7)), src);
 #elif defined CONFIG_FA93_2X3_KPI
 	gpio_setsrcgrp(GPIO_PORTA, ((1 << 5) | (1 << 6) | (1 << 7)), src);
-#else
+#elif defined CONFIG_FA93_3X3_KPI
 	gpio_setsrcgrp(GPIO_PORTA, ((1 << 2) | (1 << 3) | (1 << 4)), src);
 #endif
 	gpio_setdebounce(128, 1 << src);
@@ -204,7 +200,9 @@ void kpi_close(void)
 	return;
 }
 
-
+#ifdef __GNUC__
+__attribute__((optimize("O0")))
+#endif
 int kpi_read(unsigned char mode)
 {
 	// add this var in case key released right before return.
@@ -226,7 +224,9 @@ int kpi_read(unsigned char mode)
 			return(0);
 		}
 		// not pressed, non blocking, wait for key pressed
+#ifndef __GNUC__		
 #pragma O0
+#endif
 // ARMCC is tooooo smart to compile this line correctly, so ether set O0 or use pulling....
 		while((k = _key) == 0);
 	} else {

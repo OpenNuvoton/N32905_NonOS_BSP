@@ -3,13 +3,20 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "w55fa93_edma.h"
-#include "w55fa93_vpost.h"
+#include "W55FA93_EDMA.h"
+#include "W55FA93_VPOST.h"
 
+#if defined(__GNUC__)
+__attribute__((aligned(32))) UINT8 LoadAddr[]=
+{
+	#include "../../../VPOST/Example/ASIC/roof_320x240_RGB565.dat"
+};
+#else
 __align(32) UINT8 LoadAddr[]=
 {
-	#include "..\..\..\VPOST\Example\ASIC\roof_320x240_rgb565.dat"
+	#include "../../../VPOST/Example/ASIC/roof_320x240_RGB565.dat"
 };
+#endif
 
 LCDFORMATEX lcdFormat;
 extern void TransferLengthTest(void);
@@ -21,15 +28,9 @@ int main()
 {
 	WB_UART_T uart;
 	UINT32 u32ExtFreq, u32Item;
-
-	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
-						192000,		//UINT32 u32PllKHz, 	
-						192000,		//UINT32 u32SysKHz,
-						192000,		//UINT32 u32CpuKHz,
-						  96000,		//UINT32 u32HclkKHz,
-						  48000);		//UINT32 u32ApbKHz
 						  
 	u32ExtFreq = sysGetExternalClock();    	/* Hz unit */	
+	sysUartPort(1);
 	uart.uiFreq = u32ExtFreq*1000;
 	uart.uiBaudrate = 115200;
 	uart.uiDataBits = WB_DATA_BITS_8;
@@ -37,6 +38,13 @@ int main()
 	uart.uiParity = WB_PARITY_NONE;
 	uart.uiRxTriggerLevel = LEVEL_1_BYTE;
 	sysInitializeUART(&uart);	
+
+	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
+						192000,		//UINT32 u32PllKHz, 	
+						192000,		//UINT32 u32SysKHz,
+						192000,		//UINT32 u32CpuKHz,
+						  96000,		//UINT32 u32HclkKHz,
+						  48000);		//UINT32 u32ApbKHz	
 
 	sysEnableCache(CACHE_WRITE_BACK);
 

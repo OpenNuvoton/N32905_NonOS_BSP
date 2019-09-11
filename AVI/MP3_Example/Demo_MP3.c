@@ -7,11 +7,11 @@
 #include "wbio.h"
 #include "wblib.h"
 
-#include "w55fa93_sic.h"
-#include "nvtfat.h"
-#include "spu.h"
+#include "W55FA93_SIC.h"
+#include "NVTFAT.h"
+#include "SPU.h"
 
-#include "AviLib.h"
+#include "AVILib.h"
 
 //#pragma import(__use_no_semihosting_swi)
 

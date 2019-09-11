@@ -413,7 +413,7 @@ static void SnrPowerDown(BOOL bIsEnable)
 static BOOL I2C_Write_8bitSlaveAddr_16bitReg_8bitData(UINT8 uAddr, UINT16 uRegAddr, UINT8 uData)
 {
 	// 3-Phase(ID address, regiseter address, data(8bits)) write transmission
-	volatile u32Delay = 0x100;
+	volatile UINT32 u32Delay = 0x100;
 	DrvI2C_SendStart();
 	while(u32Delay--);		
 	if ( (DrvI2C_WriteByte(uAddr,DrvI2C_Ack_Have,8)==FALSE) ||			// Write ID address to sensor
@@ -571,14 +571,14 @@ UINT32 Smpl_NT99140_VGA(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* p
 	#endif 
 
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 12000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	//videoIn_Init(TRUE, 0, 12000, eVIDEOIN_3RD_SNR_CCIR601);
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
 #endif	
 	NT99140_Init(7, REG_VALUE_VGA);			
 	videoIn_Open(48000, 24000);		
@@ -709,14 +709,14 @@ UINT32 Smpl_NT99140_D1(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* pu
 	#endif 
 
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 12000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	//videoIn_Init(TRUE, 0, 12000, eVIDEOIN_3RD_SNR_CCIR601);
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
 #endif	
 	NT99140_Init(7, REG_VALUE_D1);			
 	videoIn_Open(48000, 24000);		
@@ -838,14 +838,14 @@ UINT32 Smpl_NT99140_HD(UINT8* pu8FrameBuffer0, UINT8* pu8FrameBuffer1, UINT8* pu
 	#endif 
 
 #ifdef __1ST_PORT__	
-	videoIn_Init(TRUE, 0, 12000, eVIDEOIN_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_SNR_CCIR601);	
 #endif
 #ifdef __2ND_PORT__
-	//videoIn_Init(TRUE, 0, 12000, eVIDEOIN_3RD_SNR_CCIR601);
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_2ND_SNR_CCIR601);	
+	//videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 12000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_2ND_SNR_CCIR601);	
 #endif	
 #ifdef __3RD_PORT__
-	videoIn_Init(TRUE, 0, 24000, eVIDEOIN_3RD_SNR_CCIR601);	
+	videoIn_Init(TRUE, (E_VIDEOIN_SNR_SRC)0, 24000, (E_VIDEOIN_DEV_TYPE)eVIDEOIN_3RD_SNR_CCIR601);	
 #endif	
 	NT99140_Init(7, REG_VALUE_HD720);			
 	videoIn_Open(72000, 24000);		

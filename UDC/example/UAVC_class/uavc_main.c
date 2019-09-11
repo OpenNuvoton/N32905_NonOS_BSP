@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "demo.h"
 #include "usbd.h"
 #include "videoclass.h"
@@ -63,10 +63,13 @@ void Demo_PowerDownWakeUp(void);
 #define UVC_SKIP_FRAME 0
 
 /* Buffer for Packet & Planar format */
+#if defined (__GNUC__)
+UINT8 u8FrameBuffer0[640*480*2 + BITSTREAM_OFFSET] __attribute__((aligned(32)));
+UINT8 u8FrameBuffer1[640*480*2 + BITSTREAM_OFFSET] __attribute__((aligned(32)));
+#else
 UINT8 __align(32) u8FrameBuffer0[640*480*2 + BITSTREAM_OFFSET];	
 UINT8 __align(32) u8FrameBuffer1[640*480*2 + BITSTREAM_OFFSET];	
-
-//UINT8 __align(32) u8FrameBuffer2[640*480*2 + BITSTREAM_OFFSET];	
+#endif
 
 
 

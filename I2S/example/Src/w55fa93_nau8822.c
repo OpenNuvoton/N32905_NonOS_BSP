@@ -3,8 +3,8 @@
 #include "wblib.h"
 #include "wbtypes.h"
 
-#include "w55fa93_reg.h"
-#include "w55fa93_i2s.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_I2S.h"
 #include "DrvI2CH.h"
 
 #define	WM_8000		(5<<1)
@@ -35,7 +35,7 @@ static void Delay(int nCnt)
 static BOOL i2c_Write_8bitSlaveAddr_8bitReg_8bitData(UINT8 uAddr, UINT8 uRegAddr, UINT8 uData)
 {
 	// 3-Phase(ID address, regiseter address, data(8bits)) write transmission
-	volatile u32Delay = 0x100;
+	volatile int u32Delay = 0x100;
 	
 //	DrvI2CH_SendStart();
 	while(u32Delay--);		

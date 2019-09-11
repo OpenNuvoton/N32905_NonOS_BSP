@@ -1,1 +1,1 @@
-move .\SysLib_Data\Syslib\W55FA93_syslib_freertos.lib ..\..\..\Lib
+move .\SysLib_Data\Syslib\W55FA93_SYSLib_FreeRTOS.lib ..\..\..\Lib

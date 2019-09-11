@@ -1,7 +1,7 @@
 #include "wblib.h"
 #include "W55FA93_VideoIn.h"
 #include "W55FA93_GPIO.h"
-#include "TVP5150\sensor_tvp5150_reg.h"
+#include "TVP5150/sensor_tvp5150_reg.h"
 #include "DrvI2C.h"
 #include "demo.h"
 

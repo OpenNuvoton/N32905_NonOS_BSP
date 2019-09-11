@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\blt_Data\DebugRel\</OutputDirectory>
-          <OutputName>W55FA93_blt</OutputName>
+          <OutputName>W55FA93_BLT</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

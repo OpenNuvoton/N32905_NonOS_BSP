@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "W55FA93_reg.h"
 #include "usbd.h"
 
 /* length of descriptors */
@@ -26,8 +26,11 @@
 /* USB Device Property */
 extern USB_CMD_T	_usb_cmd_pkt;
 extern volatile USBD_INFO_T usbdInfo;
-
+#if defined (__GNUC__)
+UINT8 _DeviceDescriptor[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _DeviceDescriptor[] =
+#endif
 {
 	0x12,			/* bLength              */
 	0x01,			/* bDescriptorType      */
@@ -49,9 +52,13 @@ __align(4) UINT8 _DeviceDescriptor[] =
 
 
 /*!<USB Quflifier Descriptor */
+#if defined (__GNUC__)
+UINT8 _QualifierDescriptor[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _QualifierDescriptor[] =
+#endif
 {
-	0x0a,			/* bLength				*/
+    0x0a,        /* bLength            */
 	0x06,			/* bDescriptorType		*/
 	0x00, 0x02,		/* bcdUSB				*/
 	0x00,			/* bDeviceClass 		*/
@@ -63,7 +70,11 @@ __align(4) UINT8 _QualifierDescriptor[] =
 };
 
 /*!<USB Configure Descriptor */
+#if defined (__GNUC__)
+UINT8 _ConfigurationBlock[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _ConfigurationBlock[] =
+#endif
 {
 	0x09,			/* bLength              */
 	0x02,			/* bDescriptorType      */
@@ -149,7 +160,11 @@ __align(4) UINT8 _ConfigurationBlock[] =
 
 
 /*!<USB Configure Descriptor */
+#if defined (__GNUC__)
+UINT8 _ConfigurationBlockFull[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _ConfigurationBlockFull[] =
+#endif
 {
 	0x09,			/* bLength              */
 	0x02,			/* bDescriptorType      */
@@ -236,7 +251,11 @@ __align(4) UINT8 _ConfigurationBlockFull[] =
 
 
 /*!<USB Configure Descriptor */
+#if defined (__GNUC__)
+UINT8 _OSConfigurationBlock[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _OSConfigurationBlock[] =
+#endif
 {
 	0x09,			/* bLength              */
 	0x07,			/* bDescriptorType      */
@@ -322,21 +341,33 @@ __align(4) UINT8 _OSConfigurationBlock[] =
 };
 
 /*!<USB Language String Descriptor */
+#if defined (__GNUC__)
+UINT8 _StringDescriptor0[4] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _StringDescriptor0[4] =
+#endif
 {
 	4,				/* bLength				*/
 	0x03,			/* bDescriptorType 		*/
 	0x09, 0x04
 };
 
+#if defined (__GNUC__)
+UINT8 _StringDescriptor1[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _StringDescriptor1[] =
+#endif
 {
 	16,
 	0x03,
 	'N', 0, 'u', 0, 'v', 0, 'o', 0, 't', 0, 'o', 0, 'n', 0
 };
 
+#if defined (__GNUC__)
+UINT8 _StringDescriptor2[] __attribute__((aligned(4))) =
+#else
 __align(4) UINT8 _StringDescriptor2[] =
+#endif
 {
 	32,             /* bLength          	*/
 	0x03,    		/* bDescriptorType  	*/
@@ -363,10 +394,13 @@ S_VCOM_LINE_CODING gLineCoding = {115200, 0, 0, 8};    /* Baud rate : 115200    
 #define BUFFER_SIZE	0x100000
 
 UINT32 volatile	u32RxPoint =0, u32TxPoint = 0, u32DataCount =0;
-
+#if defined (__GNUC__)
+unsigned char rec[BUFFER_SIZE + 512] __attribute__((aligned(64)));
+unsigned char rec_tmp[512] __attribute__((aligned(64)));
+#else
 __align(64) unsigned char rec[BUFFER_SIZE + 512];
-
 __align(64) unsigned char rec_tmp[512];
+#endif
 
 void vcomHighSpeedInit()
 {

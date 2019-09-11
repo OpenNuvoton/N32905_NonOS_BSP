@@ -30,7 +30,7 @@
 #include "wblib.h"
 #endif
 
-#include "w55fa93_i2c.h"
+#include "W55FA93_I2C.h"
 #include "DrvI2CH.h"
 
 /*-----------------------------------------*/

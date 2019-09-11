@@ -113,7 +113,7 @@ VOID sysTimerISR()
 	{
 		_sys_uTimer1Count++;
 		outpw(REG_TISR, 0x02); /* clear TIF0 */
-		if (_sys_uTimer0Count >= 0xfffffff)
+		if (_sys_uTimer1Count >= 0xfffffff)
 		  	_sys_uTimer1Count = 0;
 
 		if (_sys_bIsSetTime1Event)
@@ -203,9 +203,9 @@ INT32 sysSetTimerReferenceClock(INT32 nTimeNo, UINT32 uClockRate)
 INT32 sysStartTimer(INT32 nTimeNo, UINT32 uTicksPerSecond, INT32 nOpMode)
 {
 	int volatile i;
-	UINT32 _mTicr, _mTcr;
+	UINT32 _mTicr;// _mTcr;
 
-	_mTcr = 0x60000000 | (nOpMode << 27);
+	//_mTcr = 0x60000000 | (nOpMode << 27);
 
 	switch (nTimeNo)
 	{

@@ -29,7 +29,7 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_adc.h"
+#include "W55FA93_ADC.h"
 //#include "nvtfat.h"
 #include "DrvEDMA.h"
 #include "usbd.h"
@@ -53,9 +53,13 @@ void Send_AudioOneMSPacket(PUINT32 pu32Address, PUINT32 pu32Length);
 
 
 //static volatile INT8 g_i8PcmReady = FALSE;
+#if defined (__GNUC__)
+INT16 g_pi16SampleBuf[E_AUD_BUF/2] __attribute__((aligned(32)));		/* Keep max 16K sample rate */
+INT16 g_pi16AudioBuf[E_AUD_BUF/2*4*4] __attribute__((aligned(32)));
+#else
 __align(32) INT16 g_pi16SampleBuf[E_AUD_BUF/2];		/* Keep max 16K sample rate */
 __align(32) INT16 g_pi16AudioBuf[E_AUD_BUF/2*4*4];
-
+#endif
 UINT8 bPlaying = FALSE;
 UINT8 bOver = FALSE;
 UINT32 g_u32IgnoreNo;
@@ -67,8 +71,12 @@ volatile INT16  s_i16RecInSample;
 UINT32 g_u32RecorderByte;
 UINT32 g_u32SampleCount;
 
+#if defined (__GNUC__)
 // recorder
+INT32 g_i32RecorderAttr[5] __attribute__((aligned(32))) = {
+#else
 __align(4) INT32 g_i32RecorderAttr[5] = {
+#endif
 0,        // mute off
 FU_VOLUME_CUR,    //2560,     // current volume,
 FU_VOLUME_MIN,      //-32768,   // min
@@ -175,11 +183,11 @@ void edmaCallback(UINT32 u32WrapStatus)
 		}
 	}
 	/* AGC response speed */
-	ADC_GetAutoGainTiming(&u32Period, &u32Attack, &u32Recovery, &u32Hold);
+	audio_GetAutoGainTiming(&u32Period, &u32Attack, &u32Recovery, &u32Hold);
 	if(u32Period<128)
 	{		
 		u32Period = u32Period+16;
-		ADC_SetAutoGainTiming(u32Period, u32Attack, u32Recovery, u32Hold);		
+		audio_SetAutoGainTiming(u32Period, u32Attack, u32Recovery, u32Hold);		
 	}
 /*	
 	if ( g_u32IgnoreNo >= IGNORE_NO )
@@ -268,7 +276,7 @@ void StartUAC(void)
 	s_i16RecInSample = 0;
 #if 1	
 	InitEDMA(E_AUD_BUF);	
-	adc_StartRecord(); 
+	audio_StartRecord(); 
 	DrvEDMA_CHEnablelTransfer(eDRVEDMA_CHANNEL_1);
 #endif	
 	
@@ -278,7 +286,7 @@ void StopUAC(void)
 {
 #if 1
 	adc_disableInt(eADC_AUD_INT);
-	adc_StopRecord();   
+	audio_StopRecord();   
 //	DrvEDMA_Close();
 #endif	
 	bPlaying = FALSE;

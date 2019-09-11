@@ -42,7 +42,7 @@ extern UINT8 u8PlanarFrameBuffer[];
 
 static struct OV_RegValue g_sGM7150_Init[]=
 {
-	#include "GM7150\GM7150.dat"
+	#include "GM7150/GM7150.dat"
 };
 static struct OV_RegTable g_OV_InitTable[] =
 {//8 bit slave address, 8 bit data. 

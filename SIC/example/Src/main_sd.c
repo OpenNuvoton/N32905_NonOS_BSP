@@ -10,12 +10,17 @@
 #include "wbtypes.h"
 #include "wblib.h"
 
-#include "w55fa93_reg.h"
-#include "w55fa93_sic.h"
-#include "nvtfat.h"
+#include "W55FA93_reg.h"
+#include "W55FA93_SIC.h"
+#include "NVTFAT.h"
 
-__align (32) UINT8 g_ram0[512*16*16*16];
-__align (32) UINT8 g_ram1[512*16*16*16];
+#if defined (__GNUC__)
+    UINT8 g_ram0[512*16*16] __attribute__((aligned (32)));
+    UINT8 g_ram1[512*16*16] __attribute__((aligned (32)));
+#else
+    __align (32) UINT8 g_ram0[512*16*16];
+    __align (32) UINT8 g_ram1[512*16*16];
+#endif
 
 UINT32 u32SecCnt;
 
@@ -62,14 +67,14 @@ int main(void)
     }
     else
     {
-        sysprintf("SD total sector is %4x !! --\n", pDisk_SD0->uTotalSectorN);
+        sysprintf("SD total sector is 0x%X !! \n", pDisk_SD0->uTotalSectorN);
 
-        for(ii=0; ii<512*16*16*16; ii++)
+        for(ii=0; ii<512*16*16; ii++)
             g_ram0[ii] = rand();
 
         for (jj = 1000; jj < pDisk_SD0->uTotalSectorN -0x100; jj+=u32SecCnt)
         {
-            u32SecCnt = rand()&(0xFFF);
+            u32SecCnt = rand()&(0xFF);
             if (u32SecCnt==0)
                 u32SecCnt = 1;
 
