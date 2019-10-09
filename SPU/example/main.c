@@ -66,24 +66,7 @@ int main(void)
 	WB_UART_T uart;
 	UINT32 u32ExtFreq;	
 
-	sysSetSystemClock(eSYS_UPLL, 	//E_SYS_SRC_CLK eSrcClk,	
-						192000,		//UINT32 u32PllKHz, 	
-						192000,		//UINT32 u32SysKHz,
-						192000,		//UINT32 u32CpuKHz,
-						  96000,		//UINT32 u32HclkKHz,
-						  48000);		//UINT32 u32ApbKHz	
-
-	u32ExtFreq = sysGetExternalClock();
-	uart.uiFreq = u32ExtFreq*1000;		
-    uart.uiBaudrate = 115200;
-    uart.uiDataBits = WB_DATA_BITS_8;
-    uart.uiStopBits = WB_STOP_BITS_1;
-    uart.uiParity = WB_PARITY_NONE;
-    uart.uiRxTriggerLevel = LEVEL_1_BYTE;
-    sysInitializeUART(&uart);	
-
 	sysEnableCache(I_D_CACHE);
-
 	sysprintf("Start Playing...\n");	
 
 	spuOpen(eDRVSPU_FREQ_8000);

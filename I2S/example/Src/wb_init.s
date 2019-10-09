@@ -65,7 +65,9 @@ FIQ_Addr        DCD     FIQ_Handler
 Undefined_Handler
         B       Undefined_Handler
 SWI_Handler1
-        B       SWI_Handler1     
+   ;     B       SWI_Handler1     
+   		mov 	r0, #0
+		movs	pc, lr	   
 Prefetch_Handler
         B       Prefetch_Handler
 Abort_Handler
