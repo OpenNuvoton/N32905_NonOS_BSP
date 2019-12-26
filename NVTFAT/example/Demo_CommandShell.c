@@ -53,7 +53,7 @@
 #ifdef ENABLE_GNAND
 //#include "NUC930_gnand.h"
 //#include "NUC930_sic.h"
-#include "W55FA93_gnand.h"
+#include "W55FA93_GNAND.h"
 #include "W55FA93_SIC.h"
 #endif
 #if defined(ENABLE_SD_ONE_PART)||defined(ENABLE_SD_TWO_PART)||defined(ENABLE_SD_FOUR_PART)
@@ -108,7 +108,6 @@ extern INT  InitRAMDisk(UINT32 uStartAddr, UINT32 uDiskSize);
 extern INT32 RemoveRAMDisk(void);
 extern void FormatRamDisk(void);
 #define RAM_DISK_SIZE 	((1024*1024))		/* Fit for N9H20K1/N9H20K3/N9H20K5 */
-INT8 i8RamDisk[RAM_DISK_SIZE];
 #endif
 
 /* imported from WBFILE_DISK.C */
@@ -116,7 +115,19 @@ extern PDISK_T		*_fs_ptPDiskList;
 
 #define DUMMY_BUFFER_SIZE		(64 * 1024)
 
-static UINT8  _pucDummy[DUMMY_BUFFER_SIZE];
+
+#if defined(__GNUC__)
+#ifdef ENABLE_RAM
+INT8 i8RamDisk[RAM_DISK_SIZE] __attribute__((aligned (32)));
+#endif
+static UINT8  _pucDummy[DUMMY_BUFFER_SIZE] __attribute__((aligned (32)));
+#else
+#ifdef ENABLE_RAM
+__align(32) INT8 i8RamDisk[RAM_DISK_SIZE];
+#endif
+__align(32) static UINT8  _pucDummy[DUMMY_BUFFER_SIZE];
+#endif
+
 
 static CHAR *_pcFileCommads[] = 
 {

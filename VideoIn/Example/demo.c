@@ -14,14 +14,21 @@
 
 #include "demo.h"
 
-
-UINT8 u8PacketFrameBuffer[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2];		//Keep 720*480*2 RGB565 frame buffer
-UINT8 u8PacketFrameBuffer1[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2];		//Keep 720*480*2 RGB565 frame buffer
-UINT8 u8PacketFrameBuffer2[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2];		//Keep 720*480*2 RGB565 frame buffer
-UINT8 u8PlanarFrameBuffer[OPT_ENCODE_WIDTH*OPT_ENCODE_HEIGHT*2];		//Keep PlanarYUV422 frame buffer
-UINT8 u8DiffBuf[(640/8)*(480/8)*2];
-UINT8 u8OutLumBuf[(640/8)*(480/8)*2];
-
+#if defined (__GNUC__) 
+UINT8 u8PacketFrameBuffer[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2] __attribute__((aligned (32)));		//Keep 720*480*2 RGB565 frame buffer
+UINT8 u8PacketFrameBuffer1[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2] __attribute__((aligned (32)));		//Keep 720*480*2 RGB565 frame buffer
+UINT8 u8PacketFrameBuffer2[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2] __attribute__((aligned (32)));		//Keep 720*480*2 RGB565 frame buffer
+UINT8 u8PlanarFrameBuffer[OPT_ENCODE_WIDTH*OPT_ENCODE_HEIGHT*2] __attribute__((aligned (32)));		//Keep PlanarYUV422 frame buffer
+UINT8 u8DiffBuf[(640/8)*(480/8)*2] __attribute__((aligned (32)));
+UINT8 u8OutLumBuf[(640/8)*(480/8)*2] __attribute__((aligned (32)));
+#else
+__align(32) UINT8 u8PacketFrameBuffer[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2];		//Keep 720*480*2 RGB565 frame buffer
+__align(32) UINT8 u8PacketFrameBuffer1[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2];		//Keep 720*480*2 RGB565 frame buffer
+__align(32) UINT8 u8PacketFrameBuffer2[OPT_PREVIEW_WIDTH*OPT_PREVIEW_HEIGHT*2];		//Keep 720*480*2 RGB565 frame buffer
+__align(32) UINT8 u8PlanarFrameBuffer[OPT_ENCODE_WIDTH*OPT_ENCODE_HEIGHT*2];		//Keep PlanarYUV422 frame buffer
+__align(32) UINT8 u8DiffBuf[(640/8)*(480/8)*2];
+__align(32) UINT8 u8OutLumBuf[(640/8)*(480/8)*2];
+#endif
 
 volatile UINT32 g_u32FrameCount = 0;
 BOOL bIsFrameBuffer0=0,  bIsFrameBuffer1=0, bIsFrameBuffer2=0; /* 0 means buffer is clean */

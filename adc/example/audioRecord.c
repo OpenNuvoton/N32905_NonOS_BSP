@@ -14,7 +14,7 @@ static volatile INT8 g_i8PcmReady = FALSE;
 #if defined (__GNUC__)
 INT16 g_pi16SampleBuf[16000*AUDIO_REC_SEC]  __attribute__ ((aligned (32)));		/* Keep max 16K sample rate */
 
-char WaveHeader[]  __attribute__ ((aligned (4))) = {'R', 'I', 'F', 'F', 0x00, 0x00, 0x00, 0x00,	   //ForthCC code+(RAW-data-size+0x24)
+char WaveHeader[]  __attribute__ ((aligned (32))) = {'R', 'I', 'F', 'F', 0x00, 0x00, 0x00, 0x00,	   //ForthCC code+(RAW-data-size+0x24)
 					'W', 'A', 'V', 'E', 'f', 'm', 't', ' ',
 					0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00,//Chunk-size, audio format, and NUMChannel
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,//Sample-Rate and Byte-Count-Per-Sec
@@ -23,7 +23,7 @@ char WaveHeader[]  __attribute__ ((aligned (4))) = {'R', 'I', 'F', 'F', 0x00, 0x
 #else
 __align(32) INT16 g_pi16SampleBuf[16000*AUDIO_REC_SEC];		/* Keep max 16K sample rate */
 
-__align(4) char WaveHeader[]= {'R', 'I', 'F', 'F', 0x00, 0x00, 0x00, 0x00,	   //ForthCC code+(RAW-data-size+0x24)	
+__align(32) char WaveHeader[]= {'R', 'I', 'F', 'F', 0x00, 0x00, 0x00, 0x00,	   //ForthCC code+(RAW-data-size+0x24)	
 					'W', 'A', 'V', 'E', 'f', 'm', 't', ' ',			
 					0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00,//Chunk-size, audio format, and NUMChannel
 					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,//Sample-Rate and Byte-Count-Per-Sec 
@@ -188,8 +188,8 @@ void InitEDMA(UINT32 u32Length)
 	//DrvEDMA_SetTransferSetting(eDRVEDMA_CHANNEL_1, &pSrc, &pDest,16*8000 ); //16K 
 	DrvEDMA_SetTransferSetting(eDRVEDMA_CHANNEL_1, &pSrc, &pDest, u32Length); //16K
 	DrvEDMA_SetWrapIntType((E_DRVEDMA_CHANNEL_INDEX)eDRVEDMA_CHANNEL_1, 
-							(E_DRVEDMA_WRAPAROUND_SELECT)(eDRVEDMA_WRAPAROUND_HALF |
-							eDRVEDMA_WRAPAROUND_EMPTY));
+							((E_DRVEDMA_WRAPAROUND_SELECT)eDRVEDMA_WRAPAROUND_HALF |
+							(E_DRVEDMA_WRAPAROUND_SELECT)eDRVEDMA_WRAPAROUND_EMPTY));
 	DrvEDMA_EnableInt(eDRVEDMA_CHANNEL_1,eDRVEDMA_WAR);	
 	
 	DrvEDMA_InstallCallBack(eDRVEDMA_CHANNEL_1, 
