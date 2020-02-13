@@ -839,7 +839,7 @@
               <MiscControls></MiscControls>
               <Define>__FreeRTOS__ __UVISION_VERSION</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\Lib</IncludePath>
+              <IncludePath>..\..\..\Lib;..\..\..\..\FreeRTOS\Source\include;..\..\..\..\FreeRTOS\Source\portable\RVDS\ARM9_N329x;..\..\..\Src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

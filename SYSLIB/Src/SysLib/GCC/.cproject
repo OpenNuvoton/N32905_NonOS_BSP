@@ -146,6 +146,9 @@
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.2098207943" name="GNU ARM Cross C Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.510531616" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="true" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../Lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../../FreeRTOS/Source/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../../FreeRTOS/Source/portable/RVDS/ARM9_N329x&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../Src&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.660262152" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="true" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__FreeRTOS__"/>
@@ -188,6 +191,8 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="FreeRTOS_SYSLib"/>
+		<configuration configurationName="SYSLib"/>
 		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/SYSLib"/>
 		</configuration>

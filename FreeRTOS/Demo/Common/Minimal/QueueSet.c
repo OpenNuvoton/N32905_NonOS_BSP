@@ -1,71 +1,29 @@
 /*
-    FreeRTOS V8.2.3 - Copyright (C) 2015 Real Time Engineers Ltd.
-    All rights reserved
-
-    VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
-
-    This file is part of the FreeRTOS distribution.
-
-    FreeRTOS is free software; you can redistribute it and/or modify it under
-    the terms of the GNU General Public License (version 2) as published by the
-    Free Software Foundation >>>> AND MODIFIED BY <<<< the FreeRTOS exception.
-
-    ***************************************************************************
-    >>!   NOTE: The modification to the GPL is included to allow you to     !<<
-    >>!   distribute a combined work that includes FreeRTOS without being   !<<
-    >>!   obliged to provide the source code for proprietary components     !<<
-    >>!   outside of the FreeRTOS kernel.                                   !<<
-    ***************************************************************************
-
-    FreeRTOS is distributed in the hope that it will be useful, but WITHOUT ANY
-    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-    FOR A PARTICULAR PURPOSE.  Full license text is available on the following
-    link: http://www.freertos.org/a00114.html
-
-    ***************************************************************************
-     *                                                                       *
-     *    FreeRTOS provides completely free yet professionally developed,    *
-     *    robust, strictly quality controlled, supported, and cross          *
-     *    platform software that is more than just the market leader, it     *
-     *    is the industry's de facto standard.                               *
-     *                                                                       *
-     *    Help yourself get started quickly while simultaneously helping     *
-     *    to support the FreeRTOS project by purchasing a FreeRTOS           *
-     *    tutorial book, reference manual, or both:                          *
-     *    http://www.FreeRTOS.org/Documentation                              *
-     *                                                                       *
-    ***************************************************************************
-
-    http://www.FreeRTOS.org/FAQHelp.html - Having a problem?  Start by reading
-    the FAQ page "My application does not run, what could be wrong?".  Have you
-    defined configASSERT()?
-
-    http://www.FreeRTOS.org/support - In return for receiving this top quality
-    embedded software for free we request you assist our global community by
-    participating in the support forum.
-
-    http://www.FreeRTOS.org/training - Investing in training allows your team to
-    be as productive as possible as early as possible.  Now you can receive
-    FreeRTOS training directly from Richard Barry, CEO of Real Time Engineers
-    Ltd, and the world's leading authority on the world's leading RTOS.
-
-    http://www.FreeRTOS.org/plus - A selection of FreeRTOS ecosystem products,
-    including FreeRTOS+Trace - an indispensable productivity tool, a DOS
-    compatible FAT file system, and our tiny thread aware UDP/IP stack.
-
-    http://www.FreeRTOS.org/labs - Where new FreeRTOS products go to incubate.
-    Come and try FreeRTOS+TCP, our new open source TCP/IP stack for FreeRTOS.
-
-    http://www.OpenRTOS.com - Real Time Engineers ltd. license FreeRTOS to High
-    Integrity Systems ltd. to sell under the OpenRTOS brand.  Low cost OpenRTOS
-    licenses offer ticketed support, indemnification and commercial middleware.
-
-    http://www.SafeRTOS.com - High Integrity Systems also provide a safety
-    engineered and independently SIL3 certified version for use in safety and
-    mission critical applications that require provable dependability.
-
-    1 tab == 4 spaces!
-*/
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * http://www.FreeRTOS.org
+ * http://aws.amazon.com/freertos
+ *
+ * 1 tab == 4 spaces!
+ */
 
 /*
  * Tests the use of queue sets.
@@ -122,7 +80,7 @@ queuesetPRIORITY_CHANGE_LOOPS number of values are sent to a queue. */
 /* A delay inserted when the Tx task changes its priority to be above the idle
 task priority to ensure the idle priority tasks get some CPU time before the
 next iteration of the queue set Tx task. */
-#define queuesetTX_LOOP_DELAY	( 200 / portTICK_PERIOD_MS )
+#define queuesetTX_LOOP_DELAY	pdMS_TO_TICKS( ( TickType_t ) 200 )
 
 /* The allowable maximum deviation between a received value and the expected
 received value.  A deviation will occur when data is received from a queue
@@ -180,15 +138,23 @@ static BaseType_t prvCheckReceivedValueWithinExpectedRange( uint32_t ulReceived,
 
 /*
  * Increase test coverage by occasionally change the priorities of the two tasks
- * relative to each other. */
+ * relative to each other.
+ */
 static void prvChangeRelativePriorities( void );
+
+/*
+ * Queue overwrites can only be performed on queues of length of one, requiring
+ * a special test function so a queue of length 1 can temporarily be added to a
+ * set.
+ */
+static void prvTestQueueOverwriteWithQueueSet( void );
 
 /*
  * Local pseudo random number seed and return functions.  Used to avoid calls
  * to the standard library.
  */
-static uint32_t prvRand( void );
-static void prvSRand( uint32_t ulSeed );
+static size_t prvRand( void );
+static void prvSRand( size_t uxSeed );
 
 /*-----------------------------------------------------------*/
 
@@ -223,7 +189,7 @@ expected. */
 static volatile uint32_t ulISRTxValue = queuesetINITIAL_ISR_TX_VALUE;
 
 /* Used by the pseudo random number generator. */
-static uint32_t ulNextRand = 0;
+static size_t uxNextRand = 0;
 
 /* The task handles are stored so their priorities can be changed. */
 TaskHandle_t xQueueSetSendingTask, xQueueSetReceivingTask;
@@ -234,14 +200,18 @@ void vStartQueueSetTasks( void )
 {
 	/* Create the tasks. */
 	xTaskCreate( prvQueueSetSendingTask, "SetTx", configMINIMAL_STACK_SIZE, NULL, queuesetMEDIUM_PRIORITY, &xQueueSetSendingTask );
-	xTaskCreate( prvQueueSetReceivingTask, "SetRx", configMINIMAL_STACK_SIZE, ( void * ) xQueueSetSendingTask, queuesetMEDIUM_PRIORITY, &xQueueSetReceivingTask );
 
-	/* It is important that the sending task does not attempt to write to a
-	queue before the queue has been created.  It is therefore placed into the
-	suspended state before the scheduler has started.  It is resumed by the
-	receiving task after the receiving task has created the queues and added the
-	queues to the queue set. */
-	vTaskSuspend( xQueueSetSendingTask );
+	if( xQueueSetSendingTask != NULL )
+	{
+		xTaskCreate( prvQueueSetReceivingTask, "SetRx", configMINIMAL_STACK_SIZE, ( void * ) xQueueSetSendingTask, queuesetMEDIUM_PRIORITY, &xQueueSetReceivingTask );
+
+		/* It is important that the sending task does not attempt to write to a
+		queue before the queue has been created.  It is therefore placed into
+		the suspended state before the scheduler has started.  It is resumed by
+		the receiving task after the receiving task has created the queues and
+		added the queues to the queue set. */
+		vTaskSuspend( xQueueSetSendingTask );
+	}
 }
 /*-----------------------------------------------------------*/
 
@@ -295,24 +265,25 @@ BaseType_t xReturn = pdPASS, x;
 
 static void prvQueueSetSendingTask( void *pvParameters )
 {
-uint32_t ulTaskTxValue = 0, ulQueueToWriteTo;
+uint32_t ulTaskTxValue = 0;
+size_t uxQueueToWriteTo;
 QueueHandle_t xQueueInUse;
 
 	/* Remove compiler warning about the unused parameter. */
 	( void ) pvParameters;
 
 	/* Seed mini pseudo random number generator. */
-	prvSRand( ( uint32_t ) &ulTaskTxValue );
+	prvSRand( ( size_t ) &ulTaskTxValue );
 
 	for( ;; )
 	{
 		/* Generate the index for the queue to which a value is to be sent. */
-		ulQueueToWriteTo = prvRand() % queuesetNUM_QUEUES_IN_SET;
-		xQueueInUse = xQueues[ ulQueueToWriteTo ];
+		uxQueueToWriteTo = prvRand() % queuesetNUM_QUEUES_IN_SET;
+		xQueueInUse = xQueues[ uxQueueToWriteTo ];
 
 		/* Note which index is being written to to ensure all the queues are
 		used. */
-		( ulQueueUsedCounter[ ulQueueToWriteTo ] )++;
+		( ulQueueUsedCounter[ uxQueueToWriteTo ] )++;
 
 		/* Send to the queue to unblock the task that is waiting for data to
 		arrive on a queue within the queue set to which this queue belongs. */
@@ -419,7 +390,7 @@ TickType_t xBlockTime;
 		}
 
 		/* Wait for a message to arrive on one of the queues in the set. */
-		xActivatedQueue = xQueueSelectFromSet( xQueueSet, portMAX_DELAY );		
+		xActivatedQueue = xQueueSelectFromSet( xQueueSet, portMAX_DELAY );
 
 		if( xActivatedQueue == NULL )
 		{
@@ -614,8 +585,9 @@ uint32_t ulReceived;
 static void prvSendToQueueInSetFromISR( void )
 {
 static BaseType_t xQueueToWriteTo = 0;
+uint32_t ulTxValueSnapshot = ulISRTxValue;
 
-	if( xQueueSendFromISR( xQueues[ xQueueToWriteTo ], ( void * ) &ulISRTxValue, NULL ) == pdPASS )
+	if( xQueueSendFromISR( xQueues[ xQueueToWriteTo ], ( void * ) &ulTxValueSnapshot, NULL ) == pdPASS )
 	{
 		ulISRTxValue++;
 
@@ -631,6 +603,71 @@ static BaseType_t xQueueToWriteTo = 0;
 		{
 			xQueueToWriteTo = 0;
 		}
+	}
+}
+/*-----------------------------------------------------------*/
+
+static void prvTestQueueOverwriteWithQueueSet( void )
+{
+uint32_t ulValueToSend = 0, ulValueReceived = 0;
+QueueHandle_t xQueueHandle = NULL, xReceivedHandle = NULL;
+const UBaseType_t xLengthOfOne = ( UBaseType_t ) 1;
+
+	/* Create a queue that has a length of one - a requirement in order to call
+	xQueueOverwrite.  This will get deleted again when this test completes. */
+	xQueueHandle = xQueueCreate( xLengthOfOne, sizeof( uint32_t ) );
+
+	if( xQueueHandle != NULL )
+	{
+		xQueueAddToSet( xQueueHandle, xQueueSet );
+
+		/* Add an item to the queue then ensure the queue set correctly
+		indicates that one item is available, and that that item is indeed the
+		queue written to. */
+		xQueueOverwrite( xQueueHandle, ( void * ) &ulValueToSend );
+		if( uxQueueMessagesWaiting( xQueueSet ) != ( UBaseType_t ) 1 )
+		{
+			/* Expected one item in the queue set. */
+			xQueueSetTasksStatus = pdFAIL;
+		}
+		xQueuePeek( xQueueSet, &xReceivedHandle, queuesetDONT_BLOCK );
+		if( xReceivedHandle != xQueueHandle )
+		{
+			/* Wrote to xQueueHandle so expected xQueueHandle to be the handle
+			held in the queue set. */
+			xQueueSetTasksStatus = pdFAIL;
+		}
+
+		/* Now overwrite the value in the queue and ensure the queue set state
+		doesn't change as the number of items in the queues within the set have
+		not changed. */
+		ulValueToSend++;
+		xQueueOverwrite( xQueueHandle, ( void * ) &ulValueToSend );
+		if( uxQueueMessagesWaiting( xQueueSet ) != ( UBaseType_t ) 1 )
+		{
+			/* Still expected one item in the queue set. */
+			xQueueSetTasksStatus = pdFAIL;
+		}
+		xReceivedHandle = xQueueSelectFromSet( xQueueSet, queuesetDONT_BLOCK );
+		if( xReceivedHandle != xQueueHandle )
+		{
+			/* Wrote to xQueueHandle so expected xQueueHandle to be the handle
+			held in the queue set. */
+			xQueueSetTasksStatus = pdFAIL;
+		}
+
+		/* Also ensure the value received from the queue is the overwritten
+		value, not the value originally written. */
+		xQueueReceive( xQueueHandle, &ulValueReceived, queuesetDONT_BLOCK );
+		if( ulValueReceived != ulValueToSend )
+		{
+			/* Unexpected value recevied from the queue. */
+			xQueueSetTasksStatus = pdFAIL;
+		}
+
+		/* Clean up. */
+		xQueueRemoveFromSet( xQueueHandle, xQueueSet );
+		vQueueDelete( xQueueHandle );
 	}
 }
 /*-----------------------------------------------------------*/
@@ -711,6 +748,11 @@ uint32_t ulValueToSend = 0;
 		xQueueSetTasksStatus = pdFAIL;
 	}
 
+	/* Testing the behaviour of queue sets when a queue overwrite operation is
+	performed on a set member requires a special test as overwrites can only
+	be performed on queues that have a length of 1. */
+	prvTestQueueOverwriteWithQueueSet();
+
 	/* Resume the task that writes to the queues. */
 	vTaskResume( xQueueSetSendingTask );
 
@@ -719,15 +761,15 @@ uint32_t ulValueToSend = 0;
 }
 /*-----------------------------------------------------------*/
 
-static uint32_t prvRand( void )
+static size_t prvRand( void )
 {
-	ulNextRand = ( ulNextRand * 1103515245UL ) + 12345UL;
-    return ( ulNextRand / 65536UL ) % 32768UL;
+	uxNextRand = ( uxNextRand * ( size_t ) 1103515245 ) + ( size_t ) 12345;
+	return ( uxNextRand / ( size_t ) 65536 ) % ( size_t ) 32768;
 }
 /*-----------------------------------------------------------*/
 
-static void prvSRand( uint32_t ulSeed )
+static void prvSRand( size_t uxSeed )
 {
-    ulNextRand = ulSeed;
+	uxNextRand = uxSeed;
 }
 
