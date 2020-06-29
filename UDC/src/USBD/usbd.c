@@ -9,7 +9,7 @@
 #include "W55FA93_reg.h"
 #include "usbd.h"
 
-#define DATA_CODE	"20180315"
+#define DATA_CODE	"20200327"
 
 #if defined (__GNUC__)
 volatile USBD_INFO_T usbdInfo  __attribute__((aligned(4))) = {0};
@@ -26,7 +26,7 @@ USB_CMD_T	_usb_cmd_pkt;
 INT32 volatile usb_halt_ep;
 BOOL volatile g_bHostAttached = FALSE;
 VOID usbd_isr(void);
-UINT32 volatile class_out_len = 0;
+UINT32 volatile class_out_len = 0, zeropacket_flag = 0;
 VOID usbdClearAllFlags(void)
 {
 	usbdInfo.GET_DEV_Flag=0;
@@ -542,14 +542,6 @@ VOID usbd_control_packet(void)
 	switch (_usb_cmd_pkt.bRequest)
 	{
 		case USBR_GET_DESCRIPTOR:
-		/*	ReqErr = ((_usb_cmd_pkt.bmRequestType == 0x80) && ((_usb_cmd_pkt.wValue & 0xf000) == 0)
-			&& ((_usb_cmd_pkt.wValue & 0x80) == 0)) ? 0 : 1;
-
-			if(ReqErr==1)
-			{
-				sysprintf("ERROR\n");
-				break;
-			}*/
 			switch	((_usb_cmd_pkt.wValue & 0xff00) >> 8) 
 			{  				
 				case USB_DT_DEVICE:
@@ -628,6 +620,10 @@ VOID usbd_control_packet(void)
 					ReqErr=1;
 					break;
 			}	//end of switch
+            if(_usb_cmd_pkt.wLength % 64 == 0)
+                zeropacket_flag = 1;
+            else
+                zeropacket_flag = 0;
 			if (ReqErr == 0)
 			{
 				outp32(CEP_IRQ_STAT, CEP_IN_TK_IS);
@@ -861,7 +857,6 @@ VOID usbd_control_packet(void)
 				case 2:		/* endpoint */
 					if((_usb_cmd_pkt.wValue & 0x3) == ENDPOINT_HALT)
 					{
-						//dx->chgfea=dx->feature | ENDPOINT_HALT;
 						if((_usb_cmd_pkt.wIndex & 0xF) == 0) 		/* endPoint zero */
 							usbdInfo._usbd_haltep = 0;
 						else if((_usb_cmd_pkt.wIndex & 0xF) == usbdInfo.i32EPA_Num)	/* endPoint A */
@@ -922,7 +917,6 @@ VOID usbd_control_packet(void)
 				case 2:		/* endpoint */
 					if((_usb_cmd_pkt.wValue & 0x3) == ENDPOINT_HALT)
 					{
-						//dx->chgfea=dx->feature |ENDPOINT_HALT;
 						if((_usb_cmd_pkt.wIndex & 0xF) == 0) 		/* endPoint zero */
 							usbdInfo._usbd_unhaltep = 0;
 						else if((_usb_cmd_pkt.wIndex & 0xF) == usbdInfo.i32EPA_Num)	/* endPoint A */
@@ -1291,10 +1285,7 @@ VOID usbd_isr(void)
 
 		if (IrqSt & CEP_OUT_TOK & IrqEn)	/* OUT TOKEN */
 		{
-			outp32(CEP_IRQ_STAT, CEP_OUT_TK_IS);	
-			
-			/* DIFF */
-//			outp32(CEP_IRQ_ENB, (CEP_DATA_RxED_IE|CEP_STACOM_IE));		/* suppkt int//enb sts completion int */
+            outp32(CEP_IRQ_STAT, CEP_OUT_TK_IS);
 			return;
 		}
 
@@ -1305,7 +1296,7 @@ VOID usbd_isr(void)
 			if (!(IrqSt & CEP_STACOM_IS))
 			{
 				outp32(CEP_IRQ_STAT, CEP_DATA_TxED_IS);
-				outp32(CEP_IRQ_ENB, CEP_DATA_TxED_IE|CEP_SETUP_PK_IE);
+                outp32(CEP_IRQ_ENB, CEP_DATA_TxED_IE);
 				usbd_send_descriptor();		/* Send DAESCRIPTOR */
 			}
 			else
@@ -1324,21 +1315,25 @@ VOID usbd_isr(void)
 
 		if (IrqSt & CEP_DATA_TXD & IrqEn)
 		{
-			/* DIFF */
-			outp32(CEP_IRQ_STAT, (CEP_STACOM_IS|CEP_DATA_TxED_IS));
-			
-			if (usbdInfo._usbd_remlen_flag)
-			{
-				outp32(CEP_IRQ_STAT, CEP_IN_TK_IS);
-				outp32(CEP_IRQ_ENB, (CEP_DATA_TxED_IE|CEP_IN_TK_IE));		/* suppkt int ,status and in token */
-			}
-			else
-			{
-				outp32(CEP_IRQ_STAT, CEP_STACOM_IS);
-				outp32(CEP_CTRL_STAT, CEP_NAK_CLEAR);		/* clear nak so that sts stage is complete */
-				outp32(CEP_IRQ_ENB, CEP_STACOM_IE);			/* suppkt int ,status and in token */
+            outp32(CEP_IRQ_STAT, CEP_STACOM_IS);   
+            outp32(CEP_CTRL_STAT, CEP_NAK_CLEAR);    /* clear nak so that sts stage is complete */
 
-			}
+            if (usbdInfo._usbd_remlen_flag)
+            {
+                outp32(CEP_IRQ_STAT, CEP_IN_TK_IS);
+                outp32(CEP_IRQ_ENB, CEP_IN_TK_IE);    /* suppkt int ,status and in token */
+            }
+            else
+            {
+                if(zeropacket_flag)
+                {
+                    zeropacket_flag = 0;
+                    outp32(CEP_CTRL_STAT, CEP_ZEROLEN);
+                }
+                outp32(CEP_IRQ_STAT, CEP_STACOM_IS);
+                outp32(CEP_IRQ_ENB, CEP_SETUP_PK_IE|CEP_STACOM_IE);     /* suppkt int ,status and in token */
+            }         
+            outp32(CEP_IRQ_STAT, CEP_DATA_TxED_IS); 
 			if(usbdStatus.appConnected == 1)
 			{
 				if(usbdInfo.u32UVC)
@@ -1402,7 +1397,6 @@ VOID usbd_isr(void)
 			usbd_update_device();			
 			outp32(CEP_IRQ_STAT, CEP_STACOM_IS);
 			
-			/* DIFF */
 			if (usbdInfo.CLASS_CMD_Iflag/* || usbdInfo.CLASS_CMD_Oflag*/ || usbdInfo._usbd_resume || usbdInfo.GET_DEV_Flag)
 				usbdInfo.USBModeFlag = 1;
 
