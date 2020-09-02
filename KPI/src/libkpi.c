@@ -1,29 +1,11 @@
-/****************************************************************************
-*                                                                           *
-* Copyright (c) 2009 Nuvoton Tech. Corp. All rights reserved.               *
-*                                                                           *
+/**************************************************************************//**
+ * @file     libkpi.c
+ * @version  V3.00
+ * @brief    N3290x series keypad driver source file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
-
-/****************************************************************************
-* FILENAME
-*   libkpi.c
-*
-* VERSION
-*   1.0
-*
-* DESCRIPTION
-*   KPI library source file
-*
-* DATA STRUCTURES
-*   None
-*
-* FUNCTIONS
-*
-* HISTORY
-*
-* REMARK
-*   None
-****************************************************************************/
 #include "W55FA93_GPIO.h"
 #include "W55FA93_KPI.h"
 

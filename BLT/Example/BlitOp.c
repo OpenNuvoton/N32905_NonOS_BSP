@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     BlitOp.c
+ * @brief    Blit functions
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include "W55FA93_reg.h"
 #include "Blt.h"
 #include "DrvBLT.h"

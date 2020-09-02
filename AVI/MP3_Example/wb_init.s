@@ -19,7 +19,17 @@ F_BIT		EQU		0x40
 ;----------------------------
 ; System / User Stack Memory
 ;----------------------------
+ IF :DEF:N32901
+RAM_Limit       EQU     0x200000          	; For unexpanded hardware board
+ ENDIF
+ 
+ IF :DEF:N32903
+RAM_Limit       EQU     0x800000          	; For unexpanded hardware board
+ ENDIF 
+ 
+ IF :DEF:N32905
 RAM_Limit       EQU     0x2000000          	; For unexpanded hardware board
+ ENDIF
 
 UND_Stack		EQU		RAM_Limit
 Abort_Stack		EQU		RAM_Limit-256
@@ -40,7 +50,7 @@ Vector_Table
         LDR     PC, SWI_Addr
         LDR     PC, Prefetch_Addr
         LDR     PC, Abort_Addr
-        DCD		0x0
+        DCD	   0x0
         LDR     PC, IRQ_Addr
         LDR     PC, FIQ_Addr
 
@@ -65,8 +75,7 @@ FIQ_Addr        DCD     FIQ_Handler
 Undefined_Handler
         B       Undefined_Handler
 SWI_Handler1
-		mov 	r0, #0
-		movs	pc, lr	   
+        B       SWI_Handler1     
 Prefetch_Handler
         B       Prefetch_Handler
 Abort_Handler
@@ -83,23 +92,23 @@ Reset_Go
 ; Initial Stack Pointer register
 ;--------------------------------
 ;INIT_STACK 
- MSR	CPSR_c, #UDF_MODE | I_BIT | F_BIT
- LDR     SP, =UND_Stack
+    MSR    CPSR_c, #UDF_MODE :OR: I_BIT :OR: F_BIT
+    LDR     SP, =UND_Stack
 
- MSR	CPSR_c, #ABT_MODE | I_BIT | F_BIT
- LDR     SP, =Abort_Stack
+    MSR    CPSR_c, #ABT_MODE :OR: I_BIT :OR: F_BIT
+    LDR     SP, =Abort_Stack
 
- MSR	CPSR_c, #IRQ_MODE | I_BIT | F_BIT
- LDR     SP, =IRQ_Stack
+    MSR    CPSR_c, #IRQ_MODE :OR: I_BIT :OR: F_BIT
+    LDR     SP, =IRQ_Stack
 
- MSR	CPSR_c, #FIQ_MODE | I_BIT | F_BIT
- LDR     SP, =FIQ_Stack
+    MSR    CPSR_c, #FIQ_MODE :OR: I_BIT :OR: F_BIT
+    LDR     SP, =FIQ_Stack
 
- MSR	CPSR_c, #SYS_MODE | I_BIT | F_BIT
- LDR     SP, =USR_Stack
+    MSR    CPSR_c, #SYS_MODE :OR: I_BIT :OR: F_BIT
+    LDR     SP, =USR_Stack
 
- MSR	CPSR_c, #SVC_MODE | I_BIT | F_BIT
- LDR     SP, =SVC_Stack
+    MSR    CPSR_c, #SVC_MODE :OR: I_BIT :OR: F_BIT
+    LDR     SP, =SVC_Stack
 
 ;------------------------------------------------------
 ; Set the normal exception vector of CP15 control bit    
@@ -107,9 +116,7 @@ Reset_Go
 	MRC	p15, 0, r0 , c1, c0   	; r0 := cp15 register 1
 	BIC r0, r0, #0x2000		; Clear bit13 in r1
 	MCR p15, 0, r0 , c1, c0     ; cp15 register 1 := r0
-
-
-
+	
 	IMPORT	__main
 ;-----------------------------
 ;	enter the C code
@@ -117,3 +124,7 @@ Reset_Go
 	B   __main
 
 	END
+
+
+
+

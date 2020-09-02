@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     demo.h
+ * @brief    UVC Device sample header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #ifndef _VIDEOIN_DEMO
 #define _VIDEOIN_DEMO
 

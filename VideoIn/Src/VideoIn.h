@@ -1,8 +1,11 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved. *
- *                                                              *
- ****************************************************************/
+/**************************************************************************//**
+ * @file     VideoIn.h
+ * @version  V3.00
+ * @brief    N3290x series VideoIn driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
  
 #ifndef __DRVVIDEOIN_H__
 #define __DRVVIDEOIN_H__

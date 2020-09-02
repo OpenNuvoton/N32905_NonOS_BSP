@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     uavc_main.c
+ * @brief    UAVC Flow Control sample code
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

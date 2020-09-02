@@ -1,11 +1,11 @@
-/*-----------------------------------------------------------------------------------*/
-/* Nuvoton Electronics Corporation confidential                                      */
-/*                                                                                   */
-/* Copyright (c) 2008 by Nuvoton Electronics Corporation                             */
-/* All rights reserved                                                               */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
-
+/**************************************************************************//**
+ * @file     VirtualCom.c
+ * @brief    VCOM Device sample source file
+ *           - Device Descriptor
+ *           - USB Device Callback functions
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

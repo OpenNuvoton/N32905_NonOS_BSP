@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     sensor_tvp5150_reg.h
+ * @brief    TVP5150 header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 /*
  * tvp5150 - Texas Instruments TVP5150A/AM1 video decoder registers
  *

@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     QQVGA.h
+ * @brief    Video data for UVC QQVGA format
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #if defined (__GNUC__)
 char g_YUV_QQVGA_0[] __attribute__((aligned(32)))  = {
 #else

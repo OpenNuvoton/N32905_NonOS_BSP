@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     videoclass.h
+ * @version  V3.00
+ * @brief    N3290 series UVC driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 /* Payload Header */
 #define UVC_PH_EndOfFrame		0x02
 #define UVC_PH_Preview			0x00

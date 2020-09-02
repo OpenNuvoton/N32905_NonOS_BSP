@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     I2S_Example.c
+ * @version  V3.00
+ * @brief    N329xx series I2S demo code in NAU8822 codec
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
 
 #include <stdio.h>
 #include "wbio.h"

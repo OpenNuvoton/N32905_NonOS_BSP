@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     FI.c
+ * @brief    Blit/Fill wrapper functions
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 //#include <platform.h>
 #include "W55FA93_reg.h"
 #include "Blt.h"

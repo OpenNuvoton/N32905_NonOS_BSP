@@ -1,8 +1,11 @@
-/****************************************************************************
-*                                                                           *
-* Copyright (c) 2009 Nuvoton Tech. Corp. All rights reserved.               *
-*                                                                           *
+/**************************************************************************//**
+ * @file     mass.c
+ * @brief    Updating storage's content through USB mass-storage protocol
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

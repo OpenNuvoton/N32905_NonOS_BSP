@@ -1,10 +1,12 @@
-/*-----------------------------------------------------------------------------------*/
-/* Nuvoton Technology Corporation confidential                                       */
-/*                                                                                   */
-/* Copyright (c) 2008 by Nuvoton Technology Corporation                              */
-/* All rights reserved                                                               */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
+/**************************************************************************//**
+ * @file     sd.c
+ * @version  V3.00
+ * @brief    N3290x series SIC driver source file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #ifdef ECOS
 #include "drv_api.h"
 #include "diag.h"
@@ -45,6 +47,7 @@ UINT32 _fmi_uR7_CMD=0;
 #else
     __align(4096) UCHAR _fmi_ucSDHCBuffer[512];
 #endif
+
 UINT8 *_fmi_pSDHCBuffer;
 
 //--- 2014/3/27, check the sector number is valid or not for current SD card.

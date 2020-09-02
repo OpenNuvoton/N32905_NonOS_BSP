@@ -1,9 +1,11 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved.  *
- *                                                              *
- ****************************************************************/
-
+/**************************************************************************//**
+ * @file     jpeg.h
+ * @version  V3.00
+ * @brief    N3290 series JPEG driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #ifndef __JPEG_H__
 #define __JPEG_H__
 

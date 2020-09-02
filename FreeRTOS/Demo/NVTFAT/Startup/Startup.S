@@ -1,7 +1,8 @@
 ;/***************************************************************************
 ; * @file     Startup_GCC.S                                                 *
-; * @brief    N3290 Series vector table and startup code                          *
+; * @brief    N3290 Series vector table and startup code                    *
 ; *                                                                         *
+; * SPDX-License-Identifier: Apache-2.0                                     *
 ; * @copyright (C) 2019 Nuvoton Technology Corp. All rights reserved.       *                                                                       *
 ; ***************************************************************************/
 

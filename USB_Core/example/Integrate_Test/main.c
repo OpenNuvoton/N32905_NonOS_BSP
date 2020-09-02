@@ -1,24 +1,10 @@
-/*************************************************************************
- * Nuvoton Electronics Corporation confidential
+/**************************************************************************//**
+ * @file     main.c
+ * @brief    USB Host integration test program source file
  *
- * Copyright (c) 2008 by Nuvoton Electronics Corporation
- * All rights reserved
- *
- * FILENAME
- *     main.c
- *
- * VERSION
- *     1.0
- *
- * DESCRIPTION
- *     NUC930 USB Host integration test program
- *
- * HISTORY
- *     2008.06.24       Created
- *
- * REMARK
- *     None
- **************************************************************************/
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #ifdef ECOS
 #include "stdio.h"
 #include "stdlib.h"

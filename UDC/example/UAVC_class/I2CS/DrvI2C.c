@@ -1,9 +1,11 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved.  *
- *                                                              *
- ****************************************************************/
-
+/**************************************************************************//**
+ * @file     DrvI2C.c
+ * @version  V3.00
+ * @brief    I2C function source file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdlib.h>
 #include "DrvI2C.h"
 #include "W55FA93_reg.h"

@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     DrvI2C.c
+ * @brief    Software I2C driver
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 /****************************************************************
  *                                                              *
  * Copyright (c) Nuvoton Technology Corp. All rights reserved.  *

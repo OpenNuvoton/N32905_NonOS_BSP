@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     sensor_gm7150.h
+ * @brief    GM7150 header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 /*
  * GM7150 - Texas Instruments GM7150A/AM1 video decoder registers
  *

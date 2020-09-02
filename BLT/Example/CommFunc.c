@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     CommFunc.c
+ * @brief    Common functions
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include <stdio.h>
 #include "W55FA93_reg.h"
 #include "Blt.h"

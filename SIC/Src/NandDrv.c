@@ -1,10 +1,12 @@
-/*-----------------------------------------------------------------------------------*/
-/* Nuvoton Technology Corporation confidential                                       */
-/*                                                                                   */
-/* Copyright (c) 2008 by Nuvoton Technology Corporation                              */
-/* All rights reserved                                                               */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
+/**************************************************************************//**
+ * @file     nandDrv.c
+ * @version  V3.00
+ * @brief    N3290x series SIC driver source file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,7 +14,6 @@
 
 #include "W55FA93_SIC.h"
 #include "wblib.h"
-
 #include "fmi.h"
 #include "GNAND_Global.h"
 

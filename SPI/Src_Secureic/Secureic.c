@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    /Secureic.c
+  * @file    SecureIC.c
   * @author  Winbond FAE YY Huang, FAE Steam Lin
   * @version V1.0.0
   * @date    09-December-2015

@@ -1,7 +1,14 @@
+/**************************************************************************//**
+ * @file     depop.c
+ * @brief    SdLoader source code for depop.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include <string.h>
 #include "wblib.h"
 #include "turbowriter.h"
-
 
 //#if defined(__IFLYTEK__) || defined(__NUVOTON_V4__) 
 //====================================================================
@@ -80,7 +87,6 @@ void spuDacOn(UINT8 level)
 	outp32(REG_SPU_CTRL, inp32(REG_SPU_CTRL) | SPURST);
 	outp32(REG_SPU_CTRL, inp32(REG_SPU_CTRL) & ~SPURST);	
 	
-
 	DacOnOffLevel = level;
 	
 	outpw(REG_SPU_DAC_PAR, inpw(REG_SPU_DAC_PAR) | 0x30);		//disable

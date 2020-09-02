@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     W55FA93_SPI.h
+ * @version  V3.00
+ * @brief    N3290x series SPI driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #ifndef _SPILIB_H_
 #define _SPILIB_H_
 

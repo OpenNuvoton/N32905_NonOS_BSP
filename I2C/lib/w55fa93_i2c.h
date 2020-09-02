@@ -1,19 +1,11 @@
-/*-----------------------------------------------------------------------------------*/
-/* Nuvoton Technology Corporation confidential                                       */
-/*                                                                                   */
-/* Copyright (c) 2007 by Nuvoton Technology Corporation                              */
-/* All rights reserved                                                               */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
-/* File Contents:                                                                    */
-/*   NUC930_i2c.h                                                                   */
-/*                                                                                   */
-/* This file contains:                                                               */
-/*                                                                                   */
-/* Project:                                                                          */
-/*   The constant of I2C_INPUT_CLOCK is a defect.                                    */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/ 
+/**************************************************************************//**
+ * @file     W55FA93_I2C.h
+ * @version  V3.00
+ * @brief    N3290x series I2C driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/ 
  
 #ifndef _NUC930_I2C_H_
 #define _NUC930_I2C_H_

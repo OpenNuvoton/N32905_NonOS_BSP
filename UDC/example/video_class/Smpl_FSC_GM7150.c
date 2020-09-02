@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     Smpl_FSC_GM7150.c
+ * @brief    Code for GM7150 Initialization
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include "wblib.h"
 #include "W55FA93_VideoIn.h"
 #include "W55FA93_GPIO.h"

@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     EMU_Draw.c
+ * @brief    Draw Font and border on panel 
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include "Font.h"
 void Draw_InitialBorder(S_DEMO_FONT* ptFont)
 {	

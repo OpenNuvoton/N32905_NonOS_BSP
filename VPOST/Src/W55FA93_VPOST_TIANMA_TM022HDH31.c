@@ -1,38 +1,12 @@
-/***************************************************************************
- *                                                                         *
- * Copyright (c) 2007 - 2009 Nuvoton Technology Corp. All rights reserved.*
- *                                                                         *
- ***************************************************************************/
- 
-/****************************************************************************
- * 
- * FILENAME
- *     FA93_VPOST_TIANMA_TM022HDH31.c
+/**************************************************************************//**
+ * @file     W55FA93_VPOST_TIANMA_TM022HDH31.c
+ * @version  V3.00
+ * @brief    Panel driver file
  *
- * VERSION
- *     0.1 
- *
- * DESCRIPTION
- *
- *
- *
- *
- * DATA STRUCTURES
- *     None
- *
- * FUNCTIONS
- *
- *
- *     
- * HISTORY
- *     2013.09.04		Created by MHKuo
- *
- *
- * REMARK
- *     None
- *
- *
- **************************************************************************/
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
+
 #include "stdio.h"
 #include "stdlib.h"
 

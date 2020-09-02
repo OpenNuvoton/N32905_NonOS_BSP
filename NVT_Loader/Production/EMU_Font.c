@@ -1,8 +1,11 @@
-/****************************************************************************
-*                                                                           *
-* Copyright (c) 2011 Nuvoton Tech. Corp. All rights reserved.               *
-*                                                                           *
+/**************************************************************************//**
+ * @file     EMU_Font.c
+ * @brief    Draw Font and border on panel 
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

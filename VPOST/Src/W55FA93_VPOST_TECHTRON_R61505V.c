@@ -1,38 +1,12 @@
-/***************************************************************************
- *                                                                         *
- * Copyright (c) 2009 - 2010 Iflytek Corp. All rights reserved.*
- *                                                                         *
- ***************************************************************************/
- 
-/****************************************************************************
- * 
- * FILENAME
- *     W55FA93_VPOST_R61505V.c
+/**************************************************************************//**
+ * @file     W55FA93_VPOST_TECHTRON_R61505V.c
+ * @version  V3.00
+ * @brief    Panel driver file
  *
- * VERSION
- *     0.1 
- *
- * DESCRIPTION
- *
- *
- *
- *
- * DATA STRUCTURES
- *     None
- *
- * FUNCTIONS
- *
- *
- *     
- * HISTORY
- *     2010.07.07		Created by yongwu@iflytek.com
- *
- *
- * REMARK
- *     None
- *
- *
- **************************************************************************/
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
+
 #include "stdio.h"
 #include "stdlib.h"
 

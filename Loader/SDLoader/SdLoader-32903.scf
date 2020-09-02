@@ -1,15 +1,10 @@
-;/******************************************************************************
+;/**************************************************************************//**
+; * @file     sdLoader-32903.scf
+; * @brief    SdLoader scf file for N32903 series.
 ; *
-; * Copyright (c) 2009 Nuvoton Tech. Corp.
-; * All rights reserved.
-; *
-; * $Workfile: $
-; *
-; * $Author: $
-; ******************************************************************************/
-
-
-
+; * SPDX-License-Identifier: Apache-2.0
+; * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+; *****************************************************************************/
 
 ROM_LOAD 0x700000
 {
@@ -29,15 +24,11 @@ ROM_LOAD 0x700000
     }
       
     
-    ;HEAP 0xC00000 UNINIT
-    ;HEAP 0x1000000 UNINIT
     HEAP 0x200000 UNINIT
     {
         heap.o (+ZI)
     }
 
-	;STACK 0x1000000 UNINIT
-	;STACK 0x1800000 UNINIT
 	STACK 0x400000 UNINIT
 	{
 		stack.o (+ZI)

@@ -1,8 +1,11 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved.  *
- *                                                              *
- ****************************************************************/
+/**************************************************************************//**
+ * @file     SPU.h
+ * @version  V3.00
+ * @brief    N329xx series SPU driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
  
 #ifndef	__SPU_H__
 #define __SPU_H__

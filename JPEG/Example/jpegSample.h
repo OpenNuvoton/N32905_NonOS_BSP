@@ -1,8 +1,10 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved.  *
- *                                                              *
- ****************************************************************/
+/**************************************************************************//**
+ * @file     jpegSample.h
+ * @brief    JPEG driver sample driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 
 #define DEC_IPW_BUFFERSIZE		8192				/* Buffer size for Decode Input Wait */						
 

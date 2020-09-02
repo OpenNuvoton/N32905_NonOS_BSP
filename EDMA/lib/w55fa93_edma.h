@@ -1,8 +1,11 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved. *
- *                                                              *
- ****************************************************************/
+/**************************************************************************//**
+ * @file     W55FA93_EDMA.h
+ * @version  V3.00
+ * @brief    N3290x series EDMA driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 
  #include "wblib.h"
  #include "wbtypes.h"

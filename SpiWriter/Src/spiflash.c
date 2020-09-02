@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     spiflash.c
+ * @brief    Functions for SPI Flash operation
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include <string.h>
 #include "W55FA93_reg.h"
 #include "wblib.h"

@@ -1,8 +1,10 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved.  *
- *                                                              *
- ****************************************************************/
+/**************************************************************************//**
+ * @file     HID.h
+ * @brief    HID Class Device sample header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #ifndef __HIDSYS_H__
 #define __HIDSYS_H__
 

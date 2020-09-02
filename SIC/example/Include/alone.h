@@ -1,3 +1,12 @@
+/**************************************************************************//**
+ * @file     alone.h
+ * @version  V3.00
+ * @brief    Data type definition header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #define FALSE				0
 #define TRUE				1
 

@@ -1,3 +1,13 @@
+/**************************************************************************//**
+ * @file     common.c
+ * @brief    Functions for JPEG Driver
+ *           - JPEG Driver Callback functions 
+ *           - JPEG Header Parser function
+ *           - JPEG Output file name function  
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

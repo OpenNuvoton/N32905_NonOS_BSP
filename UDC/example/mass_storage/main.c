@@ -1,3 +1,16 @@
+/**************************************************************************//**
+ * @file     main.c
+ * @brief    Demo how to use USB Device & MSC driver to implement MSC Device with
+ *           - NAND
+ *           - NAND & SD
+ *           - SD Port 0 
+ *           - SD Port 0 & Port 1
+ *           - Ram Disk
+ *           - SPI
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,21 +1,15 @@
-/****************************************************************
- *                                                             *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved. *
- *                                                              *
- ****************************************************************/
- /****************************************************************
- Total:
- 	
- Revision History:
- 	05/26/2009, first creation
- ****************************************************************/
+/**************************************************************************//**
+ * @file     DrvEDMA.h
+ * @version  V3.00
+ * @brief    EDMA function header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
  
 #ifndef __DRVEDMA_H__
 #define __DRVEDMA_H__
-
-// #include header file
-//#include "Platform.h"
-//#include "System/SysInfra.h"
 
 #ifdef  __cplusplus
 extern "C"
@@ -24,9 +18,6 @@ extern "C"
 
 #define E_SUCCESS	0
 #define E_FAIL		1
-
-//#define outp32(addr,value)	outl(value, addr)
-//#define inp32(addr)		inl(addr)
 
 typedef enum {
 #undef FALSE

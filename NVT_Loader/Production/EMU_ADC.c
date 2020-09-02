@@ -1,8 +1,11 @@
-/***************************************************************************
- *                                                                         									     *
- * Copyright (c) 2008 Nuvoton Technolog. All rights reserved.              					     *
- *                                                                         									     *
- ***************************************************************************/
+/**************************************************************************//**
+ * @file     EMU_ADC.c
+ * @brief    ADC test code
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "wblib.h"

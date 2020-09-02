@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    /Gneiss_Sample_Code_LLD.h
+  * @file    Gneiss.h
   * @author  Winbond FAE Steam Lin
   * @version V1.1.0
   * @date    09-December-2015

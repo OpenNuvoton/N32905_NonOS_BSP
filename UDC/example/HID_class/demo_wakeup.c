@@ -1,8 +1,10 @@
-/***************************************************************************
- *                                                                         									     *
- * Copyright (c) 2008 Nuvoton Technolog. All rights reserved.              					     *
- *                                                                         									     *
- ***************************************************************************/
+/**************************************************************************//**
+ * @file     demo_wakeup.c
+ * @brief    Power down wakeup by USB
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
 #include "wblib.h"
@@ -13,13 +15,12 @@ UINT8 u32Array[1024*1024] __attribute__((aligned(32)));
 #else
 __align(32) UINT8 u32Array[1024*1024];
 #endif
-/*--------------------------------------------------------------------------------------------------------*
- *                                                                                                        					     *
+/*---------------------------------------------------------------------------*                       					     *
  * 																		     *
  *	Wake up source														     *
- * 	KPI_WE, ADC_WE, UHC_WE, UDC_WE, UART_WE, SDH_WE, RTC_WE, GPIO_WE		     *	
- *	2. Default priority	  													     *
- *---------------------------------------------------------------------------------------------------------*/
+ * 	KPI_WE, ADC_WE, UHC_WE, UDC_WE, UART_WE, SDH_WE, RTC_WE, GPIO_WE		 *	
+ *	2. Default priority	  													 *
+ *---------------------------------------------------------------------------*/
 
 void Demo_PowerDownWakeUp(void)
 {

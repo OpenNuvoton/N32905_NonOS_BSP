@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     SpiRead.c
+ * @brief    SPI functions for Spiloader
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include "W55FA93_reg.h"
 #include "wblib.h"
 

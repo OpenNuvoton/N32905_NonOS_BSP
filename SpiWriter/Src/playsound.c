@@ -1,29 +1,10 @@
-/****************************************************************************
-*                                                                           *
-* Copyright (c) 2009 Nuvoton Tech. Corp. All rights reserved.               *
-*                                                                           *
+/**************************************************************************//**
+ * @file     playsound.c
+ * @brief    SPU sample application using SPU library. 
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
-
-/****************************************************************************
-* FILENAME
-*   main.c
-*
-* VERSION
-*   1.0
-*
-* DESCRIPTION
-*   SPU sample application using SPU library. 
-*
-* DATA STRUCTURES
-*   None
-*
-* FUNCTIONS
-*
-* HISTORY
-*
-* REMARK
-*   None
-****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

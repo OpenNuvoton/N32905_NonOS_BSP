@@ -1,14 +1,11 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved. *
- *                                                              *
- ****************************************************************/
-
-//#include <linux/interrupt.h>
-//#include <asm/io.h>
-//#include <asm/arch/w55fa93_reg.h>
-//#include <asm/arch/DrvEDMA.h>
-
+/**************************************************************************//**
+ * @file     DrvEDMA.c
+ * @version  V3.00
+ * @brief    EDMA function source file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

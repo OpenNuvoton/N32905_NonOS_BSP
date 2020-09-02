@@ -1,9 +1,11 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved.  *
- *                                                              *
- ****************************************************************/
-
+/**************************************************************************//**
+ * @file     DrvI2C.h
+ * @version  V3.00
+ * @brief    I2C function header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #ifndef _DRVI2C_H_
 #define _DRVI2C_H_
 #include "wbtypes.h"

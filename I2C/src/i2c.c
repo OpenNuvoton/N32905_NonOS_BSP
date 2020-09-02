@@ -1,21 +1,11 @@
-/*-----------------------------------------------------------------------------------*/
-/* Nuvoton Technology Corporation confidential                                      */
-/*                                                                                   */
-/* Copyright (c) 2008 by  Nuvoton Technology Corporation                             */
-/* All rights reserved                                                               */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
-/* File Contents:                                                                    */
-/*   i2c.c                                                                           */
-/*                                                                                   */
-/* This file contains:                                                               */
-/*                                                                                   */
-/* Project:                                                                          */
-/*   1. 2007.07.23 modify for multi-master arbitration lost case.                    */
-/*   2. 2008.07.14 Modify to W90P950 patform										 */
-/*   3. 2009.03.10 Modify to NUC930 patform										 */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/ 
+/**************************************************************************//**
+ * @file     i2c.c
+ * @version  V3.00
+ * @brief    N3290x series I2C driver source file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/ 
  
 #ifdef ECOS 
 #include "stdio.h"

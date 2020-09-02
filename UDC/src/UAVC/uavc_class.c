@@ -1,7 +1,11 @@
-/****************************************************************************
+/**************************************************************************//**
+ * @file     uavc_class.c
+ * @version  V3.00
+ * @brief    N3290 series UAVC Device driver source file
  *
- **************************************************************************/
-
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

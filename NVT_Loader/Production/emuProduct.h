@@ -1,3 +1,10 @@
+/**************************************************************************//**
+ * @file     emuProduct.h
+ * @brief    N3290x series test code header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 /*************************************************************************
  * Nuvoton Electronics Corporation confidential
  *

@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     palette.h
+ * @brief    Palette
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 S_DRVBLT_ARGB8 default_pallete[256] = {
     //B    G    R    A
     {0xFF,0xFF,0xFF,0xFF},  // white  

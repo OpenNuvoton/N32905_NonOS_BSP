@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     W55FA93_reh.h
+ * @version  V3.00
+ * @brief    N3290x series SYS driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 /* linux/include/asm-arm/arch-w55fa93/W55FA93_reg.h
  *
  * Copyright (c) 2008 Nuvoton technology corporation

@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     usbd.h
+ * @version  V3.00
+ * @brief    N3290 series USB Device driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 #ifndef _W55FA93_USBD_H_
 #define _W55FA93_USBD_H_
 

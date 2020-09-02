@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     Depop.c
+ * @brief    Function for Depop
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include <string.h>
 #include "wblib.h"
 #include "turbowriter.h"
@@ -6,19 +14,6 @@
 #include "w55fa93_reg.h"
 #include "..\..\gpio\lib\w55fa93_gpio.h"
 
-//#if defined(__IFLYTEK__) || defined(__NUVOTON_V4__) 
-//====================================================================
-//
-//	__IFLYTEK__ use GPIOA 4 to control depop circuit 
-//	GPIOA_4 = H, Force earphone to ground (depop)
-//	GPIOA_4 = L, No-depop
-//
-//
-//	__NUVOTON_V4__ use GPIOD 0 to control depop circuit 
-//	GPIOD_0 = H, Force earphone to ground (depop)
-//	GPIOD_0 = L, No-depop
-//
-//====================================================================
 
 UINT8 DacOnOffLevel;
 void _sysDelay(UINT32 k) 

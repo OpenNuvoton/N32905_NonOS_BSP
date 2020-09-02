@@ -1,10 +1,10 @@
-/*-----------------------------------------------------------------------------------*/
-/* Nuvoton Technology Corporation confidential                                      */
-/*                                                                                   */
-/* Copyright (c) 2008 by Nuvoton Technology Corporation                             */
-/* All rights reserved                                                               */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
+/**************************************************************************//**
+ * @file     i2c_24LC64.c
+ * @brief    Read/write EEPROM via I2C interface
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
  
 #include <stdio.h>
 #include <string.h>

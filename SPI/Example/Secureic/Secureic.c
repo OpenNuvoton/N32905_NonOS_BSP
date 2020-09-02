@@ -1,23 +1,12 @@
-/*-----------------------------------------------------------------------------------*/
-/* Nuvoton Electronics Corporation confidential                                      */
-/*                                                                                   */
-/* Copyright (c) 2016 by Nuvoton Electronics Corporation                             */
-/* All rights reserved                                                               */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
-/* File Contents:                                                                    */
-/*   spiflash.c                 		                                             */
-/*                                                                                   */
-/* This file contains:                                                               */
-/*                                                                                   */
-/* Project:                                                                          */
-/*	This code provide the Demo code for RPMC operation. Please do not copy the 		 */
-/*  rootkey generate method directly. Rootkey generate method should be keep in 	 */
-/*  secret and should not exposed.   												 */
-/*                                                                                   */
-/* Remark:                                                                           */
-/*                                                                                   */
-/*-----------------------------------------------------------------------------------*/
+/**************************************************************************//**
+ * @file     Secureic.c
+ * @brief    This code provide the Demo code for RPMC operation. Please do not copy the 	
+ *           rootkey generate method directly. Rootkey generate method should be keep in
+ *           secret and should not exposed. 
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 
 #include "wblib.h"
 #include <stdio.h>

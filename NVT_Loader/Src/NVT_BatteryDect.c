@@ -1,7 +1,9 @@
-/****************************************************************************
-*                                                                           *
-* Copyright (c) 2009 Nuvoton Tech. Corp. All rights reserved.               *
-*                                                                           *
+/**************************************************************************//**
+ * @file     NVT_BatteryDect.c
+ * @brief    Detection system working voltage
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
 /****************************************************************************

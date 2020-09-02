@@ -1,3 +1,12 @@
+/**************************************************************************//**
+ * @file     AVILib.h
+ * @version  V3.00
+ * @brief    N3290x series AVI library header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #ifndef _AVI_PLAYER_H_
 #define _AVI_PLAYER_H_
 

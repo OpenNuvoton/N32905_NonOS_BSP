@@ -1,7 +1,9 @@
-/****************************************************************************
-*                                                                           *
-* Copyright (c) 2009 Nuvoton Tech. Corp. All rights reserved.               *
-*                                                                           *
+/**************************************************************************//**
+ * @file     nvtloader.h
+ * @brief    N3290x series NVTLoader header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
 #define KERNEL_PATH_SD 	"x:\\conprog.bin"

@@ -1,3 +1,12 @@
+/**************************************************************************//**
+ * @file     Blt.h
+ * @version  V3.00
+ * @brief    N3290x series BLT driver header file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #define	E_SUCCESS	0
 #define	DRVBLT_VERSION_NUM	1
 

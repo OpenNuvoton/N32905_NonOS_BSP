@@ -1,38 +1,12 @@
-/***************************************************************************
- *                                                                         *
- * Copyright (c) 2007 - 2010 Nuvoton Technology Corp. All rights reserved.*
- *                                                                         *
- ***************************************************************************/
- 
-/****************************************************************************
- * 
- * FILENAME
- *     W55FA93_VPOST_TVOUT_720x480.c
+/**************************************************************************//**
+ * @file     W55FA93_VPOST_TVOUT_D1_720x480.c
+ * @version  V3.00
+ * @brief    TV driver file
  *
- * VERSION
- *     0.1 
- *
- * DESCRIPTION
- *
- *
- *
- *
- * DATA STRUCTURES
- *     None
- *
- * FUNCTIONS
- *
- *
- *     
- * HISTORY
- *     2009.03.16		Created by Shu-Ming Fan
- *
- *
- * REMARK
- *     None
- *
- *
- **************************************************************************/
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
+
 #include "stdio.h"
 #include "stdlib.h"
 

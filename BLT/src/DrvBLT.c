@@ -1,8 +1,11 @@
-//--------------------------------------------------------------
-//
-// Copyright (c) Nuvoton Technology Corp. All rights reserved.
-//
-//--------------------------------------------------------------
+/**************************************************************************//**
+ * @file     DrvBLT.c
+ * @version  V3.00
+ * @brief    N3290x series BLT driver source file
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 
 #include "W55FA93_reg.h"
 #include "Blt.h"

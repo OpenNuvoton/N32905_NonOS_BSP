@@ -1,38 +1,11 @@
-/***************************************************************************
- *                                                                         *
- * Copyright (c) 2007 - 2009 Nuvoton Technology Corp. All rights reserved.*
- *                                                                         *
- ***************************************************************************/
- 
-/****************************************************************************
- * 
- * FILENAME
- *     W55FA93_VPOST.h
+/**************************************************************************//**
+ * @file     W55FA93_VPOST.h
+ * @version  V3.00
+ * @brief    N329xx series VPOST driver header file
  *
- * VERSION
- *     0.1 
- *
- * DESCRIPTION
- *
- *
- *
- *
- * DATA STRUCTURES
- *     None
- *
- * FUNCTIONS
- *
- *
- *     
- * HISTORY
- *     2009.03.16		Created by Shu-Ming Fan
- *
- *
- * REMARK
- *     None
- *
- *
- **************************************************************************/
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
  
 #ifndef _NUC930_VPOST_H_
 #define _NUC930_VPOST_H_
