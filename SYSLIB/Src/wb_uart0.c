@@ -632,6 +632,17 @@ static INT8 sysGetChar0(void)
 	}
 }
 
+static INT8 sysGetChar0_NoBlocking(void)
+{
+//	while (1)
+	{
+		if (inpw(REG_UART_ISR+u32UartPort) & 0x01)		
+			return (inpb(REG_UART_RBR+u32UartPort));	
+		else
+		    return (0xFF);	
+	}
+}
+
 static VOID sysPutChar0(UINT8 ucCh)
 {
 	/* Wait until the transmitter buffer is empty */		
@@ -685,6 +696,13 @@ static INT8 UartGetChar(void)
 	i8Data = sysGetChar0();
 	return i8Data;
 }
+static INT8 UartGetChar_NoBlocking(void)
+{
+	INT8 i8Data;
+	i8Data = sysGetChar0_NoBlocking();
+	return i8Data;
+}
+
 #if 0
 static void Uartprintf(PINT8 pcStr,...)
 {
@@ -705,6 +723,7 @@ UARTDEV_T nvt_uart0 =
 	UartTransfer,	
 	UartPutChar,
 	UartGetChar,
+	UartGetChar_NoBlocking,	
 #if 0			
 	Uartprintf,
 	UartPrintf,

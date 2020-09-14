@@ -1,14 +1,10 @@
-/****************************************************************
- *                                                             *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved. *
- *                                                              *
- ****************************************************************/
- /****************************************************************
- Total:
- 	
- Revision History:
- 	05/26/2009, first creation
- ****************************************************************/
+/**************************************************************************//**
+ * @file     DrvEDMA.h
+ * @brief    EDMA Header file to link with ADC IP for audio recording 
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
  
 #ifndef __DRVEDMA_H__
 #define __DRVEDMA_H__
@@ -27,13 +23,16 @@ extern "C"
 
 //#define outp32(addr,value)	outl(value, addr)
 //#define inp32(addr)		inl(addr)
-
+#if 0
 typedef enum {
 #undef FALSE
 	FALSE	= 0,
 #undef TRUE
 	TRUE	= 1
 } bool;
+#else
+#define bool  						INT32
+#endif
 
 #define DESTINATION_DIRECTION_BIT   6
 #define SOURCE_DIRECTION_BIT        4
@@ -235,7 +234,7 @@ DrvEDMA_SetCHForAPBDevice(
     E_DRVEDMA_APB_RW eRWAPB    
 );
 
-E_DRVEDMA_CHANNEL_INDEX  
+int  
 DrvEDMA_GetCHForAPBDevice(
     E_DRVEDMA_APB_DEVICE eDevice,
     E_DRVEDMA_APB_RW eRWAPB    
@@ -247,7 +246,7 @@ DrvEDMA_SetWrapIntType(
 	E_DRVEDMA_WRAPAROUND_SELECT eType
 );
 
-E_DRVEDMA_WRAPAROUND_SELECT  
+int  
 DrvEDMA_GetWrapIntType(
 	E_DRVEDMA_CHANNEL_INDEX eChannel
 );

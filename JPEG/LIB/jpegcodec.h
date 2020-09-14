@@ -108,6 +108,8 @@
 typedef BOOL (*PFN_JPEG_HEADERDECODE_CALLBACK)(VOID);
 typedef BOOL (*PFN_JPEG_DECINPUTWAIT_CALLBACK)(UINT32 u32Address,UINT32 u32Size);
 
+typedef void (PFN_JPEG_DECODER_CALLBACK)(void);
+typedef void (PFN_JPEG_ENCODER_CALLBACK)(UINT32 u32ImageSize);
 typedef struct{
 	/*decode information*/
 	UINT32	yuvformat;		/*for decode*/
@@ -132,6 +134,7 @@ typedef struct{
 //Define inline function
 
 INT jpegOpen(VOID);
+INT jpegOpenEx(PFN_JPEG_DECODER_CALLBACK *pfnDecoder,PFN_JPEG_ENCODER_CALLBACK *pfnEncoder);
 VOID jpegClose(VOID);
 VOID jpegInit(VOID);
 VOID jpegGetInfo(JPEG_INFO_T *info);

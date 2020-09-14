@@ -1,9 +1,10 @@
-/****************************************************************
- *                                                              *
- * Copyright (c) Nuvoton Technology Corp. All rights reserved. *
- *                                                              *
- ****************************************************************/
-
+/**************************************************************************//**
+ * @file     DrvEDMA.c
+ * @brief    The APIs interface to link with ADC IP for audio recording 
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
 //#include <linux/interrupt.h>
 //#include <asm/io.h>
 //#include <asm/arch/w55fa93_reg.h>
@@ -350,7 +351,7 @@ DrvEDMA_SetCHForAPBDevice(
 }
 
 // Get EDMA channel for APB Device
-E_DRVEDMA_CHANNEL_INDEX  
+INT32  
 DrvEDMA_GetCHForAPBDevice(
     E_DRVEDMA_APB_DEVICE eDevice,
     E_DRVEDMA_APB_RW eRWAPB    
@@ -402,7 +403,7 @@ DrvEDMA_SetWrapIntType(
 }
 
 // Get Wrap Around Transfer Byte count interrupt Select from Channelx
-E_DRVEDMA_WRAPAROUND_SELECT  
+int  
 DrvEDMA_GetWrapIntType(
     E_DRVEDMA_CHANNEL_INDEX eChannel
 )

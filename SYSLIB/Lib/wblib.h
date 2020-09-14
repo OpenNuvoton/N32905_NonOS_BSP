@@ -339,7 +339,7 @@ VOID	sysGetCurrentTime(DateTime_T *curTime);
 VOID	sysDelay(UINT32 uTicks);
 
 
-VOID	sysClearWatchDogTimerCount (VOID);
+VOID	sysClearWatchDogTimerCount(VOID);
 VOID	sysClearWatchDogTimerInterruptStatus(VOID);
 VOID	sysDisableWatchDogTimer (VOID);
 VOID	sysDisableWatchDogTimerReset(VOID);
@@ -368,6 +368,7 @@ typedef struct
 	VOID (*UartTransfer)(char* pu8buf, UINT32 u32Len);
 	VOID (*UartPutChar)(UINT8 ucCh);
 	INT8 (*UartGetChar)(VOID);
+	INT8 (*UartGetChar_NoBlocking)(void);
 }UARTDEV_T;
 INT32   register_uart_device(UINT32 u32port, UARTDEV_T* pUartDev);
 
@@ -383,7 +384,7 @@ VOID    sysUartEnableDebugMessage(BOOL bIsDebugMessage);
 VOID    sysUartInstallcallback(UINT32 u32IntType,  PFN_SYS_UART_CALLBACK pfnCallback);
 VOID    sysUartEnableInt(INT32 eIntType);
 VOID    sysUartTransfer(char* pu8buf, UINT32 u32Len);
-
+INT8    sysGetChar_NoBlocking(void);
 
 
 

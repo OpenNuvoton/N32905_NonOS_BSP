@@ -25,6 +25,9 @@ UINT32 volatile g_u32OutputFormat,g_u32windowSizeX,g_u32windowSizeY;
 PFN_JPEG_HEADERDECODE_CALLBACK pfnJpegHeaderDecode = NULL;
 PFN_JPEG_DECINPUTWAIT_CALLBACK pfnJpegDecInputWait = NULL;
 
+
+PFN_JPEG_DECODER_CALLBACK *pfnJpegDecoder = NULL;
+PFN_JPEG_ENCODER_CALLBACK *pfnJpegEncoder = NULL;
 static JPEG_INFO_T jpegInfo;
 
 /* Default Quantization-Table 0 ~ 2 */
@@ -273,7 +276,10 @@ void jpegISR(void)
     	/* Clear interrupt status */  	
     	JPEG_CLEAR_INT(ENC_INTS);   
     	    	
-		g_bWait = FALSE;		    	
+		g_bWait = FALSE;
+		
+		if ( pfnJpegEncoder != NULL )    	
+		   pfnJpegEncoder(jpegInfo.image_size[0]);				    	
     }
     /* It's Decode Complete Interrupt */
     else if(u32interruptStatus &DEC_INTS) 
@@ -371,6 +377,54 @@ UINT32 jpegPower(UINT32 u32Index, UINT32 u32Exp)
 		}	
 	}	
 	return u32Index;
+}
+
+INT jpegOpenEx(PFN_JPEG_DECODER_CALLBACK *pfnDecoder,PFN_JPEG_ENCODER_CALLBACK *pfnEncoder)
+{	
+	UINT32 u32JPGDiv;
+	UINT32 u32JPGSource;
+	E_SYS_SRC_CLK eSrcClk;
+	UINT32 u32PllKHz, u32SysKHz, u32CpuKHz, u32HclkKHz, u32ApbKHz;
+
+	// 1.Check I/O pins. If I/O pins are used by other IPs, return error code (check PINFUN)
+	// 2.Enable IP¡¦s clock
+	outp32(REG_AHBCLK, (inp32(REG_AHBCLK) | JPG_CKE));
+	// 3.Reset IP
+	outp32(REG_AHBIPRST, JPGRST);
+	outp32(REG_AHBIPRST, 0);	
+	// 4.Configure IP according to inputted arguments (check CLKSEL)
+	// 5.Enable IP I/O pins
+	// 6.Return E_SUCCESS to present success
+	
+	sysGetSystemClock(&eSrcClk,
+				 	&u32PllKHz,	
+					&u32SysKHz,
+					&u32CpuKHz,
+					&u32HclkKHz,
+					&u32ApbKHz);	
+					
+	u32JPGSource = u32HclkKHz / (((inp32(REG_CLKDIV4) & HCLK234_N) >> 4) + 1);	
+	
+	
+	u32JPGDiv = 0;
+	
+	if(u32JPGSource > 100000)
+	{
+		if(u32JPGSource % 100000)
+		{
+			u32JPGDiv = (u32JPGSource / 100000);
+		}
+		else
+			u32JPGDiv = (u32JPGSource / 100000) - 1;
+	}
+	outp32(REG_CLKDIV4, (inp32(REG_CLKDIV4) & ~JPG_N) | ((u32JPGDiv & 0x7) << 24));
+
+	sysInstallISR(IRQ_LEVEL_1, IRQ_JPG, (PVOID)jpegISR);	
+	sysSetLocalInterrupt(ENABLE_IRQ);
+	sysEnableInterrupt(IRQ_JPG);
+	pfnJpegDecoder = pfnDecoder;
+	pfnJpegEncoder = pfnEncoder;		
+	return E_SUCCESS;
 }
 
 INT jpegOpen(VOID)

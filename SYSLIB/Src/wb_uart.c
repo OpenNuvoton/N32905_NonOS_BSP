@@ -709,6 +709,17 @@ INT8 sysGetChar()
 	}
 }
 
+INT8 sysGetChar_NoBlocking(void)
+{
+//	while (1)
+	{
+		if (inpw(REG_UART_ISR+u32UartPort) & 0x01)		
+			return (inpb(REG_UART_RBR+u32UartPort));	
+		else
+			return 0xFF;
+	}
+}
+
 VOID sysPutChar(UINT8 ucCh)
 {
 	if(u32DbgMessage == 0xFFFFFFFF) /* Default */
@@ -772,6 +783,18 @@ static INT8 UartGetChar(void)
 	i8Data = sysGetChar();
 	return i8Data;
 }
+
+INT8 UartGetChar_NoBlocking()
+{
+//	while (1)
+	{
+		if (inpw(REG_UART_ISR+u32UartPort) & 0x01)		
+			return (inpb(REG_UART_RBR+u32UartPort));	
+        else
+            return 0xFF;			
+	}
+}
+
 #if 0
 static void Uartprintf(PINT8 pcStr,...)
 {
@@ -792,6 +815,7 @@ UARTDEV_T nvt_uart1 =
 	UartTransfer,
 	UartPutChar,
 	UartGetChar,
+	UartGetChar_NoBlocking,
 #if 0			
 	Uartprintf,
 	UartPrintf,

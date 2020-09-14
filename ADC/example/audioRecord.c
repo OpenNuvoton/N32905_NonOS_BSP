@@ -1,3 +1,11 @@
+/**************************************************************************//**
+ * @file     audioRecord.c
+ * @brief    Demostrate how to record audio bases on adc and edma library. 
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+*****************************************************************************/
+
 #include <stdio.h>
 #include "wblib.h"
 #include "W55FA93_SIC.h"

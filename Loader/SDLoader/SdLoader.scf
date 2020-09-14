@@ -1,6 +1,6 @@
 ;/**************************************************************************//**
 ; * @file     sdLoader.scf
-; * @brief    SdLoader scf file for N3290x series.
+; * @brief    SdLoader scf file for N32905 series.
 ; *
 ; * SPDX-License-Identifier: Apache-2.0
 ; * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.

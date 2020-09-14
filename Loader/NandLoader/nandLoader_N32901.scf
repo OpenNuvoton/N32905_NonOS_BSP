@@ -1,0 +1,36 @@
+;/**************************************************************************//**
+; * @file     nandLoader_N32901.scf
+; * @brief    NandLoader scf file for N32901 series.
+; *
+; * SPDX-License-Identifier: Apache-2.0
+; * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+; *****************************************************************************/
+
+ROM_LOAD 0x180000
+{
+    ROM +0
+    {
+        wb_init.o (WB_INIT, +First)
+        anon$$obj.o
+        __main.o(!!!)
+        * (+RO)
+        * (+RW, +ZI) 
+        
+    }
+    
+    RAM 0x0
+    {
+        vectors.o(Vect, +First)  
+    }
+      
+    HEAP 0x1C0000 UNINIT
+    {
+        heap.o (+ZI)
+    }
+
+
+	STACK 0x1D8000 UNINIT
+	{
+		stack.o (+ZI)
+	}    
+}
