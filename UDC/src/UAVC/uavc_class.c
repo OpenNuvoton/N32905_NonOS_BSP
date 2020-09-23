@@ -15,7 +15,7 @@
 #include "videoclass.h"
 
 #define HSHB_MODE
-#define DATA_CODE	"20181011"
+#define DATA_CODE	"20200915"
 
 #define USB_VID		0x0416		/* Vendor ID */ 
 #define USB_PID		0x9393		/* Product ID */
@@ -32,6 +32,11 @@
 
 volatile int max_packet_size = MAX_PACKET_SIZE_HS;
     
+volatile int i = 0;
+
+VOID uavcdSDRAM_USB_Transfer(UINT8 epname,UINT32 DRAM_Addr ,UINT32 Tran_Size);
+
+#define DMA_MAX_LEN 0xFFFF0
 /* length of descriptors */
 #define UAVC_DEVICE_DSCPT_LEN		0x12
 #define UAVC_CONFIG_DSCPT_LEN		0x20C
@@ -55,6 +60,8 @@ extern volatile USBD_INFO_T usbdInfo;
 volatile UINT8 g_u8UVC_FID = 0;
 volatile UINT8 g_u8UVC_PD = 0;
 UINT32 volatile IrqSt, IrqEn;
+UINT32 volatile g_u32transferSize = 0, g_u32DMAaddr	= 0;
+volatile UINT32 g_u32SetResolution= VGA_RESOLUTION;
 
 #if defined (__GNUC__)
 static DEVICEDESCRIPTOR UAVC_DeviceDescriptor __attribute__((aligned(4))) = {
@@ -978,6 +985,928 @@ __align(4) static VIDEOCLASS_AUDIO_MJPEG UAVC_ConfigurationBlock_FS = {
 }
 };
 #if defined (__GNUC__)
+static DEVICEDESCRIPTOR UAVC_DeviceDescriptor_HD __attribute__((aligned(4))) = {
+#else
+__align(4) static DEVICEDESCRIPTOR UAVC_DeviceDescriptor_HD = {
+#endif
+ 0x12,      //bLength
+ 0x01,      //bDescriptorType
+ 0x0200,    //bcdUSB 
+ 0xEF,      //bDeviceClass 
+ 0x02,      //bDeviceSubClass
+ 0x01,      //bDeviceProtocol
+ 0x40,      //bMaxPacketSize0
+ USB_VID,    //idVendor
+ 0x0993,    //idProduct
+ 0x0100,     //bcdDevice
+ 0x01,      //iManufacturer
+ 0x02,      //iProduct
+ 0x03,      //iSerialNumber
+ 0x01       //bNumConfigurations
+};
+
+#ifdef UVC_FORMAT_BOTH
+#if defined (__GNUC__)
+static VIDEOCLASS_AUDIO UAVC_ConfigurationBlock_HD __attribute__((aligned(4))) = {
+#else
+__align(4) static VIDEOCLASS_AUDIO UAVC_ConfigurationBlock_HD = {    
+#endif
+#elif defined UVC_FORMAT_YUV
+#if defined (__GNUC__)
+static VIDEOCLASS_AUDIO_YUV UAVC_ConfigurationBlock_HD __attribute__((aligned(4))) = {
+#else
+__align(4) static VIDEOCLASS_AUDIO_YUV UAVC_ConfigurationBlock_HD = {    
+#endif
+#elif defined UVC_FORMAT_MJPEG
+#if defined (__GNUC__)
+static VIDEOCLASS_AUDIO_MJPEG UAVC_ConfigurationBlock_HD __attribute__((aligned(4))) = {
+#else
+__align(4) static VIDEOCLASS_AUDIO_MJPEG UAVC_ConfigurationBlock_HD = {    
+#endif
+#endif
+{	0x09,  	//bLength
+    0x02,   //bDescriptorType
+#ifdef UVC_FORMAT_BOTH
+    0x020C, //wTotalLength
+#elif defined UVC_FORMAT_YUV
+    0x0158, //wTotalLength
+#elif defined UVC_FORMAT_MJPEG
+    0x0148, //wTotalLength
+#endif    
+    0x02,   //bNumInterfaces
+    0x01,   //bConfigurationValue
+    0x00,   //iConfiguration
+  	0xC0,   //bmAttributes
+  	0x00    //bMaxPower
+},
+// Standard Video Interface Collection IAD(interface Association Descriptor)//
+{
+    0x08,   //bLength
+    0x0B,   //bDescriptorType
+    0x00,   //bFirstInterface
+    0x02,   //bInterfaceCount
+    0x0E,   //bFunctionClass
+    0x03,   //bFunctionSubClass
+    0x00,   //bFunctionProtocol
+    0x02   //iFunction
+},    
+// Standard VideoControl Interface Descriptor
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x00,   //bInterfceNumber
+    0x00,   //bAlternateSetting
+    0x01,   //bNumEndpoints		
+    0x0E,   //bInterfaceClass
+    0x01,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x02    //iInterface
+},   
+// Class-specific VideoControl Interface Descriptor
+{
+    0x0D,       //bLength
+    0x24,       //bDescriptorType
+    0x01,       //bDescriptorSubType
+    0x0100,     //bcdUVC
+    0x0032,     //wTotalLength
+    0x005B8D80, //dwClockFrequency
+    0x01,       //bInCollection
+    0x01        //baInterfaceNr
+},  
+// Output Terminal Descriptor 
+{
+    0x09,   //bLength
+    0x24,   //bDescriptorType
+    0x03,   //bDescriptorSubType
+    0x03,   //bTerminalID
+    0x0101, //wTerminalType
+    0x00,   //bAssocTerminal
+    0x05,   //bSourceID
+    0x00    //iTerminal
+},
+
+// Input Terminal Descriptor (Camera)
+{
+    0x11,   //bLength
+    0x24,   //bDescriptorType
+    0x02,   //bDescriptorSubType
+    0x01,   //bTerminalID
+    0x0201, //wTerminalType
+    0x00,   //bAssocTerminal
+    0x00,   //iTerminal
+    0x0000, //wObjectiveFocalLengthMin
+    0x0000, //wObjectiveFocalLengthMax
+    0x0000, //wOcularFocalLength
+    0x02,   //bControlSize
+    0x0000  //bmControls
+},
+
+// Processing Uint Descriptor 
+{
+    0x0B,   //bLength
+    0x24,   //bDescriptorType
+    0x05,   //bDescriptorSubType
+    0x05,   //bUnitID
+    0x01,   //bSourceID
+    0x0000, //wMaxMultiplier
+    0x02,   //bControlSize
+    0x053F, //bmControls
+    0x00    //iProcessing    
+},
+
+// Standard Interrupt Endpoint Descriptor
+{
+    0x07,   //bLength
+    0x05,   //bDescriptorType
+    0x83,   //bEndpointAddress
+    0x03,   //bmAttributes
+    0x0010, //wMaxPacketSize
+    0x06    //bInterval
+},
+
+// Class-specific Interrupt Endpoint Descriptor
+{
+    0x05,   //bLength
+    0x25,   //bDescriptorType
+    0x03,   //bDescriptorSubType
+    0x0010  //wMaxPacketSize
+},
+
+// Standard VideoStreaming Interface Descriptor
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x01,   //bInterfceNumber
+    0x00,   //bAlternateSetting
+    0x00,   //bNumEndpoints
+    0x0E,   //bInterfaceClass
+    0x02,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x00    //iInterface
+}, 
+
+// Class-specific VideoStreaming Header Descriptor
+{   
+#ifdef UVC_FORMAT_BOTH
+    0x0F,   //bLength
+#else   
+    0x0E,   //bLength
+#endif
+    0x24,   //bDescriptorType
+    0x01,   //bDescriptorSubType
+#ifdef UVC_FORMAT_BOTH
+    0x02,   //bNumFormats           // Modified Here   
+    0x018B, //wTotalLength
+#elif defined UVC_FORMAT_YUV
+    0x01,   //bNumFormats           // Modified Here   
+    0x00D7, //wTotalLength
+#elif defined UVC_FORMAT_MJPEG
+    0x01,   //bNumFormats           // Modified Here   
+    0x00C7, //wTotalLength
+#endif       
+    0x81,   //bEndpointAddress
+    0x00,   //bmInfo
+    0x03,   //bTerminalLink
+    0x02,   //bStillCaptureMethod    
+    0x01,   //bTriggerSupport
+    0x00,   //bTriggerUsage
+    0x01,   //bControlSize
+#ifdef UVC_FORMAT_BOTH    
+    0x00,   //bmaControls
+#endif    
+    0x00    //bmaControls   
+},
+#ifndef UVC_FORMAT_MJPEG
+// Uncompressed Video YUV422
+// Class-specific VideoStreaming Format Descriptor
+{
+    0x1B,   //bLength
+    0x24,   //bDescriptorType
+    0x04,   //bDescriptorSubType
+    0x01,   //bFormatIndex
+    0x03,   //bNumFrameDescriptors      // Modified Here
+	0x59,0x55,0x59,0x32,0x00,0x00,0x10,0x00,0x80,0x00,0x00,0xaa,0x00,0x38,0x9b,0x71,
+// 	0x7b,0xeb,0x36,0xe4,0x52,0x4f,0x11,0xce,0x95,0x53,0x00,0x20,0xaf,0x0b,0xa7,0x70,
+    0x10,
+    0x01,   //bDefaultFrameIndex
+    0x00,   //bAspectRatioX
+    0x00,   //bAspectRatioY
+    0x00,   //bmInterlaceFlags    
+    0x00    //bCopyProtect
+},
+
+// Class-specific VideoStreaming Frame 1 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x05,           //bDescriptorSubType
+    0x01,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0500,         //wWidth->1280
+    0x02D0,         //wHeight->720
+    0x001C2000,     //dwMinBitRate
+    0x02000000,     //dwMaxBitRate
+    0x001C2000,     //dwMaxVideoFrameBufSize
+    0x000F4240,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+
+// Class-specific VideoStreaming Frame 3 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x05,           //bDescriptorSubType
+    0x02,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0280,         //wWidth->640
+    0x0168,         //wHeight->360
+    0x00070800,     //dwMinBitRate
+    0x00800000,     //dwMaxBitRate
+    0x00070800,     //dwMaxVideoFrameBufSize
+    0x000F4240,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific VideoStreaming Frame 5 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x05,           //bDescriptorSubType
+    0x03,           //bFrameIndex           // Modified Here   
+    0x00,           //bmCapabilities    
+    0x140,          //wWidth->320
+    0x0B4,          //wHeight->180
+    0x0001C200,     //dwMinBitRate
+    0x00400000,     //dwMaxBitRate
+    0x0001C200,     //dwMaxVideoFrameBufSize
+    0x000F4240,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific Still Image Frame Descriptor
+{
+    0x12,           //bLength
+    0x24,           //bDescriptorType
+    0x03,           //bDescriptorSubType
+    0x00,  			//bEndpointAddress
+    0x03,           //bNumImageSizePatterns      
+    0x0500,         //wWidth    
+    0x02D0,         //wHeight            
+    0x0280,         //wWidth        
+    0x0168,         //wHeight                    
+    0x0140,         //wWidth    
+    0x00B4,         //wHeight 
+    0x00            //bNumCompressionPtn           
+},
+#endif
+#if defined UVC_FORMAT_BOTH || defined UVC_FORMAT_MJPEG
+/* MJPEG */
+// Class-specific VideoStreaming Format Descriptor
+{
+    0x0B,   //bLength
+    0x24,   //bDescriptorType
+    0x06,   //bDescriptorSubType
+    0x02,   //bFormatIndex
+    0x03,   //bNumFrameDescriptors      // Modified Here
+    0x01,   //bmFlags
+    0x01,   //bDefaultFrameIndex
+    0x00,   //bAspectRatioX
+    0x00,   //bAspectRatioY
+    0x00,   //bmInterlaceFlags
+    0x00,   //bCopyProtect
+},
+
+// Class-specific VideoStreaming Frame 1 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x07,           //bDescriptorSubType
+    0x01,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0500,         //wWidth->1280
+    0x02D0,         //wHeight->720
+    0x001C2000,     //dwMinBitRate
+    0x024EA000,     //dwMaxBitRate
+    0x001C2000,     //dwMaxVideoFrameBufSize
+    0x000F4240,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific VideoStreaming Frame 5 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x07,           //bDescriptorSubType
+    0x02,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0280,         //wWidth->320
+    0x0168,         //wHeight->240
+    0x000E1000,     //dwMinBitRate
+    0x01A4E000,     //dwMaxBitRate
+    0x00070800,     //dwMaxVideoFrameBufSize
+    0x000A2C2A,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific VideoStreaming Frame 7 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x07,           //bDescriptorSubType
+    0x03,           //bFrameIndex           // Modified Here   
+    0x00,           //bmCapabilities    
+    0x140,          //wWidth->160
+    0x0B4,          //wHeight->120
+    0x00038400,     //dwMinBitRate
+    0x01194000,     //dwMaxBitRate
+    0x0001C200,     //dwMaxVideoFrameBufSize
+    0x0007A120,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific Still Image Frame Descriptor
+{
+    0x12,           //bLength
+    0x24,           //bDescriptorType
+    0x03,           //bDescriptorSubType
+    0x00,  			//bEndpointAddress
+    0x03,           //bNumImageSizePatterns          
+    0x0500,         //wWidth    
+    0x02D0,         //wHeight     
+    0x0280,			//wWidth 	    
+    0x0168,         //wHeight                    
+    0x0140,         //wWidth    
+    0x00B4,         //wHeight                       
+    0x00            //bNumCompressionPtn           
+},
+#endif
+/* Color Matching Descriptor */
+{
+    0x06,           //bLength
+    0x24,           //bDescriptorType
+    0x0D,           //bDescriptorSubType
+    0x01,           //bColorPrimaries
+    0x01,           //bTransferCharacteristics
+    0x04            //bMatrixCoefficients
+},
+// Standard VideoStreaming Interface Descriptor  (Num 1, Alt 3)
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x01,   //bInterfceNumber
+    0x01,   //bAlternateSetting
+    0x01,   //bNumEndpoints    
+    0x0E,   //bInterfaceClass
+    0x02,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x00    //iInterface
+}, 
+
+// Standard VideoStreaming Iso Video Data Endpoint Descriptor
+{
+    0x07,   //bLength
+    0x05,   //bDescriptorType
+    0x81,   //bEndpointAddress
+    0x05,   //bmAttributes
+    MAX_PACKET_SIZE_HS | HSHB, //wMaxPacketSize 
+    0x01    //bInterval
+},
+// Standard VideoStreaming Interface Descriptor  (Num 1, Alt 4)
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x01,   //bInterfceNumber
+    0x02,   //bAlternateSetting
+    0x01,   //bNumEndpoints    
+    0x0E,   //bInterfaceClass
+    0x02,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x00    //iInterface
+}, 
+
+// Standard VideoStreaming Iso Video Data Endpoint Descriptor
+{
+    0x07,   //bLength
+    0x05,   //bDescriptorType
+    0x81,   //bEndpointAddress
+    0x05,   //bmAttributes
+    MAX_PACKET_SIZE_HS | HSHB, //wMaxPacketSize   
+    0x01    //bInterval
+},
+
+// Add audio class, 0x6B byte length
+{
+    0x08, 0x0B, 0x02, 0x02, 0x01, 0x02, 0x00, 0x00,
+    0x09, 0x04, 0x02, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00,
+    0x09, 0x24, 0x01, 0x00, 0x01, 0x26, 0x00, 0x01, 0x03,
+    0x0C, 0x24, 0x02, 0x01, 0x01, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00,
+    0x09, 0x24, 0x03, 0x03, 0x01, 0x01, 0x01, 0x07, 0x00,
+    0x08, 0x24, 0x06, 0x07, 0x01, 0x01, 0x03, 0x00,
+    0x09, 0x04, 0x03, 0x00, 0x00, 0x01, 0x02, 0x00, 0x00,
+    0x09, 0x04, 0x03, 0x01, 0x01, 0x01, 0x02, 0x00, 0x00,
+    0x07, 0x24, 0x01, 0x03, 0x01, 0x01, 0x00,
+    0x0B, 0x24, 0x02, 0x01, 0x01, 0x02, 0x10, 0x01, 0x80, 0x3E, 0x00,
+//    0x09, 0x05, 0x85, 0x05, 0x20, 0x00, 0x04, 0x00, 0x00,
+    0x09, 0x05, 0x85, 0x05, 0x40, 0x00, 0x04, 0x00, 0x00,    
+    0x07, 0x25, 0x01, 0x01, 0x00, 0x00, 0x00
+}
+
+};
+
+#ifdef UVC_FORMAT_BOTH
+#if defined (__GNUC__)
+static VIDEOCLASS_AUDIO UAVC_ConfigurationBlock_FS_HD __attribute__((aligned(4))) = {
+#else
+__align(4) static VIDEOCLASS_AUDIO UAVC_ConfigurationBlock_FS_HD = {    
+#endif
+#elif defined UVC_FORMAT_YUV
+#if defined (__GNUC__)
+static VIDEOCLASS_AUDIO_YUV UAVC_ConfigurationBlock_FS_HD __attribute__((aligned(4))) = {
+#else
+__align(4) static VIDEOCLASS_AUDIO_YUV UAVC_ConfigurationBlock_FS_HD = {    
+#endif
+#elif defined UVC_FORMAT_MJPEG
+#if defined (__GNUC__)
+static VIDEOCLASS_AUDIO_MJPEG UAVC_ConfigurationBlock_FS_HD __attribute__((aligned(4))) = {
+#else
+__align(4) static VIDEOCLASS_AUDIO_MJPEG UAVC_ConfigurationBlock_FS_HD = {    
+#endif
+#endif
+{	0x09,  	//bLength
+    0x02,   //bDescriptorType
+#ifdef UVC_FORMAT_BOTH
+    0x020C, //wTotalLength
+#elif defined UVC_FORMAT_YUV
+    0x0158, //wTotalLength
+#elif defined UVC_FORMAT_MJPEG
+    0x0148, //wTotalLength
+#endif    
+    0x02,   //bNumInterfaces
+    0x01,   //bConfigurationValue
+    0x00,   //iConfiguration
+  	0xC0,   //bmAttributes
+  	0x00    //bMaxPower
+},
+// Standard Video Interface Collection IAD(interface Association Descriptor)//
+{
+    0x08,   //bLength
+    0x0B,   //bDescriptorType
+    0x00,   //bFirstInterface
+    0x02,   //bInterfaceCount
+    0x0E,   //bFunctionClass
+    0x03,   //bFunctionSubClass
+    0x00,   //bFunctionProtocol
+    0x02   //iFunction
+},    
+// Standard VideoControl Interface Descriptor
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x00,   //bInterfceNumber
+    0x00,   //bAlternateSetting
+    0x01,   //bNumEndpoints		
+    0x0E,   //bInterfaceClass
+    0x01,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x02    //iInterface
+},   
+// Class-specific VideoControl Interface Descriptor
+{
+    0x0D,       //bLength
+    0x24,       //bDescriptorType
+    0x01,       //bDescriptorSubType
+    0x0100,     //bcdUVC
+    0x0032,     //wTotalLength
+    0x005B8D80, //dwClockFrequency
+    0x01,       //bInCollection
+    0x01        //baInterfaceNr
+},  
+// Output Terminal Descriptor 
+{
+    0x09,   //bLength
+    0x24,   //bDescriptorType
+    0x03,   //bDescriptorSubType
+    0x03,   //bTerminalID
+    0x0101, //wTerminalType
+    0x00,   //bAssocTerminal
+    0x05,   //bSourceID
+    0x00    //iTerminal
+},
+
+// Input Terminal Descriptor (Camera)
+{
+    0x11,   //bLength
+    0x24,   //bDescriptorType
+    0x02,   //bDescriptorSubType
+    0x01,   //bTerminalID
+    0x0201, //wTerminalType
+    0x00,   //bAssocTerminal
+    0x00,   //iTerminal
+    0x0000, //wObjectiveFocalLengthMin
+    0x0000, //wObjectiveFocalLengthMax
+    0x0000, //wOcularFocalLength
+    0x02,   //bControlSize
+    0x0000  //bmControls
+},
+
+// Processing Uint Descriptor 
+{
+    0x0B,   //bLength
+    0x24,   //bDescriptorType
+    0x05,   //bDescriptorSubType
+    0x05,   //bUnitID
+    0x01,   //bSourceID
+    0x0000, //wMaxMultiplier
+    0x02,   //bControlSize
+    0x053F, //bmControls
+    0x00    //iProcessing    
+},
+
+// Standard Interrupt Endpoint Descriptor
+{
+    0x07,   //bLength
+    0x05,   //bDescriptorType
+    0x83,   //bEndpointAddress
+    0x03,   //bmAttributes
+    0x0010, //wMaxPacketSize
+    0x06    //bInterval
+},
+
+// Class-specific Interrupt Endpoint Descriptor
+{
+    0x05,   //bLength
+    0x25,   //bDescriptorType
+    0x03,   //bDescriptorSubType
+    0x0010  //wMaxPacketSize
+},
+
+// Standard VideoStreaming Interface Descriptor
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x01,   //bInterfceNumber
+    0x00,   //bAlternateSetting
+    0x00,   //bNumEndpoints
+    0x0E,   //bInterfaceClass
+    0x02,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x00    //iInterface
+}, 
+
+// Class-specific VideoStreaming Header Descriptor
+{   
+#ifdef UVC_FORMAT_BOTH
+    0x0F,   //bLength
+#else   
+    0x0E,   //bLength
+#endif
+    0x24,   //bDescriptorType
+    0x01,   //bDescriptorSubType
+#ifdef UVC_FORMAT_BOTH
+    0x02,   //bNumFormats           // Modified Here   
+    0x018B, //wTotalLength
+#elif defined UVC_FORMAT_YUV
+    0x01,   //bNumFormats           // Modified Here   
+    0x00D7, //wTotalLength
+#elif defined UVC_FORMAT_MJPEG
+    0x01,   //bNumFormats           // Modified Here   
+    0x00C7, //wTotalLength
+#endif       
+    0x81,   //bEndpointAddress
+    0x00,   //bmInfo
+    0x03,   //bTerminalLink
+    0x02,   //bStillCaptureMethod    
+    0x01,   //bTriggerSupport
+    0x00,   //bTriggerUsage
+    0x01,   //bControlSize
+#ifdef UVC_FORMAT_BOTH    
+    0x00,   //bmaControls
+#endif    
+    0x00    //bmaControls   
+},
+#ifndef UVC_FORMAT_MJPEG
+// Uncompressed Video YUV422
+// Class-specific VideoStreaming Format Descriptor
+{
+    0x1B,   //bLength
+    0x24,   //bDescriptorType
+    0x04,   //bDescriptorSubType
+    0x01,   //bFormatIndex
+    0x03,   //bNumFrameDescriptors      // Modified Here
+	0x59,0x55,0x59,0x32,0x00,0x00,0x10,0x00,0x80,0x00,0x00,0xaa,0x00,0x38,0x9b,0x71,
+// 	0x7b,0xeb,0x36,0xe4,0x52,0x4f,0x11,0xce,0x95,0x53,0x00,0x20,0xaf,0x0b,0xa7,0x70,
+    0x10,
+    0x01,   //bDefaultFrameIndex
+    0x00,   //bAspectRatioX
+    0x00,   //bAspectRatioY
+    0x00,   //bmInterlaceFlags    
+    0x00    //bCopyProtect
+},
+
+// Class-specific VideoStreaming Frame 1 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x05,           //bDescriptorSubType
+    0x01,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0500,         //wWidth->640
+    0x02D0,         //wHeight->480
+    0x001C2000,     //dwMinBitRate
+    0x00E10000,     //dwMaxBitRate
+    0x001C2000,     //dwMaxVideoFrameBufSize
+    0x00989680,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+
+// Class-specific VideoStreaming Frame 3 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x05,           //bDescriptorSubType
+    0x02,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0280,         //wWidth->320
+    0x0168,         //wHeight->240
+    0x00070800,     //dwMinBitRate
+    0x00384000,     //dwMaxBitRate
+    0x00070800,     //dwMaxVideoFrameBufSize
+    0x00989680,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific VideoStreaming Frame 5 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x05,           //bDescriptorSubType
+    0x03,           //bFrameIndex           // Modified Here   
+    0x00,           //bmCapabilities    
+    0x149,          //wWidth->160
+    0x0B4,          //wHeight->120
+    0x0001C200,     //dwMinBitRate
+    0x000E1000,     //dwMaxBitRate
+    0x0001C200,     //dwMaxVideoFrameBufSize
+    0x00989680,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific Still Image Frame Descriptor
+{
+    0x12,           //bLength
+    0x24,           //bDescriptorType
+    0x03,           //bDescriptorSubType
+    0x00,  			//bEndpointAddress
+    0x03,           //bNumImageSizePatterns      
+    0x0500,         //wWidth    
+    0x02D0,         //wHeight            
+    0x0280,         //wWidth        
+    0x0168,         //wHeight                    
+    0x0140,         //wWidth    
+    0x00B4,         //wHeight 
+    0x00            //bNumCompressionPtn           
+},
+#endif
+#if defined UVC_FORMAT_BOTH || defined UVC_FORMAT_MJPEG
+/* MJPEG */
+// Class-specific VideoStreaming Format Descriptor
+{
+    0x0B,   //bLength
+    0x24,   //bDescriptorType
+    0x06,   //bDescriptorSubType
+    0x02,   //bFormatIndex
+    0x03,   //bNumFrameDescriptors      // Modified Here
+    0x01,   //bmFlags
+    0x01,   //bDefaultFrameIndex
+    0x00,   //bAspectRatioX
+    0x00,   //bAspectRatioY
+    0x00,   //bmInterlaceFlags
+    0x00,   //bCopyProtect
+},
+
+// Class-specific VideoStreaming Frame 1 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x07,           //bDescriptorSubType
+    0x01,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0500,         //wWidth->640
+    0x02D0,         //wHeight->480
+    0x001C2000,     //dwMinBitRate
+    0x024EA000,     //dwMaxBitRate
+    0x001C2000,     //dwMaxVideoFrameBufSize
+    0x000F4240,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific VideoStreaming Frame 5 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x07,           //bDescriptorSubType
+    0x02,           //bFrameIndex           // Modified Here
+    0x00,           //bmCapabilities    
+    0x0280,         //wWidth->320
+    0x0168,         //wHeight->240
+    0x00070800,     //dwMinBitRate
+    0x008CA000,     //dwMaxBitRate
+    0x00070800,     //dwMaxVideoFrameBufSize
+    0x000A2C2A,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific VideoStreaming Frame 7 Descriptor
+{
+    0x32,           //bLength
+    0x24,           //bDescriptorType
+    0x07,           //bDescriptorSubType
+    0x03,           //bFrameIndex           // Modified Here   
+    0x00,           //bmCapabilities    
+    0x140,          //wWidth->160
+    0x0B4,          //wHeight->120
+    0x0001C200,     //dwMinBitRate
+    0x00189C00,     //dwMaxBitRate
+    0x0001C200,     //dwMaxVideoFrameBufSize
+    0x0007A120,     //dwDefaultFrameInterval
+    0x06,           //bFrameIntervalType
+    0x00051615,     //dwMinFrameInterval
+    0x0007A120,     //dwMinFrameInterval
+    0x000A2C2A,     //dwMinFrameInterval
+    0x000F4240,     //dwMinFrameInterval
+    0x001E8480,     //dwMinFrameInterval
+    0x00989680      //dwMinFrameInterval
+
+},
+
+// Class-specific Still Image Frame Descriptor
+{
+    0x12,           //bLength
+    0x24,           //bDescriptorType
+    0x03,           //bDescriptorSubType
+    0x00,  			//bEndpointAddress
+    0x03,           //bNumImageSizePatterns          
+    0x0500,         //wWidth    
+    0x02D0,         //wHeight     
+    0x0280,			//wWidth 	    
+    0x0168,         //wHeight                    
+    0x0140,         //wWidth    
+    0x00B4,         //wHeight                       
+    0x00            //bNumCompressionPtn           
+},
+#endif
+/* Color Matching Descriptor */
+{
+    0x06,           //bLength
+    0x24,           //bDescriptorType
+    0x0D,           //bDescriptorSubType
+    0x01,           //bColorPrimaries
+    0x01,           //bTransferCharacteristics
+    0x04            //bMatrixCoefficients
+},
+// Standard VideoStreaming Interface Descriptor  (Num 1, Alt 3)
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x01,   //bInterfceNumber
+    0x01,   //bAlternateSetting
+    0x01,   //bNumEndpoints    
+    0x0E,   //bInterfaceClass
+    0x02,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x00    //iInterface
+}, 
+
+// Standard VideoStreaming Iso Video Data Endpoint Descriptor
+{
+    0x07,   //bLength
+    0x05,   //bDescriptorType
+    0x81,   //bEndpointAddress
+    0x05,   //bmAttributes
+    MAX_PACKET_SIZE_HS | HSHB, //wMaxPacketSize 
+    0x01    //bInterval
+},
+// Standard VideoStreaming Interface Descriptor  (Num 1, Alt 4)
+{
+    0x09,   //bLength
+    0x04,   //bDescriptorType
+    0x01,   //bInterfceNumber
+    0x02,   //bAlternateSetting
+    0x01,   //bNumEndpoints    
+    0x0E,   //bInterfaceClass
+    0x02,   //bInterfaceSubClass
+    0x00,   //bInterfaceProtocol
+    0x00    //iInterface
+}, 
+
+// Standard VideoStreaming Iso Video Data Endpoint Descriptor
+{
+    0x07,   //bLength
+    0x05,   //bDescriptorType
+    0x81,   //bEndpointAddress
+    0x05,   //bmAttributes
+    MAX_PACKET_SIZE_HS | HSHB, //wMaxPacketSize   
+    0x01    //bInterval
+},
+
+// Add audio class, 0x6B byte length
+{
+    0x08, 0x0B, 0x02, 0x02, 0x01, 0x02, 0x00, 0x00,
+    0x09, 0x04, 0x02, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00,
+    0x09, 0x24, 0x01, 0x00, 0x01, 0x26, 0x00, 0x01, 0x03,
+    0x0C, 0x24, 0x02, 0x01, 0x01, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00,
+    0x09, 0x24, 0x03, 0x03, 0x01, 0x01, 0x01, 0x05, 0x00,
+    0x08, 0x24, 0x06, 0x07, 0x01, 0x01, 0x03, 0x00,
+    0x09, 0x04, 0x03, 0x00, 0x00, 0x01, 0x02, 0x00, 0x00,
+    0x09, 0x04, 0x03, 0x01, 0x01, 0x01, 0x02, 0x00, 0x00,
+    0x07, 0x24, 0x01, 0x03, 0x01, 0x01, 0x00,
+    0x0B, 0x24, 0x02, 0x01, 0x01, 0x02, 0x10, 0x01, 0x80, 0x3E, 0x00,
+//    0x09, 0x05, 0x85, 0x05, 0x20, 0x00, 0x01, 0x00, 0x00,
+    0x09, 0x05, 0x85, 0x05, 0x40, 0x00, 0x01, 0x00, 0x00,    
+    0x07, 0x25, 0x01, 0x01, 0x00, 0x00, 0x00
+}
+
+};
+#if defined (__GNUC__)
 static UINT32 UAVC_QualifierDescriptor[3] __attribute__((aligned(4))) = 
 #else
 __align(4) static UINT32 UAVC_QualifierDescriptor[3] = 
@@ -1416,6 +2345,21 @@ VOID UAVC_DMACompletion(void)
 			return;
 		}
 	}	
+	if(g_u32transferSize != 0)
+	{
+    if(g_u32transferSize >= DMA_MAX_LEN)
+		{
+	      	g_u32transferSize -= DMA_MAX_LEN;
+		     	uavcdSDRAM_USB_Transfer(EP_A, g_u32DMAaddr , DMA_MAX_LEN);   
+				  g_u32DMAaddr += DMA_MAX_LEN;
+    }
+    else
+		{
+		     	uavcdSDRAM_USB_Transfer(EP_A, g_u32DMAaddr , g_u32transferSize); 
+	      	g_u32transferSize = 0;
+		}
+		return;
+	}
 	
 	outpw(HEAD_WORD0,((g_u8UVC_PD | UVC_PH_EndOfFrame | (g_u8UVC_FID &0x01)) <<8) | 0x02);//End Of Frame 				
 	outpw(EPA_HEAD_CNT,0x02);  		
@@ -1498,14 +2442,34 @@ VOID UAVC_ClassDataIN(void)
 				}								      
 				    switch(uvcInfo.VSCmdCtlData.bFrameIndex)
 				    {
-				    	case UVC_QQVGA://160*120(5)
-				    		uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QQVGA;
+				    		if ( g_u32SetResolution == VGA_RESOLUTION)
+						{
+				    			uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QQVGA;
+				    		}
+				    		else
+				    		{	
+				    			uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QQHD;
+				    		}				    		
 				    		break;
 				    	case UVC_QVGA://320*240(3)
-					    	uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QVGA;
+				    		if ( g_u32SetResolution == VGA_RESOLUTION)
+						{
+					    		uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QVGA;
+					    	}
+					    	else
+					    	{	
+					    		uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QHD;					    	
+					    	}
 					    	break;
 					    case UVC_VGA://640*480(1)
-					    	uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_VGA;
+					    	if ( g_u32SetResolution == VGA_RESOLUTION)
+						{
+					    		uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_VGA;
+					    	}
+					    	else
+					    	{
+					    		uvcInfo.VSCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_HD;					    	
+					    	}
 					    	break;
 				   	}
 				    				      //************Depend on the specificed frame*****************//  			    							    
@@ -1537,13 +2501,34 @@ VOID UAVC_ClassDataIN(void)
 			    switch(uvcInfo.VSStillCmdCtlData.bFrameIndex)
 			    {
 			    	case UVC_STILL_QQVGA://160*120(7)
-			    		uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QQVGA;
+			    		if ( g_u32SetResolution == VGA_RESOLUTION)
+					{
+			    			uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QQVGA;
+			    		}
+			    		else
+			    		{
+			    			uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QQHD;			    		
+			    		}
 			    		break;
 			    	case UVC_STILL_QVGA://320*240(5)
-				    	uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QVGA;
+			    		if ( g_u32SetResolution == VGA_RESOLUTION)
+					{
+				    		uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QVGA;
+				    	}
+				    	else
+				    	{
+				    		uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_QHD;				    
+				    	}
 				    	break;
-				    case UVC_STILL_VGA://640*480(3)
-				    	uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_VGA;
+				case UVC_STILL_VGA://640*480(3)
+					if ( g_u32SetResolution == VGA_RESOLUTION)
+					{
+				    		uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_VGA;
+				    	}
+				    	else
+				    	{	
+				    		uvcInfo.VSStillCmdCtlData.dwMaxVideoFrameSize = UVC_SIZE_HD;				    	
+				    	}
 				    	break;	    
 			   	}	
 			   	
@@ -1859,10 +2844,19 @@ VOID uavcdInit(PFN_UVCD_PUCONTROL_CALLBACK* callback_func,PFN_UAVCD_ISOINT_CALLB
 {
 	sysprintf("N3290 UAVC Library (%s)\n",DATA_CODE);
 	usbdInfo.u32UVC = 1;
-	usbdInfo.pu32DevDescriptor = (PUINT32) &UAVC_DeviceDescriptor;
-	usbdInfo.pu32QulDescriptor = (PUINT32) &UAVC_QualifierDescriptor;
-	usbdInfo.pu32HSConfDescriptor = (PUINT32) &UAVC_ConfigurationBlock;
-	usbdInfo.pu32FSConfDescriptor = (PUINT32) &UAVC_ConfigurationBlock_FS;
+	if ( g_u32SetResolution == VGA_RESOLUTION)
+	{
+		usbdInfo.pu32DevDescriptor = (PUINT32) &UAVC_DeviceDescriptor;
+		usbdInfo.pu32HSConfDescriptor = (PUINT32) &UAVC_ConfigurationBlock;
+		usbdInfo.pu32FSConfDescriptor = (PUINT32) &UAVC_ConfigurationBlock_FS;		
+	}
+	else if ( g_u32SetResolution == HD_RESOLUTION)
+	{
+		usbdInfo.pu32DevDescriptor = (PUINT32) &UAVC_DeviceDescriptor_HD;
+		usbdInfo.pu32HSConfDescriptor = (PUINT32) &UAVC_ConfigurationBlock_HD;
+		usbdInfo.pu32FSConfDescriptor = (PUINT32) &UAVC_ConfigurationBlock_FS_HD;			
+	}	
+	usbdInfo.pu32QulDescriptor = (PUINT32) &UAVC_QualifierDescriptor;	
 	usbdInfo.pu32HOSConfDescriptor = (PUINT32) &UAVC_HOSConfigurationBlock;	
 			
 	usbdInfo.pu32StringDescriptor[0] = (PUINT32) &UAVC_StringDescriptor0;
@@ -2048,7 +3042,20 @@ BOOL uavcdSendImage(UINT32 u32Addr, UINT32 u32transferSize, BOOL bStillImage)
 			outpw(HEAD_WORD0,((g_u8UVC_PD | (g_u8UVC_FID &0x01)) <<8)| 0x02);   			
 			outpw(EPA_HEAD_CNT,0x02);      
 			
-		    uavcdSDRAM_USB_Transfer(EP_A, u32Addr , u32transferSize);
+			g_u32transferSize =  u32transferSize;
+            g_u32DMAaddr = u32Addr;
+			if(g_u32transferSize >= DMA_MAX_LEN)
+			{
+		     	g_u32transferSize = g_u32transferSize - DMA_MAX_LEN;
+				g_u32DMAaddr += DMA_MAX_LEN;
+	            uavcdSDRAM_USB_Transfer(EP_A, u32Addr , DMA_MAX_LEN);     			
+			}
+			else
+			{
+
+				uavcdSDRAM_USB_Transfer(EP_A, u32Addr , u32transferSize);   
+		     	g_u32transferSize = 0;
+			}
 	    
 			return TRUE;
 		}
@@ -2067,3 +3074,12 @@ BOOL uavcdSendImage(UINT32 u32Addr, UINT32 u32transferSize, BOOL bStillImage)
 	return FALSE;
 }
 
+int uavcdSetResolution(UINT32 u32SetValue)
+{
+	if ( u32SetValue == VGA_RESOLUTION || u32SetValue == HD_RESOLUTION )
+	{
+		g_u32SetResolution = u32SetValue;
+		return 0;
+	}
+	return -1;
+}

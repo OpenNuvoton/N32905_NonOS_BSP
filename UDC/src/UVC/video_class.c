@@ -15,7 +15,7 @@
 #include "videoclass.h"
 
 #define HSHB_MODE
-#define DATA_CODE	"20181011"
+#define DATA_CODE	"20200915"
 
 #define USB_VID		0x0416		/* Vendor ID */ 
 #define USB_PID		0x9393		/* Product ID */
@@ -27,11 +27,13 @@
 	#define	MAX_PACKET_SIZE_HS     	0x3E8
 	#define	HSHB					0x0
 #endif	
-
+VOID uvcdSDRAM_USB_Transfer(UINT8 epname,UINT32 DRAM_Addr ,UINT32 Tran_Size);
 #define     MAX_PACKET_SIZE_FS     0x3E8
 
 volatile int max_packet_size = MAX_PACKET_SIZE_HS;
     
+volatile int i = 0;
+#define DMA_MAX_LEN 0xFFFF0
 /* length of descriptors */
 #define UVC_DEVICE_DSCPT_LEN		0x12
 #define UVC_CONFIG_DSCPT_LEN		0x20C
@@ -54,7 +56,7 @@ extern volatile USBD_INFO_T usbdInfo;
 
 volatile UINT8 g_u8UVC_FID = 0;
 volatile UINT8 g_u8UVC_PD = 0;
-
+UINT32 volatile g_u32transferSize = 0, g_u32DMAaddr	= 0;
 
 /* Processing Unit Control Selectors */
 #if defined (__GNUC__)
@@ -1288,6 +1290,21 @@ VOID UVC_DMACompletion(void)
 			return;
 		}
 	}	
+	if(g_u32transferSize != 0)
+	{
+    if(g_u32transferSize >= DMA_MAX_LEN)
+		{
+	      	g_u32transferSize -= DMA_MAX_LEN;
+		     	uvcdSDRAM_USB_Transfer(EP_A, g_u32DMAaddr , DMA_MAX_LEN);   
+				  g_u32DMAaddr += DMA_MAX_LEN;
+    }
+    else
+		{
+		     	uvcdSDRAM_USB_Transfer(EP_A, g_u32DMAaddr , g_u32transferSize); 
+	      	g_u32transferSize = 0;
+		}
+		return;
+	}
 	
 	outpw(HEAD_WORD0,((g_u8UVC_PD | UVC_PH_EndOfFrame | (g_u8UVC_FID &0x01)) <<8) | 0x02);//End Of Frame 				
 	outpw(EPA_HEAD_CNT,0x02);  		
@@ -1825,7 +1842,20 @@ BOOL uvcdSendImage(UINT32 u32Addr, UINT32 u32transferSize, BOOL bStillImage)
 			outpw(HEAD_WORD0,((g_u8UVC_PD | (g_u8UVC_FID &0x01)) <<8)| 0x02);   			
 			outpw(EPA_HEAD_CNT,0x02);      
 			
-		    uvcdSDRAM_USB_Transfer(EP_A, u32Addr , u32transferSize);
+			g_u32transferSize =  u32transferSize;
+      g_u32DMAaddr = u32Addr;
+			if(g_u32transferSize >= DMA_MAX_LEN)
+			{
+		     	g_u32transferSize = g_u32transferSize - DMA_MAX_LEN;
+				g_u32DMAaddr += DMA_MAX_LEN;
+	        uvcdSDRAM_USB_Transfer(EP_A, u32Addr , DMA_MAX_LEN);     			
+			}
+			else
+			{
+
+				uvcdSDRAM_USB_Transfer(EP_A, u32Addr , u32transferSize);   
+		     	g_u32transferSize = 0;
+			}
 	    
 			return TRUE;
 		}

@@ -837,6 +837,9 @@ typedef struct{
 #define UVC_SIZE_QVGA		0x00025800	/* 320*240 */
 #define UVC_SIZE_QQVGA		0x00009600	/* 160*120 */
 
+#define UVC_SIZE_HD			0x001C2000	/* 1280*720 */
+#define UVC_SIZE_QHD		0x00070800	/* 640*360 */
+#define UVC_SIZE_QQHD		0x0001C200	/* 320*180 */
 /* Preview and Snapshot Format Index */	  	
 #define UVC_Format_YUY2		1
 #define UVC_Foramt_MJPEG	2
@@ -855,6 +858,7 @@ BOOL uavcdSendImage(UINT32 u32Addr, UINT32 u32transferSize, BOOL bStillImage);
 BOOL uavcdIsReady(void);
 BOOL uavcdSendAudio(UINT32 u32Addr, UINT32 u32transferSize, BOOL bStillImage);
 BOOL uacdIsReady(void);
+int uavcdSetResolution(UINT32 u32SetValue);
 
 /* Feature Unit Control Selectors for Audio*/
 #define FU_MUTE_MIN					0
@@ -864,3 +868,7 @@ BOOL uacdIsReady(void);
 #define	FU_VOLUME_RES				1			
 #define FU_VOLUME_DEF				2
 #define FU_VOLUME_CUR				0x1000
+
+/* definition of resolution */
+#define VGA_RESOLUTION				0
+#define HD_RESOLUTION 				1
