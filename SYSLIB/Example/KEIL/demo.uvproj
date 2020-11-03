@@ -10,7 +10,8 @@
       <TargetName>N32905_SYS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>TMPA900CMXBG</Device>
@@ -362,6 +363,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -478,6 +480,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
+            <File>
+              <FileName>demo_DualUart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_DualUart.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -486,7 +493,8 @@
       <TargetName>N32903_SYS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>TMPA900CMXBG</Device>
@@ -838,6 +846,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -954,6 +963,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
             </File>
+            <File>
+              <FileName>demo_DualUart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_DualUart.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -962,7 +976,8 @@
       <TargetName>N32901_SYS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060528::V5.06 update 5 (build 528)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>TMPA900CMXBG</Device>
@@ -1314,6 +1329,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -1429,6 +1445,11 @@
               <FileName>w55fa93_gpio.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\gpio\lib\w55fa93_gpio.lib</FilePath>
+            </File>
+            <File>
+              <FileName>demo_DualUart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\demo_DualUart.c</FilePath>
             </File>
           </Files>
         </Group>
