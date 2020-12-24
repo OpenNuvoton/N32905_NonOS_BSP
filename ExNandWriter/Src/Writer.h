@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #define	MAJOR_VERSION_NUM	1
-#define	MINOR_VERSION_NUM	1
+#define	MINOR_VERSION_NUM	2
 
 // 2011/10/27 by CJChen1@nuvoton.com, 0 to set NAND target to CS0, 1 to set NAND target to CS1
 #define TARGET_Chip_Select  1
