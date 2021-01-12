@@ -141,6 +141,7 @@ int ProcessINI(char *fileName)
 	Ini_Writer.SoundPlay = 0;
 	Ini_Writer.SoundPlayVolume = 0x1F;
 	Ini_Writer.SoundPlayStart.FileName[0] = 0;
+	Ini_Writer.BootCodeHeaderSelect = 0;
 	Ini_Writer.SoundPlayFail.FileName[0] = 0;
 	Ini_Writer.SoundPlayPass.FileName[0] = 0;
 	for(i=0;i<22;i++)
@@ -301,6 +302,49 @@ NextMark2:
                 }
             } while (1);
         }  
+        
+        else if (strcmp(Cmd, "[Boot Code Header Selection]") == 0)
+        {
+            do {
+                status = readLine(FileHandle, Cmd);
+                if (status < 0)
+                    break;          // use default value since error code from NVTFAT. Coulde be end of file.
+                else if (Cmd[0] == 0)
+                    continue;       // skip empty line
+                else if ((Cmd[0] == '/') && (Cmd[1] == '/'))
+                    continue;       // skip comment line
+                else if (Cmd[0] == '[')
+                    goto NextMark2; // use default value since no assign value before next keyword
+                else
+                {
+                    sysprintf("\n*********************************************\n");
+                    Ini_Writer.BootCodeHeaderSelect = atoi(Cmd);
+                    if(Ini_Writer.BootCodeHeaderSelect == IBR_THISCHIP)
+                    {
+                        if(inp8(0xFFFF3EDC) == 0x32 || inp8(0xFFFF3EDC) == 0x44)  /* F/G/H */
+                        {
+                            Ini_Writer.BootCodeHeaderSelect = IBR_NEW;
+                            sysprintf("*** Target : N3290x version F ~ H         ***\n");
+                        } 
+                        else
+                        {
+                            Ini_Writer.BootCodeHeaderSelect = IBR_OLD;
+                            sysprintf("*** Target : N3290x version A ~ E         ***\n");
+                        }
+                    }
+                    else if(Ini_Writer.BootCodeHeaderSelect == IBR_OLD)
+                        sysprintf("*** Target : N3290x version A ~ E         ***\n");
+                    else if(Ini_Writer.BootCodeHeaderSelect == IBR_NEW)
+                        sysprintf("*** Target : N3290x version F ~ H         ***\n");
+                    else if(Ini_Writer.BootCodeHeaderSelect == IBR_NEW_X3DN)
+                        sysprintf("*** Forced Target as N32905U3DN version H ***\n");
+                    sysprintf("*********************************************\n\n");
+                    break;
+                }
+                
+            } while (1);
+        }         
+        
         else if (strcmp(Cmd, "[Sound Play]") == 0)
         {
             do {

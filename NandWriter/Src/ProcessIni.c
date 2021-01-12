@@ -114,6 +114,7 @@ int ProcessINI(char *fileName)
     Ini_Writer.NandLoader[0] = 0;
     Ini_Writer.Logo[0] = 0;
     Ini_Writer.NVTLoader[0] = 0;
+    Ini_Writer.BootCodeHeaderSelect = 0;
     Ini_Writer.SystemReservedMegaByte = 4;
     Ini_Writer.NAND1_1_SIZE = 16;
     Ini_Writer.NAND1_1_FAT = FAT_MODE_FILE;
@@ -209,6 +210,52 @@ NextMark2:
             } while (1);
         }
 
+        else if (strcmp(Cmd, "[Boot Code Header Selection]") == 0)
+        {
+            do {
+                status = readLine(FileHandle, Cmd);
+                if (status < 0)
+                    break;          // use default value since error code from NVTFAT. Coulde be end of file.
+                else if (Cmd[0] == 0)
+                    continue;       // skip empty line
+                else if ((Cmd[0] == '/') && (Cmd[1] == '/'))
+                    continue;       // skip comment line
+                else if (Cmd[0] == '[')
+                    goto NextMark2; // use default value since no assign value before next keyword
+                else
+                {
+                    sysprintf("\n*********************************************\n");
+                    Ini_Writer.BootCodeHeaderSelect = atoi(Cmd);
+                    if(Ini_Writer.BootCodeHeaderSelect == IBR_THISCHIP)
+                    {
+                        if((inp8(0xFFFF3EDC) == 0x32) || (inp8(0xFFFF3EDC) == 0x44))  /* F/G/H */
+                        {
+                            Ini_Writer.BootCodeHeaderSelect = IBR_NEW;
+                            //sysprintf("This Chip used latest version IBR -> Support User-Define Setting in Boot Code Header\n");
+                            sysprintf("*** Target : N3290x version F ~ H         ***\n");
+                        }
+                        else
+                        {
+                            Ini_Writer.BootCodeHeaderSelect = IBR_OLD;
+                            //sysprintf("This Chip used old version IBR -> Not Support User-Define Setting in Boot Code Header\n");
+                            sysprintf("*** Target : N3290x version A ~ E         ***\n");
+                        }
+                    }
+                    else if(Ini_Writer.BootCodeHeaderSelect == IBR_OLD)
+                        //sysprintf("Target Chip used old version IBR -> Not Support User-Define Setting in Boot Code Header\n");
+                        sysprintf("*** Target : N3290x version A ~ E         ***\n");
+                    else if(Ini_Writer.BootCodeHeaderSelect == IBR_NEW)
+                        //sysprintf("Target Chip used latest version IBR -> Support User-Define Setting in Boot Code Header\n");
+                        sysprintf("*** Target : N3290x version F ~ H         ***\n");
+                    else if(Ini_Writer.BootCodeHeaderSelect == IBR_NEW_X3DN)
+                        //sysprintf("Target Chip used latest version IBR -> Support User-Define Setting in Boot Code Header (X3DN)\n");
+                        sysprintf("*** Forced Target as N32905U3DN version H ***\n");
+                    sysprintf("*********************************************\n\n");
+                    break;
+                }
+            } while (1);
+        }
+
         else if (strcmp(Cmd, "[System Reserved MegaB]") == 0)
         {
             do {
@@ -295,6 +342,7 @@ NextMark2:
     dbgprintf("  NnandLoader = %s\n",Ini_Writer.NandLoader);
     dbgprintf("  Logo = %s\n",Ini_Writer.Logo);
     dbgprintf("  NvtLoader = %s\n",Ini_Writer.NVTLoader);
+    dbgprintf("  Boot Code Header Selection = %d\n",Ini_Writer.BootCodeHeaderSelect);
     dbgprintf("  SystemReservedMegaByte = %d\n",Ini_Writer.SystemReservedMegaByte);
     dbgprintf("  NAND1_1_SIZE = %d\n",Ini_Writer.NAND1_1_SIZE);
     dbgprintf("  NAND1_1_FAT = %d\n",Ini_Writer.NAND1_1_FAT);

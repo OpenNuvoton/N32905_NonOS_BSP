@@ -25,9 +25,6 @@
 
 //--- 2014/11/19, new version IBR that support User-Define Setting in Boot Code Header
 #ifdef UPDATE_BOOT_CODE_OPTIONAL_SETTING
-    #define IBR_NEW     1
-    #define IBR_OLD     0
-    INT32 Chip_flag = IBR_OLD;
     IBR_BOOT_STRUCT_T_NEW BootCodeMark_new;
 #endif
 
@@ -683,18 +680,6 @@ int main()
 
     sysprintf("\n=====> W55FA93 NandWriter (v%d.%d) Begin [%d] <=====\n", MAJOR_VERSION_NUM, MINOR_VERSION_NUM, sysGetTicks(0));
 
-    //--- 2014/11/19, check out IBR version
-    if(inp8(0xFFFF3EDC) == 0x032)
-    {
-        Chip_flag = IBR_NEW;
-        sysprintf("The Chip used latest version IBR -> Support User-Define Setting in Boot Code Header\n");     
-    } 
-    else
-    {
-        Chip_flag = IBR_OLD;
-        sysprintf("The Chip used old version IBR -> Not Support User-Define Setting in Boot Code Header\n");    
-    }
-
     ltime.year = 2011;
     ltime.mon  = 10;
     ltime.day  = 31;
@@ -739,17 +724,21 @@ int main()
     font_y += Next_Font_Height;
 
 #ifdef UPDATE_BOOT_CODE_OPTIONAL_SETTING
-    if (Chip_flag == IBR_NEW)
+    if (Ini_Writer.BootCodeHeaderSelect != IBR_OLD)
     {
         // Get the Boot Code Optional Setting from INI file (TurboWriter.ini) to optional_ini_file
-        status = ProcessOptionalINI("X:\\TurboWriter.ini");
+        if (Ini_Writer.BootCodeHeaderSelect == IBR_NEW)
+            status = ProcessOptionalINI("X:\\TurboWriter.ini");
+        else    // for BootCodeHeaderSelect == IBR_NEW_X3DN
+            status = ProcessOptionalINI("X:\\TurboWriter_X3DN.ini");
+
         if (status < 0)
         {
             sysprintf("===> 1.2 (Wrong TurboWriter INI file)\n");
             bIsAbort = TRUE;
             goto _end_;
         }
-    
+
         if (optional_ini_file.Counter == 0)
             optional_ini_size = 0;
         else
@@ -858,14 +847,14 @@ int main()
     gCurBlock = 0;
 
     // initial Boot Code Mark for NandLoader
-    if (Chip_flag == IBR_NEW)
+    if (Ini_Writer.BootCodeHeaderSelect != IBR_OLD)
     {
         BootCodeMark_new.BootCodeMarker = 0x57425AA5;
         BootCodeMark_new.ExeAddr = 0x900000;
         BootCodeMark_new.ImageSize = FWInfo[FileInfoIdx].fileLen;
         BootCodeMark_new.Reserved = 0x0000000;
 
-        //--- The gNandLoaderSize MUST include 32 bytes for Boot Code Marker Header 
+        //--- The gNandLoaderSize MUST include 32 bytes for Boot Code Marker Header
         //    and User Defined Option size.
         gNandLoaderSize += (32 + optional_ini_size);
     }
@@ -903,7 +892,7 @@ int main()
             {   //Write 1st Page with NAND Marker
 #ifdef UPDATE_BOOT_CODE_OPTIONAL_SETTING
                 // write 1st sector with Boot Code Mark and optional header for SD
-                if (Chip_flag == IBR_NEW)
+                if (Ini_Writer.BootCodeHeaderSelect != IBR_OLD)
                 {
                     memcpy((UINT8 *)StorageBuffer, (UINT8 *)&BootCodeMark_new, sizeof(IBR_BOOT_STRUCT_T_NEW));
                     memcpy((UINT8 *)(StorageBuffer+sizeof(IBR_BOOT_STRUCT_T_NEW)), (UINT8 *)&optional_ini_file, optional_ini_size);
@@ -956,7 +945,7 @@ int main()
             {
 #ifdef UPDATE_BOOT_CODE_OPTIONAL_SETTING
                 // verify 1st sector with Boot Code Mark and optional header for SD
-                if (Chip_flag == IBR_NEW)
+                if (Ini_Writer.BootCodeHeaderSelect != IBR_OLD)
                 {
                     memcpy((UINT8 *)StorageBuffer, (UINT8 *)&BootCodeMark_new, sizeof(IBR_BOOT_STRUCT_T_NEW));
                     memcpy((UINT8 *)(StorageBuffer+sizeof(IBR_BOOT_STRUCT_T_NEW)), (UINT8 *)&optional_ini_file, optional_ini_size);

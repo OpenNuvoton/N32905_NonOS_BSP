@@ -36,9 +36,6 @@ UINT32 u32SkipX;
 UINT32 volatile SPI_BLOCK_SIZE =64*1024;
 UINT32 volatile IMAGE_LIST_SIZE  = 1024;
 
-#define IBR_NEW	1
-#define IBR_OLD	0
-
 #define LOADER_ADDR		0x0900000
 #define LOGO_ADDR		0x0500000
 #define EXECUTE_ADDR	0x0800000
@@ -73,7 +70,6 @@ UINT8 *pInfo;
 CHAR suNvtFullName[2048], suNvtTargetFullName[2048];
 static INT hNvtFile = -1;
 INT32 gCurBlock=0;
-INT32 Chip_flag = 0;
 FW_UPDATE_INFO_T FWInfo[21];
 BOOL volatile bIsAbort = FALSE;
 IBR_BOOT_STRUCT_T BootCodeMark;
@@ -173,17 +169,6 @@ int main()
 
 	sysprintf("=====> W55FA93 SpiWriter (v%d.%d) Begin [%d] <=====\n", MAJOR_VERSION_NUM, MINOR_VERSION_NUM, sysGetTicks(0));
 
-	if(inp8(0xFFFF3EDC) == 0x032)
-	{
-		Chip_flag = IBR_NEW;
-		sysprintf("The Chip used latest version IBR -> Support User-Define Setting in Boot Code Header\n");		
-	} 
-	else
-	{
-		Chip_flag = IBR_OLD;
-		sysprintf("The Chip used old version IBR -> Not Support User-Define Setting in Boot Code Header\n");	
-	}
-
 	ltime.year = 2013;
 	ltime.mon  = 8;
 	ltime.day  = 29;
@@ -257,10 +242,13 @@ int main()
     font_y += Next_Font_Height;
 #endif    
 
-	if(	Chip_flag == IBR_NEW)
+	if(	Ini_Writer.BootCodeHeaderSelect != IBR_OLD)
 	{
 	    // Get the Boot Code Optional Setting from INI file (TurboWriter.ini) to optional_ini_file
-	    status = ProcessOptionalINI("C:\\TurboWriter.ini");
+	    if(	Ini_Writer.BootCodeHeaderSelect == IBR_NEW)
+    	    status = ProcessOptionalINI("C:\\TurboWriter.ini");
+    	else	    
+    	    status = ProcessOptionalINI("C:\\TurboWriter_X3DN.ini");
 	    
 	    if (status >= 0)
 	    {
@@ -645,8 +633,7 @@ _SoundOpenEnd01_:
     gSpiLoaderSize = FWInfo[FileInfoIdx].fileLen;
     memcpy(&FWInfo[FileInfoIdx].imageName[0], Ini_Writer.SpiLoader.FileName, 32);
 
-
-	if(	Chip_flag == IBR_NEW)
+	if(	Ini_Writer.BootCodeHeaderSelect != IBR_OLD)
 	{
 
 	    /* image information */

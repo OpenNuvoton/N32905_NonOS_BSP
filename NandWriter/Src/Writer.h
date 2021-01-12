@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #define MAJOR_VERSION_NUM   1
-#define MINOR_VERSION_NUM   11
+#define MINOR_VERSION_NUM   12
 
 extern UINT g_Font_Height, g_Font_Width, g_Font_Step;
 
@@ -61,12 +61,18 @@ typedef struct INI_Info {
     char NandLoader[512];
     char Logo[512];
     char NVTLoader[512];
+    int  BootCodeHeaderSelect;
     int  SystemReservedMegaByte;
     int  NAND1_1_SIZE;
     int  NAND1_1_FAT;
     int  NAND1_2_FAT;
 } INI_INFO_T;
 
+// Macro definition for BootCodeHeaderSelect
+#define IBR_THISCHIP    0
+#define IBR_OLD         1
+#define IBR_NEW         2
+#define IBR_NEW_X3DN    3
 
 //----- Boot Code Optional Setting
 typedef struct IBR_boot_optional_pairs_struct_t

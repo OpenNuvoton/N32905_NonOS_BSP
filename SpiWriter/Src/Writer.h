@@ -6,7 +6,7 @@
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 #define	MAJOR_VERSION_NUM	1
-#define	MINOR_VERSION_NUM	4
+#define	MINOR_VERSION_NUM	5
 
 //#define __DEBUG__
 
@@ -101,11 +101,17 @@ typedef struct INI_Info {
 	INI_USER_IMAGE_T SoundPlayFail;	
 	INI_USER_IMAGE_T SoundPlayPass;
 	int RootKey;
+	INT BootCodeHeaderSelect;
 } INI_INFO_T;
 #define SPIFLASH_WINBOND		0xEF
 #define SPIFLASH_SST			0xBF
 #define SPIFLASH_MXIC			0xC2
 #define SPIFLASH_GIGADEVICE		0xC8
+
+#define IBR_THISCHIP    0
+#define IBR_OLD   	    1
+#define IBR_NEW      	2
+#define IBR_NEW_X3DN	3
 
 /* extern parameters */
 extern UINT32 infoBuf;
