@@ -528,7 +528,7 @@ UINT32 adc_normalread(UINT32 u32Channel, PUINT16 pu16Data)
 		return E_DRVADC_INVALID_TIMING;
 	
 	adc_disableInt(eADC_WT_INT);	
-	adc_setTouchScreen(eADC_TSCREEN_AUTO,			//E_DRVADC_TSC_MODE eTscMode,
+	adc_setTouchScreen(eADC_TSCREEN_NORMAL,			//E_DRVADC_TSC_MODE eTscMode,
 								0x150,
 								TRUE,					//BOOL bIsPullup,
 								TRUE);
