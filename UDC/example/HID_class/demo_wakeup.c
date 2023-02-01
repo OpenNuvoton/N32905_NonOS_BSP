@@ -24,7 +24,6 @@ __align(32) UINT8 u32Array[1024*1024];
 
 void Demo_PowerDownWakeUp(void)
 {
-	/* 					*/
 	PUINT8 pu8Buf, pu8Tmp;	
 	UINT32 u32Idx;
 	pu8Buf = u32Array;
@@ -59,7 +58,6 @@ void Demo_PowerDownWakeUp(void)
 	outp32(PHY_CTL, 0x0);
 	sysprintf("Disable USB phy\n");
 	outp32(REG_AHBCLK, inp32(REG_AHBCLK) & ~USBD_CKE);
-
 #endif	
 
 	outp32(REG_AHBCLK, inp32(REG_AHBCLK) | VPOST_CKE);				//TV DAC
@@ -73,14 +71,12 @@ void Demo_PowerDownWakeUp(void)
 	outpw(REG_GPEFUN, inpw(REG_GPEFUN)& ~0x0000FFF0 );	// SD0_CLK/CMD/DAT0_3 pins selected
 	outpw(REG_GPAFUN, inpw(REG_GPAFUN) & ~MF_GPA0);	
 
-	
 	outp32(REG_GPAFUN, (MF_GPA11 | MF_GPA10));
 	outp32(REG_GPBFUN, 0x0);
 	outp32(REG_GPCFUN, 0x0);
 	outp32(REG_GPDFUN, (MF_GPD4 | MF_GPD3| MF_GPD2 | MF_GPD1 | MF_GPD0));
 	outp32(REG_GPEFUN, 0x0);
 
-	
 #ifdef POWERDOWN_PLL
 	sysPowerDownPLLDuringSysPowerDown(1);		/* Power down PLL as system power down, the wake-up time about 25ms */
 #else
@@ -98,7 +94,7 @@ void Demo_PowerDownWakeUp(void)
 	{
 		if( *pu8Tmp !=  (UINT8)((u32Idx>>8) + u32Idx))
 		{
-			sysprintf("!!!!!!!!!!!!!!!Data is noconsisient after power down\n");
+            sysprintf("!!!!!!!!!!!!!!!Data is non-consistent after power down\n");
 			sysprintf("0x%x, 0x%x, 0x%x)\n",u32Idx, *pu8Tmp, (UINT8)((u32Idx>>8) + u32Idx) );
 			return;
 		}	
@@ -106,9 +102,3 @@ void Demo_PowerDownWakeUp(void)
 	}
 	sysprintf("Data is consisient\n");
 }
-
-
-
-
-
-

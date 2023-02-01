@@ -36,8 +36,8 @@
 #define USB_DT_OSCONFIG			0x07
 #define USB_DT_IFPOWER			0x08
 
-#define USB_DT_HID 				0x21
-#define USB_DT_HID_RPT 			0x22
+#define USBD_DT_HID            0x21
+#define USBD_DT_HID_RPT        0x22
 
 #define EP_INPUT	0x80
 #define EP_OUTPUT	0x00
@@ -71,7 +71,6 @@
 #define IRQ_NCEP			0xfc   
 
 //Definition of Bits in USB_IRQ_STS register
-
 #define USB_SOF			0x01	
 #define USB_RST_STS		0x02
 #define	USB_RESUME		0x04
@@ -80,13 +79,13 @@
 #define	USB_DMA_REQ		0x20
 #define USABLE_CLK		0x40
 #define USB_VBUS		0x100
+
 //Definition of Bits in USB_OPER register
 #define USB_GEN_RES     0x1
 #define USB_HS		    0x2
 #define USB_CUR_SPD_HS  0x4
 
 //Definition of Bits in CEP_IRQ_STS register
-
 #define CEP_SUPTOK	 	0x0001
 #define CEP_SUPPKT		0x0002
 #define CEP_OUT_TOK		0x0004
@@ -102,11 +101,10 @@
 #define CEP_BUFF_EMPTY	0x1000
 
 //Definition of Bits in CEP_CTRL_STS register
-#define CEP_NAK_CLEAR		0x00  //writing zero clears the nak bit
+#define CEP_NAK_CLEAR          0x00
 #define CEP_SEND_STALL		0x02
 
 //Definition of Bits in EP_IRQ_STS register
-
 #define EP_BUFF_FULL	0x001
 #define EP_BUFF_EMPTY	0x002
 #define EP_SHORT_PKT	0x004
@@ -125,7 +123,7 @@
 #define EP_MODE_AUTO	0x01
 #define EP_MODE_MAN 	0x02
 #define EP_MODE_FLY		0x03
-#define EP_TOGGLE		0x8
+#define EP_TOGGLE              0x08
 #define EP_HALT			0x10
 #define EP_ZERO_IN      0x20
 #define EP_PKT_END      0x40
@@ -168,8 +166,8 @@ __packed  typedef struct{
 	PUINT32 pu32HOSConfDescriptor;
 	PUINT32 pu32FOSConfDescriptor;	
 	PUINT32 pu32HIDDescriptor;
-	PUINT32 pu32HIDRPTDescriptor;		
-	PUINT32 pu32StringDescriptor[5];
+	PUINT32 pu32HIDRPTDescriptor[8];		
+	PUINT32 pu32StringDescriptor[8];
 	
 	/* Descriptor length */
 	UINT32	u32DevDescriptorLen;	
@@ -179,8 +177,8 @@ __packed  typedef struct{
 	UINT32	u32HOSConfDescriptorLen;	
 	UINT32	u32FOSConfDescriptorLen;	
 	UINT32	u32HIDDescriptorLen;	
-	UINT32	u32HIDRPTDescriptorLen;		
-	UINT32 	u32StringDescriptorLen[5];
+	UINT32	u32HIDRPTDescriptorLen[8];		
+	UINT32 	u32StringDescriptorLen[8];
 
 	/* USBD Init */
 	PFN_USBD_CALLBACK pfnHighSpeedInit;

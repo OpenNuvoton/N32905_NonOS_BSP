@@ -291,19 +291,14 @@ void hidClassOUT(void)
 {	
 	if(_usb_cmd_pkt.bRequest == HID_SET_IDLE)
 	{
-		outp32(CEP_CTRL_STAT, ZEROLEN);		
-	    sysprintf("Set IDLE\n");
-        outp32(CEP_IRQ_STAT, CEP_STACOM_IS);
-	}
+//        sysprintf("Set IDLE\n");
+    }
 	else if(_usb_cmd_pkt.bRequest == HID_SET_REPORT)
 	{
-	
-		u32Ready = 1;
-		sysprintf("SET_REPORT 0x%X\n",inp8(CEP_DATA_BUF));
-	}
-} 	
-
-
+        u32Ready = 1;
+        sysprintf("SET_REPORT 0x%X\n",inp8(CEP_DATA_BUF));
+    }
+}
 
 #ifdef HID_MOUSE
 UINT8 volatile g_u8EPAReady = 0;
@@ -318,10 +313,9 @@ void HID_UpdateMouseData(void)
 signed char buf[4];
     UINT32 u32KpiReport = 0x0;
     
-	 if (g_u8EPAReady) {       
-	
-		u32KpiReport = kpi_read(KPI_NONBLOCK);
-		
+    if (g_u8EPAReady)
+    {
+        u32KpiReport = kpi_read(KPI_NONBLOCK);
 		u32KpiReport &= MASK_KEY;
 		if(u32KpiReport != 0)
 	    {
@@ -336,19 +330,19 @@ signed char buf[4];
 			    	buf[0] = 0;
 			    	buf[1] = 0;
 			    	buf[2] = 5;
-	    			break;	    			
-				case LEFT_KEY:
-			    	buf[0] = 0;
-			    	buf[1] = -5;
-			    	buf[2] = 0;
-	    			break;
-				case RIGHT_KEY:
-			    	buf[0] = 0;
-			    	buf[1] = 5;
-			    	buf[2] = 0;
-	    			break;	
-	    		default:
-	    			break;		    			
+                    break;
+                case LEFT_KEY:
+                    buf[0] = 0;
+                    buf[1] = -5;
+                    buf[2] = 0;
+                    break;
+                case RIGHT_KEY:
+                    buf[0] = 0;
+                    buf[1] = 5;
+                    buf[2] = 0;
+                    break;
+                default:
+                    break;
 	    	}
 	        g_u8EPAReady = 0;
 	        
@@ -363,10 +357,13 @@ signed char buf[4];
 #else	  
     UINT8 buf[4];
 	
-    if (g_u8EPAReady) {
+    if (g_u8EPAReady) 
+    {
         mouse_mode ^= 1;
-        if (mouse_mode) {
-            if (move_len > 14) {
+        if (mouse_mode)
+        {
+            if (move_len > 14)
+            {
                 /* Update new report data */
                 buf[0] = 0x00;
                 buf[1] = mouse_table[mouse_idx & 0x07];
@@ -375,7 +372,9 @@ signed char buf[4];
                 mouse_idx++;
                 move_len = 0;
             }
-        } else {
+        }
+        else 
+        {
             buf[0] = buf[1] = buf[2] = buf[3] = 0;
         }
         move_len++;
@@ -413,15 +412,12 @@ void HID_SetInReport(void)
 #endif    
     UINT8 *buf; 
 	
-    if (u32Ready) {
-		
-		if(!(inp32(EPA_IRQ_STAT) & EMPTY_IS))
-	        return;
-	        
-	    buf = g_au8KeyboardReport;
-	        
+    if (u32Ready) 
+    {
+        if(!(inp32(EPA_IRQ_STAT) & EMPTY_IS))
+            return;
+        buf = g_au8KeyboardReport;
 #ifdef HID_KEYPAD
-
 		u32KpiReport = kpi_read(KPI_NONBLOCK);
 		
 	    if(u32KpiReport == 0) 
@@ -437,32 +433,29 @@ void HID_SetInReport(void)
 		            outp8(EPA_DATA_BUF ,buf[i]);
 	     		outp32(EPA_RSP_SC, PK_END); /* Set Packet End */
 	        }
-
-		}
-	
-	    else
-	    {
-	    
-	    	switch(u32KpiReport)
-	    	{
-	    		case UP_KEY:
-	    			buf[2] = 0x04;	// "A"
-	    			break;
-				case DOWN_KEY:
-	    			buf[2] = 0x05;	// "B"
-	    			break;	    			
-				case LEFT_KEY:
-	    			buf[2] = 0x06;	// "C"
-	    			break;	
-				case RIGHT_KEY:
-	    			buf[2] = 0x07;	// "D"
-	    			break;	    				    	
-				case ENTER_KEY:
-	    			buf[2] = 0x08;	// "E"
-	    			break;	  
-				case HOME_KEY:
-	    			buf[2] = 0x09;	// "F"
-	    			break;	      				    			
+        }
+        else
+        {
+            switch(u32KpiReport)
+            {
+                case UP_KEY:
+                    buf[2] = 0x04;    /* "A" */
+                    break;
+                case DOWN_KEY:
+                    buf[2] = 0x05;    /* "B" */
+                    break;
+                case LEFT_KEY:
+                    buf[2] = 0x06;    /* "C" */
+                    break;
+                case RIGHT_KEY:
+                    buf[2] = 0x07;    /* "D" */
+                    break;
+                case ENTER_KEY:
+                    buf[2] = 0x08;    /* "E" */
+                    break;  
+                case HOME_KEY:
+                    buf[2] = 0x09;    /* "F" */
+                    break;
 	    	}
 	   	    preKey = u32KpiReport;
 	   	   
@@ -510,14 +503,13 @@ void HID_SetInReport(void)
 	    	{
 	    		string_index = 0;
 	    	}
-		} 	    
+        }
 #endif		    
     }
 }
 
 #endif
 
-	
 /* HID Init */
 void hidInit(void)
 {
@@ -528,7 +520,6 @@ void hidInit(void)
 	usbdInfo.i32EPD_Num = -1;	/* Not use */
 	
 	/* Set Callback Function */
-	
 	/* Set MSC initialize function */
 	usbdInfo.pfnFullSpeedInit = hidFullSpeedInit;
 	usbdInfo.pfnHighSpeedInit = hidFullSpeedInit;
@@ -541,20 +532,18 @@ void hidInit(void)
 	
 	usbdInfo.pfnClassDataOUTCallBack = hidClassOUT;	
 	
-	
 #ifdef HID_MOUSE
     /* Set the HID report descriptor */
-	usbdInfo.pu32HIDRPTDescriptor =  (PUINT32) &g_HID_au8MouseReportDescriptor;
-	usbdInfo.u32HIDRPTDescriptorLen = g_HID_u32MouseReportDescriptorSize;	
-	usbdInfo.pfnEPACallBack = EPA_Handler;
-	g_u8EPAReady = 1;
-
+    usbdInfo.pu32HIDRPTDescriptor[0] =  (PUINT32) &g_HID_au8MouseReportDescriptor;
+    usbdInfo.u32HIDRPTDescriptorLen[0] = g_HID_u32MouseReportDescriptorSize;
+    usbdInfo.pfnEPACallBack = EPA_Handler;
+    g_u8EPAReady = 1;
 #endif
 
 #ifdef HID_KEYBOARD
     /* Set the HID report descriptor */
-	usbdInfo.pu32HIDRPTDescriptor = (PUINT32) &g_HID_au8KeyboardReportDescriptor;
-	usbdInfo.u32HIDRPTDescriptorLen = g_HID_u32KeyboardReportDescriptorSize;	
+    usbdInfo.pu32HIDRPTDescriptor[0] = (PUINT32) &g_HID_au8KeyboardReportDescriptor;
+    usbdInfo.u32HIDRPTDescriptorLen[0] = g_HID_u32KeyboardReportDescriptorSize;
 #endif
 
 	usbdInfo.pu32StringDescriptor[0] = (PUINT32) &HID_StringDescriptor0;

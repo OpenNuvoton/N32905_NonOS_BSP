@@ -2900,7 +2900,12 @@ VOID uavcdInit(PFN_UVCD_PUCONTROL_CALLBACK* callback_func,PFN_UAVCD_ISOINT_CALLB
 	usbdInfo.u32StringDescriptorLen[1] = UAVC_StringDescriptor1[0] = sizeof(UAVC_StringDescriptor1);
 	usbdInfo.u32StringDescriptorLen[2] = UAVC_StringDescriptor2[0] = sizeof(UAVC_StringDescriptor2);
 	usbdInfo.u32StringDescriptorLen[3] = UAVC_StringDescriptor3[0] = sizeof(UAVC_StringDescriptor3);
-	usbdInfo.u32QulDescriptorLen =  UAVC_QUALIFIER_DSCPT_LEN;
+
+	usbdInfo.u32StringDescriptorLen[4] = UAVC_STR0_DSCPT_LEN;
+	usbdInfo.u32StringDescriptorLen[5] = UAVC_StringDescriptor1[0] = sizeof(UAVC_StringDescriptor1);
+	usbdInfo.u32StringDescriptorLen[6] = UAVC_StringDescriptor2[0] = sizeof(UAVC_StringDescriptor2);
+
+		usbdInfo.u32QulDescriptorLen =  UAVC_QUALIFIER_DSCPT_LEN;
 	usbdInfo.u32HOSConfDescriptorLen =  UAVC_HOSCONFIG_DSCPT_LEN;
 	
 	/* Set Endpoint map */
