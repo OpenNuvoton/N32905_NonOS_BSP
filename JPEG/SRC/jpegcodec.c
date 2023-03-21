@@ -241,6 +241,8 @@ void jpegISR(void)
     			
     			u16Width = g_u32windowSizeX;
 	    		u16Height = g_u32windowSizeY;
+          jpegInfo.jpeg_win_width = g_u32windowSizeX;       
+          jpegInfo.jpeg_win_height = g_u32windowSizeY;
 	    	}    	
     	
    			if(jpegInfo.stride)

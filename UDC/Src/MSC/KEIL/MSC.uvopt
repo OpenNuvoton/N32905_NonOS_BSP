@@ -1682,11 +1682,11 @@
       <FileNumber>1</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>15</ColumnNumber>
+      <Focus>1</Focus>
+      <ColumnNumber>11</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>2103</TopLine>
-      <CurrentLine>2112</CurrentLine>
+      <TopLine>1452</TopLine>
+      <CurrentLine>1455</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\MSC\mscd.c</PathWithFileName>
       <FilenameWithoutPath>mscd.c</FilenameWithoutPath>

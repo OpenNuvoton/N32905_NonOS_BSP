@@ -15,7 +15,7 @@
 #include "videoclass.h"
 
 #define HSHB_MODE
-#define DATA_CODE	"20200915"
+#define DATA_CODE	"20230109"
 
 #define USB_VID		0x0416		/* Vendor ID */ 
 #define USB_PID		0x9393		/* Product ID */
