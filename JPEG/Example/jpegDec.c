@@ -104,72 +104,70 @@ VOID JpegDecTest (VOID)
 		sysprintf("\tNot Support the JPEG sampling\n");	
     	goto END_ERROR_FORMAT;
 	}
-		 
-  if(g_bDecWindecTest)
-	{
-		
+    if(g_bDecWindecTest)
+    {
 		  u32WindowXsize = (u32Width + 15) / 16;
 		
 		  u32WindowYsize = (u32Height + 15) / 16;
 set_again:
-	    sysprintf(" * Window Decode Region (X,Y) = (%d,%d)\n", u32WindowXsize, u32WindowYsize);
-			if(g_bDecPanelTest)
-			    sysprintf("    - Only %d x %d MCU region can show on Panel\n", PANEL_WIDTH/16,PANEL_HEIGHT/16);
-				
-	    sysprintf("    - Input Window Start position X : ");	
-		  while(1)
-			{					
-		      g_u32xStart = GetData();
-			  	if(g_u32xStart <= u32WindowXsize)
-						break;
-			}
-	    sysprintf("    - Input Window Start position Y : ");	
-			
-		  while(1)
-			{						
-		      g_u32yStart = GetData();
-				  if(g_u32yStart <= u32WindowYsize)
-						  break;
-			}
-		
-	    sysprintf("    - Input Window End position X : ");	
-			
-		  while(1)
-			{					
-		      g_u32xEnd = GetData();
-				  if(g_u32xEnd <= u32WindowXsize && g_u32xStart <= g_u32xEnd)
-						  break;
-			}
-	    sysprintf("    - Input Window End position Y : ");	
-		  while(1)
-			{					
-		      g_u32yEnd = GetData();
-				  if(g_u32yEnd <= u32WindowYsize && g_u32yStart <= g_u32yEnd)
-						  break;
-			}            
-			sysprintf(" * Win Dec - (%d, %d) ~ (%d, %d)\n", g_u32xStart, g_u32yStart, g_u32xEnd, g_u32yEnd);
-      if(g_bDecPanelTest)
-      {
-          if(((g_u32xEnd - g_u32xStart) > PANEL_WIDTH/16) || ((g_u32yEnd - g_u32yStart) > PANEL_HEIGHT/16))
-          {      
-              sysprintf("    - The region is over the panel size. Please set the regio nagain\n");
-					    goto set_again;
-          }
-			}
-			
-			if(!g_bDecPanelTest)
-			{
-	      sysprintf("0: Enable Stride\n");	
-	      sysprintf("1: Disable Stride\n");
-		    item = sysGetChar();
-		    if(item == '0')
-			    g_bDecWindecStride = 1;
-			  else
-			    g_bDecWindecStride = 0;
-			}
-			else
-          g_bDecWindecStride = 1;
-	}
+        sysprintf(" * Window Decode Region (X,Y) = (%d,%d)\n", u32WindowXsize, u32WindowYsize);
+        if(g_bDecPanelTest)
+            sysprintf("    - Only %d x %d MCU region can show on Panel\n", PANEL_WIDTH/16,PANEL_HEIGHT/16);
+
+        sysprintf("    - Input Window Start position X : ");
+        while(1)
+        {
+            g_u32xStart = GetData();
+            if(g_u32xStart <= u32WindowXsize)
+                break;
+        }
+        sysprintf("    - Input Window Start position Y : ");
+
+        while(1)
+        {
+            g_u32yStart = GetData();
+            if(g_u32yStart <= u32WindowYsize)
+                break;
+        }
+
+        sysprintf("    - Input Window End position X : ");
+
+        while(1)
+        {
+            g_u32xEnd = GetData();
+            if(g_u32xEnd <= u32WindowXsize && g_u32xStart <= g_u32xEnd)
+                break;
+        }
+        sysprintf("    - Input Window End position Y : ");
+        while(1)
+        {
+            g_u32yEnd = GetData();
+            if(g_u32yEnd <= u32WindowYsize && g_u32yStart <= g_u32yEnd)
+                break;
+        }
+        sysprintf(" * Win Dec - (%d, %d) ~ (%d, %d)\n", g_u32xStart, g_u32yStart, g_u32xEnd, g_u32yEnd);
+        if(g_bDecPanelTest)
+        {
+            if(((g_u32xEnd - g_u32xStart) > PANEL_WIDTH/16) || ((g_u32yEnd - g_u32yStart) > PANEL_HEIGHT/16))
+            {
+                sysprintf("    - The region is over the panel size. Please set the regio nagain\n");
+                goto set_again;
+            }
+        }
+
+        if(!g_bDecPanelTest)
+        {
+            sysprintf("0: Enable Stride\n");
+            sysprintf("1: Disable Stride\n");
+            item = sysGetChar();
+            if(item == '0')
+                g_bDecWindecStride = 1;
+            else
+                g_bDecWindecStride = 0;
+        }
+        else
+            g_bDecWindecStride = 1;
+    }
 /*******************************************************************/	
 /* 						Decode JPEG Bitstream					   */
 /*******************************************************************/	    
@@ -357,29 +355,32 @@ set_again:
 		}
 		else
 		{
-			  if(g_bDecWindecTest)	
-				{
-					if(g_bDecWindecStride)
-	   		      strcat(decodePath, intToStr(u32Stride));
-					else
-	   		      strcat(decodePath, intToStr(jpegInfo.jpeg_win_width));
-		   	  strcat(decodePath, "x");
-		   	  strcat(decodePath, intToStr(jpegInfo.jpeg_win_height));	
-				}
-				else
-        {			
-	   		  strcat(decodePath, intToStr(jpegInfo.width));
-		   	  strcat(decodePath, "x");
-		   	  strcat(decodePath, intToStr(jpegInfo.height));		
-				}
-		}
-		strcat(decodePath, ".dat");
-		if(g_bDecWindecTest)
-		{		
-		  sysprintf("\t\tOutput Image Width = %d\n", jpegInfo.jpeg_win_width);		/* Decode image width */
-		  sysprintf("\t\tOutput Image Height = %d\n",jpegInfo.jpeg_win_height);	/* Decode image height */	
-		}
-		else
+            jpegIoctl(JPEG_IOCTL_GET_WINDOW_DECODE_SIZE, (UINT32)&u32WindowXsize, (UINT32)&u32WindowYsize);
+
+            if(g_bDecWindecTest)
+            {
+                if(g_bDecWindecStride)
+                    strcat(decodePath, intToStr(u32Stride));
+                else
+                    strcat(decodePath, intToStr(u32WindowXsize));
+                strcat(decodePath, "x");
+                strcat(decodePath, intToStr(u32WindowYsize));
+            }
+            else
+            {
+                strcat(decodePath, intToStr(jpegInfo.width));
+                strcat(decodePath, "x");
+                strcat(decodePath, intToStr(jpegInfo.height));
+            }
+        }
+        strcat(decodePath, ".dat");
+
+        if(g_bDecWindecTest)
+        {
+            sysprintf("\t\tOutput Image Width = %d\n", u32WindowXsize);  /* Decode image width */
+            sysprintf("\t\tOutput Image Height = %d\n",u32WindowYsize);  /* Decode image height */
+        }
+        else
 		{
 		  sysprintf("\t\tOutput Image Width = %d\n",jpegInfo.width);		/* Decode image width */
 		  sysprintf("\t\tOutput Image Height = %d\n",jpegInfo.height);	/* Decode image height */	

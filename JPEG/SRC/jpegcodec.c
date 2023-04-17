@@ -241,8 +241,6 @@ void jpegISR(void)
     			
     			u16Width = g_u32windowSizeX;
 	    		u16Height = g_u32windowSizeY;
-          jpegInfo.jpeg_win_width = g_u32windowSizeX;       
-          jpegInfo.jpeg_win_height = g_u32windowSizeY;
 	    	}    	
     	
    			if(jpegInfo.stride)
@@ -1019,7 +1017,13 @@ VOID jpegIoctl(UINT32 cmd, UINT32 arg0, UINT32 arg1)
 			g_u32WindowDec = TRUE;					
 			g_u32windowSizeX = winDecode->u32Stride; 
 			g_u32windowSizeY = 16 * (winDecode->u16EndMCUY - winDecode->u16StartMCUY+1);		
+            break;
+        case JPEG_IOCTL_GET_WINDOW_DECODE_SIZE:
+            pu32Tmp = (PUINT32) arg0;
+            *pu32Tmp = g_u32windowSizeX;
 
+            pu32Tmp = (PUINT32) arg1;
+            *pu32Tmp = g_u32windowSizeY;
 			break;
 		case JPEG_IOCTL_SET_DECODE_STRIDE:		
 			g_u32Stride = arg0;
