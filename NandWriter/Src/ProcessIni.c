@@ -27,6 +27,7 @@ int  buffer_current = 0, buffer_end = 0;    // position to buffer iniBuf
 
 INI_INFO_T Ini_Writer;
 
+extern char *rtrim(char *str);
 
 /*-----------------------------------------------------------------------------
  * To read one string line from file FileHandle and save it to Cmd.
@@ -57,6 +58,7 @@ int readLine (int FileHandle, char *Cmd)
             {
                 Cmd[i_cmd] = 0;     // end of string
                 buffer_current++;
+                rtrim(Cmd);
                 return Successful;
             }
             else
@@ -76,11 +78,13 @@ int readLine (int FileHandle, char *Cmd)
             {
                 // return last line of INI file that without end of line
                 Cmd[i_cmd] = 0;     // end of string
+                rtrim(Cmd);
                 return Successful;
             }
             else
             {
                 Cmd[i_cmd] = 0;     // end of string to clear Cmd
+                rtrim(Cmd);
                 return ERR_FILE_EOF;
             }
         }
@@ -90,6 +94,7 @@ int readLine (int FileHandle, char *Cmd)
             if (status < 0)
             {
                 Cmd[i_cmd] = 0;     // end of string to clear Cmd
+                rtrim(Cmd);
                 return status;      // error or end of file
             }
             buffer_current = 0;
