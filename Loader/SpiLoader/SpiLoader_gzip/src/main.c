@@ -555,7 +555,7 @@ int main(void)
 
 
                 if(u32Result == 0)
-					do_bootm(IMAGE_BUFFER, loadAddr, LOAD_IMAGE);	
+                    do_bootm(IMAGE_BUFFER, executeAddr, LOAD_IMAGE);
                 
 
             	outpw(REG_SPU_DAC_VOL, inpw(REG_SPU_DAC_VOL) & ~0x00010000);	//P0			
