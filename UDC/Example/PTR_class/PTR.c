@@ -110,7 +110,7 @@ __align(4) static UINT8 PTR_ConfigurationBlock[] =
     EP_BULK,             /* bmAttributes */
     0x00,                /* wMaxPacketSize - Low */
     0x02,                /* wMaxPacketSize - High */
-    0x01,                /* bInterval */
+    0x00,                /* bInterval */
 };
 
 
@@ -145,7 +145,7 @@ __align(4) static UINT8 PTR_FullConfigurationBlock[] =
     EP_BULK,             /* bmAttributes */
     0x40,                /* wMaxPacketSize - Low */
     0x00,                /* wMaxPacketSize - High */
-    0x01,                /* bInterval */
+    0x00,                /* bInterval */
 };
 
 
@@ -194,7 +194,7 @@ __align(4) UINT8 PTR_StringDescriptor3[] =
 {
     0x1A,				 	/* bLength (Dafault Value is 0x1A, the value will be set to actual value according to the Descriptor size wehn calling ptrInit) */
     0x03,					/* bDescriptorType */
-    '0', 0, '0', 0,	'0', 0, '0', 0,	'0', 0, '0', 0,	'0', 0, 'N', 0,	'3', 0, '2', 0,	'9', 0, '0', 0	
+    '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, '0', 0, 'P', 0, 'T', 0, 'R', 0, '0', 0, '0', 0, '1', 0
 };
 
 char pnp_string [] = "XXMFG:Nuvoton;MDL:PTR-2024;CLS:PRINTER";
