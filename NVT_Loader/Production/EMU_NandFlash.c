@@ -11,10 +11,10 @@
 #include <string.h>
 #include "wblib.h"
 #include "nvtfat.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "USB.h"
 #include "Font.h"
-#include "w55fa93_sic.h"
+#include "n3290_sic.h"
 #include "emuProduct.h"
 
 

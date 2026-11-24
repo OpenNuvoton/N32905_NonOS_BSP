@@ -8,10 +8,10 @@
 
 #include <stdio.h>
 #include "wblib.h"
-#include "W55FA93_GPIO.h"
-#include "W55FA93_VideoIn.h"
-#include "W55FA93_SIC.h"
-#include "W55FA93_GNAND.h"
+#include "N3290_GPIO.h"
+#include "N3290_VideoIn.h"
+#include "N3290_SIC.h"
+#include "N3290_GNAND.h"
 #include "NVTFAT.h"
 
 #include "demo.h"
@@ -244,10 +244,10 @@ int main()
 	DBG_PRINTF("Please use LCD GAINTPLUS for board number: NUDesign HMI/TFT-LCD3\n");
 #endif
 #ifdef __2ND_PORT__ 	
-	DBG_PRINTF("Please use LCD GAINTPLUS for board number: WHS-W55FA93 DB LCD 8	\n");
+	DBG_PRINTF("Please use LCD GAINTPLUS for board number: WHS-N3290 DB LCD 8	\n");
 #endif		
 #ifdef __3RD_PORT__ 	
-	DBG_PRINTF("Please use LCD GAINTPLUS for board number: NHS-W55FA93-1-IN-1012\n");
+	DBG_PRINTF("Please use LCD GAINTPLUS for board number: NHS-N3290-1-IN-1012\n");
 #endif	
 	DBG_PRINTF("================================================================\n");	    	
 	do

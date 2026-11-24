@@ -35,7 +35,7 @@
 #include <string.h>
 #include "wblib.h"
 
-#include "W55FA93_SPI.h"
+#include "N3290_SPI.h"
 
 UINT8 g_u8Is4ByteMode;
 

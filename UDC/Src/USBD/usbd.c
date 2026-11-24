@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "usbd.h"
 
 #define DATA_CODE  "20230508"

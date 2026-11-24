@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wblib.h"
 
 

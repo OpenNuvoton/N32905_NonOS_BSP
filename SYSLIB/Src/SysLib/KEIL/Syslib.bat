@@ -1,1 +1,1 @@
-move .\SysLib_Data\Syslib\W55FA93_SYSLib.lib ..\..\..\Lib
+move .\SysLib_Data\Syslib\N3290_SYSLib.lib ..\..\..\Lib

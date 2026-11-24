@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 //#include <platform.h>
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "Blt.h"
 #include "DrvBLT.h"
 #include "FI.h"

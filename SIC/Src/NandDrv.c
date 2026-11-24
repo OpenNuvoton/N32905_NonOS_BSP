@@ -12,13 +12,13 @@
 
 #include "wbio.h"
 
-#include "W55FA93_SIC.h"
+#include "N3290_SIC.h"
 #include "wblib.h"
 #include "fmi.h"
 #include "GNAND_Global.h"
 
-#include "W55FA93_GNAND.h"
-#include "W55FA93_reg.h"
+#include "N3290_GNAND.h"
+#include "N3290_reg.h"
 
 // define DATE CODE and show it when running to make maintaining easy.
 #define NAND_DATE_CODE  FMI_DATE_CODE

@@ -9,16 +9,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wblib.h"
-#include "W55FA93_SIC.h"
-#include "W55FA93_GNAND.h"
+#include "N3290_SIC.h"
+#include "N3290_GNAND.h"
 #include "NVTFAT.h"
 #include "Font.h"
 #include "writer.h"
 
-#include "W55FA93_VPOST.h"
-#include "W55FA93_GPIO.h"
+#include "N3290_VPOST.h"
+#include "N3290_GPIO.h"
 
 #define	 LAST_LINE	11
 
@@ -307,7 +307,7 @@ void Draw_Init(void)
 	DemoFont_ChangeFontColor(&s_sDemo_Font, COLOR_RGB16_WHITE);			
 	Draw_InitialBorder(&s_sDemo_Font);		
 	
-	// Draw the Boarder for "W55FA93 NandWriter (..)"
+	// Draw the Boarder for "N3290 NandWriter (..)"
 	s_sRect.u32StartX =0;
 	s_sRect.u32StartY = 0;
 	s_sRect.u32EndX = _LCM_WIDTH_,
@@ -316,15 +316,15 @@ void Draw_Init(void)
 					&s_sRect,
 						2);		
 		
-	sprintf(Array1, "W55FA93 NandWriter (v%d.%d)",MAJOR_VERSION_NUM, MINOR_VERSION_NUM);						
+	sprintf(Array1, "N3290 NandWriter (v%d.%d)",MAJOR_VERSION_NUM, MINOR_VERSION_NUM);						
 #if 0	
 	Draw_Font(COLOR_RGB16_WHITE, &s_sDemo_Font,					
-						(_LCM_WIDTH_ - 32*g_Font_Step)/2, // 32 Character for "W55FA93 NandWriter (%s"
+						(_LCM_WIDTH_ - 32*g_Font_Step)/2, // 32 Character for "N3290 NandWriter (%s"
 						0,						
 						Array1);						
 #else
 	Draw_Font(COLOR_RGB16_WHITE, &s_sDemo_Font,					
-						0, // 32 Character for "W55FA93 NandWriter (%s"
+						0, // 32 Character for "N3290 NandWriter (%s"
 						0,						
 						Array1);	
 #endif						

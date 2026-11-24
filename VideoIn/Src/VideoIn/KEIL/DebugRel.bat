@@ -1,1 +1,1 @@
-move .\VideoIn_Data\DebugRel\W55FA93_VideoIn.lib ..\..\..\Lib
+move .\VideoIn_Data\DebugRel\N3290_VideoIn.lib ..\..\..\Lib

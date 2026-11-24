@@ -10,7 +10,10 @@
  *****************************************************************************/
 
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
+
+int spiTxLen(int port, int count, int bitLen);
+int spiActive(int port);
 
 #define  SPICMD_DUMMY         0x00
 #define  SPICMD_READ_DATA     0x03

@@ -10,11 +10,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_reg.h"
+#include "n3290_reg.h"
 #include "usbd.h"
 #include "mass_storage_class.h"
 #include "nvtfat.h"
-#include "w55fa93_sic.h"
+#include "n3290_sic.h"
 #include "Font.h"
 #include "emuProduct.h" 
 

@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>W55FA93_TV_320x240</TargetName>
+      <TargetName>N3290_TV_320x240</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -43,14 +43,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\W55FA93_VPOST_Data\W55FA93_TV_320x240\</OutputDirectory>
-          <OutputName>W55FA93_VPOST_TV_QVGA</OutputName>
+          <OutputDirectory>.\N3290_VPOST_Data\N3290_TV_320x240\</OutputDirectory>
+          <OutputName>N3290_VPOST_TV_QVGA</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\W55FA93_VPOST_Data\W55FA93_TV_320x240\</ListingPath>
+          <ListingPath>.\N3290_VPOST_Data\N3290_TV_320x240\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -75,7 +75,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>W55FA93_TV_320x240.bat</UserProg1Name>
+            <UserProg1Name>N3290_TV_320x240.bat</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -391,19 +391,19 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>W55FA93_VPOST.C</FileName>
+              <FileName>N3290_VPOST.C</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\W55FA93_VPOST.C</FilePath>
+              <FilePath>..\..\N3290_VPOST.C</FilePath>
             </File>
             <File>
-              <FileName>W55FA93_VPOST_Driver.c</FileName>
+              <FileName>N3290_VPOST_Driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\W55FA93_VPOST_Driver.c</FilePath>
+              <FilePath>..\..\N3290_VPOST_Driver.c</FilePath>
             </File>
             <File>
-              <FileName>W55FA93_VPOST_TVOUT_QVGA_320x240.c</FileName>
+              <FileName>N3290_VPOST_TVOUT_QVGA_320x240.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\W55FA93_VPOST_TVOUT_QVGA_320x240.c</FilePath>
+              <FilePath>..\..\N3290_VPOST_TVOUT_QVGA_320x240.c</FilePath>
             </File>
           </Files>
         </Group>

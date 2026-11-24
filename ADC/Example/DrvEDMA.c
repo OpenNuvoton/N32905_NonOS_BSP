@@ -7,7 +7,7 @@
 *****************************************************************************/
 //#include <linux/interrupt.h>
 //#include <asm/io.h>
-//#include <asm/arch/w55fa93_reg.h>
+//#include <asm/arch/n3290_reg.h>
 //#include <asm/arch/DrvEDMA.h>
 
 #include <stdio.h>
@@ -15,8 +15,8 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_reg.h"
-//#include "W55FA93_SIC.h"
+#include "N3290_reg.h"
+//#include "N3290_SIC.h"
 #include "DrvEDMA.h"
 
 void DrvEDMA_ISR(void);

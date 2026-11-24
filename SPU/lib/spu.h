@@ -10,7 +10,7 @@
 #ifndef	__SPU_H__
 #define __SPU_H__
 
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wbtypes.h"
 #include "wblib.h"
 #include "DrvSPU.h"

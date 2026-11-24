@@ -9,12 +9,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "usbd.h"
 #include "HID.h"
 #ifdef HID_KEYPAD  
-#include "W55FA93_KPI.h"
-#include "W55FA93_GPIO.h"
+#include "N3290_KPI.h"
+#include "N3290_GPIO.h"
 #endif
 #define SUSPEND_POWERDOWN
 void Demo_PowerDownWakeUp(void);

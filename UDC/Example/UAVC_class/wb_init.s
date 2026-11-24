@@ -33,6 +33,9 @@ RAM_Limit       EQU     0x200000          	; For unexpanded hardware board
  IF :DEF:N32905
 RAM_Limit       EQU     0x2000000          	; For unexpanded hardware board
  ENDIF 
+ IF :DEF:N32906
+RAM_Limit       EQU     0x4000000          	; For unexpanded hardware board
+ ENDIF
  
  IF :DEF:N32903
 RAM_Limit       EQU     0x800000          	; For unexpanded hardware board

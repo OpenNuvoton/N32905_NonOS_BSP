@@ -12,8 +12,8 @@
 #include <string.h>
 #include "wblib.h"
 
-#include "W55FA93_reg.h"
-#include "W55FA93_SPI.h"
+#include "N3290_reg.h"
+#include "N3290_SPI.h"
 
 UINT8 g_u8Is4ByteMode;
 //#define SPI_CLOCK_MODE	0

@@ -10,7 +10,7 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_ADC.h"
+#include "N3290_ADC.h"
 //#include "nvtfat.h"
 #include "DrvEDMA.h"
 #include "usbd.h"

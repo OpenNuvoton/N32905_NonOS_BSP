@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_sic.h"
+#include "n3290_sic.h"
 #include "nvtfat.h"
 #include "Font.h"
 #include "emuProduct.h"

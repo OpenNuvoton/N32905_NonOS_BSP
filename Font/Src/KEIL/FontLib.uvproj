@@ -46,7 +46,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Font_Data\Font_QVGA\</OutputDirectory>
-          <OutputName>W55FA93_Font_QVGA</OutputName>
+          <OutputName>N3290_Font_QVGA</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -467,7 +467,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Font_Data\Font_WQVGA\</OutputDirectory>
-          <OutputName>W55FA93_Font_WQVGA</OutputName>
+          <OutputName>N3290_Font_WQVGA</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -888,7 +888,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Font_Data\Font_VGA\</OutputDirectory>
-          <OutputName>W55FA93_Font_VGA</OutputName>
+          <OutputName>N3290_Font_VGA</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -1309,7 +1309,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Font_Data\Font_WVGA\</OutputDirectory>
-          <OutputName>W55FA93_Font_WVGA</OutputName>
+          <OutputName>N3290_Font_WVGA</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -1730,7 +1730,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Font_Data\Font_QVGA\</OutputDirectory>
-          <OutputName>W55FA93_Font_SVGA</OutputName>
+          <OutputName>N3290_Font_SVGA</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

@@ -1,1 +1,1 @@
-move .\i2c_Data\Single_Task\W55FA93_I2C.lib ..\..\Lib
+move .\i2c_Data\Single_Task\N3290_I2C.lib ..\..\Lib

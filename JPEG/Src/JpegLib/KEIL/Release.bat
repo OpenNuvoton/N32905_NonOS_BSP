@@ -1,1 +1,1 @@
-move .\JpegLib_Data\Release\W55FA93_JPEGLib.lib ..\..\..\Lib
+move .\JpegLib_Data\Release\N3290_JPEGLib.lib ..\..\..\Lib

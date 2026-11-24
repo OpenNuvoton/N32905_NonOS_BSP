@@ -21,7 +21,7 @@
   </DaveTm>
 
   <Target>
-    <TargetName>W55FA93_TV_720x480</TargetName>
+    <TargetName>N3290_TV_720x480</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -43,7 +43,7 @@
         <PageWidth>79</PageWidth>
         <PageLength>66</PageLength>
         <TabStop>8</TabStop>
-        <ListingPath>.\W55FA93_VPOST_Data\W55FA93_TV_720x480\</ListingPath>
+        <ListingPath>.\N3290_VPOST_Data\N3290_TV_720x480\</ListingPath>
       </OPTLEX>
       <ListingPage>
         <CreateCListing>1</CreateCListing>
@@ -166,8 +166,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\W55FA93_VPOST.C</PathWithFileName>
-      <FilenameWithoutPath>W55FA93_VPOST.C</FilenameWithoutPath>
+      <PathWithFileName>..\..\N3290_VPOST.C</PathWithFileName>
+      <FilenameWithoutPath>N3290_VPOST.C</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -180,8 +180,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\W55FA93_VPOST_Driver.c</PathWithFileName>
-      <FilenameWithoutPath>W55FA93_VPOST_Driver.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\N3290_VPOST_Driver.c</PathWithFileName>
+      <FilenameWithoutPath>N3290_VPOST_Driver.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>1</GroupNumber>
@@ -194,8 +194,8 @@
       <TopLine>12</TopLine>
       <CurrentLine>13</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\W55FA93_VPOST_TVOUT_D1_720x480.c</PathWithFileName>
-      <FilenameWithoutPath>W55FA93_VPOST_TVOUT_D1_720x480.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\N3290_VPOST_TVOUT_D1_720x480.c</PathWithFileName>
+      <FilenameWithoutPath>N3290_VPOST_TVOUT_D1_720x480.c</FilenameWithoutPath>
     </File>
   </Group>
 

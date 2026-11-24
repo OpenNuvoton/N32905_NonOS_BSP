@@ -8,7 +8,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/UDCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/UDCLib/Release"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/UDCLib/Full speed mode"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_UDC_Fullspeed" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_UDC_Fullspeed" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -21,7 +21,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_UDC_Fullspeed" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004" name="Full speed mode" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_UDC_Fullspeed" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004" name="Full speed mode" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.842117115" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1100892503" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -102,7 +102,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/UDCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/UDCLib/Full speed mode"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/UDCLib/High speed mode"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_UDC_Highspeed" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_UDC_Highspeed" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -115,7 +115,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_UDC_Highspeed" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.733776562" name="High speed mode" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_UDC_Highspeed" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.733776562" name="High speed mode" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.733776562." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.1302248950" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.985994193" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -195,7 +195,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/UDCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/UDCLib/Standard mode"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_UDC" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_UDC" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -208,7 +208,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_UDC" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.61660728" name="Standard mode" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_UDC" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.61660728" name="Standard mode" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.61660728." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.2134708476" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.2131007639" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>

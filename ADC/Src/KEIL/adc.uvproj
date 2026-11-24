@@ -46,7 +46,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\adc_Data\ADC_INT\</OutputDirectory>
-          <OutputName>W55FA93_ADC_INT</OutputName>
+          <OutputName>N3290_ADC_INT</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -467,7 +467,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\adc_Data\ADC_POLL\</OutputDirectory>
-          <OutputName>W55FA93_ADC_POLL</OutputName>
+          <OutputName>N3290_ADC_POLL</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

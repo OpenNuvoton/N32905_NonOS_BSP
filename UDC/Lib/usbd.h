@@ -6,8 +6,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
-#ifndef _W55FA93_USBD_H_
-#define _W55FA93_USBD_H_
+#ifndef _N3290_USBD_H_
+#define _N3290_USBD_H_
 
 /*
  * Standard requests

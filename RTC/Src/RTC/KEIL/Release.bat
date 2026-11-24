@@ -1,1 +1,1 @@
-move .\RTCLib_Data\Release\W55FA93_RTCLib.lib ..\..\..\Lib
+move .\RTCLib_Data\Release\N3290_RTCLib.lib ..\..\..\Lib

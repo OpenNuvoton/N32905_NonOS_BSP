@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
-#include "W55FA93_GNAND.h"
+#include "N3290_GNAND.h"
 
 typedef struct Disk_Par_Inf {
 	UINT32	partition_size,

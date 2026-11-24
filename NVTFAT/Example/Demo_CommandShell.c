@@ -40,14 +40,14 @@
 #ifdef ENABLE_GNAND
 //#include "NUC930_gnand.h"
 //#include "NUC930_sic.h"
-#include "W55FA93_GNAND.h"
-#include "W55FA93_SIC.h"
+#include "N3290_GNAND.h"
+#include "N3290_SIC.h"
 #endif
 #if defined(ENABLE_SD_ONE_PART)||defined(ENABLE_SD_TWO_PART)||defined(ENABLE_SD_FOUR_PART)
-#include "W55FA93_SIC.h"
+#include "N3290_SIC.h"
 #endif
 
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 
 #ifdef ENABLE_GNAND
 static NDISK_T ptNDisk;

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "usbd.h"
 #include "NVTFAT.h"
 #include "mass_storage_class.h"
@@ -57,7 +57,7 @@ extern UINT8 CD_Tracks[];
 #endif
 
 #ifdef TEST_SD
-#include "W55FA93_SIC.h"
+#include "N3290_SIC.h"
 #endif
 
 #ifdef TEST_SPI
@@ -67,8 +67,8 @@ INT  SPI_Write(UINT32 uSector, UINT32 uBufcnt, UINT32 uSAddr);
 
 
 #ifdef TEST_SM
-#include "W55FA93_GNAND.h"
-#include "W55FA93_SIC.h"
+#include "N3290_GNAND.h"
+#include "N3290_SIC.h"
 
 NDISK_T *ptMassNDisk;
 #endif

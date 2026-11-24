@@ -11,7 +11,7 @@
 #include <string.h>
 #include "wblib.h"
 #include "nvtfat.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "USB.h"
 #include "Font.h"
 #include "emuProduct.h"

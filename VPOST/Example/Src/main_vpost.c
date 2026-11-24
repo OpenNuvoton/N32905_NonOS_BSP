@@ -14,8 +14,8 @@
 #include "wbio.h"
 #include "wbtypes.h"
 
-#include "W55FA93_VPOST.h"
-#include "W55FA93_reg.h"
+#include "N3290_VPOST.h"
+#include "N3290_reg.h"
 
 UINT32 u32SecCnt;
 UINT32 u32backup[10];

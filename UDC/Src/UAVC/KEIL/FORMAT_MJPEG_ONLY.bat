@@ -1,1 +1,1 @@
-move .\UAVC_Data\FORMAT_MJPEG_ONLY\W55FA93_UAVC_MJPEG_Only.lib ..\..\..\Lib
+move .\UAVC_Data\FORMAT_MJPEG_ONLY\N3290_UAVC_MJPEG_Only.lib ..\..\..\Lib

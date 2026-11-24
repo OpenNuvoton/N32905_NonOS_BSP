@@ -2,9 +2,9 @@
 #include "wblib.h"
 #include "turbowriter.h"
 #include "tag.h"
-#include "w55fa93_VPOST.h"
-#include "w55fa93_reg.h"
-#include "..\..\gpio\lib\w55fa93_gpio.h"
+#include "n3290_VPOST.h"
+#include "n3290_reg.h"
+#include "..\..\gpio\lib\n3290_gpio.h"
 
 //#if defined(__IFLYTEK__) || defined(__NUVOTON_V4__) 
 //====================================================================

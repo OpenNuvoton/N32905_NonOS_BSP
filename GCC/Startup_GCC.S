@@ -87,6 +87,10 @@ Reset_Handler:
 	ldr    r0,=0x2000000
 #endif
 
+#if (N32906 == 1)
+	ldr    r0,=0x4000000
+#endif
+
 #if (N32903 == 1)
 	ldr    r0,=0x800000
 #endif

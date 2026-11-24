@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include "wblib.h"
 
-#include "W55FA93_GPIO.h"
-#include "W55FA93_VideoIn.h"
+#include "N3290_GPIO.h"
+#include "N3290_VideoIn.h"
 #include "demo.h"
 #include "jpegcodec.h"
 #include "usbd.h"

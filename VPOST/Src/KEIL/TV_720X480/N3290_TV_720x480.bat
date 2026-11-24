@@ -1,0 +1,1 @@
+move .\N3290_VPOST_Data\N3290_TV_720x480\N3290_VPOST_TV_D1.lib ..\..\..\Lib

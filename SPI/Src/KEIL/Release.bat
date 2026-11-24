@@ -1,1 +1,1 @@
-move .\dev_spi_Data\Release\W55FA93_SPI.lib ..\..\Lib
+move .\dev_spi_Data\Release\N3290_SPI.lib ..\..\Lib

@@ -8,8 +8,8 @@
  *****************************************************************************/
 
 #include "wblib.h"
-#include "W55FA93_I2S.h"
-#include "W55FA93_reg.h"
+#include "N3290_I2S.h"
+#include "N3290_reg.h"
 
 PFN_DRVI2S_CB_FUNC 	*g_pfnRecordCallBack;
 PFN_DRVI2S_CB_FUNC 	*g_pfnPlayCallBack;	
@@ -615,9 +615,9 @@ int DrvI2S_SetApllClock(unsigned int clock)
 	int ret = 0;
 	
 	/* external clock is forced to 12 MHz */ 
-	int w55fa93_external_clock = 12000000;
+	int n3290_external_clock = 12000000;
 
-	if (w55fa93_external_clock == 12000000) {
+	if (n3290_external_clock == 12000000) {
 		if (clock == 208896) {		// for SPU/I2S 48/32KHz * 128, TD = 0.0063%
 			outp32(REG_APLLCON, 0x937D);
 		}
@@ -648,7 +648,7 @@ int DrvI2S_SetApllClock(unsigned int clock)
 		}
 	}
 	else {
-		// printf("%s does not support %d.%dMHz xtal clock!\n", __FUNCTION__, print_mhz(w55fa93_external_clock));
+		// printf("%s does not support %d.%dMHz xtal clock!\n", __FUNCTION__, print_mhz(n3290_external_clock));
 		ret = -1;
 	}
 	return ret;

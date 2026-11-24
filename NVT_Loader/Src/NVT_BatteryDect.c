@@ -33,7 +33,7 @@
 #include "wblib.h"
 
 #include "nvtloader.h"
-#include "W55FA93_adc.h"
+#include "N3290_adc.h"
 #include "RTC.h"
 
 void ForceShutdown(void)

@@ -12,12 +12,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "usbd.h"
 #include "HID.h"
 
 #ifdef HID_KEYPAD 
-	#include "W55FA93_KPI.h"
+	#include "N3290_KPI.h"
 #endif
 
 #define LEN_CONFIG_AND_SUBORDINATE      (LEN_CONFIG+LEN_INTERFACE+LEN_HID+LEN_ENDPOINT)

@@ -12,8 +12,8 @@
 #include <string.h>
 #include "wblib.h"
 
-#include "W55FA93_reg.h"
-#include "W55FA93_SPI.h"
+#include "N3290_reg.h"
+#include "N3290_SPI.h"
 
 static PFN_DRVSPI_CALLBACK g_pfnSPI0callback = NULL;
 static PFN_DRVSPI_CALLBACK g_pfnSPI1callback = NULL;

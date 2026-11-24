@@ -10,7 +10,7 @@
 #ifndef __DRVVIDEOIN_H__
 #define __DRVVIDEOIN_H__
 
-#include "W55FA93_VideoIn.h"
+#include "N3290_VideoIn.h"
 // #include header file
 #ifdef  __cplusplus
 extern "C"

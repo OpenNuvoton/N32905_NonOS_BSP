@@ -9,9 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wblib.h"
-#include "W55FA93_SIC.h"
+#include "N3290_SIC.h"
 #include "NVTFAT.h"
 #ifndef __NoLCM__
 #include "Font.h"
@@ -167,7 +167,7 @@ int main()
     sysSetTimerReferenceClock(TIMER0, 12000000);    // External Crystal
     sysStartTimer(TIMER0, 100, PERIODIC_MODE);      // 100 ticks/per sec ==> 1tick/10ms
 
-	sysprintf("=====> W55FA93 SpiWriter (v%d.%d) Begin [%d] <=====\n", MAJOR_VERSION_NUM, MINOR_VERSION_NUM, sysGetTicks(0));
+	sysprintf("=====> N3290 SpiWriter (v%d.%d) Begin [%d] <=====\n", MAJOR_VERSION_NUM, MINOR_VERSION_NUM, sysGetTicks(0));
 
 	ltime.year = 2013;
 	ltime.mon  = 8;

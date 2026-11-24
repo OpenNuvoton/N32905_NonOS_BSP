@@ -20,7 +20,7 @@
 #include "wblib.h"
 #endif
 
-#include "W55FA93_I2C.h"
+#include "N3290_I2C.h"
 #include "DrvI2CH.h"
 
 /*-----------------------------------------*/

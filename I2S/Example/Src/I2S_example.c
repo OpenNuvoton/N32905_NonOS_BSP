@@ -12,9 +12,9 @@
 #include "wblib.h"
 #include "wbtypes.h"
 
-#include "W55FA93_reg.h"
-#include "W55FA93_I2S.h"
-#include "W55FA93_I2C.h"
+#include "N3290_reg.h"
+#include "N3290_I2S.h"
+#include "N3290_I2C.h"
 #include "nau8822.h"
 
 #define OPT_CACHE_ON

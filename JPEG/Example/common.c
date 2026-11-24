@@ -16,7 +16,7 @@
 
 #include "jpegcodec.h"
 #include "NVTFAT.h"
-#include "W55FA93_SIC.h"
+#include "N3290_SIC.h"
 #include "jpegSample.h"
 
 #define WIDTH 320

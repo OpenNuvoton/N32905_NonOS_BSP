@@ -5,7 +5,7 @@
         		
         <cconfiguration id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993">
             			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993" moduleId="org.eclipse.cdt.core.settings" name="W55FA93_Font_QVGA">
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993" moduleId="org.eclipse.cdt.core.settings" name="N3290_Font_QVGA">
                 				
                 <externalSettings>
                     					
@@ -15,9 +15,9 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N9H20_Font_QVGA"/>
                         						
-                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/W55FA93_Font_QVGA"/>
+                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N3290_Font_QVGA"/>
                         						
-                        <entry flags="RESOLVED" kind="libraryFile" name="W55FA93_Font_QVGA" srcPrefixMapping="" srcRootPath=""/>
+                        <entry flags="RESOLVED" kind="libraryFile" name="N3290_Font_QVGA" srcPrefixMapping="" srcRootPath=""/>
                         					
                     </externalSetting>
                     				
@@ -43,7 +43,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactExtension="a" artifactName="W55FA93_Font_QVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="320x240 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993" name="W55FA93_Font_QVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+                <configuration artifactExtension="a" artifactName="N3290_Font_QVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="320x240 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993" name="N3290_Font_QVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
                     					
                     <folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993." name="/" resourcePath="">
                         						
@@ -195,7 +195,7 @@
         		
         <cconfiguration id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.917174965">
             			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.917174965" moduleId="org.eclipse.cdt.core.settings" name="W55FA93_Font_WQVGA">
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.917174965" moduleId="org.eclipse.cdt.core.settings" name="N3290_Font_WQVGA">
                 				
                 <externalSettings>
                     					
@@ -205,9 +205,9 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N9H20_Font_WQVGA"/>
                         						
-                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/W55FA93_Font_WQVGA"/>
+                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N3290_Font_WQVGA"/>
                         						
-                        <entry flags="RESOLVED" kind="libraryFile" name="W55FA93_Font_WQVGA" srcPrefixMapping="" srcRootPath=""/>
+                        <entry flags="RESOLVED" kind="libraryFile" name="N3290_Font_WQVGA" srcPrefixMapping="" srcRootPath=""/>
                         					
                     </externalSetting>
                     				
@@ -233,7 +233,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactExtension="a" artifactName="W55FA93_Font_WQVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="480x272 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.917174965" name="W55FA93_Font_WQVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+                <configuration artifactExtension="a" artifactName="N3290_Font_WQVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="480x272 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.917174965" name="N3290_Font_WQVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
                     					
                     <folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.917174965." name="/" resourcePath="">
                         						
@@ -383,7 +383,7 @@
         		
         <cconfiguration id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.765797634">
             			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.765797634" moduleId="org.eclipse.cdt.core.settings" name="W55FA93_Font_VGA">
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.765797634" moduleId="org.eclipse.cdt.core.settings" name="N3290_Font_VGA">
                 				
                 <externalSettings>
                     					
@@ -393,9 +393,9 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N9H20_Font_VGA"/>
                         						
-                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/W55FA93_Font_VGA"/>
+                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N3290_Font_VGA"/>
                         						
-                        <entry flags="RESOLVED" kind="libraryFile" name="W55FA93_Font_VGA" srcPrefixMapping="" srcRootPath=""/>
+                        <entry flags="RESOLVED" kind="libraryFile" name="N3290_Font_VGA" srcPrefixMapping="" srcRootPath=""/>
                         					
                     </externalSetting>
                     				
@@ -421,7 +421,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactExtension="a" artifactName="W55FA93_Font_VGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="640x480 Panel" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.CWDLocator;org.eclipse.cdt.core.GCCErrorParser" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.765797634" name="W55FA93_Font_VGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.enablement=null,org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.image=null,org.eclipse.cdt.docker.launcher.containerbuild.property.connection=null" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+                <configuration artifactExtension="a" artifactName="N3290_Font_VGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="640x480 Panel" errorParsers="org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.CWDLocator;org.eclipse.cdt.core.GCCErrorParser" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.765797634" name="N3290_Font_VGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.enablement=null,org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.image=null,org.eclipse.cdt.docker.launcher.containerbuild.property.connection=null" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
                     					
                     <folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.765797634." name="/" resourcePath="">
                         						
@@ -571,7 +571,7 @@
         		
         <cconfiguration id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543">
             			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543" moduleId="org.eclipse.cdt.core.settings" name="W55FA93_Font_WVGA">
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543" moduleId="org.eclipse.cdt.core.settings" name="N3290_Font_WVGA">
                 				
                 <externalSettings>
                     					
@@ -581,9 +581,9 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N9H20_Font_WVGA"/>
                         						
-                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/W55FA93_Font_WVGA"/>
+                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N3290_Font_WVGA"/>
                         						
-                        <entry flags="RESOLVED" kind="libraryFile" name="W55FA93_Font_WVGA" srcPrefixMapping="" srcRootPath=""/>
+                        <entry flags="RESOLVED" kind="libraryFile" name="N3290_Font_WVGA" srcPrefixMapping="" srcRootPath=""/>
                         					
                     </externalSetting>
                     				
@@ -609,7 +609,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactExtension="a" artifactName="W55FA93_Font_WVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="800x480 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543" name="W55FA93_Font_WVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+                <configuration artifactExtension="a" artifactName="N3290_Font_WVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="800x480 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543" name="N3290_Font_WVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
                     					
                     <folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543." name="/" resourcePath="">
                         						
@@ -759,7 +759,7 @@
         		
         <cconfiguration id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543.881393250">
             			
-            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543.881393250" moduleId="org.eclipse.cdt.core.settings" name="W55FA93_Font_SVGA">
+            <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543.881393250" moduleId="org.eclipse.cdt.core.settings" name="N3290_Font_SVGA">
                 				
                 <externalSettings>
                     					
@@ -767,9 +767,9 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/FONTLib"/>
                         						
-                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/W55FA93_Font_SVGA"/>
+                        <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/FONTLib/N3290_Font_SVGA"/>
                         						
-                        <entry flags="RESOLVED" kind="libraryFile" name="W55FA93_Font_SVGA" srcPrefixMapping="" srcRootPath=""/>
+                        <entry flags="RESOLVED" kind="libraryFile" name="N3290_Font_SVGA" srcPrefixMapping="" srcRootPath=""/>
                         					
                     </externalSetting>
                     				
@@ -795,7 +795,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactExtension="a" artifactName="W55FA93_Font_SVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="800x600 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543.881393250" name="W55FA93_Font_SVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+                <configuration artifactExtension="a" artifactName="N3290_Font_SVGA" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="800x600 Panel" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543.881393250" name="N3290_Font_SVGA" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
                     					
                     <folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1234402993.1439105543.881393250." name="/" resourcePath="">
                         						
@@ -955,15 +955,15 @@
     	
     <storageModule moduleId="refreshScope" versionNumber="2">
         		
-        <configuration configurationName="W55FA93_Font_VGA"/>
+        <configuration configurationName="N3290_Font_VGA"/>
         		
-        <configuration configurationName="W55FA93_Font_SVGA"/>
+        <configuration configurationName="N3290_Font_SVGA"/>
         		
-        <configuration configurationName="W55FA93_Font_QVGA"/>
+        <configuration configurationName="N3290_Font_QVGA"/>
         		
-        <configuration configurationName="W55FA93_Font_WQVGA"/>
+        <configuration configurationName="N3290_Font_WQVGA"/>
         		
-        <configuration configurationName="W55FA93_Font_WVGA"/>
+        <configuration configurationName="N3290_Font_WVGA"/>
         		
         <configuration configurationName="N9H20_Font_WQVGA"/>
         		

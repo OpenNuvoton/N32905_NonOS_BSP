@@ -16,8 +16,8 @@
 #include "wblib.h"
 #endif
 
-#include "W55FA93_reg.h"
-#include "W55FA93_SIC.h"
+#include "N3290_reg.h"
+#include "N3290_SIC.h"
 
 #include "fmi.h"
 #include "NVTFAT.h"

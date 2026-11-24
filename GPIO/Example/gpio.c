@@ -10,7 +10,7 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_GPIO.h"
+#include "N3290_GPIO.h"
 
 void EXTINT0_IRQHandler(void)
 {

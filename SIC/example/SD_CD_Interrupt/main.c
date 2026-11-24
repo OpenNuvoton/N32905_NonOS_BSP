@@ -14,8 +14,8 @@
 #include "wbtypes.h"
 #include "wblib.h"
 
-#include "W55FA93_reg.h"
-#include "W55FA93_SIC.h"
+#include "N3290_reg.h"
+#include "N3290_SIC.h"
 
 /*-----------------------------------------------------------------------------
  * For system configuration
@@ -85,7 +85,7 @@ int main(void)
 {
     init_UART();
 
-    sysprintf("\n=====> W55FA93 Non-OS SIC/SD Driver Sample Code <=====\n");
+    sysprintf("\n=====> N3290 Non-OS SIC/SD Driver Sample Code <=====\n");
 
     sysprintf("\n");
     sysprintf("===============================================================\n");

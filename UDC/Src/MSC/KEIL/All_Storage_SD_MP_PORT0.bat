@@ -1,1 +1,1 @@
-move .\MSC_Data\All_Storage_SD_MP_PORT0\W55FA93_MSC_ALL_SD_MP_PORT0.lib ..\..\..\Lib
+move .\MSC_Data\All_Storage_SD_MP_PORT0\N3290_MSC_ALL_SD_MP_PORT0.lib ..\..\..\Lib

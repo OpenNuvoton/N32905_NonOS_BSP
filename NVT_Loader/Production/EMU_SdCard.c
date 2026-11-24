@@ -10,13 +10,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_vpost.h"
+#include "n3290_vpost.h"
 #include "AviLib.h"
 #include "nvtfat.h"
 #include "nvtloader.h"
-#include "w55fa93_kpi.h"
-#include "w55fa93_gpio.h"
-#include "w55fa93_sic.h"
+#include "n3290_kpi.h"
+#include "n3290_gpio.h"
+#include "n3290_sic.h"
 #include "emuProduct.h"
 
 INT32 EMU_InitSdCard(void)

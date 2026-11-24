@@ -9,7 +9,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/Release"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/Full speed mode"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/NAND"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_NAND" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_NAND" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -22,7 +22,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_NAND" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004" name="NAND" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_NAND" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004" name="NAND" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.842117115" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1100892503" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -105,7 +105,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/SD_PORT0"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_SD_PORT0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_SD_PORT0" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -118,7 +118,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_SD_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373" name="SD_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_SD_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373" name="SD_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.361544092" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1576961817" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -202,7 +202,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/SD_PORT1"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_SD_PORT1" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_SD_PORT1" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -215,7 +215,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_SD_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.480233473" name="SD_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_SD_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.480233473" name="SD_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.480233473." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.260496162" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1756420078" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -299,7 +299,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/SD_PORT2"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_SD_PORT2" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_SD_PORT2" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -312,7 +312,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_SD_PORT2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1193257155" name="SD_PORT2" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_SD_PORT2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1193257155" name="SD_PORT2" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1193257155." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.868677361" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1688356063" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -396,7 +396,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/SD_MultiPartition_PORT0"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_SD_MP_PORT0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_SD_MP_PORT0" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -409,7 +409,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_SD_MP_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1749866860" name="SD_MultiPartition_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_SD_MP_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1749866860" name="SD_MultiPartition_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1749866860." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.1132251678" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.529044779" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -494,7 +494,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/SD_MultiPartition_PORT1"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_SD_MP_PORT1" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_SD_MP_PORT1" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -507,7 +507,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_SD_MP_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.480233473.1284615926" name="SD_MultiPartition_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_SD_MP_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.480233473.1284615926" name="SD_MultiPartition_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.480233473.1284615926." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.511103884" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.213911094" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -592,7 +592,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/SD_MultiPartition_PORT2"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_SD_MP_PORT2" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_SD_MP_PORT2" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -605,7 +605,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_SD_MP_PORT2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1193257155.1194617162" name="SD_MultiPartition_PORT2" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_SD_MP_PORT2" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1193257155.1194617162" name="SD_MultiPartition_PORT2" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1193257155.1194617162." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.523381016" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1502453124" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -690,7 +690,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/RAM"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_RAM" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_RAM" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -703,7 +703,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_RAM" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.397551293" name="RAM" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_RAM" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.397551293" name="RAM" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.397551293." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.1461242358" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.2039614560" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -786,7 +786,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/All_Storage_SD_PORT0"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_All_SD_PORT0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_All_SD_PORT0" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -799,7 +799,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_All_SD_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242" name="All_Storage_SD_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_All_SD_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242" name="All_Storage_SD_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.1109392575" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.7696380" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -886,7 +886,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/All_Storage_SD_PORT1"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_All_SD_PORT1" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_All_SD_PORT1" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -899,7 +899,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_All_SD_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.222086221" name="All_Storage_SD_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_All_SD_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.222086221" name="All_Storage_SD_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.222086221." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.755134655" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1361441060" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -986,7 +986,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/All_Storage_SD_MP_PORT0"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_All_SD_MP_PORT0" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_All_SD_MP_PORT0" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -999,7 +999,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_All_SD_MP_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.543453104" name="All_Storage_SD_MP_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_All_SD_MP_PORT0" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.543453104" name="All_Storage_SD_MP_PORT0" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.543453104." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.471846950" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.2099420374" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -1087,7 +1087,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/All_Storage_SD_MP_PORT1"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_All_SD_MP_PORT1" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_All_SD_MP_PORT1" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -1100,7 +1100,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_All_SD_MP_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.222086221.994070127" name="All_Storage_SD_MP_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_All_SD_MP_PORT1" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.222086221.994070127" name="All_Storage_SD_MP_PORT1" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.1462646373.1063442242.222086221.994070127." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.306492979" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.158352044" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>
@@ -1188,7 +1188,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/MSCLib"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/MSCLib/SPI"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="W55FA93_MSC_SPI" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="N3290_MSC_SPI" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -1201,7 +1201,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="a" artifactName="W55FA93_MSC_SPI" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.222128062" name="SPI" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
+				<configuration artifactExtension="a" artifactName="N3290_MSC_SPI" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="${cross_rm} -rf" description="" id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.222128062" name="SPI" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release" postbuildStep="cp -p &quot;${ProjDirPath}/${ConfigName}/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot; &quot;${ProjDirPath}/../../../../Lib/${BuildArtifactFilePrefix}${BuildArtifactFileName}&quot;">
 					<folderInfo id="ilg.gnuarmeclipse.managedbuild.cross.config.elf.release.394345004.222128062." name="/" resourcePath="">
 						<toolChain id="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release.66648621" name="ARM Cross GCC" superClass="ilg.gnuarmeclipse.managedbuild.cross.toolchain.elf.release">
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash.1979189004" name="Create flash image" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.createflash" value="true" valueType="boolean"/>

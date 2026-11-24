@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_I2C.h"
+#include "N3290_I2C.h"
 
 #define RETRY		1000  /* Programming cycle may be in progress. Please refer to 24LC64 datasheet */
 

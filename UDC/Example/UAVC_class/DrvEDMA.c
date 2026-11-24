@@ -11,8 +11,8 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_reg.h"
-//#include "W55FA93_SIC.h"
+#include "N3290_reg.h"
+//#include "N3290_SIC.h"
 #include "DrvEDMA.h"
 
 void DrvEDMA_ISR(void);

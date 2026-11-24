@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "wblib.h"
-#include "W55FA93_GPIO.h"
+#include "N3290_GPIO.h"
 
 #if defined (__GNUC__)
 UINT8 u32Array[1024*1024] __attribute__((aligned(32)));

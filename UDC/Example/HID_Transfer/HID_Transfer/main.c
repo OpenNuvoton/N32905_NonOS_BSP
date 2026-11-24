@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "HID.h"
 #include "Common.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 #include "jpegcodec.h"
 
 void HIDStart(void);

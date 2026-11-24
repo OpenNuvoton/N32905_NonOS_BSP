@@ -1,1 +1,1 @@
-move .\I2S_Data\DebugRel\W55FA93_I2S.lib ..\..\Lib
+move .\I2S_Data\DebugRel\N3290_I2S.lib ..\..\Lib

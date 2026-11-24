@@ -10,7 +10,7 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_EDMA.h"
+#include "N3290_EDMA.h"
 
 static INT32 g_PdmaCh = 0;
 

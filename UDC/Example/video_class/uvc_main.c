@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "demo.h"
 #include "usbd.h"
 #include "videoclass.h"
@@ -19,7 +19,7 @@
 	#include "QQVGA.h"
 #endif
 #include "jpegcodec.h"
-#include "W55FA93_VideoIn.h"
+#include "N3290_VideoIn.h"
 
 /*********************************************************************************************************************/ 
 /* 1. The Sample code sends image to PC for preview & shapshot (toggle two fixed image patterns or data from VideoIN)*/

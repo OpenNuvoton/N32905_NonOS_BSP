@@ -92,7 +92,7 @@
 	<variableList>
 		<variable>
 			<name>copy_PARENT</name>
-			<value>$%7BPARENT-2-ECLIPSE_HOME%7D/ARM_Project/W55FA93/FTP/N9H20/BSP</value>
+			<value>$%7BPARENT-2-ECLIPSE_HOME%7D/ARM_Project/N3290/FTP/N9H20/BSP</value>
 		</variable>
 		<variable>
 			<name>copy_PARENT1</name>

@@ -47,7 +47,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\gpio_Data\Release\</OutputDirectory>
-          <OutputName>W55FA93_GPIO</OutputName>
+          <OutputName>N3290_GPIO</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

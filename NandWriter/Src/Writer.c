@@ -9,10 +9,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wblib.h"
-#include "W55FA93_SIC.h"
-#include "W55FA93_GNAND.h"
+#include "N3290_SIC.h"
+#include "N3290_GNAND.h"
 #include "NVTFAT.h"
 #include "Font.h"
 #include "writer.h"
@@ -678,7 +678,7 @@ int main()
     sysSetTimerReferenceClock(TIMER0, 12000000);
     sysStartTimer(TIMER0, 100, PERIODIC_MODE);
 
-    sysprintf("\n=====> W55FA93 NandWriter (v%d.%d) Begin [%d] <=====\n", MAJOR_VERSION_NUM, MINOR_VERSION_NUM, sysGetTicks(0));
+    sysprintf("\n=====> N3290 NandWriter (v%d.%d) Begin [%d] <=====\n", MAJOR_VERSION_NUM, MINOR_VERSION_NUM, sysGetTicks(0));
 
     ltime.year = 2011;
     ltime.mon  = 10;

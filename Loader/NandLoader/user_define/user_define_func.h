@@ -7,8 +7,8 @@
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
-#ifndef _W55FA93_NANDLOADER_USER_DEFINE_FUNC_H
-#define _W55FA93_NANDLOADER_USER_DEFINE_FUNC_H
+#ifndef _N3290_NANDLOADER_USER_DEFINE_FUNC_H
+#define _N3290_NANDLOADER_USER_DEFINE_FUNC_H
 
 /*-----------------------------------------------------------------------------------*/
 /* This include file should keep empty if user define nothing for user_define_func() */
@@ -19,15 +19,19 @@
 #include <string.h>
 #include "wblib.h"
 #include "turbowriter.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 
 // for Nuvoton FA93 Demo Board panel 320x240
 #define PANEL_WIDTH     320
 #define PANEL_HEIGHT    240
 
 // got Logo image from memory address FB_ADDR
+#if defined(N32906) || defined(_N32906_)
+#define FB_ADDR         0x00C00000
+#else
 #define FB_ADDR         0x00500000
+#endif
 
 #endif  // end of #ifdef __USER_DEFINE_FUNC
 
-#endif  // end of _W55FA93_NANDLOADER_USER_DEFINE_FUNC_H
+#endif  // end of _N3290_NANDLOADER_USER_DEFINE_FUNC_H

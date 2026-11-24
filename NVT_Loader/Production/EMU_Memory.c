@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_vpost.h"
+#include "n3290_vpost.h"
 #include "AviLib.h"
 #include "nvtloader.h"
 #include "emuProduct.h"

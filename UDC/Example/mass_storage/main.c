@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "usbd.h"
 #include "mass_storage_class.h"
 
@@ -37,8 +37,8 @@ BOOL PlugDetection(VOID)
 
 #ifndef __RAM_DISK_ONLY__
 	#include "NVTFAT.h"
-	#include "W55FA93_SIC.h"
-	#include "W55FA93_GNAND.h"
+	#include "N3290_SIC.h"
+	#include "N3290_GNAND.h"
 
 
 #ifdef __NAND__

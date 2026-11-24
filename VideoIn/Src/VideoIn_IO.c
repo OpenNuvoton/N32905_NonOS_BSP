@@ -9,10 +9,10 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wblib.h"
 #include "VideoIn.h"
-#include "W55FA93_VideoIn.h"
+#include "N3290_VideoIn.h"
 
 VOID videoInIoctl(UINT32 u32Cmd, UINT32 u32Element, UINT32 u32Arg0, UINT32 u32Arg1) 
 {

@@ -13,7 +13,7 @@
 
 #include "wblib.h"
 #include "BLT.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 
 static uint8_t src_pat[] = {
 //#include "Pat_RGB888_size160x120.txt"

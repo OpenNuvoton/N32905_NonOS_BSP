@@ -5,8 +5,8 @@
 /* Nuvoton includes. */
 #include "wblib.h"
 #include "NVTFAT.h"
-#include "W55FA93_SIC.h"
-#include "W55FA93_GNAND.h"
+#include "N3290_SIC.h"
+#include "N3290_GNAND.h"
 #include <inttypes.h>
 
 #include "FreeRTOS.h"

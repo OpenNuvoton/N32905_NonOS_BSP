@@ -10,7 +10,7 @@
 #include <string.h>
 #include "wblib.h"
 #include "Font.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 #include "Font_demo.h"
 
 

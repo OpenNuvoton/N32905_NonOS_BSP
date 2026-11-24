@@ -47,7 +47,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\kpi_Data\Release\</OutputDirectory>
-          <OutputName>W55FA93_KPI</OutputName>
+          <OutputName>N3290_KPI</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -469,7 +469,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\kpi_Data\Release\</OutputDirectory>
-          <OutputName>W55FA93_KPI_2x3</OutputName>
+          <OutputName>N3290_KPI_2x3</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -891,7 +891,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\kpi_Data\Release\</OutputDirectory>
-          <OutputName>W55FA93_KPI_2x2</OutputName>
+          <OutputName>N3290_KPI_2x2</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -1313,7 +1313,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\kpi_Data\Release\</OutputDirectory>
-          <OutputName>W55FA93_KPI_1x4</OutputName>
+          <OutputName>N3290_KPI_1x4</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -1735,7 +1735,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\kpi_Data\Release\</OutputDirectory>
-          <OutputName>W55FA93_KPI_3x3</OutputName>
+          <OutputName>N3290_KPI_3x3</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

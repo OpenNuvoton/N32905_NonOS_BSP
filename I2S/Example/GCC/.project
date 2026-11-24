@@ -40,9 +40,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Src/I2S_Example.c</locationURI>
 		</link>
 		<link>
-			<name>Src/W55FA93_nau8822.c</name>
+			<name>Src/N3290_nau8822.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Src/W55FA93_nau8822.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/N3290_nau8822.c</locationURI>
 		</link>
 		<link>
 			<name>Startup/Startup_GCC.S</name>

@@ -10,8 +10,8 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_EDMA.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_EDMA.h"
+#include "N3290_VPOST.h"
 
 
 #if defined(__GNUC__)

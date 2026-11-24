@@ -13,7 +13,7 @@
 
 #include "wblib.h"
 #include "BLT.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 
 /* Scheduler include files. */
 #include "FreeRTOS.h"

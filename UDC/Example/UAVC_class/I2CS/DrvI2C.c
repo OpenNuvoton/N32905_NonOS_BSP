@@ -8,7 +8,7 @@
 *****************************************************************************/
 #include <stdlib.h>
 #include "DrvI2C.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wblib.h"
 
 

@@ -6,8 +6,8 @@
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 #include "wblib.h"
-#include "W55FA93_VideoIn.h"
-#include "W55FA93_GPIO.h"
+#include "N3290_VideoIn.h"
+#include "N3290_GPIO.h"
 #include "DrvI2C.h"
 #include "demo.h"
 

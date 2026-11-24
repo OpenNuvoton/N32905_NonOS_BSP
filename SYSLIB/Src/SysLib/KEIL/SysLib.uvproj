@@ -44,7 +44,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\SYSLib_Data\SYSLib\</OutputDirectory>
-          <OutputName>W55FA93_SYSLib</OutputName>
+          <OutputName>N3290_SYSLib</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -477,7 +477,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\SYSLib_Data\SYSLib\</OutputDirectory>
-          <OutputName>W55FA93_SYSLib_FreeRTOS</OutputName>
+          <OutputName>N3290_SYSLib_FreeRTOS</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

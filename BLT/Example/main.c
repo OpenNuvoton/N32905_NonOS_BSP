@@ -13,10 +13,10 @@
 #include "wbio.h"
 #include "wbtypes.h"
 
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "DrvBLT.h"
 //#include "DrvAIC.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 #include "FI.h"
 
 // Pattern for VPOST Buffer

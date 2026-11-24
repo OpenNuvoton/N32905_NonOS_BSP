@@ -11,7 +11,7 @@
 
 #include "wblib.h"
 
-#include "W55FA93_KPI.h"
+#include "N3290_KPI.h"
 
 int main(void)
 {

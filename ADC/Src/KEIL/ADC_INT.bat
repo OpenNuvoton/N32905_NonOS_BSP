@@ -1,1 +1,1 @@
-move .\adc_Data\ADC_INT\W55FA93_ADC_INT.lib ..\..\Lib
+move .\adc_Data\ADC_INT\N3290_ADC_INT.lib ..\..\Lib

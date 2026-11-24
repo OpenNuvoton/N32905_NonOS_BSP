@@ -1,1 +1,1 @@
-move .\dev_sic_Data\DebugRel\W55FA93_SIC.lib ..\..\Lib
+move .\dev_sic_Data\DebugRel\N3290_SIC.lib ..\..\Lib

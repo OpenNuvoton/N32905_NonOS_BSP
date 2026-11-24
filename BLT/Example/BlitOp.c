@@ -6,7 +6,7 @@
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "Blt.h"
 #include "DrvBLT.h"
 #include "FI.h"

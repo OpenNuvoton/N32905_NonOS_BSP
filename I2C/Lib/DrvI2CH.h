@@ -14,7 +14,7 @@
 /* Includes of system headers                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
 #include "wbtypes.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 
 #ifdef  __cplusplus 
 extern "C"

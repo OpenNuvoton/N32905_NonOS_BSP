@@ -1,1 +1,0 @@
-move .\W55FA93_VPOST_Data\W55FA93_TV_720x480\W55FA93_VPOST_TV_D1.lib ..\..\..\Lib

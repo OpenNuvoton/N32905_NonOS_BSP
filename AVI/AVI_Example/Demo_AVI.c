@@ -15,8 +15,8 @@
 #include "wbio.h"
 #include "wblib.h"
 
-#include "W55FA93_VPOST.h"
-#include "W55FA93_SIC.h"
+#include "N3290_VPOST.h"
+#include "N3290_SIC.h"
 #include "NVTFAT.h"
 #include "AVILib.h"
 #include "SPU.h"

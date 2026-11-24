@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\NAND\</OutputDirectory>
-          <OutputName>W55FA93_MSC_NAND_CDROM</OutputName>
+          <OutputName>N3290_MSC_NAND_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -453,7 +453,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\SD_PORT0\</OutputDirectory>
-          <OutputName>W55FA93_MSC_SD_PORT0_CDROM</OutputName>
+          <OutputName>N3290_MSC_SD_PORT0_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -861,7 +861,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\SD_PORT1\</OutputDirectory>
-          <OutputName>W55FA93_MSC_SD_PORT1_CDROM</OutputName>
+          <OutputName>N3290_MSC_SD_PORT1_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -1269,7 +1269,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\SD_PORT2\</OutputDirectory>
-          <OutputName>W55FA93_MSC_SD_PORT2_CDROM</OutputName>
+          <OutputName>N3290_MSC_SD_PORT2_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -1677,7 +1677,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\SD_MultiPartition_PORT0\</OutputDirectory>
-          <OutputName>W55FA93_MSC_SD_MP_PORT0_CDROM</OutputName>
+          <OutputName>N3290_MSC_SD_MP_PORT0_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -2085,7 +2085,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\SD_MultiPartition_PORT1\</OutputDirectory>
-          <OutputName>W55FA93_MSC_SD_MP_PORT1_CDROM</OutputName>
+          <OutputName>N3290_MSC_SD_MP_PORT1_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -2493,7 +2493,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\SD_MultiPartition_PORT2\</OutputDirectory>
-          <OutputName>W55FA93_MSC_SD_MP_PORT2_CDROM</OutputName>
+          <OutputName>N3290_MSC_SD_MP_PORT2_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -2901,7 +2901,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\RAM\</OutputDirectory>
-          <OutputName>W55FA93_MSC_RAM_CDROM</OutputName>
+          <OutputName>N3290_MSC_RAM_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -3309,7 +3309,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\All_Storage_SD_PORT0\</OutputDirectory>
-          <OutputName>W55FA93_MSC_ALL_SD_PORT0_CDROM</OutputName>
+          <OutputName>N3290_MSC_ALL_SD_PORT0_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -3717,7 +3717,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\All_Storage_SD_PORT1\</OutputDirectory>
-          <OutputName>W55FA93_MSC_ALL_SD_PORT1_CDROM</OutputName>
+          <OutputName>N3290_MSC_ALL_SD_PORT1_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -4125,7 +4125,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\All_Storage_SD_MP_PORT0\</OutputDirectory>
-          <OutputName>W55FA93_MSC_ALL_SD_MP_PORT0_CDROM</OutputName>
+          <OutputName>N3290_MSC_ALL_SD_MP_PORT0_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -4533,7 +4533,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\All_Storage_SD_MP_PORT1\</OutputDirectory>
-          <OutputName>W55FA93_MSC_ALL_SD_MP_PORT1_CDROM</OutputName>
+          <OutputName>N3290_MSC_ALL_SD_MP_PORT1_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -4941,7 +4941,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\CDROM_Only\</OutputDirectory>
-          <OutputName>W55FA93_MSC_CDROM_Only</OutputName>
+          <OutputName>N3290_MSC_CDROM_Only</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -5349,7 +5349,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\MSC_CDROM_Data\SPI\</OutputDirectory>
-          <OutputName>W55FA93_MSC_SPI_CDROM</OutputName>
+          <OutputName>N3290_MSC_SPI_CDROM</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

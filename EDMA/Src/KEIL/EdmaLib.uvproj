@@ -47,7 +47,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\EdmaLib_Data\Release\</OutputDirectory>
-          <OutputName>W55FA93_EDMA</OutputName>
+          <OutputName>N3290_EDMA</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -425,9 +425,9 @@
               <FilePath>..\DrvEDMA.c</FilePath>
             </File>
             <File>
-              <FileName>w55fa93_edma.c</FileName>
+              <FileName>n3290_edma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\w55fa93_edma.c</FilePath>
+              <FilePath>..\n3290_edma.c</FilePath>
             </File>
           </Files>
         </Group>

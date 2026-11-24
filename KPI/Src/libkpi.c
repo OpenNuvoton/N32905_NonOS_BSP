@@ -6,8 +6,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
-#include "W55FA93_GPIO.h"
-#include "W55FA93_KPI.h"
+#include "N3290_GPIO.h"
+#include "N3290_KPI.h"
 
 // latest key pressed recorded by ISR, might _not_ be the most updated status
 static unsigned int _key;

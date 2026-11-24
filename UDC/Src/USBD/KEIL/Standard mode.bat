@@ -1,1 +1,1 @@
-move .\usbd_Data\Standard_mode\W55FA93_UDC.lib ..\..\..\Lib
+move .\usbd_Data\Standard_mode\N3290_UDC.lib ..\..\..\Lib

@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_SPI.h"
+#include "N3290_SPI.h"
 #include "Gneiss.h"
 
 #define DBG_PRINTF	sysprintf

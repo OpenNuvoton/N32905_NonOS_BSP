@@ -5,7 +5,7 @@
 
   <Header>### uVision Project, (C) Keil Software</Header>
 
-  <WorkspaceName>WorkSpace</WorkspaceName>
+  <WorkspaceName>C:\SPCheng\Git\N32905\bsp\VPOST\Example\KEIL\VPOST_example.uvmpw</WorkspaceName>
 
   <project>
     <PathAndName>.\TV_320x240\TV_320x240.uvproj</PathAndName>
@@ -17,18 +17,14 @@
 
   <project>
     <PathAndName>.\TV_720x480\TV_720x480.uvproj</PathAndName>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
     <PathAndName>.\GIANTPLUS_GPM1006\GIANTPLUS_GPM1006.uvproj</PathAndName>
-    <NodeIsActive>1</NodeIsActive>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
     <PathAndName>.\TIANMA_TM022HDH31\TIANMA_TM022HDH31.uvproj</PathAndName>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
@@ -37,6 +33,7 @@
 
   <project>
     <PathAndName>.\FW050TFT_800x480\FW050TFT_800x480.uvproj</PathAndName>
+    <NodeIsActive>1</NodeIsActive>
   </project>
 
 </ProjectWorkspace>

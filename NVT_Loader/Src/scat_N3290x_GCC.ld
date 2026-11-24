@@ -8,6 +8,10 @@
     #define MEMSIZE 0x2000000
     #define MAIN_ENTRY 0x800000
 #endif 
+#if defined(N32906_64MB)
+    #define MEMSIZE 0x4000000
+    #define MAIN_ENTRY 0xE00000
+#endif 
 #if defined(N32903_8MB)
     #define MEMSIZE 0x800000
     #define MAIN_ENTRY 0x600000

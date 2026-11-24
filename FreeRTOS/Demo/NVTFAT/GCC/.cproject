@@ -70,10 +70,10 @@
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker.661345949" name="GNU ARM Cross C Linker" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.gcsections.991868242" name="Remove unused sections (-Xlinker --gc-sections)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.gcsections" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs.2039043094" name="Libraries (-l)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" value="W55FA93_NVTFAT_FreeRTOS"/>
-									<listOptionValue builtIn="false" value="W55FA93_SYSLib_FreeRTOS"/>
-									<listOptionValue builtIn="false" value="W55FA93_GNAND"/>
-									<listOptionValue builtIn="false" value="W55FA93_SIC"/>
+									<listOptionValue builtIn="false" value="N3290_NVTFAT_FreeRTOS"/>
+									<listOptionValue builtIn="false" value="N3290_SYSLib_FreeRTOS"/>
+									<listOptionValue builtIn="false" value="N3290_GNAND"/>
+									<listOptionValue builtIn="false" value="N3290_SIC"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.paths.2099988997" name="Library search path (-L)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../../SYSLIB/Lib&quot;"/>
@@ -186,10 +186,10 @@
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker.921357569" name="GNU ARM Cross C Linker" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.linker">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.gcsections.1746465029" name="Remove unused sections (-Xlinker --gc-sections)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.gcsections" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs.2090718091" name="Libraries (-l)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.libs" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" value="W55FA93_NVTFAT_FreeRTOS"/>
-									<listOptionValue builtIn="false" value="W55FA93_SYSLib_FreeRTOS"/>
-									<listOptionValue builtIn="false" value="W55FA93_GNAND"/>
-									<listOptionValue builtIn="false" value="W55FA93_SIC"/>
+									<listOptionValue builtIn="false" value="N3290_NVTFAT_FreeRTOS"/>
+									<listOptionValue builtIn="false" value="N3290_SYSLib_FreeRTOS"/>
+									<listOptionValue builtIn="false" value="N3290_GNAND"/>
+									<listOptionValue builtIn="false" value="N3290_SIC"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.paths.1878727586" name="Library search path (-L)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.linker.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../../SYSLIB/Lib&quot;"/>

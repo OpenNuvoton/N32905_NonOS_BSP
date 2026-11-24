@@ -1,1 +1,1 @@
-move .\adc_Data\ADC_POLL\W55FA93_ADC_POLL.lib ..\..\Lib
+move .\adc_Data\ADC_POLL\N3290_ADC_POLL.lib ..\..\Lib

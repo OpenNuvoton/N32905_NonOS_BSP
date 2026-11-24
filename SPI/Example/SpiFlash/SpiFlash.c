@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include "wblib.h"
-#include "W55FA93_SPI.h"
+#include "N3290_SPI.h"
 
 #define TEST_SIZE	512 * 2 * 64
 #if defined(__GNUC__)

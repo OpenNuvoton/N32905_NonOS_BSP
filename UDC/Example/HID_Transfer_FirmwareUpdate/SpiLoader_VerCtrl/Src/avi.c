@@ -7,10 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "w55fa93_vpost.h"
+#include "n3290_vpost.h"
 #include "nvtloader.h"
-#include "w55fa93_kpi.h"
-#include "w55fa93_gpio.h"
+#include "n3290_kpi.h"
+#include "n3290_gpio.h"
 
 void initVPost(unsigned char*);
 

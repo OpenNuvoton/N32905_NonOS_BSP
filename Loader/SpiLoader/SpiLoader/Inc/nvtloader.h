@@ -62,7 +62,11 @@
 /* End for option for VPOST frame buffer */
 
 #define PANEL_BPP		2
+#if defined(N32906) || defined(_N32906_)
+#define FB_ADDR		0xC00000
+#else
 #define FB_ADDR		0x500000
+#endif
 
 
 

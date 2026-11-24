@@ -1,1 +1,1 @@
-move .\UVC_Data\FORMAT_YUV_ONLY\W55FA93_UVC_YUV_Only.lib ..\..\..\Lib
+move .\UVC_Data\FORMAT_YUV_ONLY\N3290_UVC_YUV_Only.lib ..\..\..\Lib

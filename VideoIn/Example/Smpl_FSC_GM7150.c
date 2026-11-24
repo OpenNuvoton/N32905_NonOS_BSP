@@ -6,8 +6,8 @@
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 #include "wblib.h"
-#include "W55FA93_VideoIn.h"
-#include "W55FA93_GPIO.h"
+#include "N3290_VideoIn.h"
+#include "N3290_GPIO.h"
 #ifdef __GNUC__
 #include "GM7150/sensor_gm7150.h"
 #else

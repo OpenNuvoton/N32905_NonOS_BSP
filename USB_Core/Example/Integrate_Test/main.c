@@ -22,7 +22,7 @@
 #endif
 
 #include "NVTFAT.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 /* USB */
 #include "Usb.h"
 #include "usbvideo.h"

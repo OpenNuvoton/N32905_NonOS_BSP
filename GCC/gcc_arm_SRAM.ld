@@ -8,6 +8,9 @@
 #if defined(N32905_32MB)
     #define MEMSIZE 0x2000000
 #endif 
+#if defined(N32906_64MB)
+    #define MEMSIZE 0x4000000
+#endif 
 #if defined(N32903_8MB)
     #define MEMSIZE 0x800000
 #endif 

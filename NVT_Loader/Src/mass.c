@@ -12,7 +12,7 @@
 #include "wblib.h"
 #include "usbd.h"
 #include "mass_storage_class.h"
-#include "W55FA93_SIC.h"
+#include "N3290_SIC.h"
 #include "NVTFAT.h"
 #include "nvtloader.h"
 extern int g_ibr_boot_sd_port; 

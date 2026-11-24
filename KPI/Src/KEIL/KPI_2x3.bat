@@ -1,1 +1,1 @@
-move .\kpi_Data\Release\W55FA93_KPI_2x3.lib ..\..\Lib
+move .\kpi_Data\Release\N3290_KPI_2x3.lib ..\..\Lib

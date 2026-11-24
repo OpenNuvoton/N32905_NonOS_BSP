@@ -14,8 +14,8 @@
 extern "C"
 {
 #endif
-#ifndef _W55FA93_REG_H
-#include "W55FA93_reg.h"
+#ifndef _N3290_REG_H
+#include "N3290_reg.h"
 #endif
 
 #define 	ERRCODE			UINT32 

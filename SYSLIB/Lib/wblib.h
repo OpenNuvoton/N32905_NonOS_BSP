@@ -38,7 +38,7 @@
 extern "C" {
 #endif
 
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wberrcode.h"
 #include "wbio.h"
 

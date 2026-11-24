@@ -12,7 +12,7 @@
 
 #include "wbio.h"
 #include "wbtypes.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 #include "demo.h"
 
 extern VOID vpostEnableInt(E_DRVVPOST_INT eInt);

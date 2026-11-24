@@ -9,7 +9,7 @@
  
 #include "string.h"
 #include "stdlib.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "SPU.h"
 #include "DrvSPU.h"
 

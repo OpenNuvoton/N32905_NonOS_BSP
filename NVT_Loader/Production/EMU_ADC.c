@@ -11,14 +11,14 @@
 #include "wblib.h"
 #include "nvtfat.h"
 #include "AviLib.h"
-#include "W55FA93_reg.h"
-#include "W55FA93_Vpost.h"
-#include "w55fa93_kpi.h"
+#include "N3290_reg.h"
+#include "N3290_Vpost.h"
+#include "n3290_kpi.h"
 #include "USB.h"
 #include "Font.h"
 #include "nvtloader.h"
 #include "emuProduct.h"
-#include "W55FA93_adc.h"
+#include "N3290_adc.h"
 
 
 static UINT32 u32Timer0_10ms_Count=0;

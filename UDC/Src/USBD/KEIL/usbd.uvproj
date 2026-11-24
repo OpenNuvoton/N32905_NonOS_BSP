@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\usbd_Data\Standard_mode\</OutputDirectory>
-          <OutputName>W55FA93_UDC</OutputName>
+          <OutputName>N3290_UDC</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -453,7 +453,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\usbd_Data\Full_speed_mode\</OutputDirectory>
-          <OutputName>W55FA93_UDC_Fullspeed</OutputName>
+          <OutputName>N3290_UDC_Fullspeed</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -861,7 +861,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\usbd_Data\High_speed_mode\</OutputDirectory>
-          <OutputName>W55FA93_UDC_Highspeed</OutputName>
+          <OutputName>N3290_UDC_Highspeed</OutputName>
           <CreateExecutable>0</CreateExecutable>
           <CreateLib>1</CreateLib>
           <CreateHexFile>0</CreateHexFile>

@@ -10,8 +10,8 @@
 #include <string.h>
 
 #include "wblib.h"
-#include "W55FA93_EDMA.h"
-#include "W55FA93_SPI.h"
+#include "N3290_EDMA.h"
+#include "N3290_SPI.h"
 
 //#define TEST_SIZE	512 * 2 * 1024
 #define TEST_SIZE	100 * 1024

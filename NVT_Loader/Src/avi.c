@@ -10,12 +10,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "wblib.h"
-#include "W55FA93_VPOST.h"
+#include "N3290_VPOST.h"
 #include "AVILib.h"
 #include "NVTFAT.h"
 #include "nvtloader.h"
-#include "W55FA93_KPI.h"
-#include "W55FA93_GPIO.h"
+#include "N3290_KPI.h"
+#include "N3290_GPIO.h"
 #include "SPU.h"
 
 static int _complete = 0;

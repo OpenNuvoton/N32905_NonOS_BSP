@@ -14,9 +14,9 @@
 #include "wblib.h"
 #include "wbtypes.h"
 
-#include "W55FA93_reg.h"
-#include "W55FA93_SIC.h"
-#include "W55FA93_GNAND.h"
+#include "N3290_reg.h"
+#include "N3290_SIC.h"
+#include "N3290_GNAND.h"
 
 #define DBG_PRINTF	sysprintf
 //#define DBG_PRINTF(...)

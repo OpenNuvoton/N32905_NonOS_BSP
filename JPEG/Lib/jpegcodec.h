@@ -12,7 +12,7 @@
 
 //Include header file
 #include "wbio.h"
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 
 #define E_FAIL		0
 #define E_SUCCESS	1

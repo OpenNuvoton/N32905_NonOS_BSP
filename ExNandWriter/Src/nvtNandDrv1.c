@@ -9,9 +9,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "W55FA93_reg.h"
+#include "N3290_reg.h"
 #include "wblib.h"
-#include "W55FA93_SIC.h"
+#include "N3290_SIC.h"
 #include "NVTFAT.h"
 #include "Font.h"
 #include "writer.h"

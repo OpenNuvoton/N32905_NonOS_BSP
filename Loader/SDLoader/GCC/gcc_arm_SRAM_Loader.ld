@@ -8,6 +8,10 @@
     #define MEMSIZE 0x2000000
     #define EXEADDR 0x900000
 #endif
+#if defined(N32906_64MB)
+    #define MEMSIZE 0x4000000
+    #define EXEADDR 0xF00000
+#endif
 #if defined(N32903_8MB)
     #define MEMSIZE 0x800000
     #define EXEADDR 0x700000

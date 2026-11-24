@@ -11,8 +11,8 @@
 #include <string.h>
 #include "wblib.h"
 #include "nvtfat.h"
-#include "w55fa93_kpi.h"
-#include "W55FA93_reg.h"
+#include "n3290_kpi.h"
+#include "N3290_reg.h"
 #include "Font.h"
 #include "emuProduct.h" 
 

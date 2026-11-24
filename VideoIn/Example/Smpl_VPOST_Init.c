@@ -12,7 +12,7 @@
 
 #include "wbio.h"
 #include "wbtypes.h"
-#include "W55fa93_vpost.h"
+#include "N3290_vpost.h"
 
 void InitVPOST(UINT8* pu8FrameBuffer)
 {		
