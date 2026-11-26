@@ -173,7 +173,7 @@ static void worker_nvtfat ( void *pvArgs )
 	int id = *((int*)pvArgs);
 	int hFile = 0;
 	int32_t i32Ret;
-	int32_t num = 0;
+	INT  num = 0;
 	int i32Counter=0;
 	int j;
 	FILE_STAT_T sFileState;
@@ -245,7 +245,7 @@ static void worker_nvtfat ( void *pvArgs )
 		
 		// Read
 		num = 0;
-		i32Ret = fsReadFile(hFile, (void*)&testBuf[0], wsize, &num);
+		i32Ret = fsReadFile(hFile, (UINT8 *)&testBuf[0], wsize, &num);
 		if (i32Ret < 0 || (num != wsize))
 		{
 			printf("Fail to read - %s. %x\n", szFileName, i32Ret);
